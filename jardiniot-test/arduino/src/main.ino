@@ -1,9 +1,7 @@
 /* Code pour le Arduino Uno et le DHT22 */
-/* Copyright Alexandre-Xavier Labonté-Lamoureux, 2017
- * Distributed under the WTFPL license
-*/
+/* Copyright Alexandre-Xavier Labonté-Lamoureux, 2017 */
 #include "DHT.h"
-// Si y'a un erreur parce que DHT.h n'est pas trouver, exécutez la commande:
+// Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
 
 int ledPin = 13;                 // LED connected to digital pin 13
@@ -45,18 +43,18 @@ void loop() {
   float t = dht.readTemperature(false);        // temp (Celcius)
 
   if (isnan(h) || isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
+    Serial.println("Echec de lecture du DHT!");
   } else {
     float hic = dht.computeHeatIndex(t, h, false);
 
     digitalWrite(ledPin, HIGH);
-    Serial.print("Humidity: ");
+    Serial.print("Humidité: ");
     Serial.print(h);
-    Serial.println(" %");
-    Serial.print("Temperature: ");
+    Serial.println(" % ");
+    Serial.print("Température: ");
     Serial.print(t);
     Serial.println(" °C ");
-    Serial.print("Heat index: ");
+    Serial.print("Index de chaleur: ");
     Serial.print(hic);
     Serial.println(" °C ");
     Serial.println("");

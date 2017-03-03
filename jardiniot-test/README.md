@@ -16,9 +16,13 @@ Sinon manuellement: `platformio lib install "DHT sensor library"`
 
 
 NodeMCU: http://www.nodemcu.com/index_en.html
+
 Description: https://en.wikipedia.org/wiki/NodeMCU
+
 Documentation: https://nodemcu.readthedocs.io/en/master/
 
-![2017-02-20-210530](https://cloud.githubusercontent.com/assets/6194072/23149047/4ef4d63a-f7b7-11e6-8098-dd2ed969226d.jpg)
+![2017-03-02-214503 2](https://cloud.githubusercontent.com/assets/6194072/23536579/d562b726-ff93-11e6-8868-f21fe216f864.jpg)
+
+
 
 
