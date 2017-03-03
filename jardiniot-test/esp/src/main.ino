@@ -1,3 +1,8 @@
+/* Code pour le Huzzah ESP8266 */
+/* Copyright Alexandre-Xavier Labonté-Lamoureux, 2017
+ * Distributed under the WTFPL license
+ */
+
 #include <SoftwareSerial.h>
 SoftwareSerial ESPserial(3, 4); // RX | TX
 
