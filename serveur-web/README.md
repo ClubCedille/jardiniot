@@ -27,6 +27,12 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 - Implémenter l'ACL (on est sensé pouvoir mettre les accès directement dans la BD)
 - Ré-implémenter l'inscription des topics dans la DB (un topic par bucket)
 
+####Instructions d'installation:
+- Installer NodeJS
+- S'assurer qu'un serveur MQTT et qu'un serveur PostgreSQL sont en ligne.
+- Installer la base de données (fichier database_gen.sql)
+- Configurer les IPs et les credentials dans la section configuration du fichier connector.js
+
 ##API
 Structure de l'API:
 
