@@ -1,33 +1,52 @@
--- !!! IL DOIT Y AVOIR UN USER jardiniot SUR LE SERVEUR POSTGRESQL !!!
+--
+-- PostgreSQL database cluster dump
+--
+
+SET default_transaction_read_only = off;
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+
+--
+-- Roles
+--
+
+CREATE ROLE aub;
+ALTER ROLE aub WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN NOREPLICATION;
+CREATE ROLE jardiniot;
+ALTER ROLE jardiniot WITH NOSUPERUSER INHERIT NOCREATEROLE NOCREATEDB LOGIN NOREPLICATION PASSWORD 'md52ef3d517365bb7ef3745e93379621212';
+CREATE ROLE postgres;
+ALTER ROLE postgres WITH SUPERUSER INHERIT CREATEROLE CREATEDB LOGIN REPLICATION;
+
+
+
+
+
+
+--
+-- Database creation
+--
+
+CREATE DATABASE jardiniot WITH TEMPLATE = template0 OWNER = postgres;
+REVOKE ALL ON DATABASE jardiniot FROM PUBLIC;
+REVOKE ALL ON DATABASE jardiniot FROM postgres;
+GRANT ALL ON DATABASE jardiniot TO postgres;
+GRANT CONNECT,TEMPORARY ON DATABASE jardiniot TO PUBLIC;
+GRANT CONNECT ON DATABASE jardiniot TO jardiniot;
+REVOKE ALL ON DATABASE template1 FROM PUBLIC;
+REVOKE ALL ON DATABASE template1 FROM postgres;
+GRANT ALL ON DATABASE template1 TO postgres;
+GRANT CONNECT ON DATABASE template1 TO PUBLIC;
+
+
+\connect jardiniot
+
+SET default_transaction_read_only = off;
 
 --
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.4.10
--- Dumped by pg_dump version 9.4.10
--- Started on 2017-03-04 08:34:28 EST
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-
-DROP DATABASE jardiniot;
---
--- TOC entry 2027 (class 1262 OID 16386)
--- Name: jardiniot; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE jardiniot WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'en_CA.UTF-8' LC_CTYPE = 'en_CA.UTF-8';
-
-
-ALTER DATABASE jardiniot OWNER TO postgres;
-
-\connect jardiniot
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
@@ -36,7 +55,6 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 1 (class 3079 OID 11861)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -44,8 +62,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2030 (class 0 OID 0)
--- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -59,7 +75,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 174 (class 1259 OID 16389)
 -- Name: buckets; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -72,7 +87,6 @@ CREATE TABLE buckets (
 ALTER TABLE buckets OWNER TO postgres;
 
 --
--- TOC entry 173 (class 1259 OID 16387)
 -- Name: buckets_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -87,8 +101,6 @@ CREATE SEQUENCE buckets_id_seq
 ALTER TABLE buckets_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2032 (class 0 OID 0)
--- Dependencies: 173
 -- Name: buckets_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -96,7 +108,6 @@ ALTER SEQUENCE buckets_id_seq OWNED BY buckets.id;
 
 
 --
--- TOC entry 176 (class 1259 OID 16413)
 -- Name: sensors; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -111,7 +122,6 @@ CREATE TABLE sensors (
 ALTER TABLE sensors OWNER TO postgres;
 
 --
--- TOC entry 175 (class 1259 OID 16411)
 -- Name: sensors_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -126,8 +136,6 @@ CREATE SEQUENCE sensors_id_seq
 ALTER TABLE sensors_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2035 (class 0 OID 0)
--- Dependencies: 175
 -- Name: sensors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -135,7 +143,6 @@ ALTER SEQUENCE sensors_id_seq OWNED BY sensors.id;
 
 
 --
--- TOC entry 178 (class 1259 OID 16429)
 -- Name: values; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -150,7 +157,6 @@ CREATE TABLE "values" (
 ALTER TABLE "values" OWNER TO postgres;
 
 --
--- TOC entry 177 (class 1259 OID 16427)
 -- Name: values_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -165,8 +171,6 @@ CREATE SEQUENCE values_id_seq
 ALTER TABLE values_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2038 (class 0 OID 0)
--- Dependencies: 177
 -- Name: values_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
@@ -174,7 +178,6 @@ ALTER SEQUENCE values_id_seq OWNED BY "values".id;
 
 
 --
--- TOC entry 1899 (class 2604 OID 16392)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -182,7 +185,6 @@ ALTER TABLE ONLY buckets ALTER COLUMN id SET DEFAULT nextval('buckets_id_seq'::r
 
 
 --
--- TOC entry 1900 (class 2604 OID 16416)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -190,7 +192,6 @@ ALTER TABLE ONLY sensors ALTER COLUMN id SET DEFAULT nextval('sensors_id_seq'::r
 
 
 --
--- TOC entry 1901 (class 2604 OID 16432)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -198,8 +199,88 @@ ALTER TABLE ONLY "values" ALTER COLUMN id SET DEFAULT nextval('values_id_seq'::r
 
 
 --
--- TOC entry 2029 (class 0 OID 0)
--- Dependencies: 7
+-- Data for Name: buckets; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY buckets (id, name) FROM stdin;
+7	Testing Purposes
+\.
+
+
+--
+-- Name: buckets_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('buckets_id_seq', 7, true);
+
+
+--
+-- Data for Name: sensors; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY sensors (id, bucket_id, name, type) FROM stdin;
+1	7	Testing purposes - Température	temperature
+2	7	Testing purposes - Humidité	moisture
+\.
+
+
+--
+-- Name: sensors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('sensors_id_seq', 2, true);
+
+
+--
+-- Data for Name: values; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY "values" (id, sensor_id, value, "timestamp") FROM stdin;
+5	1	Ceci est le onzième test!	1488620172843
+6	1	Ceci est le douzième test!	1488624588004
+\.
+
+
+--
+-- Name: values_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('values_id_seq', 6, true);
+
+
+--
+-- Name: buckets_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY buckets
+    ADD CONSTRAINT buckets_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sensors_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY sensors
+    ADD CONSTRAINT sensors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sensors_bucket_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY sensors
+    ADD CONSTRAINT sensors_bucket_id_fkey FOREIGN KEY (bucket_id) REFERENCES buckets(id);
+
+
+--
+-- Name: values_sensor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY "values"
+    ADD CONSTRAINT values_sensor_id_fkey FOREIGN KEY (sensor_id) REFERENCES sensors(id);
+
+
+--
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
@@ -211,8 +292,6 @@ GRANT USAGE ON SCHEMA public TO jardiniot;
 
 
 --
--- TOC entry 2031 (class 0 OID 0)
--- Dependencies: 174
 -- Name: buckets; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -223,8 +302,6 @@ GRANT SELECT,INSERT ON TABLE buckets TO jardiniot;
 
 
 --
--- TOC entry 2033 (class 0 OID 0)
--- Dependencies: 173
 -- Name: buckets_id_seq; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -235,8 +312,6 @@ GRANT SELECT,USAGE ON SEQUENCE buckets_id_seq TO jardiniot;
 
 
 --
--- TOC entry 2034 (class 0 OID 0)
--- Dependencies: 176
 -- Name: sensors; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -247,8 +322,6 @@ GRANT SELECT,INSERT ON TABLE sensors TO jardiniot;
 
 
 --
--- TOC entry 2036 (class 0 OID 0)
--- Dependencies: 175
 -- Name: sensors_id_seq; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -259,8 +332,6 @@ GRANT SELECT,USAGE ON SEQUENCE sensors_id_seq TO jardiniot;
 
 
 --
--- TOC entry 2037 (class 0 OID 0)
--- Dependencies: 178
 -- Name: values; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -271,8 +342,6 @@ GRANT SELECT,INSERT ON TABLE "values" TO jardiniot;
 
 
 --
--- TOC entry 2039 (class 0 OID 0)
--- Dependencies: 177
 -- Name: values_id_seq; Type: ACL; Schema: public; Owner: postgres
 --
 
@@ -282,9 +351,120 @@ GRANT ALL ON SEQUENCE values_id_seq TO postgres;
 GRANT SELECT,USAGE ON SEQUENCE values_id_seq TO jardiniot;
 
 
--- Completed on 2017-03-04 08:34:28 EST
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: postgres
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON TABLES  FROM PUBLIC;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public REVOKE ALL ON TABLES  FROM postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,INSERT ON TABLES  TO jardiniot;
+
 
 --
 -- PostgreSQL database dump complete
+--
+
+\connect postgres
+
+SET default_transaction_read_only = off;
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+\connect template1
+
+SET default_transaction_read_only = off;
+
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: template1; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE template1 IS 'default template for new databases';
+
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
+--
+-- PostgreSQL database cluster dump complete
 --
 
