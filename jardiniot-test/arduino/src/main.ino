@@ -1,5 +1,4 @@
 /* Code pour le Arduino Uno et le DHT22 */
-/* Copyright Alexandre-Xavier Labonté-Lamoureux, 2017 */
 #include "DHT.h"
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
