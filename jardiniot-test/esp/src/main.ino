@@ -10,8 +10,8 @@
 const char* ssid = "CedilleNetwork";
 const char* password = "Club@CED1LLE:)";
 
-char* topic = "esp8266_arduino_out";  // À remplacer par "Temperature" ou "Humidite"
-char* serverip = "192.168.0.1";   // Rentrer l'IP du serveur MQTT ici
+char* topic = "esp8266_test";  // À remplacer par "Temperature" ou "Humidite"
+char* serverip = "192.168.1.124";   // Rentrer l'IP du serveur MQTT ici
 int port = 1883;                  // Renter le port du serveyr MQTT ici
 
 // Fait ce qu'il a à faire avec le message reçu
@@ -39,10 +39,8 @@ String macToStr(const uint8_t* mac)
 // Il y aura plusieurs topics
 void setup() {
   Serial.begin(9600);
-  delay(10);
 
-  // Start the software serial for communication with the ESP8266
-  ESPserial.begin(9600);
+  delay(10);
 
   // Connexion au WiFi
   Serial.print("Connexion au réseau ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
@@ -117,5 +115,10 @@ void loop() {
     }
   }
   counter++;
-  delay(5000);
+  delay(2020);
+
+  if (Serial.available())
+  {
+    Serial.println(payload);
+  }
 }
