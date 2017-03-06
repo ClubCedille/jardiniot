@@ -41,6 +41,9 @@ void setup() {
   Serial.begin(9600);
   delay(10);
 
+  // Start the software serial for communication with the ESP8266
+  ESPserial.begin(9600);
+
   // Connexion au WiFi
   Serial.print("Connexion au réseau ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
   Serial.println(ssid);

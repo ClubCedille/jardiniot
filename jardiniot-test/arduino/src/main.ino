@@ -1,5 +1,6 @@
 /* Code pour le Arduino Uno et le DHT22 */
 #include "DHT.h"
+#include <SoftwareSerial.h>
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
 
@@ -8,6 +9,9 @@ int ledPin = 13;                 // LED connected to digital pin 13
 #define DHTPIN 2
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
+
+// http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
+SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 
 void setup() {
   // put your setup code here, to run once:
@@ -31,12 +35,15 @@ void loop() {
 
 /*
   if (Serial.available()) {
+    // Lit ce que j'écris puis le print au serial monitor
     byte byteRead = Serial.read();
     Serial.write(byteRead);
+    // Flash la lumière!
     digitalWrite(ledPin, HIGH);
     delay(10);
   }
 */
+
 
   float h = dht.readHumidity();           // humidité
   float t = dht.readTemperature(false);        // temp (Celcius)
@@ -60,7 +67,9 @@ void loop() {
     delay(20);
     digitalWrite(ledPin, LOW);
     delay(2000);
+
+    ESPserial.print("Humidité: ");
+    ESPserial.print(h);
+    ESPserial.println("%");
   }
-
-
 }
