@@ -16,6 +16,7 @@ SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
+  ESPserial.begin(9600);
   while (!Serial) {
       ; // wait for serial port to connect. Needed for native USB port only
   }
@@ -30,10 +31,10 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
+/*
   digitalWrite(ledPin, LOW);
   delay(5);
 
-/*
   if (Serial.available()) {
     // Lit ce que j'écris puis le print au serial monitor
     byte byteRead = Serial.read();
@@ -44,6 +45,13 @@ void loop() {
   }
 */
 
+  // Boucle de lecture-écriture pour tester
+  /*while (ESPserial.available()) {
+    Serial.write(ESPserial.read());
+  }
+  while (Serial.available()) {
+    ESPserial.write(Serial.read());
+  }*/
 
   float h = dht.readHumidity();           // humidité
   float t = dht.readTemperature(false);        // temp (Celcius)
@@ -71,5 +79,9 @@ void loop() {
     ESPserial.print("Humidité: ");
     ESPserial.print(h);
     ESPserial.println("%");
+
+    while (ESPserial.available()) {
+      Serial.write(ESPserial.read());
+    }
   }
 }
