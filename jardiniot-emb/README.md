@@ -1,6 +1,8 @@
-# jardiniot-test
+# jardiniot-emb
 
 Objectif: faire communiquer le Arduino Uno et le ESP8266. 
+
+Pour voir le montage, consultez ![MONTAGE.md](MONTAGE.md). Cela concerne le système embarqué. 
 
 On devra envoyer le température captée par le DHT22 connecté au Arduino Uno au ESP8266 pour qu'il l'envoie par le WiFi. 
 
