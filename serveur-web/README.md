@@ -23,17 +23,17 @@ Le serveur MQTT empêche les buckets de publier sur des topics qui ne leur corre
 bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 ```
 
-####Todo
+#### Todo
 - Implémenter l'ACL (on est sensé pouvoir mettre les accès directement dans la BD)
 - Ré-implémenter l'inscription des topics dans la DB (un topic par bucket)
 
-####Instructions d'installation:
+#### Instructions d'installation:
 - Installer NodeJS
 - S'assurer qu'un serveur MQTT et qu'un serveur PostgreSQL sont en ligne.
 - Installer la base de données (fichier database_gen.sql)
 - Configurer les IPs et les credentials dans la section configuration du fichier connector.js
 
-##API
+## API
 Structure de l'API:
 
 - Liste des buckets: 
@@ -47,5 +47,5 @@ Structure de l'API:
 - Limiter le nombre de données à renvoyer par le serveur
 	- `/bucket/{id}/sensor/{id}/{frequency}/{limit}`
 					
-##Site web
+## Site web
 Documentation plus détaillée à venir.
