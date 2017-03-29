@@ -9,19 +9,29 @@ var listBuckets = function(url, data){
   return JSON.stringify(bucketArray);
 };
 
-var listSensors = function(url, data){
+var bucketInfo = function(url, data){
   id = url.replace("/bucket/", "");
   if (isNaN(id) || id == ""){return JSON.stringify({error: "Invalid bucket number."});}
 
-  var sensorArray = dataConn.getSensorsList(id);
+  var sensorArray = dataConn.getBucketInfo(id);
   return JSON.stringify(sensorArray);
 };
+
+var getSensorValue = function(url, data){
+  var urlParts = url.split("/");
+  var id = urlParts[urlParts.length - 1];
+  if (isNaN(id) || id == ""){return JSON.stringify({error: "Invalid sensor number."});}
+
+  var sensorInfo = dataConn.getSensorValue(id);
+  return JSON.stringify(sensorInfo);
+}
 
 
 //Defining the regexes that corresponds to the handling functions
 var handles = [
   {regex: /^\/buckets$/i, func: listBuckets},
-  {regex: /^\/bucket\//i, func: listSensors}
+  {regex: /^\/bucket\/[0-9]+$/i, func: bucketInfo},
+  {regex: /^\/bucket\/[0-9]+\/sensor\/[0-9]+$/i, func: getSensorValue}
 ]
 
 
