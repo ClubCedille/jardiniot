@@ -76,9 +76,15 @@ void loop() {
     digitalWrite(ledPin, LOW);
     delay(2000);
 
-    ESPserial.print("Humidité: ");
+    // Envoyer la temperature
+    ESPserial.print("\"temperature\":");
+    ESPserial.print(t);
+    ESPserial.print("°C");
+
+    // Envoyer l'humidité
+    ESPserial.print(",\"humidite\":");
     ESPserial.print(h);
-    ESPserial.println("%");
+    ESPserial.print("%");
 
     while (ESPserial.available()) {
       Serial.write(ESPserial.read());

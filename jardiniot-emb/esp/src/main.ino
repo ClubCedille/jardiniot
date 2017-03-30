@@ -8,10 +8,10 @@
 #include <ESP8266WiFi.h>
 
 const char* ssid = "CedilleNetwork";
-const char* password = "Club@CED1LLE:)";
+const char* password = "J'aimange2pommes";
 
-char* topic = "esp8266_test";  // À remplacer par "Temperature" ou "Humidite"
-char* serverip = "192.168.1.124";   // Rentrer l'IP du serveur MQTT ici
+const char* topic = "esp8266_test";  // À remplacer par "Temperature" ou "Humidite"
+const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici
 int port = 1883;                  // Renter le port du serveyr MQTT ici
 
 // Fait ce qu'il a à faire avec le message reçu
@@ -29,8 +29,8 @@ String macToStr(const uint8_t* mac)
   String result;
   for (int i = 0; i < 6; ++i) {
     result += String(mac[i], 16);
-    if (i < 5)
-      result += ':';
+    //if (i < 5)
+      //result += ':';
   }
   return result;
 }
@@ -59,12 +59,15 @@ void setup() {
 
   // Generate client name based on MAC address and last 8 bits of microsecond counter
   String clientName;
-  clientName += "esp8266-";
+  clientName += "esp8266_";
   uint8_t mac[6];
   WiFi.macAddress(mac);
   clientName += macToStr(mac);
-  clientName += "-";
+  clientName += "_";
   clientName += String(micros() & 0xff, 16);
+
+  // La topic c'est aussi le nom du bucket
+  //topic = clientName.c_str();   // FIXME: Peut pas changer le nom
 
   // Connexion au serveur MQTT
   Serial.print("Connecting to ");
@@ -93,13 +96,23 @@ void setup() {
 }
 
 void loop() {
-  static int counter = 0;
+  static int iteration = 0;
+
+  String arduino_sensors;
+  while (Serial.available()) {
+    arduino_sensors = Serial.readString();
+  }
 
   // Ce payload constitue une topic
   String payload = "{\"micros\":";
   payload += micros();
-  payload += ",\"counter\":";
-  payload += counter;
+  payload += ",\"iteration\":";
+  payload += iteration;
+  if (arduino_sensors.length() > 0)
+  {
+    payload += ",";
+    payload += arduino_sensors;
+  }
   payload += "}";
 
   // Envoie du payload
@@ -114,7 +127,9 @@ void loop() {
       Serial.println("Publish failed");
     }
   }
-  counter++;
+  // FIXME: Quand le ESP est seul, cela fonctionne normalement,
+  // mais sinon il attend 2 secondes après le Arduino et faire 2 itératons.
+  iteration++;
   delay(2020);
 
   if (Serial.available())
