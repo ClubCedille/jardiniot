@@ -21,7 +21,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 
 WiFiClient wifiClient;
-PubSubClient client(serverip, port, callback, wifiClient);
+PubSubClient client;
 
 // Convertit un adresse MAC en string
 String macToStr(const uint8_t* mac)
@@ -67,7 +67,8 @@ void setup() {
   clientName += String(micros() & 0xff, 16);
 
   // La topic c'est aussi le nom du bucket
-  //topic = clientName.c_str();   // FIXME: Peut pas changer le nom
+  //topic = clientName.c_str();   // FIXME: Peut pas changer le nom, marche pas pentoute.
+  client = PubSubClient(serverip, port, callback, wifiClient);
 
   // Connexion au serveur MQTT
   Serial.print("Connecting to ");
@@ -81,7 +82,7 @@ void setup() {
     Serial.println(topic);
 
     // On publie une topic (on pourrait en créer plusieurs)
-    if (client.publish(topic, "hello from ESP8266")) {
+    if (client.publish(topic, "hello world!")) {
       Serial.println("Publish ok");
     }
     else {
