@@ -6,6 +6,7 @@
 // Une lumière rouge va alumer si c'est correcte. Durant l'upload ça flash.
 #include <PubSubClient.h>
 #include <ESP8266WiFi.h>
+#include <string.h>   // strdup
 
 const char* ssid = "CedilleNetwork";
 const char* password = "J'aimange2pommes";
@@ -67,7 +68,7 @@ void setup() {
   clientName += String(micros() & 0xff, 16);
 
   // La topic c'est aussi le nom du bucket
-  //topic = clientName.c_str();   // FIXME: Peut pas changer le nom, marche pas pentoute.
+  topic = strdup(clientName.c_str());   // strdup fait un malloc à l'interne
   client = PubSubClient(serverip, port, callback, wifiClient);
 
   // Connexion au serveur MQTT
