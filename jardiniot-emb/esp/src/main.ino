@@ -58,7 +58,7 @@ void setup() {
 
   // WIFI MANAGER
   WiFiManager wifiManager;
-  wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois. 
+  wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois.
   wifiManager.setTimeout(60);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
   //wifiManager.setConfigPortalTimeout(60); //warn: utiliser cette méthode fuck le esp
   //wifiManager.setConnectTimeout(60);  //warn: utiliser cette méthode fuck le esp
@@ -68,7 +68,7 @@ void setup() {
   WiFiManagerParameter custom_mqtt_server("mqttserver", "MQTT server IP", mqtt_server.c_str(), 25);
   wifiManager.addParameter(&custom_mqtt_server);
 
-  if(!wifiManager.autoConnect("AP-config-ESP8266-wifi")) {
+  if (!wifiManager.autoConnect("AP-config-ESP8266-wifi")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
     // CONNEXION AU WIFI PAR DEFAUIT
