@@ -8,6 +8,10 @@
 #include <ESP8266WiFi.h>
 #include <string.h>   // strdup
 
+#include <DNSServer.h>
+#include <ESP8266WebServer.h>
+#include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
+
 const char* ssid = "CedilleNetwork";
 const char* password = "J'aimange2pommes";
 
@@ -36,6 +40,15 @@ String macToStr(const uint8_t* mac)
   return result;
 }
 
+// Wifi callback
+void configModeCallback (WiFiManager *myWiFiManager) {
+  Serial.println("Mode configuration. Configurez le WiFi par vous même.");
+  Serial.print("Le SSID du AP est: ");
+  Serial.println(myWiFiManager->getConfigPortalSSID());
+  Serial.print("Utiliser le IP suivant pour la configuration: ");
+  Serial.println(WiFi.softAPIP());
+}
+
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
 // Il y aura plusieurs topics
 void setup() {
@@ -43,20 +56,45 @@ void setup() {
 
   delay(10);
 
-  // Connexion au WiFi
-  Serial.print("Connexion au réseau ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
-  Serial.println(ssid);
+  // WIFI MANAGER
+  WiFiManager wifiManager;
+  wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois. 
+  wifiManager.setTimeout(60);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
+  //wifiManager.setConfigPortalTimeout(60); //warn: utiliser cette méthode fuck le esp
+  //wifiManager.setConnectTimeout(60);  //warn: utiliser cette méthode fuck le esp
 
-  WiFi.begin(ssid, password);
+  // MQTT
+  String mqtt_server = "";  // Enter MQTT server IP here
+  WiFiManagerParameter custom_mqtt_server("mqttserver", "MQTT server IP", mqtt_server.c_str(), 25);
+  wifiManager.addParameter(&custom_mqtt_server);
 
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+  if(!wifiManager.autoConnect("AP-config-ESP8266-wifi")) {
+    Serial.println("failed to connect and hit timeout");
+    delay(3000);
+    // CONNEXION AU WIFI PAR DEFAUIT
+    Serial.print("Connexion au réseau par défaut ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
+    Serial.println(ssid);
+
+    WiFi.begin(ssid, password);
+
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.println("WiFi connecté!");
+    Serial.println("adresse IP: ");
+    Serial.println(WiFi.localIP());
   }
-  Serial.println("");
-  Serial.println("WiFi connecté!");
-  Serial.println("adresse IP: ");
-  Serial.println(WiFi.localIP());
+  else
+  {
+    mqtt_server = custom_mqtt_server.getValue();
+    serverip = strdup(mqtt_server.c_str());
+  }
+
+  //if you get here you have connected to the WiFi
+  //Serial.print("On se connect au WIFI ayant le SSID: ");
+  //Serial.println(ssid);
 
   // Generate client name based on MAC address and last 8 bits of microsecond counter
   String clientName;
@@ -64,18 +102,18 @@ void setup() {
   uint8_t mac[6];
   WiFi.macAddress(mac);
   clientName += macToStr(mac);
-  clientName += "_";
-  clientName += String(micros() & 0xff, 16);
+  //clientName += "_";
+  //clientName += String(micros() & 0xff, 16);
 
   // La topic c'est aussi le nom du bucket
-  topic = strdup(clientName.c_str());   // strdup fait un malloc à l'interne
+  topic = strdup(clientName.c_str());   // note: strdup fait un malloc à l'interne
   client = PubSubClient(serverip, port, callback, wifiClient);
 
   // Connexion au serveur MQTT
-  Serial.print("Connecting to ");
+  Serial.print("On se connecte au serveur MQTT à l'IP: ");
   Serial.print(serverip);
-  Serial.print(" as ");
-  Serial.println(clientName);
+  Serial.print(", en tant que: ");
+  Serial.println(topic);   // TOPIC
 
   if (client.connect((char*) clientName.c_str())) {
     Serial.println("Connected to MQTT broker");
