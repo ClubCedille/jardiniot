@@ -12,8 +12,8 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "CedilleNetwork";
-const char* password = "J'aimange2pommes";
+const char* ssid = "SuperRouteur";
+const char* password = "SuperPassword123";
 
 const char* topic = "esp8266_test";  // À remplacer par "Temperature" ou "Humidite"
 const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici

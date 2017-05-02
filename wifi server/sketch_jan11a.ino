@@ -1,5 +1,5 @@
-const char* ssid = "CedilleNetwork";
-const char* password = "Club@CED1LLE:)";
+const char* ssid = "SuperRouteur";
+const char* password = "SuperPassword123";
 
 // Permet de laisser le temps à une commande de s'executer
 // i est le nombre de 100ms qu'on lui donne
