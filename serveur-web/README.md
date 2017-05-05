@@ -3,10 +3,6 @@ JardinIoT - Serveur Web
 
 Ce dossier contient le code qui concerne le site web, l'API et le connecteur. Éventuellement, le code de ces trois objets pourra être mergé (à voir avec XavSavage).
 
-Langage de programmation: Javascript (NodeJS)
-Base de données: PostgreSQL
-
-
 ## connecteur
 Le connecteur se connecte au serveur MQTT et s'inscrit (subscribe) aux topics correspondant aux buckets gérés par le serveur.  Ensuite, le connecteur inscrit les données recueillies dans la base de données.
 
@@ -24,14 +20,11 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 ```
 
 #### Todo
+- Ré-écrire le connecteur MQTT->BD (la BD a changé de PostgreSQL vers SQLite)
 - Implémenter l'ACL (on est sensé pouvoir mettre les accès directement dans la BD)
-- Ré-implémenter l'inscription des topics dans la DB (un topic par bucket)
 
-#### Instructions d'installation:
-- Installer NodeJS
-- S'assurer qu'un serveur MQTT et qu'un serveur PostgreSQL sont en ligne.
-- Installer la base de données (fichier database_gen.sql)
-- Configurer les IPs et les credentials dans la section configuration du fichier connector.js
+#### Instructions d'installation
+Non fonctionnel pour l'instant
 
 ## API
 Structure de l'API:
@@ -44,8 +37,22 @@ Structure de l'API:
 	- `/bucket/{id}/sensor/{id}/`
 - Obtenir les données sur un intervalle donné:
 	- `/bucket/{id}/sensor/{id}/{frequency}`
-- Limiter le nombre de données à renvoyer par le serveur
+- Limiter le nombre de données à renvoyer par l'API
 	- `/bucket/{id}/sensor/{id}/{frequency}/{limit}`
+
+#### Todo
+- À court terme
+	- Faire le code pour obtenir les données sur un intervalle donné (`/bucket/{id}/sensor/{id}/{frequency}`)
+	- Faire le code pour limiter le nombre de données à renvoyer par l'API (`/bucket/{id}/sensor/{id}/{frequency}/{limit}`)
+- À long terme
+	- Faire le code pour envoyer des commandes au bucket
 					
 ## Site web
-Documentation plus détaillée à venir.
+Le site web se veut le "panneau de contrôle" du jardin. On veut être capable:
+- de voir les statistiques
+- d'envoyer des commandes au bucket (via l'API)
+
+(voir le prototype d'interface dans le Wiki du projet)
+
+#### Todo
+- Tout. Il n'y a rien d'effectué encore au niveau du site web.
