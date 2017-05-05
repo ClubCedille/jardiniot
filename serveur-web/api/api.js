@@ -1,30 +1,43 @@
+var http = require("http");
+var dataConn = require("./sqlite_connector.js");
+
+//This should be loaded from a conf. file.
 const PORT = 8080;
 
-var http = require("http");
-var dataConn = require("./data_connection.js");
+//==============================Handling functions==============================
 
-//Defining handling functions
-var listBuckets = function(url, data){
-  var bucketArray = dataConn.getBucketList();
-  return JSON.stringify(bucketArray);
+//Get bucket list
+var listBuckets = function(url, data, cb){
+  dataConn.getBucketList(function(rst){
+    cb(JSON.stringify(rst));
+  });
 };
 
-var bucketInfo = function(url, data){
+//Get bucket info
+var bucketInfo = function(url, data, cb){
   id = url.replace("/bucket/", "");
-  if (isNaN(id) || id == ""){return JSON.stringify({error: "Invalid bucket number."});}
+  if (isNaN(id) || id == "") {
+    cb(JSON.stringify({error: "Invalid bucket number."}));
+  }
 
-  var sensorArray = dataConn.getBucketInfo(id);
-  return JSON.stringify(sensorArray);
+  dataConn.getBucketInfo(id, function(rst){
+    cb(JSON.stringify(rst));
+  });
 };
 
-var getSensorValue = function(url, data){
+//Get sensor value
+var getSensorValue = function(url, data, cb){
   var urlParts = url.split("/");
   var id = urlParts[urlParts.length - 1];
-  if (isNaN(id) || id == ""){return JSON.stringify({error: "Invalid sensor number."});}
+  if (isNaN(id) || id == "") {
+    cb(JSON.stringify({error: "Invalid sensor number."}));
+  }
 
-  var sensorInfo = dataConn.getSensorValue(id);
-  return JSON.stringify(sensorInfo);
+  var sensorInfo = dataConn.getSensorValue(id, function(rst){
+    cb(JSON.stringify(rst));
+  });
 }
+//==============================================================================
 
 
 //Defining the regexes that corresponds to the handling functions
@@ -38,8 +51,9 @@ var handles = [
 //Function that handles and dispatches HTTP requests
 function handleRequest(request, response){
 
-  if(request.method == "POST" || request.method == "GET")
+  if(request.method == "POST" || request.method == "GET")
   {
+    var postData = "";
     //Receive the data first, then handle. (LET THEM FINISH THEIR SENTENCE!)
     var postData = "";
     request.on("data", function(dataChunk) {
@@ -53,17 +67,27 @@ function handleRequest(request, response){
       handles.forEach(function(val, key){
         if (val.regex.test(request.url)) {
           handled = true;
-          response.end(val.func(request.url, postData));
+          val.func(request.url, postData, function(responseData){
+            response.end(responseData);
+          });
         }
       });
 
       //If no handler was called, close the connection and notify the client.
       if (!handled) {response.end(JSON.stringify({error: "Invalid endpoint."}))}
     });
+
+  }
+  else
+  {
+    //If method isn't POST or GET
+    response.end(JSON.stringify({error: "HTTP method not supported."}))
   }
 
 }
 
+//Let's init the connection to the database
+dataConn.dbInit();
 
 //We're good to go I guess...
 var server = http.createServer(handleRequest);
