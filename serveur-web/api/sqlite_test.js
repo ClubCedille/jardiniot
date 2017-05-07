@@ -5,18 +5,32 @@ var sq = require("./sqlite_connector.js");
 sq.dbInit();
 
 //Création d'un jardin simple
-sq.createBucket("Test Bucket", "0.0.0.0", function(bucketId){
-  sq.createSensor("Test Bucket, humidity sensor", "humidity", bucketId, function(sensorId){
+sq.createBucket("DEADBEEF", "0.0.0.0", function(bucketId){
+  sq.createSensor("humidity", "humidity", bucketId, function(sensorId){
     sq.createValue("30%", sensorId);
     sq.createValue("40%", sensorId);
     sq.createValue("30%", sensorId);
   });
-  sq.createSensor("Test Bucket, temp sensor", "temperature", bucketId, function(sensorId){
+  sq.createSensor("temperature", "temperature", bucketId, function(sensorId){
     sq.createValue("25C", sensorId);
     sq.createValue("30C", sensorId);
     sq.createValue("25C", sensorId);
   });
 });
+
+/*sq.createBucket("Test Bucket", "0.0.0.0", function(bucketId){
+  sq.createSensor("Test Bucket, humidity sensor", "humidity", bucketId, function(sensorId){
+    sq.createValueWithSensorName("30%", "Test Bucket, humidity sensor", "Test Bucket");
+    sq.createValueWithSensorName("40%", "Test Bucket, humidity sensor", "Test Bucket");
+    sq.createValueWithSensorName("30%", "Test Bucket, humidity sensor", "Test Bucket");
+  });
+  sq.createSensor("Test Bucket, temp sensor", "temperature", bucketId, function(sensorId){
+    sq.createValueWithSensorName("25C", "Test Bucket, temp sensor", "Test Bucket");
+    sq.createValueWithSensorName("30C", "Test Bucket, temp sensor", "Test Bucket");
+    sq.createValueWithSensorName("25C", "Test Bucket, temp sensor", "Test Bucket");
+  });
+});
+*/
 
 //Allons chercher la liste des buckets
 sq.getBucketList(function(rst){
