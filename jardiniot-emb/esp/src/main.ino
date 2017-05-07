@@ -12,17 +12,40 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "SuperRouteur";
-const char* password = "SuperPassword123";
+const char* ssid = "CedilleNetwork";
+const char* password = "Quiamanger2pommes!";
 
-const char* topic = "esp8266_test";  // À remplacer par "Temperature" ou "Humidite"
+// le préfix pour recevoir du API c'est control_
+const char* topic = "status_test";  // À remplacer par "Temperature" ou "Humidite"
+const char* topicControl = "control_test";
 const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici
 int port = 1883;                  // Renter le port du serveyr MQTT ici
+
+char message_buff[100];
 
 // Fait ce qu'il a à faire avec le message reçu
 void callback(char* topic, byte* payload, unsigned int length) {
   // handle message arrived
   Serial.println(topic);
+  int i = 0;
+
+  Serial.println("Message arrived:  topic: " + String(topic));
+  Serial.println("Length: " + String(length,DEC));
+
+  // create character buffer with ending null terminator (string)
+  for(i=0; i<length; i++) {
+    message_buff[i] = payload[i];
+  }
+  message_buff[i] = '\0';
+
+  String msgString = String(message_buff);
+
+  Serial.println("Payload: " + msgString);
+  int state = digitalRead(2);  // get the current state of GPIO1 pin
+  if (msgString == "1"){    // if there is a "1" published to any topic (#) on the broker then:
+    digitalWrite(2, !state);     // set pin to the opposite state
+    Serial.println("Switching LED");
+  }
 }
 
 WiFiClient wifiClient;
@@ -40,14 +63,29 @@ String macToStr(const uint8_t* mac)
   return result;
 }
 
+String getTopic(String type, String* clientName){
+  // Generate client name based on MAC address and last 8 bits of microsecond counter
+  clientName += type;
+  uint8_t mac[6];
+  WiFi.macAddress(mac);
+  clientName += macToStr(mac);
+  //clientName += "_";
+  //clientName += String(micros() & 0xff, 16);
+  return clientName.c_str();   // note: strdup fait un malloc à l'interne
+}
+
+void receiveDataFromAPI(){
+
+}
+
 // Wifi callback
-void configModeCallback (WiFiManager *myWiFiManager) {
+/*void configModeCallback (WiFiManager *myWiFiManager) {
   Serial.println("Mode configuration. Configurez le WiFi par vous même.");
   Serial.print("Le SSID du AP est: ");
   Serial.println(myWiFiManager->getConfigPortalSSID());
   Serial.print("Utiliser le IP suivant pour la configuration: ");
   Serial.println(WiFi.softAPIP());
-}
+}*/
 
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
 // Il y aura plusieurs topics
@@ -59,7 +97,7 @@ void setup() {
   // WIFI MANAGER
   WiFiManager wifiManager;
   wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois.
-  wifiManager.setTimeout(60);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
+  wifiManager.setTimeout(1);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
   //wifiManager.setConfigPortalTimeout(60); //warn: utiliser cette méthode fuck le esp
   //wifiManager.setConnectTimeout(60);  //warn: utiliser cette méthode fuck le esp
 
@@ -71,7 +109,7 @@ void setup() {
   if (!wifiManager.autoConnect("AP-config-ESP8266-wifi")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
-    // CONNEXION AU WIFI PAR DEFAUIT
+    // CONNEXION AU WIFI PAR DEFAULT
     Serial.print("Connexion au réseau par défaut ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
     Serial.println(ssid);
 
@@ -96,17 +134,13 @@ void setup() {
   //Serial.print("On se connect au WIFI ayant le SSID: ");
   //Serial.println(ssid);
 
-  // Generate client name based on MAC address and last 8 bits of microsecond counter
+  String type = "status_";
   String clientName;
-  clientName += "esp8266_";
-  uint8_t mac[6];
-  WiFi.macAddress(mac);
-  clientName += macToStr(mac);
-  //clientName += "_";
-  //clientName += String(micros() & 0xff, 16);
-
   // La topic c'est aussi le nom du bucket
-  topic = strdup(clientName.c_str());   // note: strdup fait un malloc à l'interne
+  topic = strdup(getTopic(type, &clientName));
+  type = "control_";
+  topicControl = strdup(getTopic(type, &clientName));
+
   client = PubSubClient(serverip, port, callback, wifiClient);
 
   // Connexion au serveur MQTT
@@ -119,6 +153,14 @@ void setup() {
     Serial.println("Connected to MQTT broker");
     Serial.print("Topic is: ");
     Serial.println(topic);
+
+    // on subscribe sur un topic
+    if(client.subscribe(topicControl)){
+      Serial.println("Subscribe OK");
+    }
+    else{
+      Serial.println("Subscribe failed");
+    }
 
     // On publie une topic (on pourrait en créer plusieurs)
     if (client.publish(topic, "hello world!")) {
@@ -136,7 +178,18 @@ void setup() {
 }
 
 void loop() {
+
+  //strcpy(message_buff,"test");
+  Serial.println(message_buff);
+  delay(2020);
+  /*
+
+  receiveDataFromAPI();
   static int iteration = 0;
+
+  if(iteration == 0){
+    Serial.println(topic);
+  }
 
   String arduino_sensors;
   while (Serial.available()) {
@@ -176,4 +229,5 @@ void loop() {
   {
     Serial.println(payload);
   }
+  */
 }
