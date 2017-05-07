@@ -21,10 +21,9 @@ const char* topicControl = "control_test";
 const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici
 int port = 1883;                  // Renter le port du serveyr MQTT ici
 
-char message_buff[100];
-
 // Fait ce qu'il a à faire avec le message reçu
 void callback(char* topic, byte* payload, unsigned int length) {
+  char message_buff[100];
   // handle message arrived
   Serial.println(topic);
   int i = 0;
@@ -41,11 +40,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
   String msgString = String(message_buff);
 
   Serial.println("Payload: " + msgString);
-  int state = digitalRead(2);  // get the current state of GPIO1 pin
-  if (msgString == "1"){    // if there is a "1" published to any topic (#) on the broker then:
-    digitalWrite(2, !state);     // set pin to the opposite state
-    Serial.println("Switching LED");
-  }
+
+  sendCommandToArduino(msgString);
 }
 
 WiFiClient wifiClient;
@@ -63,7 +59,8 @@ String macToStr(const uint8_t* mac)
   return result;
 }
 
-String getTopic(String type, String* clientName){
+const char* getTopic(String type, String &clientName){
+  clientName = "";
   // Generate client name based on MAC address and last 8 bits of microsecond counter
   clientName += type;
   uint8_t mac[6];
@@ -72,10 +69,6 @@ String getTopic(String type, String* clientName){
   //clientName += "_";
   //clientName += String(micros() & 0xff, 16);
   return clientName.c_str();   // note: strdup fait un malloc à l'interne
-}
-
-void receiveDataFromAPI(){
-
 }
 
 // Wifi callback
@@ -137,9 +130,9 @@ void setup() {
   String type = "status_";
   String clientName;
   // La topic c'est aussi le nom du bucket
-  topic = strdup(getTopic(type, &clientName));
+  topic = strdup(getTopic(type, clientName));
   type = "control_";
-  topicControl = strdup(getTopic(type, &clientName));
+  topicControl = strdup(getTopic(type, clientName));
 
   client = PubSubClient(serverip, port, callback, wifiClient);
 
@@ -153,6 +146,8 @@ void setup() {
     Serial.println("Connected to MQTT broker");
     Serial.print("Topic is: ");
     Serial.println(topic);
+    Serial.print("Topic control is: ");
+    Serial.println(topicControl);
 
     // on subscribe sur un topic
     if(client.subscribe(topicControl)){
@@ -178,13 +173,35 @@ void setup() {
 }
 
 void loop() {
+  // Il faut faire un client loop pour obtenir les messages qui viennent du API
+  client.loop();
 
-  //strcpy(message_buff,"test");
-  Serial.println(message_buff);
+  sendStatus();
+}
+
+void sendCommandToArduino(String command){
+  int value = atoi(command.c_str());
+  Serial.println(value);
+
+  // Extraire les infos contenu dans le int reçu
+  int bleu = (value & 0xff000000) >> 24;
+	int blanc = (value & 0xff0000) >> 16;
+	int rouge = (value & 0xff00) >> 8;
+  int fans = (value & 0xff);
+
+  Serial.print("Bleu :");
+  Serial.println(bleu);
+  Serial.print("Blanc :");
+  Serial.println(blanc);
+  Serial.print("Rouge :");
+  Serial.println(rouge);
+  Serial.print("Fans :");
+  Serial.println(fans);
+
   delay(2020);
-  /*
+}
 
-  receiveDataFromAPI();
+void sendStatus(){
   static int iteration = 0;
 
   if(iteration == 0){
@@ -229,5 +246,4 @@ void loop() {
   {
     Serial.println(payload);
   }
-  */
 }
