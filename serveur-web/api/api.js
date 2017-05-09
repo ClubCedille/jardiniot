@@ -1,6 +1,8 @@
 var http = require("http");
 var dataConn = require("./sqlite_connector.js");
-const mqtt = require("./mqtt_connector.js")(dataConn);
+
+const mqtt = require("./mqtt_connector.js");
+mqtt.init(dataConn);
 
 //This should be loaded from a conf. file.
 const PORT = 8080;

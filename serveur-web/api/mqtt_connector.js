@@ -4,43 +4,33 @@
 * ----
 * Écrit par Aubert Guillemette
 *
-* version 0.3, 9 mai 2017
-* Modification du fichier pour qu'il soit utilisé en tant que module.
+* version 0.4, 9 mai 2017
+* Ajout du code pour envoyer des commandes au ESP
 */
 
+var out = module.exports;
+var mqtt = require('mqtt');
+var mqtt_client = undefined;
 
 //----------------------------SECTION CONFIGURATION----------------------------
-module.exports = function(sq){
-	//Constantes d'application
-	const DEBUG = true;
-
-	//Éventuellement, cette section devrait être incluse dans un fichier de config.
-	const MQTT_USERNAME = 'jardiniot';
-	const MQTT_PASSWORD = 'jardiniot'; //Storing passwords in source code isn't good
-	const MQTT_IP       = '127.0.0.1';
-	const MQTT_PORT     = '1883';
-
-	//-----------------------------------------------------------------------------
+//Éventuellement, cette section devrait être incluse dans un fichier de config.
+const DEBUG = true;
+const MQTT_USERNAME = 'jardiniot';
+const MQTT_PASSWORD = 'jardiniot'; //Storing passwords in source code isn't good
+const MQTT_IP       = '127.0.0.1';
+const MQTT_PORT     = '1883';
+//-----------------------------------------------------------------------------
 
 
+//Initialisation du connecteur: instancie un client MQTT et s'abonne
+//aux buckets définis dans la BD
+out.init = function(sq) {
 
 	//Construction des chaînes de connexion
 	const MQTT_CREDS    = { username: MQTT_USERNAME, password: MQTT_PASSWORD };
 	const MQTT_CONN_STR = 'mqtt://' + MQTT_IP + ':' + MQTT_PORT;
-
-	//Requirements
-	//var sq = require('./sqlite_connector.js');
-	var mqtt = require('mqtt');
-
-
-
-	//Démarrage du client MQTT
-	//debug("Ouverture de la base de données...");
-	//sq.dbInit();
-	//debug("Connecté.");
-
 	debug("Connexion au serveur MQTT...");
-	var mqtt_client = mqtt.connect(MQTT_CONN_STR, MQTT_CREDS);
+	mqtt_client = mqtt.connect(MQTT_CONN_STR, MQTT_CREDS);
 
 	//Callbacks!
 	mqtt_client.on('connect', function () {
@@ -78,10 +68,19 @@ module.exports = function(sq){
 	mqtt_client.on('error', function(error) {
 		console.log("Error: " + error);
 	});
+}
 
-	//Fonction qui affiche des messages à l'écran si la constante DEBUG est true
-	function debug(msg)
-	{
-		if (DEBUG) { console.log(msg); }
-	}
+//Fonction qui envoie un message au ESP
+out.send = function(bucket, params)
+{
+	//On utilise un entier 32 bit pour envoyer du data. (4 x 8 bits)
+	//[LED bleue] + [LED blanche] + [LED rouge] + [FAN]
+	var entier = params.fan + (params.red * 256) + (params.white * Math.pow(256, 2)) + (params.blue * Math.pow(256, 3));
+	mqtt_client.publish('control_' + bucket, entier.toString());
+}
+
+//Fonction qui affiche des messages à l'écran si la constante DEBUG est true
+function debug(msg)
+{
+	if (DEBUG) { console.log(msg); }
 }
