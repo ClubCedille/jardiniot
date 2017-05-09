@@ -2,7 +2,6 @@
 var sq = require("./sqlite_connector.js");
 
 //On se doit d'initialiser la BD
-sq.dbInit();
 
 //Création d'un jardin simple
 sq.createBucket("DEADBEEF", "0.0.0.0", function(bucketId){
