@@ -6,6 +6,10 @@ mqtt.init(dataConn);
 
 //Ceci devrait être loadé à partir d'un fichier de config.
 const PORT = 8080;
+const LIMIT_BLUE  = 170;
+const LIMIT_WHITE = 170;
+const LIMIT_RED   = 170;
+const LIMIT_FAN   = 170;
 
 //==============================Handling functions==============================
 
@@ -48,10 +52,14 @@ var bucketInfo = function(url, data, cb){
       //Est-ce que ces nombres sont des valeurs valides?
       //La validité des valeurs sont définies dans Wiki:
       //voir https://github.com/ClubCedille/jardiniot/wiki/Connectivit%C3%A9-entre-ESP-et-API-(MQTT)
-      data.blue < 256 &&
-      data.white < 256 &&
-      data.red < 256 &&
-      data.fan < 171;
+      data.blue >= 0 &&
+      data.white >= 0 &&
+      data.red >= 0 &&
+      data.fan >= 0 &&
+      data.blue <= LIMIT_BLUE &&
+      data.white <= LIMIT_WHITE &&
+      data.red <= LIMIT_RED &&
+      data.fan <= LIMIT_FAN;
       //...and this is how you do condition short-circuiting.
 
       if (!dataIsValid) throw "Data received is invalid.";
