@@ -84,20 +84,30 @@ out.createValueWithSensorName = function(_value, _sensorName, _bucketName) {
 //-------Fonctions pour aller chercher les informations dans la BD-------
 
 out.getBucketList = function(cb){
-  db.all("SELECT * FROM buckets", function(err, rows){
+  var statement = db.prepare("SELECT * FROM buckets");
+  statement.all(function(err, rows){
     cb(rows);
   });
 }
 
 out.getBucketInfo = function(id, cb){
-  db.all("SELECT * FROM sensors WHERE bucket_id = " + id, function(err, rows){
+  var statement = db.prepare("SELECT * FROM sensors WHERE bucket_id = ?");
+  statement.all(id, function(err, rows){
     cb(rows);
   });
 }
 
 out.getSensorValue = function(id, cb){
-  db.all('SELECT * FROM "values" WHERE sensor_id = ' + id, function(err, rows){
+  var statement = db.prepare('SELECT * FROM "values" WHERE sensor_id = ?')
+  statement.all(id, function(err, rows){
     cb(rows);
+  });
+}
+
+out.getBucketNameById = function(id, cb){
+  var statement = db.prepare("SELECT name FROM buckets WHERE id = ?")
+  statement.all(id, function(err, rows){
+    cb(rows[0].name);
   });
 }
 //----------------------------------------------------------------------

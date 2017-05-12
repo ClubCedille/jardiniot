@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>Un beau formulaire de test</title>
+  <meta charset="utf-8">
+  <style>body {font-family: sans-serif;}</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+    function send()
+    {
+      var dataObj = {};
+      dataObj.blue = $("#blue").val();
+      dataObj.white = $("#white").val();
+      dataObj.red = $("#red").val();
+      dataObj.fan = $("#fan").val();
+      $.post("http://localhost:8080/bucket/1", JSON.stringify(dataObj));
+    }
+  </script>
+</head>
+<body>
+  <center>
+    <h1>Bienvenue sur notre beau formulaire de test</h1>
+    <form action="http://localhost:8080/bucket/1" method="POST">
+      <input id="blue" name="blue" type="text" placeholder="Valeur de la lumière bleue" /><br>
+      <input id="white" name="white" type="text" placeholder="Valeur de la lumière blanche" /><br>
+      <input id="red" name="red" type="text" placeholder="Valeur de la lumière rouge" /><br>
+      <input id="fan" name="fan" type="text" placeholder="Valeur de la fan" /><br>
+      <input type="button" value="Shoot moi ça!" onclick="send()" />
+    </form>
+  </center>
+</body>
+</html>
