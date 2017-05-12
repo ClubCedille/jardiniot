@@ -183,22 +183,8 @@ void sendCommandToArduino(String command){
   int value = atoi(command.c_str());
   Serial.println(value);
 
-  // Extraire les infos contenu dans le int reçu
-  int bleu = (value & 0xff000000) >> 24;
-	int blanc = (value & 0xff0000) >> 16;
-	int rouge = (value & 0xff00) >> 8;
-  int fans = (value & 0xff);
-
-  Serial.print("Bleu :");
-  Serial.println(bleu);
-  Serial.print("Blanc :");
-  Serial.println(blanc);
-  Serial.print("Rouge :");
-  Serial.println(rouge);
-  Serial.print("Fans :");
-  Serial.println(fans);
-
-  delay(2020);
+  // Write to arduino
+  Serial.write(value);
 }
 
 void sendStatus(){
@@ -227,8 +213,8 @@ void sendStatus(){
 
   // Envoie du payload
   if (client.connected()){
-    Serial.print("Sending payload: ");
-    Serial.println(payload);
+    /*Serial.print("Sending payload: ");
+    Serial.println(payload);*/
 
     if (client.publish(topic, (char*) payload.c_str())) {
       Serial.println("Publish ok");
@@ -244,6 +230,6 @@ void sendStatus(){
 
   if (Serial.available())
   {
-    Serial.println(payload);
+    //Serial.println(payload);
   }
 }

@@ -62,7 +62,7 @@ void loop() {
     float hic = dht.computeHeatIndex(t, h, false);
 
     digitalWrite(ledPin, HIGH);
-    Serial.print("Humidité: ");
+    /*Serial.print("Humidité: ");
     Serial.print(h);
     Serial.println(" % ");
     Serial.print("Température: ");
@@ -72,7 +72,7 @@ void loop() {
     Serial.print(hic);
     Serial.println(" °C ");
     Serial.println("");
-    delay(20);
+    delay(20);*/
     digitalWrite(ledPin, LOW);
     delay(2000);
 
@@ -86,8 +86,39 @@ void loop() {
     ESPserial.print(h);
     ESPserial.print("%");
 
-    while (ESPserial.available()) {
-      Serial.write(ESPserial.read());
+    // Send data to ESP
+    if(Serial.available()){
+      ESPserial.write(Serial.read());
     }
+    // Listen for communication from ESP and then
+    readInfoFromESP();
   }
+}
+
+void convertInfoFromESP(int info){
+  // Extraire les infos contenu dans le int reçu
+  int bleu = (info & 0xff000000) >> 24;
+	int blanc = (info & 0xff0000) >> 16;
+	int rouge = (info & 0xff00) >> 8;
+  int fans = (info & 0xff);
+
+  Serial.print("Bleu :");
+  Serial.println(bleu);
+  Serial.print("Blanc :");
+  Serial.println(blanc);
+  Serial.print("Rouge :");
+  Serial.println(rouge);
+  Serial.print("Fans :");
+  Serial.println(fans);
+}
+
+void readInfoFromESP(){
+
+  if (ESPserial.available()) {
+    int value = ESPserial.read();
+    //Serial.flush();
+    Serial.println(value);
+  }
+  //delay(2000);
+  //convertInfoFromESP(value);
 }
