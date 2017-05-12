@@ -100,4 +100,10 @@ out.getSensorValue = function(id, cb){
     cb(rows);
   });
 }
+
+out.getBucketNameById = function(id, cb){
+  db.all('SELECT name FROM buckets WHERE id = ' + id, function(err, rows){
+    cb(rows[0].name);
+  });
+}
 //----------------------------------------------------------------------

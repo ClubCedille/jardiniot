@@ -75,7 +75,7 @@ out.send = function(bucket, params)
 {
 	//On utilise un entier 32 bit pour envoyer du data. (4 x 8 bits)
 	//[LED bleue] + [LED blanche] + [LED rouge] + [FAN]
-	var entier = params.fan + (params.red * 256) + (params.white * Math.pow(256, 2)) + (params.blue * Math.pow(256, 3));
+	var entier = parseInt(params.fan) + (parseInt(params.red) * 256) + (parseInt(params.white) * Math.pow(256, 2)) + (parseInt(params.blue) * Math.pow(256, 3));
 	mqtt_client.publish('control_' + bucket, entier.toString());
 }
 

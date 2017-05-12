@@ -4,7 +4,7 @@ var dataConn = require("./sqlite_connector.js");
 const mqtt = require("./mqtt_connector.js");
 mqtt.init(dataConn);
 
-//This should be loaded from a conf. file.
+//Ceci devrait être loadé à partir d'un fichier de config.
 const PORT = 8080;
 
 //==============================Handling functions==============================
@@ -21,6 +21,52 @@ var bucketInfo = function(url, data, cb){
   id = url.replace("/bucket/", "");
   if (isNaN(id) || id == "") {
     cb(JSON.stringify({error: "Invalid bucket number."}));
+  }
+
+  //Hein? On a reçu des données?
+  if (data != "")
+  {
+    try
+    {
+      //Est-ce que mes données sont du JSON valide?
+      var data = JSON.parse(data);
+
+      //TODO: Regarder si celui qui a envoyé les données a le droit de le faire.
+
+      //Si on est ici, le JSON est valide. Contient-il ce qu'on veut?
+      var dataIsValid =
+      //Est-ce que l'objet a les bonnes propriétés?
+      data.hasOwnProperty("blue") &&
+      data.hasOwnProperty("white") &&
+      data.hasOwnProperty("red") &&
+      data.hasOwnProperty("fan") &&
+      //Est-ce que ce sont des nombres?
+      Number.isInteger(parseFloat(data.blue)) &&
+      Number.isInteger(parseFloat(data.white)) &&
+      Number.isInteger(parseFloat(data.red)) &&
+      Number.isInteger(parseFloat(data.fan)) &&
+      //Est-ce que ces nombres sont des valeurs valides?
+      //La validité des valeurs sont définies dans Wiki:
+      //voir https://github.com/ClubCedille/jardiniot/wiki/Connectivit%C3%A9-entre-ESP-et-API-(MQTT)
+      data.blue < 256 &&
+      data.white < 256 &&
+      data.red < 256 &&
+      data.fan < 171;
+      //...and this is how you do condition short-circuiting.
+
+      if (!dataIsValid) throw "Data received is invalid.";
+
+      //Si on est ici, les données sont valides!
+      //Let's treat it! (Post it check it treat it send it ♫)
+      dataConn.getBucketNameById(id, function(bucketName){
+        mqtt.send(bucketName, data);
+      });
+    }
+    catch (e)
+    {
+      //Les données sont invalides, on envoie un msg d'erreur en console :-(
+      console.error("Api --> bucketInfo --> Data received invalid" + e);
+    }
   }
 
   dataConn.getBucketInfo(id, function(rst){
@@ -43,7 +89,7 @@ var getSensorValue = function(url, data, cb){
 //==============================================================================
 
 
-//Defining the regexes that corresponds to the handling functions
+//Définition des regexes qui redirigent vers les handling functions
 var handles = [
   {regex: /^\/buckets$/i, func: listBuckets},
   {regex: /^\/bucket\/[0-9]+$/i, func: bucketInfo},
@@ -51,7 +97,7 @@ var handles = [
 ]
 
 
-//Function that handles and dispatches HTTP requests
+//Fonction qui dispatch les requêtes HTTP à la bonne handling function
 function handleRequest(request, response){
 
   if(request.method == "POST" || request.method == "GET")
@@ -63,7 +109,7 @@ function handleRequest(request, response){
         postData += dataChunk;
     });
 
-    //Let's dispatch
+    //Dispatchons
     request.on("end", function() {
       var handled = false;
 
@@ -76,14 +122,14 @@ function handleRequest(request, response){
         }
       });
 
-      //If no handler was called, close the connection and notify the client.
+      //Si aucune handling function n'a été appelée, on envoie une erreur.
       if (!handled) {response.end(JSON.stringify({error: "Invalid endpoint."}))}
     });
 
   }
   else
   {
-    //If method isn't POST or GET
+    //Si la méthode n'est pas un POST ou un GET
     response.end(JSON.stringify({error: "HTTP method not supported."}))
   }
 
