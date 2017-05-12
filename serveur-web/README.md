@@ -25,7 +25,7 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 - Implémenter l'ACL dans Mosquitto (on est sensé pouvoir mettre les accès directement dans la BD)
 
 #### Instructions d'installation
-Cloner le repo, ensuite:
+Cloner le repo, [installer yarn](https://yarnpkg.com/fr/docs/install), ensuite:
 ```
 cd jardiniot/serveur-web/
 yarn install
