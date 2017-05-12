@@ -27,9 +27,9 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 #### Instructions d'installation
 Cloner le repo, ensuite:
 ```
-cd jardiniot/serveur-web/api/
-npm install sqlite3 mqtt
-node connector.js
+cd jardiniot/serveur-web/
+yarn install
+yarn start
 ```
 
 ## API

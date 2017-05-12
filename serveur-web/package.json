@@ -1,0 +1,25 @@
+{
+  "name": "jardiniot-api",
+  "version": "0.1.0",
+  "description": "L'api du connecteur de jardiniot est conservé dans ce dossier.",
+  "main": "api/api.js",
+  "scripts": {
+    "start": "cd api; node api.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "git+https://github.com/ClubCedille/jardiniot.git",
+  "keywords": [
+    "jardin",
+    "iot"
+  ],
+  "author": "aubguillemette",
+  "license": "TODO",
+  "bugs": {
+    "url": "https://github.com/ClubCedille/jardiniot/issues"
+  },
+  "homepage": "https://github.com/ClubCedille/jardiniot#readme",
+  "dependencies": {
+    "mqtt": "^2.7.1",
+    "sqlite3": "^3.1.8"
+  }
+}
