@@ -14,15 +14,15 @@ const LIMIT_FAN   = 170;
 //==============================Handling functions==============================
 
 //Get bucket list
-var listBuckets = function(url, data, cb){
+var listBuckets = function(url, method, data, cb){
   dataConn.getBucketList(function(rst){
     cb(JSON.stringify(rst));
   });
 };
 
 //Get bucket info
-var bucketInfo = function(url, data, cb){
-  id = url.replace("/bucket/", "");
+var bucketInfo = function(url, method, data, cb){
+  id = url.replace("/buckets/", "");
   if (isNaN(id) || id == "") {
     cb(JSON.stringify({error: "Invalid bucket number."}));
   }
@@ -83,7 +83,7 @@ var bucketInfo = function(url, data, cb){
 };
 
 //Get sensor value
-var getSensorValue = function(url, data, cb){
+var getSensorValue = function(url, method, data, cb){
   var urlParts = url.split("/");
   var id = urlParts[urlParts.length - 1];
   if (isNaN(id) || id == "") {
@@ -100,8 +100,8 @@ var getSensorValue = function(url, data, cb){
 //Définition des regexes qui redirigent vers les handling functions
 var handles = [
   {regex: /^\/buckets$/i, func: listBuckets},
-  {regex: /^\/bucket\/[0-9]+$/i, func: bucketInfo},
-  {regex: /^\/bucket\/[0-9]+\/sensor\/[0-9]+$/i, func: getSensorValue}
+  {regex: /^\/buckets\/[0-9]+$/i, func: bucketInfo},
+  {regex: /^\/buckets\/[0-9]+\/[0-9]+$/i, func: getSensorValue}
 ]
 
 
@@ -124,7 +124,8 @@ function handleRequest(request, response){
       handles.forEach(function(val, key){
         if (val.regex.test(request.url)) {
           handled = true;
-          val.func(request.url, postData, function(responseData){
+          val.func(request.url, request.method, postData, function(responseData){
+            response.writeHead(200, {'Access-Control-Allow-Origin': '*'}); //For debugging purposes
             response.end(responseData);
           });
         }
