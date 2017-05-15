@@ -71,24 +71,24 @@ void readInfoFromESP(){
     Serial.print("Value received :");
     Serial.println(value);
 
-    //int info = atoi(value.c_str());
-    //convertInfoFromESP(info);
+    long info = atol(value.c_str());
+    convertInfoFromESP(info);
   }
 }
 
-void convertInfoFromESP(int info){
+void convertInfoFromESP(long info){
   // Extraire les infos contenu dans le int reçu
-  int red = (info & 0xff000000) >> 24;
-	int blue = (info & 0xff0000) >> 16;
-	int green = (info & 0xff00) >> 8;
+  int bleu = (info & 0xff000000) >> 24;
+	int blanc = (info & 0xff0000) >> 16;
+	int rouge = (info & 0xff00) >> 8;
   int fans = (info & 0xff);
 
-  Serial.print("Rouge :");
-  Serial.println(red);
-  Serial.print("Green :");
-  Serial.println(green);
-  Serial.print("Bleu :");
-  Serial.println(blue);
+  Serial.print("bleu :");
+  Serial.println(bleu);
+  Serial.print("blanc :");
+  Serial.println(blanc);
+  Serial.print("rouge :");
+  Serial.println(rouge);
   Serial.print("Fans :");
   Serial.println(fans);
 }
