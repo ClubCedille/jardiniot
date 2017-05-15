@@ -25,11 +25,11 @@ int port = 1883;                  // Renter le port du serveyr MQTT ici
 void callback(char* topic, byte* payload, unsigned int length) {
   char message_buff[100];
   // handle message arrived
-  Serial.println(topic);
+  //Serial.println(topic);
   int i = 0;
 
-  Serial.println("Message arrived:  topic: " + String(topic));
-  Serial.println("Length: " + String(length,DEC));
+  //Serial.println("Message arrived:  topic: " + String(topic));
+  //Serial.println("Length: " + String(length,DEC));
 
   // create character buffer with ending null terminator (string)
   for(i=0; i<length; i++) {
@@ -37,11 +37,17 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   message_buff[i] = '\0';
 
+  // Enveler control avant d'envoyer
   String msgString = String(message_buff);
 
-  Serial.println("Payload: " + msgString);
+  //Serial.println("Payload: " + msgString);
 
-  sendCommandToArduino(msgString);
+  // Write to arduino
+  int len = Serial.write(msgString.c_str());
+  /*Serial.print("LENGTH :");
+  Serial.println(len);
+  Serial.println(msgString);*/
+
 }
 
 WiFiClient wifiClient;
@@ -179,14 +185,6 @@ void loop() {
   sendStatus();
 }
 
-void sendCommandToArduino(String command){
-  int value = atoi(command.c_str());
-  Serial.println(value);
-
-  // Write to arduino
-  Serial.write(value);
-}
-
 void sendStatus(){
   static int iteration = 0;
 
@@ -200,13 +198,14 @@ void sendStatus(){
   }
 
   // Ce payload constitue une topic
-  String payload = "{\"micros\":";
+  String payload = "{";
+  /*String payload = "{\"micros\":";
   payload += micros();
   payload += ",\"iteration\":";
-  payload += iteration;
+  payload += iteration;*/
   if (arduino_sensors.length() > 0)
   {
-    payload += ",";
+    //payload += ",";
     payload += arduino_sensors;
   }
   payload += "}";
@@ -217,10 +216,10 @@ void sendStatus(){
     Serial.println(payload);*/
 
     if (client.publish(topic, (char*) payload.c_str())) {
-      Serial.println("Publish ok");
+      //Serial.println("Publish ok");
     }
     else {
-      Serial.println("Publish failed");
+      //Serial.println("Publish failed");
     }
   }
   // FIXME: Quand le ESP est seul, cela fonctionne normalement,
@@ -228,8 +227,4 @@ void sendStatus(){
   iteration++;
   delay(2020);
 
-  if (Serial.available())
-  {
-    //Serial.println(payload);
-  }
 }
