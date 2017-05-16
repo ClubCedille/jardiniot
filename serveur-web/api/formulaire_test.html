@@ -2,30 +2,146 @@
 <head>
   <title>Un beau formulaire de test</title>
   <meta charset="utf-8">
-  <style>body {font-family: sans-serif;}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {font-family: sans-serif;}
+
+    div {
+      display: table-cell;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #envoiCommande {
+      background-color: #4F5;
+    }
+
+    #inscriptionBucket {
+      background-color: #F45;
+    }
+
+    #enregistrerSensor {
+      background-color: #45F;
+    }
+
+    #suppressionBucket {
+      background-color: #2EE;
+    }
+
+    #suppressionSensor {
+      background-color: #EE2;
+    }
+
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script>
-    function send()
+    function postCommand()
     {
       var dataObj = {};
       dataObj.blue = $("#blue").val();
       dataObj.white = $("#white").val();
       dataObj.red = $("#red").val();
       dataObj.fan = $("#fan").val();
-      $.post("http://localhost:8080/bucket/1", JSON.stringify(dataObj));
+      var bucketId = $("#bucket").val();
+      $.post("http://localhost:8080/control/" + bucketId, JSON.stringify(dataObj), function(rst){
+        alert(rst);
+      });
+    }
+    function postBucket()
+    {
+      var dataObj = {};
+      dataObj.bucketName = $("#bucketName").val();
+      dataObj.bucketIp = $("#bucketIp").val();
+      $.post("http://localhost:8080/buckets/", JSON.stringify(dataObj), function(rst){
+        alert(rst);
+      });
+    }
+    function postSensor()
+    {
+      var dataObj = {};
+      dataObj.sensorName = $("#sensorName").val();
+      dataObj.sensorType = $("#sensorType").val();
+      var bucketId = $("#sensor_bucket").val();
+      $.post("http://localhost:8080/buckets/" + bucketId, JSON.stringify(dataObj), function(rst){
+        alert(rst);
+      });
+    }
+    function deleteBucket()
+    {
+      var dataObj = {};
+      dataObj.bucketId = $("#bucketId").val();
+      /*$.post("http://localhost:8080/buckets/1", JSON.stringify(dataObj), function(rst){
+        alert(rst);
+      });*/
+      var ajaxParams = {};
+      ajaxParams.url = "http://localhost:8080/buckets/" + dataObj.bucketId;
+      ajaxParams.type = "DELETE";
+      ajaxParams.success = function(rst){
+        alert(rst);
+      };
+      $.ajax(ajaxParams);
+    }
+    function deleteSensor()
+    {
+      var dataObj = {};
+      dataObj.bucketId = $("#sensor_bucket2").val();
+      dataObj.sensorId = $("#sensorId").val();
+      var ajaxParams = {};
+      ajaxParams.url = "http://localhost:8080/buckets/" + dataObj.bucketId + "/" + dataObj.sensorId;
+      ajaxParams.type = "DELETE";
+      ajaxParams.success = function(rst){
+        alert(rst);
+      };
+      $.ajax(ajaxParams);
     }
   </script>
 </head>
 <body>
   <center>
     <h1>Bienvenue sur notre beau formulaire de test</h1>
-    <form action="http://localhost:8080/bucket/1" method="POST">
-      <input id="blue" name="blue" type="text" placeholder="Valeur de la lumière bleue" /><br>
-      <input id="white" name="white" type="text" placeholder="Valeur de la lumière blanche" /><br>
-      <input id="red" name="red" type="text" placeholder="Valeur de la lumière rouge" /><br>
-      <input id="fan" name="fan" type="text" placeholder="Valeur de la fan" /><br>
-      <input type="button" value="Shoot moi ça!" onclick="send()" />
-    </form>
+    <div id="envoiCommande">
+      <form>
+        <h5>Envoi de commandes au ESP</h5>
+        <input id="bucket" name="bucket" type="text" placeholder="ID du bucket" /><br>
+        <input id="blue" name="blue" type="text" placeholder="Valeur de la lumière bleue" /><br>
+        <input id="white" name="white" type="text" placeholder="Valeur de la lumière blanche" /><br>
+        <input id="red" name="red" type="text" placeholder="Valeur de la lumière rouge" /><br>
+        <input id="fan" name="fan" type="text" placeholder="Valeur de la fan" /><br>
+        <input type="button" value="Envoyer commande" onclick="postCommand()" />
+      </form>
+    </div>
+    <div id="inscriptionBucket">
+      <form>
+        <h5>Inscription d'un bucket</h5>
+        <input id="bucketName" type="text" placeholder="Nom du nouveau bucket" /><br>
+        <input id="bucketIp" type="text" placeholder="Adresse IP du nouveau bucket" /><br>
+        <input type="button" value="Enregistrer bucket" onclick="postBucket()" />
+      </form>
+    </div>
+    <div id="enregistrerSensor">
+      <form>
+        <h5>Enregistrement d'un nouveau sensor</h5>
+        <input id="sensor_bucket" type="text" placeholder="ID du bucket" /><br>
+        <input id="sensorName" type="text" placeholder="Nom du sensor" /><br>
+        <input id="sensorType" type="text" placeholder="Type du sensor" /><br>
+        <input type="button" value="Enregistrer sensor" onclick="postSensor()" />
+      </form>
+    </div>
+    <div id="suppressionBucket">
+      <form>
+        <h5>Suppression d'un bucket</h5>
+        <input id="bucketId" type="text" placeholder="ID du bucket" /><br>
+        <input type="button" value="Delete bucket" onclick="deleteBucket()" />
+      </form>
+    </div>
+    <div id="suppressionSensor">
+      <form>
+        <h5>Suppression d'un sensor</h5>
+        <input id="sensor_bucket2" type="text" placeholder="ID du bucket" /><br>
+        <input id="sensorId" type="text" placeholder="ID du sensor" /><br>
+        <input type="button" value="Delete sensor" onclick="deleteSensor()" />
+      </form>
+    </div>
   </center>
 </body>
 </html>

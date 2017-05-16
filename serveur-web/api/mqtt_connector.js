@@ -42,14 +42,14 @@ out.init = function(sq) {
 		//On va chercher les buckets dans la base de données
 		sq.getBucketList(function(rst){
 			rst.forEach(function(elem){
-				debug("--> " + elem.name + " à l'adresse " + elem.ip);
+				debug("Inscrit au bucket " + elem.name + " à l'adresse " + elem.ip);
 				mqtt_client.subscribe("status_" + elem.name);
 			});
 		});
 	});
 
 	mqtt_client.on('message', function (topic, message) {
-		debug("-------------------\nMessage recu:\nTopic: " + topic + ", Message: " + message);
+		debug("Message recu: " + topic + " --> " + message);
 		try
 		{
 			var sensors = JSON.parse(message);
@@ -61,7 +61,7 @@ out.init = function(sq) {
 		}
 		catch (err)
 		{
-			debug("Message invalide: " + err.message);
+			debug("Message reçu invalide: " + err.message);
 		}
 	});
 
@@ -82,5 +82,5 @@ out.send = function(bucket, params)
 //Fonction qui affiche des messages à l'écran si la constante DEBUG est true
 function debug(msg)
 {
-	if (DEBUG) { console.log(msg); }
+	if (DEBUG) { console.log("DEBUG: " + msg); }
 }

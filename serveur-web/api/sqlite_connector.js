@@ -14,11 +14,19 @@ out.createBucket = function(_name, _ip, cb) {
 
   //Basic error checking because I want to be a nice guy
   if (_name === undefined || _ip === undefined) {
-    console.error("createBucket --> name or ip cannot be null");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createBucket()");
+    console.warn("       : The name or ip of the bucket cannot be null.")
+    console.warn("       : Bucket creation cancelled.");
+    console.warn("");
     return;
   }
   if (_name == "" || _ip == "") {
-    console.error("createBucket --> name or ip cannot be empty");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createBucket()");
+    console.warn("       : The name or ip of the bucket cannot be empty.")
+    console.warn("       : Bucket creation cancelled.");
+    console.warn("");
     return;
   }
 
@@ -33,11 +41,19 @@ out.createBucket = function(_name, _ip, cb) {
 //Ajout d'un sensor dans la base de données
 out.createSensor = function(_name, _type, _bucketId, cb) {
   if (!["humidity", "temperature"].includes(_type)) {
-    console.error("createSensor --> sensor type invalid");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createSensor()");
+    console.warn("       : The type of the sensor is invalid.");
+    console.warn("       : Sensor creation cancelled.");
+    console.warn("");
     return;
   }
   if (isNaN(_bucketId)) {
-    console.error("createSensor --> bucket id invalid");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createSensor()");
+    console.warn("       : The ID of the bucket is invalid.");
+    console.warn("       : Sensor creation cancelled.");
+    console.warn("");
     return;
   }
 
@@ -50,12 +66,20 @@ out.createSensor = function(_name, _type, _bucketId, cb) {
 
 //Ajout d'une valeur dans la BD
 out.createValue = function(_value, _sensorId) {
-  if (_value === undefined /*|| isNaN(_value)*/) {
-    console.error("createValue --> value is invalid");
+  if (_value === undefined) {
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createValue()");
+    console.warn("       : The value cannot be null.");
+    console.warn("       : Value creation cancelled.");
+    console.warn("");
     return;
   }
   if (_sensorId === undefined || isNaN(_sensorId)) {
-    console.error("createValue --> sensorId is invalid");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createValue()");
+    console.warn("       : The sensor ID is invalid.");
+    console.warn("       : Value creation cancelled.");
+    console.warn("");
     return;
   }
 
@@ -66,17 +90,33 @@ out.createValue = function(_value, _sensorId) {
 //Dans le cas où on connaît seulement le nom du sensor (comme dans connector.js)
 out.createValueWithSensorName = function(_value, _sensorName, _bucketName) {
   if (_value === undefined) {
-    console.error("createValueWithSensorName --> value is invalid");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createValueWithSensorName()");
+    console.warn("       : The value cannot be null.");
+    console.warn("       : Value creation cancelled.");
+    console.warn("");
     return;
   }
   if (_sensorName === undefined || _sensorName == "") {
-    console.error("createValueWithSensorName --> sensorName is invalid");
+    console.warn("");
+    console.warn("WARNING: In sqlite_connector::createValue()");
+    console.warn("       : The sensor name is invalid.");
+    console.warn("       : Value creation cancelled.");
+    console.warn("");
     return;
   }
   //On va chercher le ID du sensor à partir des noms.
   var requete = db.all('SELECT sensors.id FROM sensors, buckets WHERE sensors.bucket_id = buckets.id AND buckets.name = "' + _bucketName + '" AND sensors.name = "' + _sensorName + '"', function(err, rows){
     if (err) throw err;
-    out.createValue(_value, rows[0].id);
+    if (rows.length == 0){
+      console.warn("");
+      console.warn("WARNING: In sqlite_connector::createValue()");
+      console.warn("       : There seems to be no sensor named " + _sensorName + " registered in the db.");
+      console.warn("       : Value creation cancelled.");
+      console.warn("");
+    } else {
+      out.createValue(_value, rows[0].id);
+    }
   });
 }
 
