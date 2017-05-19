@@ -12,8 +12,8 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "CedilleNetwork";
-const char* password = "Quiamanger2pommes!";
+const char* ssid = "xxxxxxxxxxxxxxxx";
+const char* password = "xxxxxxxxxxxxxxxxxxx!";
 
 // le préfix pour recevoir du API c'est control_
 const char* topic = "status_test";  // À remplacer par "Temperature" ou "Humidite"
@@ -24,29 +24,17 @@ int port = 1883;                  // Renter le port du serveyr MQTT ici
 // Fait ce qu'il a à faire avec le message reçu
 void callback(char* topic, byte* payload, unsigned int length) {
   char message_buff[100];
-  // handle message arrived
-  //Serial.println(topic);
-  int i = 0;
-
-  //Serial.println("Message arrived:  topic: " + String(topic));
-  //Serial.println("Length: " + String(length,DEC));
 
   // create character buffer with ending null terminator (string)
+  int i = 0;
   for(i=0; i<length; i++) {
     message_buff[i] = payload[i];
   }
   message_buff[i] = '\0';
 
-  // Enveler control avant d'envoyer
-  String msgString = String(message_buff);
-
-  //Serial.println("Payload: " + msgString);
-
   // Write to arduino
-  int len = Serial.write(msgString.c_str());
-  /*Serial.print("LENGTH :");
-  Serial.println(len);
-  Serial.println(msgString);*/
+  String msgString = String(message_buff);
+  Serial.write(msgString.c_str());
 
 }
 
@@ -59,8 +47,6 @@ String macToStr(const uint8_t* mac)
   String result;
   for (int i = 0; i < 6; ++i) {
     result += String(mac[i], 16);
-    //if (i < 5)
-      //result += ':';
   }
   return result;
 }
@@ -72,19 +58,8 @@ const char* getTopic(String type, String &clientName){
   uint8_t mac[6];
   WiFi.macAddress(mac);
   clientName += macToStr(mac);
-  //clientName += "_";
-  //clientName += String(micros() & 0xff, 16);
   return clientName.c_str();   // note: strdup fait un malloc à l'interne
 }
-
-// Wifi callback
-/*void configModeCallback (WiFiManager *myWiFiManager) {
-  Serial.println("Mode configuration. Configurez le WiFi par vous même.");
-  Serial.print("Le SSID du AP est: ");
-  Serial.println(myWiFiManager->getConfigPortalSSID());
-  Serial.print("Utiliser le IP suivant pour la configuration: ");
-  Serial.println(WiFi.softAPIP());
-}*/
 
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
 // Il y aura plusieurs topics
@@ -97,8 +72,6 @@ void setup() {
   WiFiManager wifiManager;
   wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois.
   wifiManager.setTimeout(1);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
-  //wifiManager.setConfigPortalTimeout(60); //warn: utiliser cette méthode fuck le esp
-  //wifiManager.setConnectTimeout(60);  //warn: utiliser cette méthode fuck le esp
 
   // MQTT
   String mqtt_server = "";  // Enter MQTT server IP here
@@ -128,10 +101,6 @@ void setup() {
     mqtt_server = custom_mqtt_server.getValue();
     serverip = strdup(mqtt_server.c_str());
   }
-
-  //if you get here you have connected to the WiFi
-  //Serial.print("On se connect au WIFI ayant le SSID: ");
-  //Serial.println(ssid);
 
   String type = "status_";
   String clientName;
@@ -199,21 +168,14 @@ void sendStatus(){
 
   // Ce payload constitue une topic
   String payload = "{";
-  /*String payload = "{\"micros\":";
-  payload += micros();
-  payload += ",\"iteration\":";
-  payload += iteration;*/
   if (arduino_sensors.length() > 0)
   {
-    //payload += ",";
     payload += arduino_sensors;
   }
   payload += "}";
 
   // Envoie du payload
   if (client.connected()){
-    /*Serial.print("Sending payload: ");
-    Serial.println(payload);*/
 
     if (client.publish(topic, (char*) payload.c_str())) {
       //Serial.println("Publish ok");

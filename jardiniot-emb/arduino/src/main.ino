@@ -37,8 +37,6 @@ void loop() {
   if (isnan(h) || isnan(t)) {
     Serial.println("Echec de lecture du DHT!");
   } else {
-    //float hic = dht.computeHeatIndex(t, h, false);
-
     //pour faire flasher la led
     digitalWrite(ledPin, HIGH);
     delay(1000);
@@ -91,4 +89,6 @@ void convertInfoFromESP(long info){
   Serial.println(rouge);
   Serial.print("Fans :");
   Serial.println(fans);
+
+  // Todo Envoyer les valeurs aux différents senseurs
 }
