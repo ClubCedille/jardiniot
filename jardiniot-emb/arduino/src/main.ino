@@ -1,6 +1,7 @@
 /* Code pour le Arduino Uno et le DHT22 */
 #include "DHT.h"
 #include <SoftwareSerial.h>
+#include <string.h>
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
 
@@ -30,64 +31,64 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-
-/*
-  digitalWrite(ledPin, LOW);
-  delay(5);
-
-  if (Serial.available()) {
-    // Lit ce que j'écris puis le print au serial monitor
-    byte byteRead = Serial.read();
-    Serial.write(byteRead);
-    // Flash la lumière!
-    digitalWrite(ledPin, HIGH);
-    delay(10);
-  }
-*/
-
-  // Boucle de lecture-écriture pour tester
-  /*while (ESPserial.available()) {
-    Serial.write(ESPserial.read());
-  }
-  while (Serial.available()) {
-    ESPserial.write(Serial.read());
-  }*/
-
   float h = dht.readHumidity();           // humidité
   float t = dht.readTemperature(false);        // temp (Celcius)
 
   if (isnan(h) || isnan(t)) {
     Serial.println("Echec de lecture du DHT!");
   } else {
-    float hic = dht.computeHeatIndex(t, h, false);
-
+    //pour faire flasher la led
     digitalWrite(ledPin, HIGH);
-    Serial.print("Humidité: ");
-    Serial.print(h);
-    Serial.println(" % ");
-    Serial.print("Température: ");
-    Serial.print(t);
-    Serial.println(" °C ");
-    Serial.print("Index de chaleur: ");
-    Serial.print(hic);
-    Serial.println(" °C ");
-    Serial.println("");
-    delay(20);
+    delay(1000);
     digitalWrite(ledPin, LOW);
-    delay(2000);
+    delay(1000);
 
-    // Envoyer la temperature
-    ESPserial.print("\"temperature\":");
-    ESPserial.print(t);
-    ESPserial.print("°C");
+    //convertion de temperature en string
+    char tempString[8];
+    dtostrf(t, 6, 2, tempString);
+    //convertion de l'humidite en string
+    char humidityString[8];
+    dtostrf(h, 6, 2, humidityString);
 
-    // Envoyer l'humidité
-    ESPserial.print(",\"humidite\":");
-    ESPserial.print(h);
-    ESPserial.print("%");
+    //met les infos dans un char array (sprintf ne prends plus de float (%f) en parametre)
+    char sensorStatus[50];
+    sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s",tempString,humidityString);
 
-    while (ESPserial.available()) {
-      Serial.write(ESPserial.read());
-    }
+    // Send data to ESP
+    ESPserial.write(sensorStatus);
+
+    // Listen for communication from ESP
+    readInfoFromESP();
   }
+}
+
+void readInfoFromESP(){
+
+  if (ESPserial.available()) {
+    String value = ESPserial.readString();
+    Serial.print("Value received :");
+    Serial.println(value);
+
+    long info = atol(value.c_str());
+    convertInfoFromESP(info);
+  }
+}
+
+void convertInfoFromESP(long info){
+  // Extraire les infos contenu dans le int reçu
+  int bleu = (info & 0xff000000) >> 24;
+	int blanc = (info & 0xff0000) >> 16;
+	int rouge = (info & 0xff00) >> 8;
+  int fans = (info & 0xff);
+
+  Serial.print("bleu :");
+  Serial.println(bleu);
+  Serial.print("blanc :");
+  Serial.println(blanc);
+  Serial.print("rouge :");
+  Serial.println(rouge);
+  Serial.print("Fans :");
+  Serial.println(fans);
+
+  // Todo Envoyer les valeurs aux différents senseurs
 }
