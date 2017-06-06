@@ -14,7 +14,8 @@ DHT dht(DHTPIN, DHTTYPE);
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   Serial.begin(9600);
   ESPserial.begin(9600);
@@ -29,7 +30,8 @@ void setup() {
   pinMode(ledPin, OUTPUT);
 }
 
-void loop() {
+void loop()
+{
   // put your main code here, to run repeatedly:
   float h = dht.readHumidity();           // humidité
   float t = dht.readTemperature(false);        // temp (Celcius)
@@ -62,8 +64,8 @@ void loop() {
   }
 }
 
-void readInfoFromESP(){
-
+void readInfoFromESP()
+{
   if (ESPserial.available()) {
     String value = ESPserial.readString();
     Serial.print("Value received :");
@@ -74,7 +76,8 @@ void readInfoFromESP(){
   }
 }
 
-void convertInfoFromESP(long info){
+void convertInfoFromESP(long info)
+{
   // Extraire les infos contenu dans le int reçu
   int bleu = (info & 0xff000000) >> 24;
 	int blanc = (info & 0xff0000) >> 16;
