@@ -1,6 +1,7 @@
 /* Code pour le Arduino Uno et le DHT22 */
 #include "DHT.h"
 #include <SoftwareSerial.h>
+#include <CmdMessenger.h>
 #include <string.h>
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
@@ -13,6 +14,35 @@ DHT dht(DHTPIN, DHTTYPE);
 
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
+// Attach a new CmdMessenger object to the default Serial port
+CmdMessenger cmdMessenger = CmdMessenger(Serial);
+
+// This is the list of recognized commands. These can be commands that can either be sent or received.
+// In order to receive, attach a callback function to these events
+enum
+{
+  kSetControl          , // Command to receive a command from the ESP for different sensor
+  kStatus              , // Command to send status to ESP
+};
+
+// Callbacks define on which received commands we take action
+void attachCommandCallbacks()
+{
+  // Attach callback methods
+  cmdMessenger.attach(kSetControl, OnSetControl);
+}
+
+// Callback function that set the sensors
+void OnSetControl()
+{
+  // Listen for communication from ESP
+  String value = cmdMessenger.readStringArg();
+  Serial.print("Value received :");
+  Serial.println(value);
+  long info = atol(value.c_str());
+  convertInfoFromESP(info);
+}
+
 
 void setup()
 {
@@ -28,6 +58,11 @@ void setup()
   Serial.println("Ready soon!");
 
   pinMode(ledPin, OUTPUT);
+
+  // Adds newline to every command
+  cmdMessenger.printLfCr();
+  // Attach my application's user-defined callback methods
+  attachCommandCallbacks();
 }
 
 void loop()
@@ -57,14 +92,16 @@ void loop()
     sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s",tempString,humidityString);
 
     // Send data to ESP
-    ESPserial.write(sensorStatus);
+    // Process incoming serial data, and perform callbacks
+    cmdMessenger.feedinSerialData();
+    Serial.println("Command Sent!");
+    cmdMessenger.sendCmd(kStatus, (String) sensorStatus);
+    //ESPserial.write(sensorStatus);
 
-    // Listen for communication from ESP
-    readInfoFromESP();
   }
 }
 
-void readInfoFromESP()
+/*void readInfoFromESP()
 {
   if (ESPserial.available()) {
     String value = ESPserial.readString();
@@ -74,7 +111,7 @@ void readInfoFromESP()
     long info = atol(value.c_str());
     convertInfoFromESP(info);
   }
-}
+}*/
 
 void convertInfoFromESP(long info)
 {

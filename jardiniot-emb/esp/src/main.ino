@@ -40,16 +40,12 @@ void attachCommandCallbacks()
 {
   // Attach callback methods
   cmdMessenger.attach(kStatus, OnStatus);
-  //cmdMessenger.attach(kSetControl, OnSetControl);
 }
 
-// Called when a received command has no attached function
+// Callback function that send the status to Web API
 void OnStatus()
 {
-  String arduino_sensors;
-  while (Serial.available()) {
-    arduino_sensors = Serial.readString();
-  }
+  String arduino_sensors = cmdMessenger.readStringArg();
   // Ce payload constitue une topic
   String payload = "{";
   if (arduino_sensors.length() > 0) {
@@ -83,6 +79,7 @@ void callback(char* topic, byte* payload, unsigned int length)
 
   // Write to arduino
   String msgString = String(message_buff);
+  // Send the msgControl received from the web API
   cmdMessenger.sendCmd(kSetControl, (String) msgString);
   //Serial.write(msgString.c_str());
 
@@ -192,6 +189,10 @@ void setup()
     Serial.println("Will reset and try again...");
     abort();
   }
+  // Adds newline to every command
+  cmdMessenger.printLfCr();
+  // Attach my application's user-defined callback methods
+  attachCommandCallbacks();
 }
 
 void loop()
