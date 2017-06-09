@@ -32,16 +32,16 @@ sq.createBucket("DEADBEEF", "0.0.0.0", function(bucketId){
 */
 
 //Allons chercher la liste des buckets
-sq.getBucketList(function(rst){
+sq.getBucketList(function(err, rst){
   console.log(rst);
 });
 
 //La liste des sensors du bucket avec l'ID 1
-sq.getBucketInfo(1, function(rst){
+sq.getBucketInfo(1, function(err, rst){
   console.log(rst);
 });
 
 //La liste des valeurs pour le sensor avec l'ID 2
-sq.getSensorValue(2, function(rst){
+sq.getSensorValue(2, function(err, rst){
   console.log(rst);
 });

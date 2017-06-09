@@ -1,4 +1,4 @@
-var http = require("http");
+var express = require("express");
 var dataConn = require("./sqlite_connector.js");
 
 const mqtt = require("./mqtt_connector.js");
@@ -11,165 +11,167 @@ const LIMIT_WHITE = 170;
 const LIMIT_RED   = 170;
 const LIMIT_FAN   = 170;
 
+var api = express();
+
+//For debugging purposes
+api.use(enableCORS);
+function enableCORS(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+}
+
+
+/*
+ * Bucket list
+ */
+api.get('/buckets', function(req, res, next) {
+    listBuckets(req, res);
+});
+
+/*
+ * Bucket info
+ */
+api.get('/buckets/:bucketId', function(req, res, next) {
+    bucketInfo(req, res);
+});
+
+/*
+ * Sensor info
+ */
+api.get('/buckets/:bucketId/:sensorId', function(req, res, next) {
+    getSensorValue(req, res);
+});
+
+/*
+ * Command
+ */
+api.post('/command/:commandId', function(req, res, next) {
+    sendCommand(req, res);
+});
+
+api.listen(PORT, function() {
+    console.log('Api running on port ' + PORT );
+});
+
+
 //==============================Handling functions==============================
 
 //Get bucket list
-var listBuckets = function(url, method, data, cb){
-
-  if (method == "GET") {
-    dataConn.getBucketList(function(rst){
-      cb(JSON.stringify(rst));
-      return; // On a plus rien à faire ici.
+function listBuckets(req, res){
+    dataConn.getBucketList(function(err, result){
+        if(err) {
+            res.status(500).send('Welp');
+        } else {
+            res.status(200).send(JSON.stringify(result));
+        }
     });
-  }
-
-  if (method == "POST") {
-    //TODO: Inclure le code pour enregistrer les buckets
-  }
-
-};
+}
 
 //Get bucket info
-var bucketInfo = function(url, method, data, cb){
-  var id = url.replace("/buckets/", "").replace(/\//g, "");
-  if (isNaN(id) || id == "") {
-    cb(JSON.stringify({error: "Invalid bucket number."}));
-  }
-
-  dataConn.getBucketInfo(id, function(rst){
-    cb(JSON.stringify(rst));
-  });
-};
+function bucketInfo(req, res) {
+    var id = req.params.bucketId;
+    if (isNaN(id) || id == "") {
+        res.status(400).send(JSON.stringify({error: "Invalid bucket number."}));
+        return;
+    }
+    dataConn.getBucketInfo(id, function(err, result){
+        if(err) {
+            res.status(500).send('Welp');
+        } else {
+            res.status(200).send(JSON.stringify(result));
+        }
+    });
+}
 
 //Get sensor value
-var getSensorValue = function(url, method, data, cb){
-  //var urlParts = url.split("/");
-  var id = url.replace(/^\/buckets\/[0-9]+\//g, "").replace(/\//g, "");
-  //var id = urlParts[urlParts.length - 1];
-  if (isNaN(id) || id == "") {
-    cb(JSON.stringify({error: "Invalid sensor number."}));
-  }
+function getSensorValue(req, res){
+    var id = req.params.sensorId;
+    if (isNaN(id) || id == "") {
+        res.status(400).send(JSON.stringify({error: "Invalid bucket number."}));
+        return;
+    }
 
-  var sensorInfo = dataConn.getSensorValue(id, function(rst){
-    cb(JSON.stringify(rst));
-  });
+    var sensorInfo = dataConn.getSensorValue(id, function(err, result){
+        if(err) {
+            res.status(500).send('Welp');
+        } else {
+            res.status(200).send(JSON.stringify(result));
+        }
+    });
 }
 
 //Post command to ESP
-var sendCommand = function(url, method, data, cb){
+function sendCommand(req, res){
+    var id = req.params.commandId;
 
-  var id = url.replace("/control/", "").replace(/\//g, "");
+    if (isNaN(id) || id == "") {
+        cb(JSON.stringify({error: "Invalid bucket number."}));
+        return;
+    }
 
-  if (isNaN(id) || id == "") {
-    cb(JSON.stringify({error: "Invalid bucket number."}));
-  }
-
-  if (method != "POST") { cb(JSON.stringify({error: "Error: HTTP method not supported on this endpoint"})); }
-  if (data != "") { cb(JSON.stringify({error: "Error: POST data received is invalid"})); }
-  try
-  {
-    //Est-ce que mes données sont du JSON valide?
-    var data = JSON.parse(data);
-
-    //TODO: Regarder si celui qui a envoyé les données a le droit de le faire.
-
-    //Si on est ici, le JSON est valide. Contient-il ce qu'on veut?
-    var dataIsValid =
-    //Est-ce que l'objet a les bonnes propriétés?
-    data.hasOwnProperty("blue") &&
-    data.hasOwnProperty("white") &&
-    data.hasOwnProperty("red") &&
-    data.hasOwnProperty("fan") &&
-    //Est-ce que ce sont des nombres?
-    Number.isInteger(parseFloat(data.blue)) &&
-    Number.isInteger(parseFloat(data.white)) &&
-    Number.isInteger(parseFloat(data.red)) &&
-    Number.isInteger(parseFloat(data.fan)) &&
-    //Est-ce que ces nombres sont des valeurs valides?
-    //La validité des valeurs sont définies dans Wiki:
-    //voir https://github.com/ClubCedille/jardiniot/wiki/Connectivit%C3%A9-entre-ESP-et-API-(MQTT)
-    data.blue >= 0 &&
-    data.white >= 0 &&
-    data.red >= 0 &&
-    data.fan >= 0 &&
-    data.blue <= LIMIT_BLUE &&
-    data.white <= LIMIT_WHITE &&
-    data.red <= LIMIT_RED &&
-    data.fan <= LIMIT_FAN;
-    //...and this is how you do condition short-circuiting.
-
-    if (!dataIsValid) throw "Data received is invalid.";
-
-    //Si on est ici, les données sont valides!
-    //Let's treat it! (Post it check it treat it send it ♫)
-    dataConn.getBucketNameById(id, function(bucketName){
-      mqtt.send(bucketName, data);
-    });
-  }
-  catch (e)
-  {
-    //Les données sont invalides, on envoie un msg d'erreur en console :-(
-    console.warn("");
-    console.warn("WARNING: In api::sendCommand()");
-    console.warn("       : " + e);
-    console.warn("       : Not sending the command. :(");
-    console.warn("");
-  }
-
-}
-//==============================================================================
-
-
-//Définition des regexes qui redirigent vers les handling functions
-var handles = [
-  {regex: /^\/buckets\/?$/i, func: listBuckets},
-  {regex: /^\/buckets\/[0-9]+\/?$/i, func: bucketInfo},
-  {regex: /^\/buckets\/[0-9]+\/[0-9]+$/i, func: getSensorValue},
-  {regex: /^\/control\/[0-9]+$\/?/i, func: sendCommand}
-]
-
-
-//Fonction qui dispatch les requêtes HTTP à la bonne handling function
-function handleRequest(request, response){
-
-  if(request.method == "POST" || request.method == "GET")
-  {
-    var postData = "";
     //Receive the data first, then handle. (LET THEM FINISH THEIR SENTENCE!)
     var postData = "";
-    request.on("data", function(dataChunk) {
+    req.on("data", function(dataChunk) {
         postData += dataChunk;
     });
 
-    //Dispatchons
-    request.on("end", function() {
-      var handled = false;
+    req.on('end', handleCommand);
 
-      handles.forEach(function(val, key){
-        if (val.regex.test(request.url)) {
-          handled = true;
-          val.func(request.url, request.method, postData, function(responseData){
-            response.writeHead(200, {'Access-Control-Allow-Origin': '*'}); //For debugging purposes
-            response.end(responseData);
-          });
+    function handleCommand() {
+        if (postData != "") {
+            res.status(400).send(JSON.stringify({error: "Error: POST data received is invalid"}));
+            return;
         }
-      });
 
-      //Si aucune handling function n'a été appelée, on envoie une erreur.
-      if (!handled) {response.end(JSON.stringify({error: "Invalid endpoint."}))}
-    });
+        try
+        {
+            //Est-ce que mes données sont du JSON valide?
+            var data = JSON.parse(postData);
 
-  }
-  else
-  {
-    //Si la méthode n'est pas un POST ou un GET
-    response.end(JSON.stringify({error: "HTTP method not supported."}))
-  }
+            //TODO: Regarder si celui qui a envoyé les données a le droit de le faire.
 
+            //Si on est ici, le JSON est valide. Contient-il ce qu'on veut?
+            var dataIsValid =
+                //Est-ce que l'objet a les bonnes propriétés?
+                data.hasOwnProperty("blue") &&
+                data.hasOwnProperty("white") &&
+                data.hasOwnProperty("red") &&
+                data.hasOwnProperty("fan") &&
+                //Est-ce que ce sont des nombres?
+                Number.isInteger(parseFloat(data.blue)) &&
+                Number.isInteger(parseFloat(data.white)) &&
+                Number.isInteger(parseFloat(data.red)) &&
+                Number.isInteger(parseFloat(data.fan)) &&
+                //Est-ce que ces nombres sont des valeurs valides?
+                //La validité des valeurs sont définies dans Wiki:
+                //voir https://github.com/ClubCedille/jardiniot/wiki/Connectivit%C3%A9-entre-ESP-et-API-(MQTT)
+                data.blue >= 0 &&
+                data.white >= 0 &&
+                data.red >= 0 &&
+                data.fan >= 0 &&
+                data.blue <= LIMIT_BLUE &&
+                data.white <= LIMIT_WHITE &&
+                data.red <= LIMIT_RED &&
+                data.fan <= LIMIT_FAN;
+            //...and this is how you do condition short-circuiting.
+
+            if (!dataIsValid) throw "Data received is invalid.";
+
+            //Si on est ici, les données sont valides!
+            //Let's treat it! (Post it check it treat it send it ♫)
+            dataConn.getBucketNameById(id, function(bucketName){
+                mqtt.send(bucketName, data);
+            });
+        }
+        catch (e)
+        {
+            //Les données sont invalides, on envoie un msg d'erreur en console :-(
+            console.warn("");
+            console.warn("WARNING: In api::sendCommand()");
+            console.warn("       : " + e);
+            console.warn("       : Not sending the command. :(");
+            console.warn("");
+        }
+    }
 }
-
-//We're good to go I guess...
-var server = http.createServer(handleRequest);
-server.listen(PORT, function(){
-  console.log("STATUS: Api started on port " + PORT);
-});
