@@ -2,9 +2,9 @@ var out = module.exports;
 
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var db = new sqlite3.Database('jardin.db');
+var db = new sqlite3.Database(__dirname + '/jardin.db');
 db.serialize(); // --> Pour empêcher les requêtes en parallèle
-var sql = fs.readFileSync('sqlite_dbgen.sql', 'utf8');
+var sql = fs.readFileSync(__dirname + '/sqlite_dbgen.sql', 'utf8');
 db.exec(sql, function(err){
   if (err) throw err;
 });
@@ -126,28 +126,28 @@ out.createValueWithSensorName = function(_value, _sensorName, _bucketName) {
 out.getBucketList = function(cb){
   var statement = db.prepare("SELECT * FROM buckets");
   statement.all(function(err, rows){
-    cb(rows);
+    cb(err, rows);
   });
 }
 
 out.getBucketInfo = function(id, cb){
   var statement = db.prepare("SELECT * FROM sensors WHERE bucket_id = ?");
   statement.all(id, function(err, rows){
-    cb(rows);
+    cb(err, rows);
   });
 }
 
 out.getSensorValue = function(id, cb){
   var statement = db.prepare('SELECT * FROM "values" WHERE sensor_id = ?')
   statement.all(id, function(err, rows){
-    cb(rows);
+    cb(err, rows);
   });
 }
 
 out.getBucketNameById = function(id, cb){
   var statement = db.prepare("SELECT name FROM buckets WHERE id = ?")
   statement.all(id, function(err, rows){
-    cb(rows[0].name);
+    cb(err, rows[0].name);
   });
 }
 //----------------------------------------------------------------------
