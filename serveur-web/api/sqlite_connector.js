@@ -2,7 +2,7 @@ var out = module.exports;
 
 var sqlite3 = require('sqlite3').verbose();
 var fs = require('fs');
-var db = new sqlite3.Database('jardin.db');
+var db = new sqlite3.Database(__dirname + '/jardin.db');
 db.serialize(); // --> Pour empêcher les requêtes en parallèle
 var sql = fs.readFileSync(__dirname + '/sqlite_dbgen.sql', 'utf8');
 db.exec(sql, function(err){
