@@ -40,7 +40,7 @@ out.init = function(sq) {
 		*  Les valeurs des différents sensors sont encodées en JSON.
 		*/
 		//On va chercher les buckets dans la base de données
-		sq.getBucketList(function(rst){
+		sq.getBucketList(function(err, rst){
 			rst.forEach(function(elem){
 				debug("Inscrit au bucket " + elem.name + " à l'adresse " + elem.ip);
 				mqtt_client.subscribe("status_" + elem.name);
