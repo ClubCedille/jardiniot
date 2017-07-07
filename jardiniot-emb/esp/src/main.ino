@@ -34,7 +34,8 @@ String macToStr(const uint8_t* mac)
   return result;
 }
 
-const char* getTopic(String type, String &clientName){
+const char* getTopic(String type, String &clientName)
+{
   clientName = "";
   // Generate client name based on MAC address and last 8 bits of microsecond counter
   clientName += type;
@@ -62,7 +63,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
 // Il y aura plusieurs topics
-void setup() {
+void setup()
+{
   Serial.begin(9600);
 
   delay(10);
@@ -94,9 +96,7 @@ void setup() {
     Serial.println("WiFi connecté!");
     Serial.println("adresse IP: ");
     Serial.println(WiFi.localIP());
-  }
-  else
-  {
+  } else {
     mqtt_server = custom_mqtt_server.getValue();
     serverip = strdup(mqtt_server.c_str());
   }
@@ -146,7 +146,8 @@ void setup() {
   }
 }
 
-void loop() {
+void loop()
+{
   // Il faut faire un client loop pour obtenir les messages qui viennent du API
   client.loop();
 
@@ -186,5 +187,4 @@ void sendStatus(){
     // mais sinon il attend 2 secondes après le Arduino et faire 2 itératons.
     iteration++;
   }
-
 }

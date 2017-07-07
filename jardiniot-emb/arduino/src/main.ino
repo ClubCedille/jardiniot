@@ -16,7 +16,8 @@ DHT dht(DHTPIN, DHTTYPE);
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
   Serial.begin(9600);
   ESPserial.begin(9600);
@@ -74,22 +75,8 @@ void sendStatusToESP(){
   }
 }
 
-void readInfoFromESP(){
-
-  if (ESPserial.available()) {
-    String value = ESPserial.readString();
-    // Si la chaine de caractère n'est pas vide
-    if(value.length() != 0){
-      Serial.print("Value received :");
-      Serial.println(value);
-
-      long info = atol(value.c_str());
-      convertInfoFromESP(info);
-    }
-  }
-}
-
-void convertInfoFromESP(long info){
+void convertInfoFromESP(long info)
+{
   // Extraire les infos contenu dans le int reçu
   int bleu = (info & 0xff000000) >> 24;
 	int blanc = (info & 0xff0000) >> 16;
