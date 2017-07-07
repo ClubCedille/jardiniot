@@ -12,31 +12,14 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "xxxxxxxxxxxxxxxx";
-const char* password = "xxxxxxxxxxxxxxxxxxx!";
+const char* ssid = "CedilleNetwork";
+const char* password = "Quiamanger2pommes!";
 
 // le préfix pour recevoir du API c'est control_
 const char* topic = "status_test";  // À remplacer par "Temperature" ou "Humidite"
 const char* topicControl = "control_test";
 const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici
 int port = 1883;                  // Renter le port du serveyr MQTT ici
-
-// Fait ce qu'il a à faire avec le message reçu
-void callback(char* topic, byte* payload, unsigned int length) {
-  char message_buff[100];
-
-  // create character buffer with ending null terminator (string)
-  int i = 0;
-  for(i=0; i<length; i++) {
-    message_buff[i] = payload[i];
-  }
-  message_buff[i] = '\0';
-
-  // Write to arduino
-  String msgString = String(message_buff);
-  Serial.write(msgString.c_str());
-
-}
 
 WiFiClient wifiClient;
 PubSubClient client;
@@ -59,6 +42,22 @@ const char* getTopic(String type, String &clientName){
   WiFi.macAddress(mac);
   clientName += macToStr(mac);
   return clientName.c_str();   // note: strdup fait un malloc à l'interne
+}
+
+// Fait ce qu'il a à faire avec le message reçu
+void callback(char* topic, byte* payload, unsigned int length) {
+  char message_buff[100];
+
+  // create character buffer with ending null terminator (string)
+  int i = 0;
+  for(i=0; i<length; i++) {
+    message_buff[i] = payload[i];
+  }
+  message_buff[i] = '\0';
+
+  // Write to arduino
+  String msgString = String(message_buff);
+  Serial.write(msgString.c_str());
 }
 
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
@@ -166,27 +165,26 @@ void sendStatus(){
     arduino_sensors = Serial.readString();
   }
 
-  // Ce payload constitue une topic
-  String payload = "{";
-  if (arduino_sensors.length() > 0)
-  {
+  // Vérifier qu'on a quelque chose à envoyer avant de le faire
+  if(arduino_sensors.length() > 0){
+    // Ce payload constitue une topic
+    String payload = "{";
     payload += arduino_sensors;
-  }
-  payload += "}";
+    payload += "}";
 
-  // Envoie du payload
-  if (client.connected()){
+    // Envoie du payload
+    if (client.connected()){
 
-    if (client.publish(topic, (char*) payload.c_str())) {
-      //Serial.println("Publish ok");
+      if (client.publish(topic, (char*) payload.c_str())) {
+        //Serial.println("Publish ok");
+      }
+      else {
+        //Serial.println("Publish failed");
+      }
     }
-    else {
-      //Serial.println("Publish failed");
-    }
+    // FIXME: Quand le ESP est seul, cela fonctionne normalement,
+    // mais sinon il attend 2 secondes après le Arduino et faire 2 itératons.
+    iteration++;
   }
-  // FIXME: Quand le ESP est seul, cela fonctionne normalement,
-  // mais sinon il attend 2 secondes après le Arduino et faire 2 itératons.
-  iteration++;
-  delay(2020);
 
 }

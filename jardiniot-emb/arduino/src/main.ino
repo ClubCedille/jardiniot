@@ -2,10 +2,12 @@
 #include "DHT.h"
 #include <SoftwareSerial.h>
 #include <string.h>
+#include "Timer.h"
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
 
 int ledPin = 13;                 // LED connected to digital pin 13
+Timer timer;
 
 #define DHTPIN 2
 #define DHTTYPE DHT22
@@ -25,11 +27,24 @@ void setup() {
   dht.begin();  // part le DHT!
 
   Serial.println("Ready soon!");
+  // Démarrer les ventilateurs à puissance maximale
+/*  analogWrite(6, 255);  // fan sur le heatsink
+  analogWrite(5, 255);  // fan sur le coté du bucket
+*/
 
   pinMode(ledPin, OUTPUT);
+  // À chaque 2 secondes fait un send des infos
+  int idTimerEvent = timer.every(2000,sendStatusToESP);
 }
 
 void loop() {
+  timer.update();
+
+  // Listen for communication from ESP
+  readInfoFromESP();
+}
+
+void sendStatusToESP(){
   // put your main code here, to run repeatedly:
   float h = dht.readHumidity();           // humidité
   float t = dht.readTemperature(false);        // temp (Celcius)
@@ -56,9 +71,6 @@ void loop() {
 
     // Send data to ESP
     ESPserial.write(sensorStatus);
-
-    // Listen for communication from ESP
-    readInfoFromESP();
   }
 }
 
@@ -66,11 +78,14 @@ void readInfoFromESP(){
 
   if (ESPserial.available()) {
     String value = ESPserial.readString();
-    Serial.print("Value received :");
-    Serial.println(value);
+    // Si la chaine de caractère n'est pas vide
+    if(value.length() != 0){
+      Serial.print("Value received :");
+      Serial.println(value);
 
-    long info = atol(value.c_str());
-    convertInfoFromESP(info);
+      long info = atol(value.c_str());
+      convertInfoFromESP(info);
+    }
   }
 }
 
@@ -90,5 +105,10 @@ void convertInfoFromESP(long info){
   Serial.print("Fans :");
   Serial.println(fans);
 
-  // Todo Envoyer les valeurs aux différents senseurs
+  /*  // Envoyer les valeurs aux différents senseurs
+    analogWrite(9, blanc);   // blanches
+    analogWrite(10, bleu);   // bleues
+    analogWrite(11, rouge);  // rouges
+    analogWrite(5, fan);     // fan sur le coté du bucket
+  */
 }
