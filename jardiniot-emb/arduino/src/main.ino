@@ -75,6 +75,21 @@ void sendStatusToESP(){
   }
 }
 
+void readInfoFromESP()
+{
+  if (ESPserial.available()) {
+    String value = ESPserial.readString();
+    // Si la chaine de caractère n'est pas vide
+    if(value.length() != 0){
+      Serial.print("Value received :");
+      Serial.println(value);
+
+      long info = atol(value.c_str());
+      convertInfoFromESP(info);
+    }
+  }
+}
+
 void convertInfoFromESP(long info)
 {
   // Extraire les infos contenu dans le int reçu
