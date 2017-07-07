@@ -5,8 +5,6 @@
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
 
-int ledPin = 13;                 // LED connected to digital pin 13
-
 #define DHTPIN 2
 #define DHTTYPE DHT22
 DHT dht(DHTPIN, DHTTYPE);
@@ -26,7 +24,9 @@ void setup() {
 
   Serial.println("Ready soon!");
 
-  pinMode(ledPin, OUTPUT);
+  // Démarrer les ventilateurs à puissance maximale
+  analogWrite(6, 255);  // fan sur le heatsink
+  analogWrite(5, 255);  // fan sur le coté du bucket
 }
 
 void loop() {
@@ -37,12 +37,6 @@ void loop() {
   if (isnan(h) || isnan(t)) {
     Serial.println("Echec de lecture du DHT!");
   } else {
-    //pour faire flasher la led
-    digitalWrite(ledPin, HIGH);
-    delay(1000);
-    digitalWrite(ledPin, LOW);
-    delay(1000);
-
     //convertion de temperature en string
     char tempString[8];
     dtostrf(t, 6, 2, tempString);
@@ -52,7 +46,7 @@ void loop() {
 
     //met les infos dans un char array (sprintf ne prends plus de float (%f) en parametre)
     char sensorStatus[50];
-    sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s",tempString,humidityString);
+    sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s", tempString, humidityString);
 
     // Send data to ESP
     ESPserial.write(sensorStatus);
@@ -79,7 +73,7 @@ void convertInfoFromESP(long info){
   int bleu = (info & 0xff000000) >> 24;
 	int blanc = (info & 0xff0000) >> 16;
 	int rouge = (info & 0xff00) >> 8;
-  int fans = (info & 0xff);
+  int fan = (info & 0xff);
 
   Serial.print("bleu :");
   Serial.println(bleu);
@@ -88,7 +82,11 @@ void convertInfoFromESP(long info){
   Serial.print("rouge :");
   Serial.println(rouge);
   Serial.print("Fans :");
-  Serial.println(fans);
+  Serial.println(fan);
 
-  // Todo Envoyer les valeurs aux différents senseurs
+  // Envoyer les valeurs aux différents senseurs
+  analogWrite(9, blanc);   // blanches
+  analogWrite(10, bleu);   // bleues
+  analogWrite(11, rouge);  // rouges
+  analogWrite(5, fan);     // fan sur le coté du bucket
 }
