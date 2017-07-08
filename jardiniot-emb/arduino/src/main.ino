@@ -19,6 +19,7 @@
 #include "DHT.h"
 #include <SoftwareSerial.h>
 #include <string.h>
+#include <stdlib.h> /* strtoul */
 #include "Timer.h"
 // Si y'a un erreur parce que DHT.h n'est pas trouvé, exécutez la commande:
 // platformio lib install "DHT sensor library"
@@ -88,32 +89,22 @@ void readInfoFromESP()
     String value = ESPserial.readString();
     // Si la chaine de caractère n'est pas vide
     if(value.length() != 0){
-      Serial.print("Value received :");
+      Serial.print("Value received: ");
       Serial.println(value);
 
-      long info = atol(value.c_str());
-      unsigned int infouint = info;
-      convertInfoFromESP(infouint);
+      unsigned long info = strtoul(value.c_str(), NULL, 10 );
+      convertInfoFromESP(info);
     }
   }
 }
 
-void convertInfoFromESP(unsigned int info)
+void convertInfoFromESP(unsigned long info)
 {
   // Extraire les infos contenu dans le int reçu
   unsigned char bleu = (info & 0xff000000) >> 24;
   unsigned char blanc = (info & 0xff0000) >> 16;
   unsigned char rouge = (info & 0xff00) >> 8;
   unsigned char fan = (info & 0xff);
-
-  Serial.print("bleu: ");
-  Serial.println(bleu);
-  Serial.print("blanc: ");
-  Serial.println(blanc);
-  Serial.print("rouge: ");
-  Serial.println(rouge);
-  Serial.print("fan: ");
-  Serial.println(fan);
 
   // Envoyer les valeurs aux différents senseurs
   analogWrite(9, blanc);   // blanches
