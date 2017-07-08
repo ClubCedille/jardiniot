@@ -36,6 +36,23 @@ const char* topicControl = "control_test";
 const char* serverip = "192.168.1.85";   // Entrer l'IP du serveur MQTT ici
 int port = 1883;                  // Enter le port du serveyr MQTT ici
 
+// Fait ce qu'il a à faire avec le message reçu
+void callback(char* topic, byte* payload, unsigned int length) {
+  char message_buff[100];
+
+  // create character buffer with ending null terminator (string)
+  int i = 0;
+  for(i=0; i<length; i++) {
+    message_buff[i] = payload[i];
+  }
+  message_buff[i] = '\0';
+
+  // Write to arduino
+  String msgString = String(message_buff);
+  Serial.write(msgString.c_str());
+
+}
+
 WiFiClient wifiClient;
 PubSubClient client;
 
@@ -164,6 +181,7 @@ void loop()
 {
   // Il faut faire un client loop pour obtenir les messages qui viennent du API
   client.loop();
+
   sendStatus();
 }
 
@@ -185,7 +203,7 @@ void sendStatus(){
     String payload = "{";
     payload += arduino_sensors;
     payload += "}";
-
+    
     // Envoie du payload
     if (client.connected()){
 
