@@ -1,4 +1,19 @@
-/* Code pour le Huzzah ESP8266 */
+// JardinIOT
+// Copyright (C) 2016-2017  Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2017       Alexandre Brochu
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // pour le flasher, tenir les deux boutons 'GPIO' et 'Reset' en même temps
 // pendant une couple de secondes puis lâcher 'Reset' et attendre
@@ -12,14 +27,14 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "xxxxxxxxx";
-const char* password = "xxxxxxxx!";
+const char* ssid = ".........................";
+const char* password = "......................";
 
 // le préfix pour recevoir du API c'est control_
-const char* topic = "status_test";  // À remplacer par "Temperature" ou "Humidite"
+const char* topic = "status_test";
 const char* topicControl = "control_test";
-const char* serverip = "192.168.1.187";   // Rentrer l'IP du serveur MQTT ici
-int port = 1883;                  // Renter le port du serveyr MQTT ici
+const char* serverip = "192.168.1.85";   // Entrer l'IP du serveur MQTT ici
+int port = 1883;                  // Enter le port du serveyr MQTT ici
 
 WiFiClient wifiClient;
 PubSubClient client;
@@ -37,7 +52,7 @@ String macToStr(const uint8_t* mac)
 const char* getTopic(String type, String &clientName)
 {
   clientName = "";
-  // Generate client name based on MAC address and last 8 bits of microsecond counter
+  // Générer un nom en utilisant l'adresse MAC
   clientName += type;
   uint8_t mac[6];
   WiFi.macAddress(mac);
@@ -62,7 +77,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
 }
 
 // Connexion au serveur MQTT après s'avoir connecté au WiFi
-// Il y aura plusieurs topics
 void setup()
 {
   Serial.begin(9600);
@@ -72,7 +86,7 @@ void setup()
   // WIFI MANAGER
   WiFiManager wifiManager;
   wifiManager.resetSettings();    // Reset les settings pour les renter à chaque fois.
-  wifiManager.setTimeout(1);   //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
+  wifiManager.setTimeout(60);    //180-->60  // on peut le mettre à 1 pour se connecter par défaut au Wifi hardcodé
 
   // MQTT
   String mqtt_server = "";  // Enter MQTT server IP here
@@ -82,7 +96,7 @@ void setup()
   if (!wifiManager.autoConnect("AP-config-ESP8266-wifi")) {
     Serial.println("failed to connect and hit timeout");
     delay(3000);
-    // CONNEXION AU WIFI PAR DEFAULT
+    // CONNEXION AU WIFI PAR DEFAUT
     Serial.print("Connexion au réseau par défaut ayant le SSID: ");  // Sera pas vu si la Serial Console n'est pas ouvert assez vite
     Serial.println(ssid);
 
@@ -150,7 +164,6 @@ void loop()
 {
   // Il faut faire un client loop pour obtenir les messages qui viennent du API
   client.loop();
-
   sendStatus();
 }
 
