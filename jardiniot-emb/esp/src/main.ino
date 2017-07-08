@@ -12,8 +12,8 @@
 #include <ESP8266WebServer.h>
 #include "WiFiManager.h"  // ip pour se connecter: 192.168.4.1
 
-const char* ssid = "CedilleNetwork";
-const char* password = "Quiamanger2pommes!";
+const char* ssid = "xxxxxxxxx";
+const char* password = "xxxxxxxx!";
 
 // le préfix pour recevoir du API c'est control_
 const char* topic = "status_test";  // À remplacer par "Temperature" ou "Humidite"
