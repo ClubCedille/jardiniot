@@ -2,7 +2,7 @@
 
 Objectif: faire communiquer le Arduino Uno et le ESP8266. 
 
-Pour voir le montage, consultez ![MONTAGE.md](MONTAGE.md). Cela concerne le système embarqué. 
+Pour voir le montage, consultez [la page wiki](https://github.com/ClubCedille/jardiniot/wiki/Composantes-%C3%A9lectroniques). Cela concerne le système embarqué. 
 
 On devra envoyer le température captée par le DHT22 connecté au Arduino Uno au ESP8266 pour qu'il l'envoie par le WiFi. 
 
@@ -23,6 +23,9 @@ Description: https://en.wikipedia.org/wiki/NodeMCU
 
 Documentation: https://nodemcu.readthedocs.io/en/master/
 
+#### Photo d'une ancienne version du montage
+
+Voir [ici](https://github.com/ClubCedille/jardiniot/wiki/Composantes-%C3%A9lectroniques) pour les photos récentes. 
 ![2017-03-02-214503 2](https://cloud.githubusercontent.com/assets/6194072/23536579/d562b726-ff93-11e6-8868-f21fe216f864.jpg)
 
 
