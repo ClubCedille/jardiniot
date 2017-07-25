@@ -53,14 +53,6 @@ Structure de l'API:
 - À long terme
 	- Faire le code pour envoyer des commandes au bucket
 
-#### Instructions d'installation
-Cloner le repo, ensuite:
-```
-cd jardiniot/serveur-web/api/
-npm install sqlite3 mqtt
-node api.js
-```
-
 ## Site web
 Le site web se veut le "panneau de contrôle" du jardin. On veut être capable:
 - de voir les statistiques
