@@ -10,6 +10,6 @@ jardinapi:
     - MQTT_HOST=mosquitto
 
 mosquitto:
-  image: ansi/mosquitto
+  image: toke/mosquitto
   ports:
     - "1883:1883"
