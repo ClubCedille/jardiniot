@@ -32,6 +32,12 @@ yarn install
 yarn start
 ```
 
+## Docker
+Pour un environement de dévelopement rapide:
+
+* Installer docker et docker-compose
+* Lancer l'api avec la commande `docker-compose up`
+
 ## API
 Structure de l'API:
 

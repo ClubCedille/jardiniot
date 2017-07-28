@@ -6,6 +6,8 @@ jardinapi:
     - .:/src/web
   ports:
     - "8080:8080"
+  environment:
+    - MQTT_HOST=mosquitto
 
 mosquitto:
   image: ansi/mosquitto
