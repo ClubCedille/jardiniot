@@ -1,0 +1,13 @@
+jardinapi:
+  build: .
+  links:
+    - mosquitto
+  volumes:
+    - .:/src/web
+  ports:
+    - "8080:8080"
+
+mosquitto:
+  image: ansi/mosquitto
+  ports:
+    - "1883:1883"
