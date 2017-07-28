@@ -17,7 +17,7 @@ var mqtt_client = undefined;
 const DEBUG = true;
 const MQTT_USERNAME = 'jardiniot';
 const MQTT_PASSWORD = 'jardiniot'; //Storing passwords in source code isn't good
-const MQTT_IP       = '127.0.0.1';
+const MQTT_HOST = (process.env.MQTT_HOST) ? process.env.MQTT_HOST : '127.0.0.1';
 const MQTT_PORT     = '1883';
 //-----------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ out.init = function(sq) {
 
 	//Construction des chaînes de connexion
 	const MQTT_CREDS    = { username: MQTT_USERNAME, password: MQTT_PASSWORD };
-	const MQTT_CONN_STR = 'mqtt://' + MQTT_IP + ':' + MQTT_PORT;
+	const MQTT_CONN_STR = 'mqtt://' + MQTT_HOST + ':' + MQTT_PORT;
 	debug("Connexion au serveur MQTT...");
 	mqtt_client = mqtt.connect(MQTT_CONN_STR, MQTT_CREDS);
 
