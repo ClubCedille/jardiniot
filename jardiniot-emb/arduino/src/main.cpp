@@ -1,5 +1,6 @@
 #include <include/CommandManager.h>
 #include <include/ServoMotor.h>
+#include <SoftwareSerial.h>
 
 ServoMotor* servoTest;
 

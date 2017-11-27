@@ -16,7 +16,6 @@ public:
 
     SensorStrategy* createSensor(int idController, ControllerType type, int delay, std::vector<int> outputPin, std::vector<int> inputPin);
     Controller* createController(int idController, ControllerType ctrlType, int delay, std::vector<int> outputPin, std::vector<int> inputPin);
-    Type getType(ControllerType ctrlType);
 };
 
 #endif

@@ -1,5 +1,14 @@
 #include "include/JardinCommand.h"
 
+/**
+    Les commandes, qui peuvent être reçues, doivent être du format suivant :
+
+    AJOUT :  id (int) a (CONTROLLER_TYPE) delay i (input1 input2) o (output1 output2)
+    CONFIG: id (int) c (CONTROLLER_TYPE) delay i (input1 input2) o (output1 output2)
+    DELETE: CONFIG: id (int) d
+
+*/
+
 JardinCommand::JardinCommand(){
 }
 
@@ -54,6 +63,10 @@ int JardinCommand::extractControllerTypeDelay(std::vector<String> &vecCommand){
 
     if(ControllerTypeValidator::validateCtrlType(typeId)){
         this->type = static_cast<ControllerType>(typeId);
+
+        if(this->type == FAN){
+            this->speed = vecCommand[5].toInt();
+        }
     }
     if(delayValue > 0){
         this->delay = delayValue;
@@ -163,6 +176,10 @@ int JardinCommand::getIdController(){
 
 int JardinCommand::getDelay(){
     return this->delay;
+}
+
+int JardinCommand::getSpeed(){
+    return this->speed;
 }
 
 ControllerType JardinCommand::getControllerType(){

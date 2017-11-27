@@ -21,6 +21,7 @@ private:
     String removeController(JardinCommand &jCommand);
 
     int getSensor(std::vector<SensorStrategy*>::iterator it, SensorStrategy *sensor, int idController);
+    int getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, int idController);
     bool isIdControllerUsed(int idController);
 public:
     CommandManager();
@@ -28,6 +29,7 @@ public:
     String executeCommand(String command);
 
     std::vector<SensorStrategy*> getSensorList();
+    std::vector<MotorStrategy*> getMotorSensorList();
 };
 
 #endif

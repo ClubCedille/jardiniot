@@ -48,7 +48,7 @@ String CommandManager::modifyController(JardinCommand &jCommand){
     }
     else{
         // Aller chercher le type du controller passé dans la commande
-        Type controlType = this->factory->getType(jCommand.getControllerType());
+        Type controlType = ControllerTypeValidator::getTypeFromController(jCommand.getControllerType());
         if(Sensor == controlType){
             std::vector<SensorStrategy*>::iterator it;
             SensorStrategy* sc;
@@ -81,7 +81,7 @@ String CommandManager::removeController(JardinCommand &jCommand){
     int idController = jCommand.getIdController();
 
     // Aller chercher le type du controller passé dans la commande
-    Type controlType = this->factory->getType(jCommand.getControllerType());
+    Type controlType = ControllerTypeValidator::getTypeFromController(jCommand.getControllerType());
 
     if(Sensor == controlType){
         std::vector<SensorStrategy*>::iterator it;
@@ -113,7 +113,7 @@ String CommandManager::addController(JardinCommand &jCommand){
         return msg;
     }
     // Aller chercher le type du controller passé dans la commande
-    Type controlType = this->factory->getType(jCommand.getControllerType());
+    Type controlType = ControllerTypeValidator::getTypeFromController(jCommand.getControllerType());
 
     if(this->isIdControllerUsed(jCommand.getIdController())){
         return "Erreur le idController est déjà utilisé";
@@ -125,7 +125,7 @@ String CommandManager::addController(JardinCommand &jCommand){
         this->sensorList.push_back(sensor);
     }else if(Motor == controlType){
         // TODO Faire la création des fonctions pour les moteurs
-    }else{
+    }else if(Both == controlType){
         // TODO Si un jour a des senseurs qui sont aussi des moteurs
     }
 

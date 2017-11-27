@@ -7,11 +7,6 @@ ControllerFactory::ControllerFactory(){}
 //<<destructor>>
 ControllerFactory::~ControllerFactory(){/*nothing to destruct*/}
 
-// Private method
-Type ControllerFactory::getType(ControllerType ctrlType){
-    return Sensor;
-}
-
 SensorStrategy* ControllerFactory::createSensor(int idController, ControllerType type, int delay, std::vector<int> outputPin, std::vector<int> inputPin){
     // SensorStrategy* sensor = NULL;
     switch (type) {
@@ -26,7 +21,7 @@ SensorStrategy* ControllerFactory::createSensor(int idController, ControllerType
 // Public method
 Controller* ControllerFactory::createController(int idController, ControllerType ctrlType, int delay, std::vector<int> outputPin, std::vector<int> inputPin){
 
-    Type type = getType(ctrlType);
+    Type type = ControllerTypeValidator::getTypeFromController(ctrlType);
     switch(type)
     {
         case Sensor: return createSensor(idController, ctrlType, delay, outputPin, inputPin);    break;

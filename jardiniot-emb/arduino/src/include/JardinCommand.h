@@ -14,6 +14,7 @@ private:
     CommandType commandType;
     int idController;
     int delay;
+    int speed;
     ControllerType type;
     std::vector<int> outputPin;
     std::vector<int> inputPin;
@@ -38,6 +39,7 @@ public:
     CommandType getCommandType();
     int getIdController();
     int getDelay();
+    int getSpeed();
     ControllerType getControllerType();
     std::vector<int> getOutputPin();
     std::vector<int> getInputPin();
