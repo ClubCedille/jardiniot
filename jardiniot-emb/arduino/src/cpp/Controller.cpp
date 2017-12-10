@@ -4,29 +4,29 @@
 Controller::Controller(){
 }
 
-Controller::Controller(int idController, ControllerType type, std::vector<int> outputPin, std::vector<int> inputPin){
+Controller::Controller(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin){
     this->idController = idController;
     this->inputPin = inputPin;
     this->outputPin = outputPin;
     this->type = type;
 }
 
-Controller::Controller(int idController, ControllerType type, int output, int input){
-    std::vector<int> outputList;
-    if(output >= 0 && output <= 13){
-        outputList.push_back(output);
-    }
-
-    std::vector<int> inputList;
-    if(input >= 0 && input <= 13){
-        inputList.push_back(input);
-    }
-
-    this->idController = idController;
-    this->inputPin = inputList;
-    this->outputPin = outputList;
-    this->type = type;
-}
+// Controller::Controller(int idController, ControllerType type, int output, int input){
+//     std::vector<int> outputList;
+//     if(output >= 0 && output <= 13){
+//         outputList.push_back(output);
+//     }
+//
+//     std::vector<int> inputList;
+//     if(input >= 0 && input <= 13){
+//         inputList.push_back(input);
+//     }
+//
+//     this->idController = idController;
+//     this->inputPin = inputList;
+//     this->outputPin = outputList;
+//     this->type = type;
+// }
 
 
 //<<destructor>>
@@ -43,7 +43,7 @@ String Controller::getName(){
         case LED: ctrlName = "LED"; break;
         case SoilMoisture: ctrlName = "SoilMoisture"; break;
         case FAN: ctrlName = "FAN"; break;
-        case IRRIGATION: ctrlName = "IRRIGATION"; break;
+        case VALVE: ctrlName = "VALVE"; break;
     }
     return ctrlName;
 }

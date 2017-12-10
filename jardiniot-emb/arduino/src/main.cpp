@@ -1,5 +1,5 @@
 #include <include/CommandManager.h>
-#include <include/ServoMotor.h>
+#include <include/motor/ServoMotor.h>
 #include <SoftwareSerial.h>
 
 ServoMotor* servoTest;
@@ -31,9 +31,13 @@ void loop(){
     Serial.print("k = ");
     Serial.println(k);
     if(k == 0){
-        cm->executeCommand("id 1 a 1 350 i 13");
-        cm->executeCommand("id 2 a 1 250 i 10");
-        cm->executeCommand("id 3 a 1 250 i 3");
+        test = cm->executeCommand("id 1 a 2 300 i 9 200 10 100 11 150");
+        Serial.println(test);
+
+        // LED STANDARD
+        // cm->executeCommand("id 1 a 1 350 i 13");
+        // cm->executeCommand("id 2 a 1 250 i 10");
+        // cm->executeCommand("id 3 a 1 250 i 3");
     }
 
 
@@ -43,25 +47,31 @@ void loop(){
     Serial.println(sensorList.size());
     for(unsigned int i = 0; i < sensorList.size(); i++){
         sensorList[i]->write();
+        Serial.println(sensorList[i]->toString());
     }
+    // delay(9000);
 
-    if(k %3 ==0){
-        Serial.println("TEST DELETE ");
-        String test = cm->executeCommand("id 2 d");
-        test = cm->executeCommand("id 3 d");
-        test = cm->executeCommand("id 3 d");
+    if(k %3 ==1){
+        // Serial.println("TEST DELETE ");
+        // String test = cm->executeCommand("id 1 d");
+        // test = cm->executeCommand("id 3 d");
+        // test = cm->executeCommand("id 3 d");
         // Serial.println(test);
     }
-    else if(k % 3 == 1){
-        Serial.println("TEST AJOUT");
-        String test = cm->executeCommand("id 2 a 1 500 i 10");
-        test = cm->executeCommand("id 3 a 1 500 i 3");
+    else if(k % 3 == 0 && k != 0){
+        // Serial.println("TEST AJOUT");
+        // test = cm->executeCommand("id 1 a 2 300 i 9 200 10 100 11 150");
+        // String test = cm->executeCommand("id 2 a 1 500 i 10");
+        // test = cm->executeCommand("id 3 a 1 500 i 3");
         // Serial.println(test);
     }
     else{
         Serial.println("TEST Config");
-        test = cm->executeCommand("id 2 c 1 1000 i 10");
-        // Serial.println(test);
+        int red = random(55,156);
+        int blue = random(127,256);
+        int green = random(0,256);
+        test = cm->executeCommand("id 1 c 2 1000 i 9 " +String(green) + " 10 " +String(blue) +" 11 " + String(red));
+        Serial.println(test);
     }
 
     k++;

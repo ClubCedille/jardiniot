@@ -1,10 +1,10 @@
-#include "include/FanMotor.h"
+#include "include/motor/FanMotor.h"
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>>
-FanMotor::FanMotor(int idController, int pin, int speed):MotorStrategy(){
-    fanPin = pin;
-    fanSpeed = speed;
+FanMotor::FanMotor(int idController, std::vector<InputPin*> input):MotorStrategy(){
+    fanPin = input[0]->getPin();
+    fanSpeed = input[0]->getValue();
 }
 
 //<<destructor>>

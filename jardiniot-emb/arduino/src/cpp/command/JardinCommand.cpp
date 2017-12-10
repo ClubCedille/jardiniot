@@ -1,10 +1,10 @@
-#include "include/JardinCommand.h"
+#include "include/command/JardinCommand.h"
 
 /**
     Les commandes, qui peuvent être reçues, doivent être du format suivant :
 
-    AJOUT :  id (int) a (CONTROLLER_TYPE) delay i (input1 input2) o (output1 output2)
-    CONFIG: id (int) c (CONTROLLER_TYPE) delay i (input1 input2) o (output1 output2)
+    AJOUT :  id (int) a (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
+    CONFIG: id (int) c (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
     DELETE: CONFIG: id (int) d
 
 */
@@ -100,13 +100,15 @@ int JardinCommand::validCommandType(std::vector<String> &vecCommand){
     return -1;
 }
 
-int JardinCommand::extractPin(int index, std::vector<String> &vecCommand, String condition, bool isInput){
+int JardinCommand::extractPin(int index, std::vector<String> &vecCommand, String exitCondition, bool isInput){
     int commandSize = vecCommand.size();
-    for(index++;index < commandSize && vecCommand[index] != condition; index++){
+    for(index++;index < commandSize && vecCommand[index] != exitCondition; index++){
         int pin = vecCommand[index].toInt();
         if(JardinCommand::validConversionStrToInt(vecCommand[index], pin)){
             if(isInput){
-                this->inputPin.push_back(pin);
+                index++;
+                int value = vecCommand[index].toInt();
+                this->inputPin.push_back(new InputPin(pin, value));
             }
             else{
                 this->outputPin.push_back(pin);
@@ -190,7 +192,7 @@ std::vector<int> JardinCommand::getOutputPin(){
     return this->outputPin;
 }
 
-std::vector<int> JardinCommand::getInputPin(){
+std::vector<InputPin*> JardinCommand::getInputPin(){
     return this->inputPin;
 }
 
@@ -217,7 +219,7 @@ String JardinCommand::toString(){
 
     str.concat(" InputPin = ");
     for(unsigned int i=0; i < this->inputPin.size(); i++){
-        str.concat(this->inputPin[i]);
+        str.concat(this->inputPin[i]->toString());
     }
     return str;
 }

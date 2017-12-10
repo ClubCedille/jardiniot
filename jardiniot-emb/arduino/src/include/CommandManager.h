@@ -6,10 +6,10 @@
 #include <StandardCplusplus.h>
 #include <vector>
 #include "ControllerType.h"
-#include "SensorStrategy.h"
+#include "sensor/SensorStrategy.h"
 #include "ControllerFactory.h"
-#include "JardinCommand.h"
-#include "MotorStrategy.h"
+#include "command/JardinCommand.h"
+#include "motor/MotorStrategy.h"
 
 class CommandManager {
 private:

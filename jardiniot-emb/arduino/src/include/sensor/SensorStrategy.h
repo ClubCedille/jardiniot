@@ -1,8 +1,8 @@
 #ifndef SensorStrategy_H
 #define SensorStrategy_H
 
-#include "Controller.h"
-#include "JardinCommand.h"
+#include "include/Controller.h"
+#include "include/command/JardinCommand.h"
 
 class SensorStrategy: public Controller {
 protected:
@@ -10,11 +10,12 @@ protected:
 public:
     virtual int read();
     virtual int write();
+    virtual String toString();
+    virtual void setInput(std::vector<InputPin*> inputPin);
 
     // constructor
     SensorStrategy();
-    SensorStrategy(int idController, ControllerType type, std::vector<int> outputPin, std::vector<int> inputPin);
-    SensorStrategy(int idController, ControllerType type, int output, int input);
+    SensorStrategy(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin);
     ~SensorStrategy();
 
     void setDelayTime(int delayTime);

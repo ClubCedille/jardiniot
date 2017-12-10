@@ -6,6 +6,7 @@
 #include <StandardCplusplus.h>
 #include <vector>
 #include "ControllerType.h"
+#include "include/command/InputPin.h"
 
 class Controller {
 private:
@@ -13,11 +14,11 @@ private:
     ControllerType type;
 protected:
     std::vector<int> outputPin;
-    std::vector<int> inputPin;
+    std::vector<InputPin*> inputPin;
 public:
     Controller();
-    Controller(int idController, ControllerType type, std::vector<int> outputPin, std::vector<int> inputPin);
-    Controller(int idController, ControllerType type, int outputPin, int inputPin);
+    Controller(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin);
+    // Controller(int idController, ControllerType type, int outputPin, int inputPin);
     ~Controller();
     String getName();
 

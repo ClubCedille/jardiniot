@@ -1,4 +1,4 @@
-#include "include/ServoMotor.h"
+#include "include/motor/ServoMotor.h"
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>>

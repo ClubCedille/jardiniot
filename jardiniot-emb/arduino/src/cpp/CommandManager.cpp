@@ -32,6 +32,19 @@ int CommandManager::getSensor(std::vector<SensorStrategy*>::iterator it, SensorS
             return i;
         }
     }
+    // Le senseur n'a pas été trouvé
+    return -1;
+}
+
+int CommandManager::getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, int idController){
+    int i = 0;
+    for(it = this->motorList.begin() ; it != this->motorList.end(); ++it, i++){
+        if((*it)->getIdController() == idController){
+            motor = *it;
+            return i;
+        }
+    }
+    // Le moteur n'a pas été trouvé
     return -1;
 }
 
@@ -54,13 +67,22 @@ String CommandManager::modifyController(JardinCommand &jCommand){
             SensorStrategy* sc;
 
             int index = this->getSensor(it, sc, idController);
+            // return "INDEX :" + String(index);
             // Si le sensor est trouvé le modifier
             if(index != -1){
                 // Modifier le senseur
                 this->sensorList[index]->modify(jCommand);
             }
         }else if(Motor == controlType){
-            // TODO
+            std::vector<MotorStrategy*>::iterator it;
+            MotorStrategy* mStrat;
+
+            int index = this->getMotor(it, mStrat, idController);
+            // Si le sensor est trouvé le modifier
+            if(index != -1){
+                // Modifier le senseur
+                this->motorList[index]->modify(jCommand);
+            }
         }
         else{
             // TODO
@@ -97,7 +119,18 @@ String CommandManager::removeController(JardinCommand &jCommand){
             this->sensorList.erase(it+index);
         }
     }else if(Motor == controlType){
-        // TODO
+        std::vector<MotorStrategy*>::iterator it;
+        MotorStrategy* mStrat;
+
+        int index = this->getMotor(it, mStrat, idController);
+        // Si le sensor est trouvé le supprimer
+        if(index != -1){
+            // Supprimer l'objet SensorStrategy
+            delete this->motorList[index];
+            it = this->motorList.begin();
+            // Supprimer l'item de la liste
+            this->motorList.erase(it+index);
+        }
     }
     else{
         // TODO
@@ -121,10 +154,12 @@ String CommandManager::addController(JardinCommand &jCommand){
 
     // Si aucune erreur on peut créer le controller
     if(Sensor == controlType){
-        SensorStrategy* sensor = this->factory->createSensor(jCommand.getIdController(), jCommand.getControllerType(), jCommand.getDelay(), jCommand.getOutputPin(), jCommand.getInputPin());
+        SensorStrategy* sensor = this->factory->createSensor(jCommand.getIdController(), jCommand.getControllerType(), jCommand.getDelay(), jCommand.getInputPin(), jCommand.getOutputPin());
         this->sensorList.push_back(sensor);
     }else if(Motor == controlType){
-        // TODO Faire la création des fonctions pour les moteurs
+        // Fait la création des fonctions pour les moteurs
+        MotorStrategy* motor = this->factory->createMotor(jCommand.getIdController(), jCommand.getControllerType(), jCommand.getDelay(), jCommand.getInputPin(), jCommand.getOutputPin());
+        this->motorList.push_back(motor);
     }else if(Both == controlType){
         // TODO Si un jour a des senseurs qui sont aussi des moteurs
     }

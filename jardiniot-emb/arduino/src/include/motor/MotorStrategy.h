@@ -1,8 +1,8 @@
 #ifndef MotorStrategy_H
 #define MotorStrategy_H
 
-#include "Controller.h"
-#include "JardinCommand.h"
+#include "include/Controller.h"
+#include "include/command/JardinCommand.h"
 
 class MotorStrategy: public Controller {
 protected:
@@ -13,7 +13,7 @@ public:
 
     // constructor
     MotorStrategy();
-    MotorStrategy(int idController, ControllerType type, std::vector<int> outputPin, std::vector<int> inputPin);
+    MotorStrategy(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin);
     MotorStrategy(int idController, ControllerType type, int output, int input);
     ~MotorStrategy();
 
