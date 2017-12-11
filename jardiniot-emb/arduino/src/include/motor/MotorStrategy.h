@@ -6,18 +6,18 @@
 
 class MotorStrategy: public Controller {
 protected:
-    int delayTime;
+    short delayTime;
 public:
     virtual int activate();
     virtual int stop();
 
     // constructor
     MotorStrategy();
-    MotorStrategy(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin);
-    MotorStrategy(int idController, ControllerType type, int output, int input);
+    MotorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
+    MotorStrategy(byte idController, ControllerType type, short output, short input);
     ~MotorStrategy();
 
-    void setDelayTime(int delayTime);
+    void setDelayTime(short delayTime);
     void modify(JardinCommand &jCommand);
 };
 

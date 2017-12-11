@@ -7,12 +7,12 @@
 
 class FanMotor: public MotorStrategy {
 private:
-    int fanPin;
-    int fanSpeed;
+    byte fanPin;
+    byte fanSpeed;
 public:
     // constructor
     FanMotor();
-    FanMotor(int idController, std::vector<InputPin*> input);
+    FanMotor(byte idController, std::vector<short> input);
     ~FanMotor();
 
     void reset();

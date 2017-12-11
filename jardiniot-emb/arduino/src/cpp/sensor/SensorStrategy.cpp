@@ -1,7 +1,7 @@
 #include "include/sensor/SensorStrategy.h" //include the declaration for this class
 
 //<<constructor>>
-SensorStrategy::SensorStrategy(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin): Controller(idController, type, inputPin, outputPin){
+SensorStrategy::SensorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin): Controller(idController, type, inputPin, outputPin){
 }
 
 SensorStrategy::SensorStrategy(){
@@ -16,7 +16,7 @@ void SensorStrategy::modify(JardinCommand &jCommand){
     this->delayTime = jCommand.getDelay();
 }
 
-void SensorStrategy::setDelayTime(int delayTime){
+void SensorStrategy::setDelayTime(short delayTime){
     this->delayTime = delayTime;
 }
 
@@ -28,7 +28,7 @@ int SensorStrategy::write(){
     return 0;
 }
 
-void SensorStrategy::setInput(std::vector<InputPin*> input){
+void SensorStrategy::setInput(std::vector<short> input){
     this->inputPin.clear();
     this->inputPin = input;
 }

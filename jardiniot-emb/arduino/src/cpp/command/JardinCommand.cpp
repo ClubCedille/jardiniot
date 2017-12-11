@@ -59,8 +59,8 @@ bool JardinCommand::validConversionStrToInt(String &str, int i){
 }
 
 int JardinCommand::extractControllerTypeDelay(std::vector<String> &vecCommand){
-    int typeId = vecCommand[3].toInt();
-    int delayValue = vecCommand[4].toInt();
+    byte typeId = (byte)vecCommand[3].toInt();
+    short delayValue = (short)vecCommand[4].toInt();
 
     if(ControllerTypeValidator::validateCtrlType(typeId)){
         this->type = static_cast<ControllerType>(typeId);
@@ -87,7 +87,7 @@ int JardinCommand::validCommandType(std::vector<String> &vecCommand){
     }
     else if(vecCommand[2] == "d"){
         this->commandType = DELETE;
-        int typeId = vecCommand[3].toInt();    
+        byte typeId = (byte)vecCommand[3].toInt();
         if(ControllerTypeValidator::validateCtrlType(typeId)){
             this->type = static_cast<ControllerType>(typeId);
         }
@@ -103,20 +103,15 @@ int JardinCommand::validCommandType(std::vector<String> &vecCommand){
 
 int JardinCommand::extractPin(int index, std::vector<String> &vecCommand, String exitCondition, bool isInput){
     int commandSize = vecCommand.size();
-    int value = 0;
-    int pin = 0;
-    InputPin* input;
+    short pinValue = 0;
     for(index++;index < commandSize && vecCommand[index] != exitCondition; index++){
-        pin = vecCommand[index].toInt();
-        if(JardinCommand::validConversionStrToInt(vecCommand[index], pin)){
+        pinValue = (short)vecCommand[index].toInt();
+        if(JardinCommand::validConversionStrToInt(vecCommand[index], pinValue)){
             if(isInput){
-                index++;
-                value = vecCommand[index].toInt();
-                input = new InputPin(pin, value);
-                this->inputPin.push_back(input);
+                this->inputPin.push_back(pinValue);
             }
             else{
-                this->outputPin.push_back(pin);
+                this->outputPin.push_back(pinValue);
             }
         }
     }
@@ -178,11 +173,11 @@ int JardinCommand::split(const String &command, std::vector<String> &strs, char 
     return strs.size();
 }
 
-int JardinCommand::getIdController(){
+byte JardinCommand::getIdController(){
     return this->idController;
 }
 
-int JardinCommand::getDelay(){
+short JardinCommand::getDelay(){
     return this->delay;
 }
 
@@ -190,11 +185,11 @@ ControllerType JardinCommand::getControllerType(){
     return this->type;
 }
 
-std::vector<int> JardinCommand::getOutputPin(){
+std::vector<short> JardinCommand::getOutputPin(){
     return this->outputPin;
 }
 
-std::vector<InputPin*> JardinCommand::getInputPin(){
+std::vector<short> JardinCommand::getInputPin(){
     return this->inputPin;
 }
 
@@ -214,14 +209,14 @@ String JardinCommand::toString(){
     str.concat(this->delay);
 
     str.concat(" OutputPin = ");
-    for(unsigned int i=0; i < this->outputPin.size(); i++){
+    for(byte i=0; i < this->outputPin.size(); i++){
         str.concat(this->outputPin[i]);
 
     }
 
     str.concat(" InputPin = ");
-    for(unsigned int i=0; i < this->inputPin.size(); i++){
-        str.concat(this->inputPin[i]->toString());
+    for(byte i=0; i < this->inputPin.size(); i++){
+        str.concat(this->inputPin[i]);
     }
     return str;
 }

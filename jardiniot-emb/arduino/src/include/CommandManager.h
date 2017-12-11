@@ -20,9 +20,9 @@ private:
     String modifyController(JardinCommand &jCommand);
     String removeController(JardinCommand &jCommand);
 
-    int getSensor(std::vector<SensorStrategy*>::iterator it, SensorStrategy *sensor, int idController);
-    int getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, int idController);
-    bool isIdControllerUsed(int idController);
+    int getSensor(std::vector<SensorStrategy*>::iterator it, SensorStrategy *sensor, byte idController);
+    int getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, byte idController);
+    bool isIdControllerUsed(byte idController);
 public:
     CommandManager();
     ~CommandManager();

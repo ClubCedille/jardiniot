@@ -4,7 +4,6 @@
 #include <Arduino.h>
 #include <string.h>
 #include "include/ControllerType.h"
-#include "include/command/InputPin.h"
 #include <StandardCplusplus.h>
 #include <vector>
 
@@ -13,11 +12,11 @@ enum CommandType { ADD, CONFIG, DELETE};
 class JardinCommand {
 private:
     CommandType commandType;
-    int idController;
-    int delay;
+    byte idController;
+    short delay;
     ControllerType type;
-    std::vector<int> outputPin;
-    std::vector<InputPin*> inputPin;
+    std::vector<short> outputPin;
+    std::vector<short> inputPin;
 
     // Erreur flag
     bool errorInCommand;
@@ -37,11 +36,11 @@ public:
     ~JardinCommand();
 
     CommandType getCommandType();
-    int getIdController();
-    int getDelay();
+    byte getIdController();
+    short getDelay();
     ControllerType getControllerType();
-    std::vector<int> getOutputPin();
-    std::vector<InputPin*> getInputPin();
+    std::vector<short> getOutputPin();
+    std::vector<short> getInputPin();
     String getError();
 
     String toString();

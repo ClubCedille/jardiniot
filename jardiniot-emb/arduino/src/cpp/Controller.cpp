@@ -4,7 +4,7 @@
 Controller::Controller(){
 }
 
-Controller::Controller(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin){
+Controller::Controller(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin){
     this->idController = idController;
     this->inputPin = inputPin;
     this->outputPin = outputPin;
@@ -41,6 +41,7 @@ String Controller::getName(){
     {
         case DHT   : ctrlName = "DHT";    break;
         case LED: ctrlName = "LED"; break;
+        case A_LED: ctrlName = "A_LED"; break;
         case SoilMoisture: ctrlName = "SoilMoisture"; break;
         case FAN: ctrlName = "FAN"; break;
         case VALVE: ctrlName = "VALVE"; break;
@@ -48,7 +49,7 @@ String Controller::getName(){
     return ctrlName;
 }
 
-int Controller::getIdController(){
+byte Controller::getIdController(){
     return this->idController;
 }
 

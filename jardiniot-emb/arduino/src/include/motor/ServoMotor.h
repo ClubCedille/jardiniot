@@ -8,13 +8,13 @@
 
 class ServoMotor: public MotorStrategy {
 private:
-    int servoPin;
+    byte servoPin;
     Servo servo;
-    int delayTime = 1000;
+    short delayTime = 1000;
 public:
     // constructor
     ServoMotor();
-    ServoMotor(int idController, int pin);
+    ServoMotor(byte idController, byte pin);
     ~ServoMotor();
 
     void reset();

@@ -2,7 +2,7 @@
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>>
-ServoMotor::ServoMotor(int idController, int pin):MotorStrategy(){
+ServoMotor::ServoMotor(byte idController, byte pin):MotorStrategy(){
     servoPin = pin;
     // We need to attach the servo to the used pin number
     servo.attach(servoPin);

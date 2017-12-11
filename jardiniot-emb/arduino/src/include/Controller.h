@@ -6,23 +6,22 @@
 #include <StandardCplusplus.h>
 #include <vector>
 #include "ControllerType.h"
-#include "include/command/InputPin.h"
 
 class Controller {
 private:
-    int idController;
+    byte idController;
     ControllerType type;
 protected:
-    std::vector<int> outputPin;
-    std::vector<InputPin*> inputPin;
+    std::vector<short> outputPin;
+    std::vector<short> inputPin;
 public:
     Controller();
-    Controller(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin);
+    Controller(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
     // Controller(int idController, ControllerType type, int outputPin, int inputPin);
     ~Controller();
     String getName();
 
-    virtual int getIdController();
+    virtual byte getIdController();
     virtual ControllerType getControllerType();
 };
 

@@ -2,7 +2,7 @@
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>> setup the LED, make pin an OUTPUT
-LEDSensor::LEDSensor(int idController, std::vector<InputPin*> inputPins, std::vector<int> outputPins, int delay):SensorStrategy(idController, ControllerType::LED, inputPins, outputPins){
+LEDSensor::LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::LED, inputPins, outputPins){
     ledPin = outputPins[0];
     pinMode(ledPin, OUTPUT); //make that pin an OUTPUT
     SensorStrategy::setDelayTime(delay);

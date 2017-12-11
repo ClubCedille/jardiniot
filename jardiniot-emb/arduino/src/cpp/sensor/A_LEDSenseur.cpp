@@ -2,7 +2,7 @@
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>> setup the LED, make pin an OUTPUT
-A_LEDSensor::A_LEDSensor(int idController, std::vector<InputPin*> inputPins, std::vector<int> outputPins, int delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
+A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
 
     this->setInput(inputPins);
 
@@ -20,16 +20,16 @@ int A_LEDSensor::read(){
     return 0;
 }
 
-void A_LEDSensor::setInput(std::vector<InputPin *> input){
+void A_LEDSensor::setInput(std::vector<short> input){
     this->inputPin.clear();
     this->inputPin = input;
 
-    whiteLEDPin = this->inputPin[0]->getPin();
-    whiteValue = this->inputPin[0]->getValue();
-    blueLEDPin = this->inputPin[1]->getPin();
-    blueValue = this->inputPin[1]->getValue();
-    redLEDPin = this->inputPin[2]->getPin();
-    redValue = this->inputPin[2]->getValue();
+    whiteLEDPin = (this->inputPin[0] & 0xff00)>> 8;
+    whiteValue = (this->inputPin[0] & 0xff);
+    blueLEDPin = (this->inputPin[1] & 0xff00)>> 8;
+    blueValue = (this->inputPin[1] & 0xff);
+    redLEDPin = (this->inputPin[2] & 0xff00)>> 8;
+    redValue = (this->inputPin[2] & 0xff);
 
     // Les valeurs de la LED ne doit pas dépasser 255 ou être plus petit que 0
     if(whiteValue < 0 || whiteValue > 255){

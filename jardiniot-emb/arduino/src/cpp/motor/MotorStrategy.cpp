@@ -1,7 +1,7 @@
 #include "include/motor/MotorStrategy.h" //include the declaration for this class
 
 //<<constructor>>
-MotorStrategy::MotorStrategy(int idController, ControllerType type, std::vector<InputPin*> inputPin, std::vector<int> outputPin): Controller(idController, type, inputPin, outputPin){
+MotorStrategy::MotorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin): Controller(idController, type, inputPin, outputPin){
 }
 
 MotorStrategy::MotorStrategy(){
@@ -15,7 +15,7 @@ void MotorStrategy::modify(JardinCommand &jCommand){
     this->delayTime = jCommand.getDelay();
 }
 
-void MotorStrategy::setDelayTime(int delayTime){
+void MotorStrategy::setDelayTime(short delayTime){
     this->delayTime = delayTime;
 }
 

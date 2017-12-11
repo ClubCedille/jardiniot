@@ -7,20 +7,20 @@
 
 class A_LEDSensor: public SensorStrategy {
 private:
-    int whiteLEDPin;
-    int blueLEDPin;
-    int redLEDPin;
+    byte whiteLEDPin;
+    byte blueLEDPin;
+    byte redLEDPin;
 
-    int whiteValue = 255;
-    int blueValue = 255;
-    int redValue = 255;
+    byte whiteValue = 255;
+    byte blueValue = 255;
+    byte redValue = 255;
 public:
-    A_LEDSensor(int idController, std::vector<InputPin*> inputPins, std::vector<int> outputPins, int delay);
+    A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~A_LEDSensor();
 
     int read();
     int write();
-    void setInput(std::vector<InputPin*> input);
+    void setInput(std::vector<short> input);
 
     String toString();
 };

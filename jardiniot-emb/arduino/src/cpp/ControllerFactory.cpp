@@ -9,7 +9,7 @@ ControllerFactory::ControllerFactory(){}
 //<<destructor>>
 ControllerFactory::~ControllerFactory(){/*nothing to destruct*/}
 
-SensorStrategy* ControllerFactory::createSensor(int idController, ControllerType type, int delay, std::vector<InputPin*> inputPin,std::vector<int> outputPin){
+SensorStrategy* ControllerFactory::createSensor(byte idController, ControllerType type, short delay, std::vector<short> inputPin,std::vector<short> outputPin){
     // SensorStrategy* sensor = NULL;
     switch (type) {
         // Simple LED
@@ -24,7 +24,7 @@ SensorStrategy* ControllerFactory::createSensor(int idController, ControllerType
     return NULL;
 }
 
-MotorStrategy* ControllerFactory::createMotor(int idController, ControllerType type, int delay, std::vector<InputPin*> inputPin, std::vector<int> outputPin){
+MotorStrategy* ControllerFactory::createMotor(byte idController, ControllerType type, short delay, std::vector<short> inputPin, std::vector<short> outputPin){
     // SensorStrategy* sensor = NULL;
     switch (type) {
         // Fan
@@ -38,7 +38,7 @@ MotorStrategy* ControllerFactory::createMotor(int idController, ControllerType t
 
 
 // Public method
-Controller* ControllerFactory::createController(int idController, ControllerType ctrlType, int delay, std::vector<InputPin*> inputPin, std::vector<int> outputPin){
+Controller* ControllerFactory::createController(byte idController, ControllerType ctrlType, short delay, std::vector<short> inputPin, std::vector<short> outputPin){
 
     Type type = ControllerTypeValidator::getTypeFromController(ctrlType);
     switch(type)
