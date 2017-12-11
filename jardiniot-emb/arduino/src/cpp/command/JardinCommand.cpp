@@ -5,7 +5,7 @@
 
     AJOUT :  id (int) a (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
     CONFIG: id (int) c (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
-    DELETE: CONFIG: id (int) d
+    DELETE: CONFIG: id (int) d (CONTROLLER_TYPE)
 
 */
 
@@ -22,6 +22,7 @@ JardinCommand::JardinCommand(String command){
     this->split(command, commandSplitted, ' ');
 
     this->validCommand(commandSplitted);
+    commandSplitted.clear();
 }
 
 JardinCommand::~JardinCommand(){
@@ -63,10 +64,6 @@ int JardinCommand::extractControllerTypeDelay(std::vector<String> &vecCommand){
 
     if(ControllerTypeValidator::validateCtrlType(typeId)){
         this->type = static_cast<ControllerType>(typeId);
-
-        if(this->type == FAN){
-            this->speed = vecCommand[5].toInt();
-        }
     }
     if(delayValue > 0){
         this->delay = delayValue;
@@ -90,6 +87,10 @@ int JardinCommand::validCommandType(std::vector<String> &vecCommand){
     }
     else if(vecCommand[2] == "d"){
         this->commandType = DELETE;
+        int typeId = vecCommand[3].toInt();    
+        if(ControllerTypeValidator::validateCtrlType(typeId)){
+            this->type = static_cast<ControllerType>(typeId);
+        }
         return 0;
     }
     else{
@@ -102,19 +103,24 @@ int JardinCommand::validCommandType(std::vector<String> &vecCommand){
 
 int JardinCommand::extractPin(int index, std::vector<String> &vecCommand, String exitCondition, bool isInput){
     int commandSize = vecCommand.size();
+    int value = 0;
+    int pin = 0;
+    InputPin* input;
     for(index++;index < commandSize && vecCommand[index] != exitCondition; index++){
-        int pin = vecCommand[index].toInt();
+        pin = vecCommand[index].toInt();
         if(JardinCommand::validConversionStrToInt(vecCommand[index], pin)){
             if(isInput){
                 index++;
-                int value = vecCommand[index].toInt();
-                this->inputPin.push_back(new InputPin(pin, value));
+                value = vecCommand[index].toInt();
+                input = new InputPin(pin, value);
+                this->inputPin.push_back(input);
             }
             else{
                 this->outputPin.push_back(pin);
             }
         }
     }
+    // delete input;
     return index;
 }
 
@@ -123,7 +129,7 @@ bool JardinCommand::validCommand(std::vector<String> &vecCommand){
     if(commandSize >= 3 && commandSize <= 20){
         // Une commande doit commencer avec ID
         if(validIdController(vecCommand)){
-            // Valide commandType
+            // Valide commandType et retourne la position où se trouve les pin info
             int i = this->validCommandType(vecCommand);
             if(i<0){
                 return !this->errorInCommand;
@@ -178,10 +184,6 @@ int JardinCommand::getIdController(){
 
 int JardinCommand::getDelay(){
     return this->delay;
-}
-
-int JardinCommand::getSpeed(){
-    return this->speed;
 }
 
 ControllerType JardinCommand::getControllerType(){
