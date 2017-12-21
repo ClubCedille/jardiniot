@@ -11,7 +11,7 @@ ServoMotor::ServoMotor(byte idController, byte pin):MotorStrategy(){
 //<<destructor>>
 ServoMotor::~ServoMotor(){/*nothing to destruct*/}
 
-int ServoMotor::activate(){
+short ServoMotor::activate(){
 
         // for(int i = 0; i < 180; i++){
         //     servo.write(i);
@@ -31,7 +31,7 @@ void ServoMotor::reset(){
 }
 
 
-int ServoMotor::stop(){
+short ServoMotor::stop(){
     return 0;
 }
 

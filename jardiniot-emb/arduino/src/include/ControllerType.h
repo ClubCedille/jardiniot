@@ -2,13 +2,13 @@
 #define ControllerType_h
 
 // ControllerType available
-// DHT = 0
+// ADAFRUIT_DHT = 0
 // LED = 1
 // A_LED = 2
 // SoilMoisture = 3
 // FAN = 4
 // VALVE = 5
-enum ControllerType { DHT, LED, A_LED, SoilMoisture, FAN, VALVE};
+enum ControllerType { ADAFRUIT_DHT, LED, A_LED, SoilMoisture, FAN, VALVE};
 
 enum Type{Sensor, Motor, Both, UNDEF};
 
@@ -22,7 +22,7 @@ class ControllerTypeValidator {
         }
 
         static Type getTypeFromController(ControllerType ctrType){
-            if(ctrType == DHT || ctrType == LED || ctrType == A_LED || ctrType == SoilMoisture){
+            if(ctrType == ADAFRUIT_DHT || ctrType == LED || ctrType == A_LED || ctrType == SoilMoisture){
                 return Sensor;
             }
             if(ctrType == FAN || ctrType == VALVE){

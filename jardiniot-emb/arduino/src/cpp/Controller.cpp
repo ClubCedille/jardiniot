@@ -11,23 +11,6 @@ Controller::Controller(byte idController, ControllerType type, std::vector<short
     this->type = type;
 }
 
-// Controller::Controller(int idController, ControllerType type, int output, int input){
-//     std::vector<int> outputList;
-//     if(output >= 0 && output <= 13){
-//         outputList.push_back(output);
-//     }
-//
-//     std::vector<int> inputList;
-//     if(input >= 0 && input <= 13){
-//         inputList.push_back(input);
-//     }
-//
-//     this->idController = idController;
-//     this->inputPin = inputList;
-//     this->outputPin = outputList;
-//     this->type = type;
-// }
-
 
 //<<destructor>>
 Controller::~Controller(){
@@ -39,7 +22,7 @@ String Controller::getName(){
     String ctrlName;
     switch(this->type)
     {
-        case DHT   : ctrlName = "DHT";    break;
+        case ADAFRUIT_DHT   : ctrlName = "DHT";    break;
         case LED: ctrlName = "LED"; break;
         case A_LED: ctrlName = "A_LED"; break;
         case SoilMoisture: ctrlName = "SoilMoisture"; break;

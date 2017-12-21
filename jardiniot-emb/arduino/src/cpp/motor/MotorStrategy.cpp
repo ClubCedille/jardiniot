@@ -19,10 +19,10 @@ void MotorStrategy::setDelayTime(short delayTime){
     this->delayTime = delayTime;
 }
 
-int MotorStrategy::activate(){
+short MotorStrategy::activate(){
     return 0;
 }
 
-int MotorStrategy::stop(){
+short MotorStrategy::stop(){
     return 0;
 }

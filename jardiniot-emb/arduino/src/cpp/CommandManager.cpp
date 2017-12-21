@@ -24,7 +24,7 @@ String CommandManager::executeCommand(String command){
     return msg;
 }
 
-int CommandManager::getSensor(std::vector<SensorStrategy*>::iterator it, SensorStrategy *sensor, byte idController){
+short CommandManager::getSensor(std::vector<SensorStrategy*>::iterator it, SensorStrategy *sensor, byte idController){
     int i = 0;
     for(it = this->sensorList.begin() ; it != this->sensorList.end(); ++it, i++){
         if((*it)->getIdController() == idController){
@@ -36,7 +36,7 @@ int CommandManager::getSensor(std::vector<SensorStrategy*>::iterator it, SensorS
     return -1;
 }
 
-int CommandManager::getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, byte idController){
+short CommandManager::getMotor(std::vector<MotorStrategy*>::iterator it, MotorStrategy *motor, byte idController){
     int i = 0;
     for(it = this->motorList.begin() ; it != this->motorList.end(); ++it, i++){
         if((*it)->getIdController() == idController){
@@ -179,4 +179,8 @@ bool CommandManager::isIdControllerUsed(byte idController){
 
 std::vector<SensorStrategy*> CommandManager::getSensorList(){
     return this->sensorList;
+}
+
+std::vector<MotorStrategy*> CommandManager::getMotorList(){
+    return this->motorList;
 }

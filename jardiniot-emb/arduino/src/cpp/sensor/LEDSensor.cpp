@@ -29,8 +29,8 @@ void LEDSensor::blink(){
         delay(this->delayTime/2);  //wait the last half of the wanted period
 }
 
-int LEDSensor::read(){
-    return 0;
+char* LEDSensor::read(){
+    return NULL;
 }
 
 int LEDSensor::write(){

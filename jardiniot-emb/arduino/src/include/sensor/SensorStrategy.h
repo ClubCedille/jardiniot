@@ -8,7 +8,7 @@ class SensorStrategy: public Controller {
 protected:
     short delayTime;
 public:
-    virtual int read();
+    virtual char* read();
     virtual int write();
     virtual String toString();
     virtual void setInput(std::vector<short> inputPin);
@@ -16,7 +16,7 @@ public:
     // constructor
     SensorStrategy();
     SensorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
-    ~SensorStrategy();
+    virtual ~SensorStrategy();
 
     void setDelayTime(short delayTime);
     void modify(JardinCommand &jCommand);

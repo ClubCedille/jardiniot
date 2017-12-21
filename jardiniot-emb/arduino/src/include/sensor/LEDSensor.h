@@ -12,7 +12,7 @@ public:
     LEDSensor(byte idController, std::vector<short> input, std::vector<short> output, short delay);
     ~LEDSensor();
 
-    int read();
+    char* read();
     int write();
 
     void on();

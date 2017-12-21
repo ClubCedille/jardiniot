@@ -20,8 +20,8 @@ public:
     void reset();
 
     // Méthode hérité de la classe MotorStrategy
-    int activate();
-    int stop();
+    short activate();
+    short stop();
 
     bool isAttached();
 };

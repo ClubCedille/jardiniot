@@ -17,8 +17,7 @@ protected:
 public:
     Controller();
     Controller(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
-    // Controller(int idController, ControllerType type, int outputPin, int inputPin);
-    ~Controller();
+    virtual ~Controller();
     String getName();
 
     virtual byte getIdController();

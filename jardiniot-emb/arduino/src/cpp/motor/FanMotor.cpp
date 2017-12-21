@@ -1,5 +1,5 @@
 #include "include/motor/FanMotor.h"
-#include "include/ControllerType.h"//include the declaration for this class
+#include "include/ControllerType.h"
 
 //<<constructor>>
 FanMotor::FanMotor(byte idController, std::vector<short> input):MotorStrategy(){
@@ -10,9 +10,9 @@ FanMotor::FanMotor(byte idController, std::vector<short> input):MotorStrategy(){
 //<<destructor>>
 FanMotor::~FanMotor(){/*nothing to destruct*/}
 
-int FanMotor::activate(){
+short FanMotor::activate(){
         analogWrite(fanPin, fanSpeed);
-        return fanPin;
+        return fanSpeed;
 }
 
 
@@ -20,6 +20,7 @@ void FanMotor::reset(){
 
 }
 
-int FanMotor::stop(){
+short FanMotor::stop(){
+    analogWrite(fanPin, 0);
     return 0;
 }
