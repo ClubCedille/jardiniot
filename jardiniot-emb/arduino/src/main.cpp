@@ -5,7 +5,6 @@
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(1, 0); // pin 3 à TX du ESP | pin 4 à RX du ESP
 
-String test= "";
 // Timer timer;
 
 // Fonction utilisée pour connaitre la RAM libre sur le Arduino lorsque la RAM est pleine le arduino bloc et doit être redémarré
@@ -17,10 +16,11 @@ int freeRam ()
 }
 
 CommandManager* cm;
-std::vector<SensorStrategy*> sensorList;
-int k = 0;
 
-void setup(){/*nothing to setup*/
+int k = 0;
+bool setupCommandManager = true;
+
+void setup(){
     Serial.begin(9600);
     cm = new CommandManager();
 
@@ -30,15 +30,27 @@ void setup(){/*nothing to setup*/
     // }
 }
 
-void loop(){
+void setCommand(){
 
-    // Éliminer le plus possible les serial.print puisqu'il coûte cher en mémoire
-    // Si nécessaire utiliser F() pour storer les chaines de caractère dans la mémoire Flash au lieu de la mettre dans la mémoire Ram
-    Serial.print(F("=========== Free memory "));
-    Serial.println(freeRam());
+}
 
-    // Serial.print(F("k = "));
-    // Serial.println(k);
+void readInfoFromESP()
+{
+  if (ESPserial.available()) {
+    String command = ESPserial.readString();
+    // Si la chaine de caractère n'est pas vide
+    if(command.length() != 0){
+      Serial.print("Value received: ");
+      Serial.println(command);
+
+      cm->executeCommand(command);
+    }
+  }
+}
+
+// TO REMOVE
+void testArduino(){
+
     if(k == 0){
         // cm->executeCommand("id 1 a 2 300 i 2504 2660 3016");
 
@@ -46,14 +58,14 @@ void loop(){
         cm->executeCommand("id 2 a 1 350 o 5");
         cm->executeCommand("id 3 a 1 250 o 4");
         cm->executeCommand("id 4 a 1 250 o 2");
+
+        // Ajout de FAN
+        cm->executeCommand("id 5 a 4 250 i 255");
+        cm->executeCommand("id 6 a 4 250 i 255");
+
+        // Ajout d'un DHT
+        // cm->executeCommand("id 7 a 0 250 i 22");
     }
-
-    sensorList = cm->getSensorList();
-
-    for(unsigned char i = 0; i < sensorList.size(); i++){
-        sensorList[i]->write();
-    }
-
 
     if(k %3 ==0){
         // Serial.println(F("TEST DELETE "));
@@ -76,10 +88,51 @@ void loop(){
         short red = 11*256+random(55,156);
         short blue = 10*256+random(127,256);
         short green = 9*256+random(0,256);
-        // À vérifier le config ajoute quand il n'est pas présent
+
         cm->executeCommand("id 1 c 2 200 i " +String(green) + " " +String(blue) +" " + String(red));
     }
 
     k++;
+}
+// END
+
+void loop(){
+
+    // Éliminer le plus possible les serial.print puisqu'il coûte cher en mémoire
+    // Si nécessaire utiliser F() pour storer les chaines de caractère dans la mémoire Flash au lieu de la mettre dans la mémoire Ram
+    Serial.print(F("=========== Free memory "));
+    Serial.println(freeRam());
+
+    // Phase de Setup fait une seule fois
+    if(setupCommandManager){
+        setCommand();
+        setupCommandManager = false;
+    }
+
+    // Utiliser pour les tests seulement
+    testArduino();
+
+    // Boucle de gestion pour les sensors
+    for(unsigned char i = 0; i < cm->getSensorList().size(); i++){
+        // Écrit les valeurs au pin spécifié lors de la création/configuration
+        cm->getSensorList()[i]->write();
+
+        char* status = cm->getSensorList()[i]->read();
+        if((status != NULL) && (status[0] != '\0')){
+            // Test
+            // Serial.println(status);
+
+            // Send data to ESP
+            // ESPserial.write(status);
+        }
+    }
+
+    // Boucle de gestion pour les moteurs
+    for(unsigned char i = 0; i < cm->getMotorList().size(); i++){
+        cm->getMotorList()[i]->activate();
+    }
+
+    // Listen for communication from ESP
+    // readInfoFromESP();
 
 }

@@ -3,8 +3,8 @@
 //<<constructor>>
 DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
 
-    DHTPin = (this->inputPin[0] & 0xff00)>> 8;
-    DHTTYPE = (this->inputPin[0] & 0xff);
+    byte DHTPin = (this->inputPin[0] & 0xff00)>> 8;
+    byte DHTTYPE = (this->inputPin[0] & 0xff);
 
     dht = new DHT(DHTPin, DHTTYPE);
     dht->begin();
@@ -14,12 +14,11 @@ DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vecto
 
 //<<destructor>>
 DHTSensor::~DHTSensor(){
-    delete sensorStatus;
     delete dht;
 }
 
 char* DHTSensor::read(){
-    sensorStatus[0] = '\0';
+    char sensorStatus[50];
 
     float h = dht->readHumidity();           // humidité
     float t = dht->readTemperature(false);   // temp (Celcius)
@@ -49,8 +48,5 @@ int DHTSensor::write(){
 
 String DHTSensor::toString(){
     String s1= "";
-    s1.concat("DHTPin : " + String(DHTPin));
-    s1.concat(" DHTTYPE : " + String(DHTTYPE));
-    s1.concat("\n");
     return s1;
 }

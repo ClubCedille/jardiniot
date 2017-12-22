@@ -13,9 +13,6 @@
 class DHTSensor: public SensorStrategy {
 private:
     DHT* dht;
-    byte DHTPin;
-    byte DHTTYPE; // Les types sont DHT11, DHT22, DHT21
-    char* sensorStatus;
 public:
     DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~DHTSensor();

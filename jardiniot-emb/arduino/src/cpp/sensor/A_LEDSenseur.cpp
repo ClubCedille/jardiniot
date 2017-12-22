@@ -17,7 +17,9 @@ A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::v
 A_LEDSensor::~A_LEDSensor(){/*nothing to destruct*/}
 
 char* A_LEDSensor::read(){
-    return NULL;
+    char sensorStatus[50];
+    strcpy(sensorStatus, "");
+    return sensorStatus;
 }
 
 void A_LEDSensor::setInput(std::vector<short> input){

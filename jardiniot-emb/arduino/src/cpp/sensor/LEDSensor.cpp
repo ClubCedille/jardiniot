@@ -30,7 +30,9 @@ void LEDSensor::blink(){
 }
 
 char* LEDSensor::read(){
-    return NULL;
+    char sensorStatus[50];
+    strcpy(sensorStatus, "");
+    return sensorStatus;
 }
 
 int LEDSensor::write(){
