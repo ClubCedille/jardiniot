@@ -11,6 +11,9 @@
 #include "command/JardinCommand.h"
 #include "motor/MotorStrategy.h"
 
+/**
+    Gestionnaire des commandes reçues
+*/
 class CommandManager {
 private:
     ControllerFactory* factory;

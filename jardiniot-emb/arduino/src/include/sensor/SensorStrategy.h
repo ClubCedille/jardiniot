@@ -4,6 +4,9 @@
 #include "include/Controller.h"
 #include "include/command/JardinCommand.h"
 
+/**
+    Définit le comportement de base pour les senseurs
+*/
 class SensorStrategy: public Controller {
 protected:
     short delayTime;

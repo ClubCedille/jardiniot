@@ -8,6 +8,9 @@
 #include "sensor/SensorStrategy.h"
 #include "motor/MotorStrategy.h"
 
+/**
+    Permet de créer des sensor et des moteurs de tout genre
+*/
 class ControllerFactory {
 private:
 

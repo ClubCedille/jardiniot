@@ -3,9 +3,7 @@
 #include <stdlib.h> /* strtoul */
 
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
-SoftwareSerial ESPserial(1, 0); // pin 3 à TX du ESP | pin 4 à RX du ESP
-
-// Timer timer;
+// SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 
 // Fonction utilisée pour connaitre la RAM libre sur le Arduino lorsque la RAM est pleine le arduino bloc et doit être redémarré
 int freeRam ()
@@ -18,7 +16,6 @@ int freeRam ()
 CommandManager* cm;
 
 int k = 0;
-bool setupCommandManager = true;
 
 void setup(){
     Serial.begin(9600);
@@ -30,23 +27,20 @@ void setup(){
     // }
 }
 
-void setCommand(){
-
-}
-
-void readInfoFromESP()
-{
-  if (ESPserial.available()) {
-    String command = ESPserial.readString();
-    // Si la chaine de caractère n'est pas vide
-    if(command.length() != 0){
-      Serial.print("Value received: ");
-      Serial.println(command);
-
-      cm->executeCommand(command);
-    }
-  }
-}
+// À Décommenter une fois que le ESP sera connecté
+// void readInfoFromESP()
+// {
+//   if (ESPserial.available()) {
+//     String command = ESPserial.readString();
+//     // Si la chaine de caractère n'est pas vide
+//     if(command.length() != 0){
+//       Serial.print(F("Value received: "));
+//       Serial.println(command);
+//
+//       cm->executeCommand(command);
+//     }
+//   }
+// }
 
 // TO REMOVE
 void testArduino(){
@@ -74,17 +68,14 @@ void testArduino(){
     }
     else if(k % 3 == 1){
         // Serial.println(F("TEST AJOUT"));
-        short red = 11*256;
-        short blue = 10*256;
-        short green = 9*256+255;
+        short red = 11*256; // Pin 11 et value 0
+        short blue = 10*256; // Pin 10 et value 0
+        short green = 9*256+255; // Pin 9 et value 255
         cm->executeCommand("id 1 a 2 200 i " +String(green) + " " +String(blue) +" " + String(red));
 
     }
     else{
         // Serial.println(F("TEST Config"));
-
-        // cm->executeCommand("id 2 c 1 100 o 5");
-        // cm->executeCommand("id 4 c 1 500 o 2");
         short red = 11*256+random(55,156);
         short blue = 10*256+random(127,256);
         short green = 9*256+random(0,256);
@@ -103,12 +94,6 @@ void loop(){
     Serial.print(F("=========== Free memory "));
     Serial.println(freeRam());
 
-    // Phase de Setup fait une seule fois
-    if(setupCommandManager){
-        setCommand();
-        setupCommandManager = false;
-    }
-
     // Utiliser pour les tests seulement
     testArduino();
 
@@ -122,7 +107,7 @@ void loop(){
             // Test
             // Serial.println(status);
 
-            // Send data to ESP
+            // Send data to ESP !!!! À Décommenter !!!!
             // ESPserial.write(status);
         }
     }
@@ -133,6 +118,6 @@ void loop(){
     }
 
     // Listen for communication from ESP
-    // readInfoFromESP();
+    // readInfoFromESP(); !!!! À Décommenter !!!!
 
 }

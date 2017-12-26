@@ -3,9 +3,9 @@
 /**
     Les commandes, qui peuvent être reçues, doivent être du format suivant :
 
-    AJOUT :  id (int) a (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
-    CONFIG: id (int) c (CONTROLLER_TYPE) delay i (input1 value1 input2 value2) o (output1 output2)
-    DELETE: CONFIG: id (int) d (CONTROLLER_TYPE)
+    AJOUT :  id (byte) a (CONTROLLER_TYPE) delay i (input1-value1 input2-value2) o (output1 output2)
+    CONFIG: id (byte) c (CONTROLLER_TYPE) delay i (input1-value1 input2-value2) o (output1 output2)
+    DELETE: CONFIG: id (byte) d (CONTROLLER_TYPE)
 
 */
 

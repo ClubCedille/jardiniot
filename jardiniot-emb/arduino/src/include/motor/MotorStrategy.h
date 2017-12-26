@@ -4,6 +4,9 @@
 #include "include/Controller.h"
 #include "include/command/JardinCommand.h"
 
+/**
+    Définit le comportement de base pour les moteurs
+*/
 class MotorStrategy: public Controller {
 protected:
     short delayTime;
