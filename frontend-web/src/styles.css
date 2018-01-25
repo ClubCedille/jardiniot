@@ -1,3 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/font-awesome/css/font-awesome.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+
+
+.navbar-custom {
+    background-color: #008000;
+    padding:20px;
+}
+
+
+.navbar-brand  {
+    color: white;
+    padding-left: 10%;
+}
+
+
