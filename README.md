@@ -3,4 +3,18 @@ Le projet JardinIoT est un jardin autonome. Ce jardin est composé de "buckets" 
 
 Plus de détails sur le projet peuvent être trouvés sur [le Wiki](https://github.com/ClubCedille/jardiniot/wiki "Wiki JardinIoT").
 
-<img src="https://cloud.githubusercontent.com/assets/6194072/25687872/c6a8c538-3047-11e7-997f-b75367dcfbd4.JPG" height="260"> <img src="https://cloud.githubusercontent.com/assets/6194072/25687873/c6ae7a6e-3047-11e7-9e88-86f978f50d0e.jpg" height="260"> <img src="https://cloud.githubusercontent.com/assets/6194072/25687871/c69dbcf6-3047-11e7-964a-e40224be613f.JPG" height="260"> 
+<img src="https://cloud.githubusercontent.com/assets/6194072/25687872/c6a8c538-3047-11e7-997f-b75367dcfbd4.JPG" height="260"> <img src="https://cloud.githubusercontent.com/assets/6194072/25687873/c6ae7a6e-3047-11e7-9e88-86f978f50d0e.jpg" height="260"> <img src="https://cloud.githubusercontent.com/assets/6194072/25687871/c69dbcf6-3047-11e7-964a-e40224be613f.JPG" height="260">
+
+# Instructions d'installation
+
+1. Vérifiez votre version de Python afin que ce soit la version 2.7 (`python --version`)
+2. Installez PlatfromIO à l'aide de `pip`: `pip install -U platformio`. Il se peut que vous deviez utiliser `pip2` si Python 3 est installé sur votre ordi.
+3. Clonez le projet: `git clone https://github.com/ClubCedille/jardiniot.git`
+4. Vous devez installer chaque dépendence (les `lib_deps` qui sont trouvées dans `platformio.ini`) pour que le code puisse compiler:
+	* Allez dans `jardiniot-emb/esp/` et exécutez cette commande: `platformio lib install "EspSoftwareSerial" "WiFi" "PubSubClient" "WifiManager" "CmdMessenger"`
+	* Allez dans `jardiniot-emb/arduino/` et exécutez cette commande: `platformio lib install "StandardCplusplus" "Timer" "Adafruit Unified Sensor" "DHT sensor library"`
+5. Pour flasher le Arduino avec le code, allez dans le fichier `arduino` et exécutez la commande `platformio run --target upload`.
+6. Allez dans le fichier `esp` et faites la même commande pour flasher le ESP8266. Connectez qu'un seul truc à flasher à la fois sur l'ordi.
+7. Pour recevoir des `Serial.print()` du Arduino, vous pouvez le faire avec cette commande: `platformio device monitor -p /dev/ttyACM0 -b 9600`
+
+Ceci est un guide général et les commandes peuvent changer. Allez lire [la doc](http://docs.platformio.org/en/latest/installation.html) pour plus de détails.
