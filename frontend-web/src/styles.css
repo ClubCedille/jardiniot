@@ -3,20 +3,27 @@
 @import "../node_modules/font-awesome/css/font-awesome.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
+body {
+    min-height:100vh;
+}
 
-.navbar-custom {
-    background-color: #008000;
-    padding:20px;
+.footer {
+    width:100%;
+    position:absolute;
+    bottom:0px;
+}
+
+.custom-frame-style {
+    padding: 30px; 
+    background-color:#008000;
+    color: white;
     vertical-align:middle;
 }
 
-.navbar-brand  {
-    color: white;
-    padding-left: 7%;
+.navbar-custom {
 }
 
-.navbar-toggler {
-    margin-right:7%;
+.cedille-logo {
+
+max-width:125px;
 }
-
-
