@@ -7,12 +7,16 @@
 .navbar-custom {
     background-color: #008000;
     padding:20px;
+    vertical-align:middle;
 }
-
 
 .navbar-brand  {
     color: white;
-    padding-left: 10%;
+    padding-left: 7%;
+}
+
+.navbar-toggler {
+    margin-right:7%;
 }
 
 
