@@ -20,8 +20,8 @@ JardinCommand::JardinCommand(String command){
     this->errorMsg = "";
 
     this->split(command, commandSplitted, ' ');
-
     this->validCommand(commandSplitted);
+
     commandSplitted.clear();
 }
 
@@ -151,26 +151,22 @@ bool JardinCommand::validCommand(std::vector<String> &vecCommand){
 }
 
 // Split les commandes pour permettre de savoir quelle type de commande on doit exécuter
-int JardinCommand::split(const String &command, std::vector<String> &strs, char ch)
+int JardinCommand::split(const String &command, std::vector<String> &tokens, char ch)
 {
-    int pos = command.indexOf(ch);
-    // return pos;
-    int initialPos = 0;
-    strs.clear();
+	size_t pos = 0;
 
-    int commandLength = command.length();
+	tokens.clear();
+	String token;
+	while ((pos = command.indexOf(ch)) != -1) {
+		token = command.substring(0, pos);
+		tokens.push_back(token);	// add to vector
+		command.remove(0, pos + 1);
+	}
 
-    // Decompose statement
-    while( pos < commandLength && pos != -1 ) {
-        strs.push_back( command.substring( initialPos, pos) );
+	// There may not be any delimiter remaining, but let's not forget the last token.
+	tokens.push_back(command);
 
-        initialPos = pos+1;
-
-        pos = command.indexOf( ch, initialPos+1);
-    }
-    // Add the last one
-    strs.push_back( command.substring( initialPos) );
-    return strs.size();
+	return tokens.size();
 }
 
 byte JardinCommand::getIdController(){
