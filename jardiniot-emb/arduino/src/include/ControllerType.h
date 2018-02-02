@@ -4,7 +4,7 @@
 // ControllerType available
 // ADAFRUIT_DHT = 0
 // LED = 1
-// A_LED = 2
+// A_LED = 2		(DEL sous le heatsink du capeau du bucket)
 // SoilMoisture = 3
 // FAN = 4
 // VALVE = 5
