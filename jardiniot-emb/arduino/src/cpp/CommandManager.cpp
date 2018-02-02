@@ -174,6 +174,11 @@ bool CommandManager::isIdControllerUsed(byte idController){
             return true;
         }
     }
+    for(unsigned int i = 0; i < this->motorList.size(); i++){
+        if(this->motorList[i]->getIdController() == idController){
+            return true;
+        }
+    }
     return false;
 }
 
