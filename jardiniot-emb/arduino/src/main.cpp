@@ -42,50 +42,41 @@ void setup(){
 //   }
 // }
 
-// TO REMOVE
+// TO BE REMOVED
 void testArduino(){
+	if(k == 0)
+	{
+		// Lumières DEL se trouvant sous le heatsink
+		short red = 11*256+125;	// Pin 11 avec intensité de 125
+		short blue = 10*256+160;	// Pin 10 avec intensité de 160
+		short white = 9*256+50;	// Pin 9 avec intensité de 50
+		cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
 
-    if(k == 0){
-        // cm->executeCommand("id 1 a 2 300 i 2504 2660 3016");
+		// Ajout de FAN
+		cm->executeCommand("id 5 a 4 250 i " + String(5*256+255));		// Fan latérale (pin 5)
+		cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink
 
-        // LED STANDARD
-        cm->executeCommand("id 2 a 1 350 o 5");
-        cm->executeCommand("id 3 a 1 250 o 4");
-        cm->executeCommand("id 4 a 1 250 o 2");
+		// Ajout d'un DHT
+		// cm->executeCommand("id 7 a 0 250 i 22");
+	}
+	// Ces deux prochaines conditions font flasher les lumières
+	else if (k > 10 && k / 10 % 2 == 0)
+	{
+		short red = 11*256+10;	// Pin 11 avec intensité de 10
+		short blue = 10*256+30;	// Pin 10 avec intensité de 30
+		short white = 9*256+10;	// Pin 9 avec intensité de 10
+		cm->executeCommand("id 1 c 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+	}
+	else if (k > 10 && k / 10 % 2 == 1)
+	{
+		short red = 11*256+125;	// Pin 11 avec intensité de 125
+		short blue = 10*256+160;	// Pin 10 avec intensité de 160
+		short white = 9*256+50;	// Pin 9 avec intensité de 50
+		cm->executeCommand("id 1 c 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+	}
 
-        // Ajout de FAN
-        cm->executeCommand("id 5 a 4 250 i 255");
-        cm->executeCommand("id 6 a 4 250 i 255");
-
-        // Ajout d'un DHT
-        // cm->executeCommand("id 7 a 0 250 i 22");
-    }
-
-    if(k %3 ==0){
-        // Serial.println(F("TEST DELETE "));
-        cm->executeCommand("id 1 d 2");
-        cm->executeCommand("id 3 d 1");
-    }
-    else if(k % 3 == 1){
-        // Serial.println(F("TEST AJOUT"));
-        short red = 11*256; // Pin 11 et value 0
-        short blue = 10*256; // Pin 10 et value 0
-        short green = 9*256+255; // Pin 9 et value 255
-        cm->executeCommand("id 1 a 2 200 i " +String(green) + " " +String(blue) +" " + String(red));
-
-    }
-    else{
-        // Serial.println(F("TEST Config"));
-        short red = 11*256+random(55,156);
-        short blue = 10*256+random(127,256);
-        short green = 9*256+random(0,256);
-
-        cm->executeCommand("id 1 c 2 200 i " +String(green) + " " +String(blue) +" " + String(red));
-    }
-
-    k++;
+	k++;
 }
-// END
 
 void loop(){
 
