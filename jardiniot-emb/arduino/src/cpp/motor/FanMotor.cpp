@@ -3,7 +3,7 @@
 
 //<<constructor>>
 FanMotor::FanMotor(byte idController, std::vector<short> input):MotorStrategy(){
-    fanPin = (input[0] & 0xff00) > 8;
+    fanPin = (input[0] & 0xff00) >> 8;
     fanSpeed = (input[0] & 0xff);
 }
 
