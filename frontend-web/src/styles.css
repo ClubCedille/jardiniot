@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/font-awesome/css/font-awesome.css";
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 
 body {
     min-height:100vh;
@@ -24,6 +23,31 @@ body {
 }
 
 .cedille-logo {
+    max-width:125px;
+}
 
-max-width:125px;
+.footer-icons {
+    font-size: 1.5em;
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 40px;
+    outline: 0;
+    color: #fff;
+    background-color: #222;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+    transition: all .3s;
+    text-align:center;
+}
+
+.footer-icons i {
+    line-height:40px;
+}
+
+.footer-li {
+    text-align:-moz-center;
+    text-align:-webkit-center;
 }

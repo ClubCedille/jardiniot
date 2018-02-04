@@ -1,27 +1,20 @@
-# FrontendWeb
+JardinIoT - Interface Web
+=========
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.2.
+Ce dossier contient tout ce qui se rapporte à l'interface web. Ce site web est le panneau de contrôle qui nous permettra d'interagir facilement avec l'API, et ainsis afficher les données que le bucket lui envoie. 
 
-## Development server
+Ce projet a été générer avec [Angular CLI](https://github.com/angular/angular-cli) version 1.6.2.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Installation
+Tout comme l'API, cloner le repo et [installer yarn](https://yarnpkg.com/fr/docs/install). Ensuite:
+```
+cd jardiniot/serveur-web/
+yarn install
+yarn start
+```
 
 ## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
+Après avoir installer AngularCLI, utiliser `ng generate component component-name` pour ajouter des nouveaux component au projet. Il est aussi possible d'utiiser `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
