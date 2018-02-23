@@ -24,3 +24,8 @@ short FanMotor::stop(){
     analogWrite(fanPin, 0);
     return 0;
 }
+
+void FanMotor::setInput(std::vector<short> inputPins){
+    fanPin = (inputPins[0] & 0xff00) >> 8;
+    fanSpeed = (inputPins[0] & 0xff);
+}

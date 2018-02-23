@@ -20,6 +20,8 @@ public:
     // Méthode hérité de la classe MotorStrategy
     short activate();
     short stop();
+
+    void setInput(std::vector<short> inputPins);
 };
 
 #endif

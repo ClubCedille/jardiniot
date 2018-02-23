@@ -12,6 +12,7 @@ MotorStrategy::~MotorStrategy(){
 }
 
 void MotorStrategy::modify(JardinCommand &jCommand){
+    this->setInput(jCommand.getInputPin());
     this->delayTime = jCommand.getDelay();
 }
 
@@ -25,4 +26,9 @@ short MotorStrategy::activate(){
 
 short MotorStrategy::stop(){
     return 0;
+}
+
+void MotorStrategy::setInput(std::vector<short> input){
+    this->inputPin.clear();
+    this->inputPin = input;
 }

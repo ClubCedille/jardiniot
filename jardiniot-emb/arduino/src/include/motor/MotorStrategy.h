@@ -22,6 +22,7 @@ public:
 
     void setDelayTime(short delayTime);
     void modify(JardinCommand &jCommand);
+    virtual void setInput(std::vector<short> input);
 };
 
 #endif
