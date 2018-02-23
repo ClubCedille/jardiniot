@@ -82,6 +82,9 @@ void testArduino(){
 		short blue = 10*256+30;	// Pin 10 avec intensité de 30
 		short white = 9*256+10;	// Pin 9 avec intensité de 10
 		cm->executeCommand("id 1 c 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+
+		cm->executeCommand("id 5 c 4 250 i " + String(5*256+255));
+		cm->executeCommand("id 6 c 4 250 i " + String(6*256+255));
 	}
 	else if (k > 10 && k / 10 % 2 == 1)
 	{
@@ -89,6 +92,9 @@ void testArduino(){
 		short blue = 10*256+160;	// Pin 10 avec intensité de 160
 		short white = 9*256+50;	// Pin 9 avec intensité de 50
 		cm->executeCommand("id 1 c 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+
+		cm->executeCommand("id 5 c 4 250 i " + String(5*256+0));
+		cm->executeCommand("id 6 c 4 250 i " + String(6*256+0));
 	}
 
 	k++;

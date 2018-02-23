@@ -37,7 +37,7 @@ MotorStrategy* ControllerFactory::createMotor(byte idController, ControllerType 
     switch (type) {
         // Fan
         case FAN:
-            return new FanMotor(idController, inputPin);
+            return new FanMotor(idController, inputPin, outputPin, delay);
             break;
         // Valve
         case VALVE:

@@ -2,9 +2,9 @@
 #include "include/ControllerType.h"
 
 //<<constructor>>
-FanMotor::FanMotor(byte idController, std::vector<short> input):MotorStrategy(){
-    fanPin = (input[0] & 0xff00) >> 8;
-    fanSpeed = (input[0] & 0xff);
+FanMotor::FanMotor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):MotorStrategy(idController, ControllerType::FAN, inputPins, outputPins){
+    fanPin = (inputPins[0] & 0xff00) >> 8;
+    fanSpeed = (inputPins[0] & 0xff);
 }
 
 //<<destructor>>
