@@ -14,6 +14,7 @@ Plus de détails sur le projet peuvent être trouvés sur [le Wiki](https://gith
 	* Allez dans `jardiniot-emb/esp/` et exécutez cette commande: `platformio lib install "EspSoftwareSerial" "WiFi" "PubSubClient" "WifiManager" "CmdMessenger"`
 	* Allez dans `jardiniot-emb/arduino/` et exécutez cette commande: `platformio lib install "StandardCplusplus" "Timer" "Adafruit Unified Sensor" "DHT sensor library"`
 5. Pour flasher le Arduino avec le code, allez dans le fichier `arduino` et exécutez la commande `platformio run --target upload`.
+	* Si jamais le logiciel ne peut pas accéder à `/dev/ttyACM0`, il faut faire: `sudo chmod 666 /dev/ttyACM0`.
 6. Allez dans le fichier `esp` et faites la même commande pour flasher le ESP8266. Connectez qu'un seul truc à flasher à la fois sur l'ordi.
 7. Pour recevoir des `Serial.print()` du Arduino, vous pouvez le faire avec cette commande: `platformio device monitor -p /dev/ttyACM0 -b 9600`
 
