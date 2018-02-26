@@ -12,7 +12,7 @@
 # CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-# Testé sur Debian GNU/Linux 9 et Manjaro Linux
+# Testé sur Ubuntu, Debian GNU/Linux 9 et Manjaro Linux
 
 # Le présent répertoire devient le répertoire de travail. Le script doit rester à la base du repo git.
 cd $(dirname "$0")
@@ -24,7 +24,7 @@ if command -v doxygen > /dev/null 2>&1; then
 		doxygen -g
 
 		# Copier le README principal dans le fichier 'jardiniot-emb'
-		cp README.md jardiniot-emb/MAIN.md
+		cp ../README.md MAIN.md
 
 		# Modifier la config pour y mettre nos options
 		sed -i 's/PROJECT_NAME           = "My Project"/PROJECT_NAME           = "JardinIoT"/g' Doxyfile
@@ -32,14 +32,13 @@ if command -v doxygen > /dev/null 2>&1; then
 		sed -i 's/PROJECT_BRIEF          =/PROJECT_BRIEF          = "Projet de jardin autonome"/g' Doxyfile
 		sed -i 's/USE_MDFILE_AS_MAINPAGE =/USE_MDFILE_AS_MAINPAGE = MAIN.md"/g' Doxyfile
 		sed -i 's/OUTPUT_DIRECTORY       =/OUTPUT_DIRECTORY       = "doc"/g' Doxyfile
-		sed -i 's/INPUT                  =/INPUT                  = "jardiniot-emb"/g' Doxyfile
 
 		# Générer le site web de documentation
 		doxygen Doxyfile
 
 		# Effacer le Doxyfile et autres fichiers temporaires
 		rm Doxyfile
-		rm jardiniot-emb/MAIN.md
+		rm MAIN.md
 	else
 		echo "Veuillez installer 'graphviz' afin que les graphiques puissent être générés"
 	fi
