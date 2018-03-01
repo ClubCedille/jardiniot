@@ -1,9 +1,10 @@
+#include "DHT.h"
 #include "include/sensor/DHTSensor.h"
 
 //<<constructor>>
 DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
 
-    byte DHTPin = (this->inputPin[0] & 0xff00)>> 8;
+    byte DHTPin = (this->inputPin[0] & 0xff00) >> 8;
     byte DHTTYPE = (this->inputPin[0] & 0xff);
 
     dht = new DHT(DHTPin, DHTTYPE);
@@ -26,17 +27,15 @@ char* DHTSensor::read(){
     if (isnan(h) || isnan(t)) {
         strcpy(sensorStatus, "Echec de lecture du DHT!");
     } else {
-        //convertion de temperature en string
+        // Convertion de temperature en string
         char tempString[8];
         dtostrf(t, 6, 2, tempString);
-        //convertion de l'humidite en string
+        // Convertion de l'humidite en string
         char humidityString[8];
         dtostrf(h, 6, 2, humidityString);
 
-        //met les infos dans un char array (sprintf ne prends plus de float (%f) en parametre)
-
+        // Met les infos dans un char array (sprintf ne prends plus de float (%f) en parametre)
         sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s", tempString, humidityString);
-
     }
 
     return sensorStatus;

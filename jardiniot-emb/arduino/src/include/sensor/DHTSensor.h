@@ -12,7 +12,7 @@
 
 class DHTSensor: public SensorStrategy {
 private:
-    DHT* dht;
+    DHT* dht;	// On pourrait surement faire que ce soit pas un pointeur
 public:
     DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~DHTSensor();

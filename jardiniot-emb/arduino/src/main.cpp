@@ -73,7 +73,7 @@ void testArduino(){
 		cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink
 
 		// Ajout d'un DHT
-		// cm->executeCommand("id 7 a 0 250 i 22");
+		cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
 	}
 	// Ces deux prochaines conditions font flasher les lumières
 	else if (k > 10 && k / 10 % 2 == 0)
@@ -118,7 +118,7 @@ void loop(){
         char* status = cm->getSensorList()[i]->read();
         if((status != NULL) && (status[0] != '\0')){
             // Test
-            // Serial.println(status);
+            Serial.println(status);
 
             // Send data to ESP !!!! À Décommenter !!!!
             // ESPserial.write(status);
