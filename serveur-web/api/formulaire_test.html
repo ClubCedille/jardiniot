@@ -50,8 +50,8 @@
     function postBucket()
     {
       var dataObj = {};
-      dataObj.bucketName = $("#bucketName").val();
-      dataObj.bucketIp = $("#bucketIp").val();
+      dataObj.name = $("#bucketName").val();
+      dataObj.ip = $("#bucketIp").val();
       $.post("http://localhost:8080/buckets/", JSON.stringify(dataObj), function(rst){
         alert(rst);
       });
