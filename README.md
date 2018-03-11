@@ -8,7 +8,7 @@ Plus de détails sur le projet peuvent être trouvés sur [le Wiki](https://gith
 # Instructions d'installation
 
 1. Vérifiez votre version de Python afin que ce soit la version 2.7 (`python --version`)
-2. Installez PlatfromIO à l'aide de `pip`: `pip install -U platformio`. Il se peut que vous deviez utiliser `pip2` si Python 3 est installé sur votre ordi.
+2. Installez PlatfromIO à l'aide de `pip`: `pip install -U wheel semantic-version platformio`. Il se peut que vous deviez utiliser `pip2` si Python 3 est installé sur votre ordi.
 3. Clonez le projet: `git clone https://github.com/ClubCedille/jardiniot.git`
 4. Vous devez installer chaque dépendence (les `lib_deps` qui sont trouvées dans `platformio.ini`) pour que le code puisse compiler:
 	* Allez dans `jardiniot-emb/esp/` et exécutez cette commande: `platformio lib install "EspSoftwareSerial" "WiFi" "PubSubClient" "WifiManager" "CmdMessenger"`
