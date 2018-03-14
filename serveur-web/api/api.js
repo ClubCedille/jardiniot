@@ -1,3 +1,20 @@
+/* Copyright 2018 Roch D'Amour
+ * Copyright 2017 Aubert Guillemette 
+ *
+ * JardinIoT is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * JardinIoT is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with JardinIoT. If not, see <http://www.gnu.org/licenses/>.
+ */
+
 var express = require("express");
 var dataConn = require("./sqlite_connector.js");
 
@@ -27,6 +44,13 @@ function enableCORS(req, res, next) {
  */
 api.get('/buckets', function(req, res, next) {
     listBuckets(req, res);
+});
+
+/*
+ * Bucket post
+ */
+api.post('/buckets', function(req, res, next) {
+    bucketCreate(req,res);
 });
 
 /*
@@ -84,6 +108,48 @@ function bucketInfo(req, res) {
     });
 }
 
+//Post bucket
+function bucketCreate(req, res) {
+
+    // Receive data from http post
+    var postData = "";
+    req.on('data', function(dataChunk) {
+        postData += dataChunk;
+        console.log('received '+dataChunk);
+    });
+
+    req.on('end', handleCommand);
+
+    function handleCommand() {
+        
+        if (postData == "") {
+            res.status(400).send(JSON.stringify({error: "Erreur: received post data are invalid!:"+postData}));
+            return;
+        }
+
+        var datas = JSON.parse(postData);
+        var name = datas.name;
+        var ip = datas.ip;
+        
+        if (name == "") {
+            res.status(400).send(JSON.stringify({error: "Invalid bucket name."}));
+            return;
+        }
+        if (ip == "") {
+            res.status(400).send(JSON.stringify({error: "Invalid bucket ip."}));
+            return;
+        }
+        
+        dataConn.createBucket(name,ip, function(err, result){
+            if(err) {
+                res.status(500).send('Welp');
+            } else {
+                res.status(200).send(JSON.stringify(result));
+            }
+        });
+    }
+}
+
 //Get sensor value
 function getSensorValue(req, res){
     var id = req.params.sensorId;
@@ -119,7 +185,7 @@ function sendCommand(req, res){
     req.on('end', handleCommand);
 
     function handleCommand() {
-        if (postData != "") {
+        if (postData == "") {
             res.status(400).send(JSON.stringify({error: "Error: POST data received is invalid"}));
             return;
         }
