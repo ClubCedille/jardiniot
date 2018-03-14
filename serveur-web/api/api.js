@@ -1,4 +1,5 @@
-/* 
+/* Copyright 2018 Roch D'Amour
+ * Copyright 2017 Aubert Guillemette 
  *
  * JardinIoT is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -113,39 +114,39 @@ function bucketCreate(req, res) {
     // Receive data from http post
     var postData = "";
     req.on('data', function(dataChunk) {
-	postData += dataChunk;
-	console.log('received '+dataChunk);
+        postData += dataChunk;
+        console.log('received '+dataChunk);
     });
 
     req.on('end', handleCommand);
 
     function handleCommand() {
-	
-	if (postData == "") {
-	    res.status(400).send(JSON.stringify({error: "Erreur: received post data are invalid!:"+postData}));
-	    return;
-	}
+        
+        if (postData == "") {
+            res.status(400).send(JSON.stringify({error: "Erreur: received post data are invalid!:"+postData}));
+            return;
+        }
 
-	var datas = JSON.parse(postData);
-	var name = datas.name;
-	var ip = datas.ip;
-	
-	if (name == "") {
+        var datas = JSON.parse(postData);
+        var name = datas.name;
+        var ip = datas.ip;
+        
+        if (name == "") {
             res.status(400).send(JSON.stringify({error: "Invalid bucket name."}));
             return;
-	}
-	if (ip == "") {
+        }
+        if (ip == "") {
             res.status(400).send(JSON.stringify({error: "Invalid bucket ip."}));
             return;
-	}
-	
-	dataConn.createBucket(name,ip, function(err, result){
+        }
+        
+        dataConn.createBucket(name,ip, function(err, result){
             if(err) {
-		res.status(500).send('Welp');
+                res.status(500).send('Welp');
             } else {
-		res.status(200).send(JSON.stringify(result));
+                res.status(200).send(JSON.stringify(result));
             }
-	});
+        });
     }
 }
 
@@ -159,9 +160,9 @@ function getSensorValue(req, res){
 
     var sensorInfo = dataConn.getSensorValue(id, function(err, result){
         if(err) {
-	    res.status(500).send('Welp');
+            res.status(500).send('Welp');
         } else {
-	    res.status(200).send(JSON.stringify(result));
+            res.status(200).send(JSON.stringify(result));
         }
     });
 }
@@ -185,19 +186,19 @@ function sendCommand(req, res){
 
     function handleCommand() {
         if (postData == "") {
-	    res.status(400).send(JSON.stringify({error: "Error: POST data received is invalid"}));
-	    return;
+            res.status(400).send(JSON.stringify({error: "Error: POST data received is invalid"}));
+            return;
         }
 
         try
         {
-	    //Est-ce que mes données sont du JSON valide?
-	    var data = JSON.parse(postData);
+            //Est-ce que mes données sont du JSON valide?
+            var data = JSON.parse(postData);
 
-	    //TODO: Regarder si celui qui a envoyé les données a le droit de le faire.
+            //TODO: Regarder si celui qui a envoyé les données a le droit de le faire.
 
-	    //Si on est ici, le JSON est valide. Contient-il ce qu'on veut?
-	    var dataIsValid =
+            //Si on est ici, le JSON est valide. Contient-il ce qu'on veut?
+            var dataIsValid =
                 //Est-ce que l'objet a les bonnes propriétés?
                 data.hasOwnProperty("blue") &&
                 data.hasOwnProperty("white") &&
@@ -219,24 +220,24 @@ function sendCommand(req, res){
                 data.white <= LIMIT_WHITE &&
                 data.red <= LIMIT_RED &&
                 data.fan <= LIMIT_FAN;
-	    //...and this is how you do condition short-circuiting.
+            //...and this is how you do condition short-circuiting.
 
-	    if (!dataIsValid) throw "Data received is invalid.";
+            if (!dataIsValid) throw "Data received is invalid.";
 
-	    //Si on est ici, les données sont valides!
-	    //Let's treat it! (Post it check it treat it send it ♫)
-	    dataConn.getBucketNameById(id, function(bucketName){
+            //Si on est ici, les données sont valides!
+            //Let's treat it! (Post it check it treat it send it ♫)
+            dataConn.getBucketNameById(id, function(bucketName){
                 mqtt.send(bucketName, data);
-	    });
+            });
         }
         catch (e)
         {
-	    //Les données sont invalides, on envoie un msg d'erreur en console :-(
-	    console.warn("");
-	    console.warn("WARNING: In api::sendCommand()");
-	    console.warn("       : " + e);
-	    console.warn("       : Not sending the command. :(");
-	    console.warn("");
+            //Les données sont invalides, on envoie un msg d'erreur en console :-(
+            console.warn("");
+            console.warn("WARNING: In api::sendCommand()");
+            console.warn("       : " + e);
+            console.warn("       : Not sending the command. :(");
+            console.warn("");
         }
     }
 }
