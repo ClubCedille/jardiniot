@@ -1,0 +1,88 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:arduino
+LIBS:ESP8266
+LIBS:LDD1500H
+LIBS:jardinio-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Arduino_Uno_Shield XA?
+U 1 1 5AA0A6D6
+P 3150 2050
+F 0 "XA?" V 3250 2050 60  0000 C CNN
+F 1 "Arduino_Uno_Shield" V 3050 2050 60  0000 C CNN
+F 2 "" H 4950 5800 60  0001 C CNN
+F 3 "" H 4950 5800 60  0001 C CNN
+	1    3150 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L ESP8266EX U?
+U 1 1 5AA0A92F
+P 7050 1400
+F 0 "U?" H 6150 2100 60  0000 C CNN
+F 1 "ESP8266EX" H 6200 2000 60  0000 C CNN
+F 2 "" H 6150 2100 60  0000 C CNN
+F 3 "" H 6150 2100 60  0000 C CNN
+	1    7050 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L LDD-1500H U?
+U 1 1 5AA0A9BD
+P 9350 1200
+F 0 "U?" H 9250 1600 60  0000 C CNN
+F 1 "LDD-1500H" H 9250 1600 60  0000 C CNN
+F 2 "" H 9250 1600 60  0000 C CNN
+F 3 "" H 9250 1600 60  0000 C CNN
+	1    9350 1200
+	1    0    0    -1  
+$EndComp
+$Sheet
+S 5500 4000 1400 1250
+U 5AA12C59
+F0 "power" 60
+F1 "power.sch" 60
+$EndSheet
+$EndSCHEMATC

@@ -46,28 +46,4 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 750  5050 1400 1250
-U 5AA12C59
-F0 "power" 60
-F1 "power.sch" 60
-$EndSheet
-$Sheet
-S 3350 850  1200 3050
-U 5AA1E97C
-F0 "control" 60
-F1 "control.sch" 60
-$EndSheet
-$Sheet
-S 900  750  1050 3250
-U 5AA1E9E6
-F0 "sensors" 60
-F1 "sensors.sch" 60
-$EndSheet
-$Sheet
-S 6250 800  1200 3150
-U 5AA1EA5F
-F0 "outputs" 60
-F1 "outputs.sch" 60
-$EndSheet
 $EndSCHEMATC

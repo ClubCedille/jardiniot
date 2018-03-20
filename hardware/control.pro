@@ -1,6 +1,10 @@
-update=Tue 13 Mar 2018 11:06:06 PM EDT
+update=Mon 19 Mar 2018 08:24:30 PM EDT
 version=1
-last_client=kicad
+last_client=eeschema
+[general]
+version=1
+RootSch=
+BoardNm=
 [pcbnew]
 version=1
 LastNetListRead=
@@ -23,11 +27,9 @@ ModuleOutlineThickness=0.150000000000
 [cvpcb]
 version=1
 NetIExt=net
-[general]
-version=1
 [eeschema]
 version=1
-LibDir=
+LibDir=extLib;intLib
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -58,6 +60,6 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-LibName30=extLib/arduino-kicad-library/arduino
+LibName30=intLib/LDD1500H/LDD1500H
 LibName31=extLib/kicad-ESP8266/ESP8266
-LibName32=intLib/LDD1500H/LDD1500H
+LibName32=extLib/arduino-kicad-library/arduino
