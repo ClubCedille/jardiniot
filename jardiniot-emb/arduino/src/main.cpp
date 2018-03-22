@@ -33,6 +33,7 @@ int freeRam() {
 }
 
 // Envoie de mock data
+// TODO: Résoudre le problème avec le DHT
 void sendStatusToESP() {
 	// Send data to ESP8266
 	char sensorStatus[80];
@@ -71,7 +72,7 @@ void setup(){
 	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
 
 	// Ajout d'un DHT
-	// TODO: Si decommenté, cause problèmes de mémoire ou de socket sur le ESP
+	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error
 	//cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
 
 	Serial.println(F("Config par defaut executee."));
@@ -81,19 +82,21 @@ void setup(){
 	Serial.println(F("Timer pret."));
 }
 
-// À Décommenter une fois que le ESP sera connecté
-void readInfoFromESP()
-{
+// Pour lire les commandes venant du ESP
+void readInfoFromESP() {
 	if (ESPserial.available()) {
 		String command = ESPserial.readString();
-		// Si la chaine de caractère n'est pas vide
-		if(command.length() != 0) {
-			Serial.print(F("Value received: "));
+		// On vérifie si la chaine de caractère est valide en ayant une taille minimale
+		if(command.length() >= 8) {
+			Serial.print(F("Received: "));
 			Serial.print(command);
 			Serial.println(F("."));
 
+			// On fait certain que ce soit une vrai commande. Elles commencent tout le temps par 'id'.
 			if (command[0] == 'i' && command[1] == 'd') {
 				cm->executeCommand(command);
+			} else {
+				Serial.println(F("Not a command"));
 			}
 		}
 	}
@@ -119,6 +122,7 @@ void loop() {
 			// Test
 			Serial.println(status);
 
+			// TODO: Fix me
 			// Send data to ESP
 			//ESPserial.write(status);
 		}
