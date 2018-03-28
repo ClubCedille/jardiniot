@@ -26,10 +26,17 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 
 #### Instructions d'installation
 Cloner le repo, [installer yarn](https://yarnpkg.com/fr/docs/install), ensuite:
+
 ```
 cd jardiniot/serveur-web/
 yarn install
 yarn start
+```
+
+Pour obtenir des données bidons pour tester, il faut faire :
+
+```
+sqlite3 api/jardin.db < api/db_seed.sql
 ```
 
 ## Docker
