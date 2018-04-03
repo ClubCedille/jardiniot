@@ -28,15 +28,13 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:arduino
-LIBS:ESP8266
 LIBS:LDD1500H
-LIBS:jardinio-cache
+LIBS:power-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 1
 Title ""
 Date ""
 Rev ""
@@ -46,4 +44,45 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L RS-150-48 U?
+U 1 1 5AC2B72E
+P 1250 1400
+F 0 "U?" H 1250 1800 60  0000 C CNN
+F 1 "RS-150-48" H 1250 1800 60  0000 C CNN
+F 2 "" H 1250 1800 60  0000 C CNN
+F 3 "" H 1250 1800 60  0000 C CNN
+	1    1250 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5AC2B783
+P 1550 1300
+F 0 "#PWR?" H 1550 1050 50  0001 C CNN
+F 1 "GND" H 1550 1150 50  0000 C CNN
+F 2 "" H 1550 1300 50  0000 C CNN
+F 3 "" H 1550 1300 50  0000 C CNN
+	1    1550 1300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 1250 1550 1250
+Wire Wire Line
+	1550 1250 1550 1300
+$Comp
+L +48V #PWR?
+U 1 1 5AC2B8CB
+P 1600 1050
+F 0 "#PWR?" H 1600 900 50  0001 C CNN
+F 1 "+48V" H 1600 1190 50  0000 C CNN
+F 2 "" H 1600 1050 50  0000 C CNN
+F 3 "" H 1600 1050 50  0000 C CNN
+	1    1600 1050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1500 1150 1600 1150
+Wire Wire Line
+	1600 1150 1600 1050
 $EndSCHEMATC
