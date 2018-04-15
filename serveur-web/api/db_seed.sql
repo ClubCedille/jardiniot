@@ -3,7 +3,7 @@ ATTACH "jardin.db" AS "jardin";
 BEGIN;
 
 -- Enlever les commentaires de ce script pour "seedé" la base de données. 
-INSERT INTO buckets ( "name", "ip") VALUES ("jardiniot", "127.0.0.1");
+INSERT INTO buckets ( "name", "ip") VALUES ("grosse bouette loleo", "127.0.0.1");
 
 INSERT INTO sensors (bucket_id, name, type) VALUES ("1", "humidity", "humidity");
 INSERT INTO sensors (bucket_id, name, type) VALUES ("1", "temperature", "temperature");

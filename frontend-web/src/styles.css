@@ -51,3 +51,8 @@ body {
     text-align:-moz-center;
     text-align:-webkit-center;
 }
+
+.section-title {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
