@@ -1,6 +1,6 @@
-update=22/05/2015 07:44:53
+update=Mon 16 Apr 2018 10:33:50 PM EDT
 version=1
-last_client=kicad
+last_client=eeschema
 [general]
 version=1
 RootSch=
@@ -60,3 +60,8 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
+LibName30=intLib/LDD1500H/LDD1500H
+LibName31=extLib/kicad-library/libs/MOSFET-N
+LibName32=extLib/kicad-library/libs/MOSFET-N-123
+LibName33=extLib/kicad-library/libs/MOSFET-N-134
+LibName34=extLib/OKL/kicad-library/library/Motor
