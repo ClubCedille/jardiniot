@@ -89,4 +89,5 @@ Wire Wire Line
 	1400 1650 1400 1700
 Wire Wire Line
 	1400 850  1400 800 
+NoConn ~ 1850 1350
 $EndSCHEMATC

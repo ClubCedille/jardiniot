@@ -94,10 +94,10 @@ $Comp
 L adafruit_E218213_breakboard U3001
 U 1 1 5AB05516
 P 3250 3150
-F 0 "U3001" H 5600 5300 60  0000 C CNN
-F 1 "adafruit_E218213_breakboard" H 5600 5300 60  0000 C CNN
-F 2 "" H 5600 5300 60  0000 C CNN
-F 3 "" H 5600 5300 60  0000 C CNN
+F 0 "U3001" H 5200 4950 60  0000 C CNN
+F 1 "adafruit_E218213_breakboard" H 5700 5350 60  0000 C CNN
+F 2 "" H 5700 5350 60  0000 C CNN
+F 3 "" H 5700 5350 60  0000 C CNN
 	1    3250 3150
 	1    0    0    -1  
 $EndComp
@@ -139,7 +139,7 @@ Text HLabel 6400 3300 2    60   Output ~ 0
 fanConn[1..2]
 Text HLabel 4050 750  0    60   Input ~ 0
 humidityData
-Text Label 4550 1250 2    60   ~ 0
+Text Label 4650 900  2    60   ~ 0
 fanConn1
 Text Label 4550 1350 2    60   ~ 0
 fanConn2
@@ -211,8 +211,6 @@ Wire Wire Line
 Wire Wire Line
 	5000 3150 6250 3150
 Wire Wire Line
-	4050 1250 4950 1250
-Wire Wire Line
 	4950 1250 4950 3200
 Wire Wire Line
 	4050 1350 4900 1350
@@ -242,6 +240,51 @@ Wire Bus Line
 	4850 3400 6400 3400
 Wire Wire Line
 	950  3050 1450 3050
+NoConn ~ 5500 1300
+NoConn ~ 5600 1300
+NoConn ~ 5800 1300
+NoConn ~ 6200 1650
+NoConn ~ 6200 1750
+NoConn ~ 6200 1850
+NoConn ~ 6200 1950
+NoConn ~ 6200 2050
+NoConn ~ 6200 2150
+NoConn ~ 5100 2350
+NoConn ~ 5100 2150
+NoConn ~ 5100 2050
+NoConn ~ 5100 1950
+NoConn ~ 5100 1850
+NoConn ~ 5100 1750
+NoConn ~ 5100 1650
+NoConn ~ 5100 1550
+NoConn ~ 6200 2350
+NoConn ~ 5700 2850
+NoConn ~ 5600 2850
+NoConn ~ 4050 1450
+NoConn ~ 4050 1550
+NoConn ~ 4050 1950
+NoConn ~ 4050 2050
+NoConn ~ 4050 2250
+NoConn ~ 4050 2350
+NoConn ~ 4050 2450
+NoConn ~ 4050 2550
+NoConn ~ 4050 2650
+NoConn ~ 4050 2750
+NoConn ~ 4050 2950
+NoConn ~ 4050 3050
+NoConn ~ 1450 2250
+NoConn ~ 1450 2150
+NoConn ~ 1450 2050
+NoConn ~ 1450 1950
+NoConn ~ 1450 1850
+NoConn ~ 1450 1750
+NoConn ~ 1450 1650
+NoConn ~ 1450 1350
+NoConn ~ 1450 1250
+NoConn ~ 1450 1050
+NoConn ~ 1450 950 
 Wire Wire Line
 	950  3050 950  2450
+Wire Wire Line
+	4950 1250 4050 1250
 $EndSCHEMATC
