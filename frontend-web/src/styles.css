@@ -2,18 +2,26 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 @import "../node_modules/font-awesome/css/font-awesome.css";
 
-body {
+html {
+    margin: 0 auto;
+    min-height:100%;
+}
+
+.body {
     min-height:100vh;
+    padding-bottom:250px;
+
 }
 
 .footer {
     width:100%;
-    position:absolute;
+    position:relative;
     bottom:0px;
+    margin-top: -250px !important;
 }
 
 .custom-frame-style {
-    padding: 30px; 
+    padding: 30px;
     background-color:#008000;
     color: white;
     vertical-align:middle;
@@ -55,4 +63,10 @@ body {
 .section-title {
     margin-top: 30px;
     margin-bottom: 30px;
+}
+
+.centered {
+
+    float: none;
+    margin: 0 auto;
 }

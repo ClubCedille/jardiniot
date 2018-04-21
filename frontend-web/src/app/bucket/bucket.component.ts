@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BucketService } from './bucket.service';
 import { Observable } from 'rxjs/Rx';
+import { Router } from '@angular/router';
+
+import { Bucket } from './bucket';
+import { BucketService } from './bucket.service';
 
 @Component({
     selector: 'app-bucket',
@@ -11,6 +14,7 @@ import { Observable } from 'rxjs/Rx';
 export class BucketComponent implements OnInit {
 
     public buckets;
+    selectedBucket: Bucket;
 
     constructor(private bucketService: BucketService) { }
 
@@ -24,6 +28,10 @@ export class BucketComponent implements OnInit {
             err => console.error(err),
             () => console.log('done loading buckets')
         );
+    }
+
+    onSelect(bucket: Bucket) {
+        this.selectedBucket = bucket;
     }
 
 }
