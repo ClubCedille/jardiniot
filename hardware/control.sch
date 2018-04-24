@@ -28,15 +28,15 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:arduino
-LIBS:ESP8266
 LIBS:LDD1500H
-LIBS:jardinio-cache
+LIBS:ESP8266
+LIBS:arduino
+LIBS:control-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 5
+Sheet 1 1
 Title "jardinIO circuit"
 Date "2018-04-18"
 Rev "0"
@@ -58,10 +58,10 @@ F 3 "" H 4550 5750 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR06
+L GND #PWR01
 U 1 1 5AA88684
 P 750 2850
-F 0 "#PWR06" H 750 2600 50  0001 C CNN
+F 0 "#PWR01" H 750 2600 50  0001 C CNN
 F 1 "GND" H 750 2700 50  0000 C CNN
 F 2 "" H 750 2850 50  0000 C CNN
 F 3 "" H 750 2850 50  0000 C CNN
@@ -69,10 +69,10 @@ F 3 "" H 750 2850 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR07
+L +3.3V #PWR02
 U 1 1 5AA88986
 P 1350 2450
-F 0 "#PWR07" H 1350 2300 50  0001 C CNN
+F 0 "#PWR02" H 1350 2300 50  0001 C CNN
 F 1 "+3.3V" H 1350 2590 50  0000 C CNN
 F 2 "" H 1350 2450 50  0000 C CNN
 F 3 "" H 1350 2450 50  0000 C CNN
@@ -80,10 +80,10 @@ F 3 "" H 1350 2450 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR08
+L +5V #PWR03
 U 1 1 5AA8899E
 P 1150 2450
-F 0 "#PWR08" H 1150 2300 50  0001 C CNN
+F 0 "#PWR03" H 1150 2300 50  0001 C CNN
 F 1 "+5V" H 1150 2590 50  0000 C CNN
 F 2 "" H 1150 2450 50  0000 C CNN
 F 3 "" H 1150 2450 50  0000 C CNN
@@ -102,10 +102,10 @@ F 3 "" H 5700 5350 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR09
+L GND #PWR04
 U 1 1 5AB0561B
 P 5500 2950
-F 0 "#PWR09" H 5500 2700 50  0001 C CNN
+F 0 "#PWR04" H 5500 2700 50  0001 C CNN
 F 1 "GND" H 5500 2800 50  0000 C CNN
 F 2 "" H 5500 2950 50  0000 C CNN
 F 3 "" H 5500 2950 50  0000 C CNN
@@ -113,10 +113,10 @@ F 3 "" H 5500 2950 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L +5V #PWR010
+L +5V #PWR05
 U 1 1 5AB056CD
 P 5700 1250
-F 0 "#PWR010" H 5700 1100 50  0001 C CNN
+F 0 "#PWR05" H 5700 1100 50  0001 C CNN
 F 1 "+5V" H 5700 1390 50  0000 C CNN
 F 2 "" H 5700 1250 50  0000 C CNN
 F 3 "" H 5700 1250 50  0000 C CNN
@@ -139,7 +139,7 @@ Text HLabel 6400 3300 2    60   Output ~ 0
 fanConn[1..2]
 Text HLabel 4050 750  0    60   Input ~ 0
 humidityData
-Text Label 4650 900  2    60   ~ 0
+Text Label 4600 1250 2    60   ~ 0
 fanConn1
 Text Label 4550 1350 2    60   ~ 0
 fanConn2
@@ -154,30 +154,16 @@ LEDConn[1..3]
 Text Label 5950 3400 2    60   ~ 0
 LEDConn[1..3]
 $Comp
-L +12V #PWR011
+L +12V #PWR06
 U 1 1 5AD6AFCF
 P 950 2450
-F 0 "#PWR011" H 950 2300 50  0001 C CNN
+F 0 "#PWR06" H 950 2300 50  0001 C CNN
 F 1 "+12V" H 950 2590 50  0000 C CNN
 F 2 "" H 950 2450 50  0000 C CNN
 F 3 "" H 950 2450 50  0000 C CNN
 	1    950  2450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	1450 2550 750  2550
-Wire Wire Line
-	750  2550 750  2850
-Wire Wire Line
-	1450 2650 750  2650
-Connection ~ 750  2650
-Wire Wire Line
-	1450 2750 750  2750
-Connection ~ 750  2750
-Wire Wire Line
-	1350 2450 1350 2850
-Wire Wire Line
-	1350 2850 1450 2850
 Wire Wire Line
 	1150 2450 1150 2950
 Wire Wire Line
@@ -230,16 +216,8 @@ Wire Wire Line
 	4750 1850 4750 3300
 Wire Bus Line
 	5000 3300 6400 3300
-Wire Wire Line
-	4050 950  4100 950 
-Wire Wire Line
-	4100 950  4100 750 
-Wire Wire Line
-	4100 750  4050 750 
 Wire Bus Line
 	4850 3400 6400 3400
-Wire Wire Line
-	950  3050 1450 3050
 NoConn ~ 5500 1300
 NoConn ~ 5600 1300
 NoConn ~ 5800 1300
@@ -284,7 +262,29 @@ NoConn ~ 1450 1250
 NoConn ~ 1450 1050
 NoConn ~ 1450 950 
 Wire Wire Line
+	4950 1250 4050 1250
+Wire Wire Line
+	1450 2850 1350 2850
+Wire Wire Line
+	1350 2850 1350 2450
+Wire Wire Line
+	1450 2750 750  2750
+Wire Wire Line
+	750  2550 750  2850
+Wire Wire Line
+	1450 2650 750  2650
+Connection ~ 750  2750
+Wire Wire Line
+	1450 2550 750  2550
+Connection ~ 750  2650
+Wire Wire Line
+	1450 3050 950  3050
+Wire Wire Line
 	950  3050 950  2450
 Wire Wire Line
-	4950 1250 4050 1250
+	4050 950  4100 950 
+Wire Wire Line
+	4100 950  4100 750 
+Wire Wire Line
+	4100 750  4050 750 
 $EndSCHEMATC

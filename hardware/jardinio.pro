@@ -1,4 +1,4 @@
-update=Tue 13 Mar 2018 11:06:06 PM EDT
+update=Mon 23 Apr 2018 10:20:27 PM EDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -61,3 +61,13 @@ LibName29=valves
 LibName30=extLib/arduino-kicad-library/arduino
 LibName31=extLib/kicad-ESP8266/ESP8266
 LibName32=intLib/LDD1500H/LDD1500H
+[schematic_editor]
+version=1
+PageLayoutDescrFile=
+PlotDirectoryName=
+SubpartIdSeparator=0
+SubpartFirstId=65
+NetFmtName=
+SpiceForceRefPrefix=0
+SpiceUseNetNumbers=0
+LabSize=60

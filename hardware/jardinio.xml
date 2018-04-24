@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>/media/space/projects/cedille/jardinIO/jardiniot/hardware/jardinio.sch</source>
-    <date>Fri 20 Apr 2018 12:03:23 AM EDT</date>
+    <date>Fri 20 Apr 2018 07:26:54 AM EDT</date>
     <tool>Eeschema 4.0.2+dfsg1-stable</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -527,14 +527,14 @@
     </libpart>
   </libparts>
   <libraries>
-    <library logical="device">
-      <uri>/usr/share/kicad/library/device.lib</uri>
-    </library>
     <library logical="arduino">
       <uri>/media/space/projects/cedille/jardinIO/jardiniot/hardware/extLib/arduino-kicad-library/arduino.lib</uri>
     </library>
     <library logical="LDD1500H">
       <uri>/media/space/projects/cedille/jardinIO/jardiniot/hardware/intLib/LDD1500H/LDD1500H.lib</uri>
+    </library>
+    <library logical="device">
+      <uri>/usr/share/kicad/library/device.lib</uri>
     </library>
   </libraries>
   <nets>
@@ -543,13 +543,13 @@
       <node ref="XA3001" pin="D2"/>
     </net>
     <net code="4" name="GND">
-      <node ref="U3001" pin="16"/>
       <node ref="U4001" pin="4"/>
       <node ref="U3001" pin="10"/>
-      <node ref="XA3001" pin="GND1"/>
+      <node ref="U3001" pin="16"/>
       <node ref="U3001" pin="17"/>
       <node ref="XA3001" pin="GND3"/>
       <node ref="XA3001" pin="GND2"/>
+      <node ref="XA3001" pin="GND1"/>
       <node ref="R5003" pin="2"/>
       <node ref="R5004" pin="2"/>
       <node ref="U5002" pin="1"/>
@@ -567,165 +567,165 @@
     </net>
     <net code="5" name="+12V">
       <node ref="XA3001" pin="VIN"/>
-      <node ref="D5002" pin="1"/>
       <node ref="D5001" pin="1"/>
-      <node ref="U2002" pin="3"/>
+      <node ref="D5002" pin="1"/>
       <node ref="C5001" pin="1"/>
+      <node ref="U2002" pin="3"/>
     </net>
     <net code="6" name="+48V">
-      <node ref="U5001" pin="24"/>
-      <node ref="U5003" pin="24"/>
-      <node ref="U2002" pin="1"/>
-      <node ref="U5001" pin="23"/>
-      <node ref="U5003" pin="23"/>
-      <node ref="U2001" pin="1"/>
-      <node ref="U5002" pin="23"/>
       <node ref="U5002" pin="24"/>
+      <node ref="U2002" pin="1"/>
+      <node ref="U2001" pin="1"/>
+      <node ref="U5003" pin="23"/>
+      <node ref="U5001" pin="24"/>
+      <node ref="U5001" pin="23"/>
+      <node ref="U5002" pin="23"/>
+      <node ref="U5003" pin="24"/>
     </net>
-    <net code="7" name="Net-(U3001-Pad13)">
-      <node ref="U3001" pin="13"/>
-      <node ref="XA3001" pin="D4"/>
+    <net code="7" name="Net-(U3001-Pad6)">
+      <node ref="U3001" pin="6"/>
     </net>
-    <net code="8" name="Net-(U3001-Pad12)">
-      <node ref="XA3001" pin="D3"/>
-      <node ref="U3001" pin="12"/>
+    <net code="8" name="Net-(U3001-Pad8)">
+      <node ref="U3001" pin="8"/>
     </net>
-    <net code="9" name="+3V3">
-      <node ref="XA3001" pin="3V3"/>
+    <net code="9" name="Net-(U3001-Pad9)">
+      <node ref="U3001" pin="9"/>
     </net>
-    <net code="10" name="Net-(U3001-Pad25)">
+    <net code="10" name="Net-(U3001-Pad19)">
+      <node ref="U3001" pin="19"/>
+    </net>
+    <net code="11" name="Net-(U3001-Pad20)">
+      <node ref="U3001" pin="20"/>
+    </net>
+    <net code="12" name="Net-(U3001-Pad21)">
+      <node ref="U3001" pin="21"/>
+    </net>
+    <net code="13" name="Net-(U3001-Pad22)">
+      <node ref="U3001" pin="22"/>
+    </net>
+    <net code="14" name="Net-(U3001-Pad23)">
+      <node ref="U3001" pin="23"/>
+    </net>
+    <net code="15" name="Net-(U3001-Pad24)">
+      <node ref="U3001" pin="24"/>
+    </net>
+    <net code="16" name="Net-(U3001-Pad18)">
+      <node ref="U3001" pin="18"/>
+    </net>
+    <net code="17" name="Net-(U3001-Pad25)">
       <node ref="U3001" pin="25"/>
     </net>
-    <net code="11" name="+5V">
+    <net code="18" name="Net-(U3001-Pad7)">
+      <node ref="U3001" pin="7"/>
+    </net>
+    <net code="19" name="Net-(XA3001-PadD8)">
+      <node ref="XA3001" pin="D8"/>
+    </net>
+    <net code="20" name="+5V">
       <node ref="U4001" pin="1"/>
       <node ref="U3001" pin="14"/>
       <node ref="XA3001" pin="5V1"/>
     </net>
-    <net code="12" name="Net-(XA3001-PadA1)">
-      <node ref="XA3001" pin="A1"/>
+    <net code="21" name="Net-(U3001-Pad12)">
+      <node ref="U3001" pin="12"/>
+      <node ref="XA3001" pin="D3"/>
     </net>
-    <net code="13" name="Net-(XA3001-PadMISO)">
-      <node ref="XA3001" pin="MISO"/>
+    <net code="22" name="Net-(U3001-Pad13)">
+      <node ref="U3001" pin="13"/>
+      <node ref="XA3001" pin="D4"/>
     </net>
-    <net code="14" name="Net-(XA3001-PadMOSI)">
-      <node ref="XA3001" pin="MOSI"/>
-    </net>
-    <net code="15" name="Net-(XA3001-PadSCK)">
-      <node ref="XA3001" pin="SCK"/>
-    </net>
-    <net code="16" name="Net-(XA3001-Pad5V2)">
-      <node ref="XA3001" pin="5V2"/>
-    </net>
-    <net code="17" name="Net-(XA3001-PadGND4)">
-      <node ref="XA3001" pin="GND4"/>
-    </net>
-    <net code="18" name="Net-(XA3001-PadRST2)">
-      <node ref="XA3001" pin="RST2"/>
-    </net>
-    <net code="19" name="Net-(XA3001-PadRST1)">
-      <node ref="XA3001" pin="RST1"/>
-    </net>
-    <net code="20" name="Net-(XA3001-PadIORF)">
-      <node ref="XA3001" pin="IORF"/>
-    </net>
-    <net code="21" name="Net-(XA3001-PadAREF)">
-      <node ref="XA3001" pin="AREF"/>
-    </net>
-    <net code="22" name="Net-(XA3001-PadA0)">
-      <node ref="XA3001" pin="A0"/>
-    </net>
-    <net code="23" name="Net-(XA3001-PadD13)">
-      <node ref="XA3001" pin="D13"/>
-    </net>
-    <net code="24" name="Net-(XA3001-PadA2)">
-      <node ref="XA3001" pin="A2"/>
-    </net>
-    <net code="25" name="Net-(XA3001-PadA3)">
+    <net code="23" name="Net-(XA3001-PadA3)">
       <node ref="XA3001" pin="A3"/>
     </net>
-    <net code="26" name="Net-(XA3001-PadA4)">
+    <net code="24" name="Net-(XA3001-PadA4)">
       <node ref="XA3001" pin="A4"/>
     </net>
-    <net code="27" name="Net-(XA3001-PadA5)">
+    <net code="25" name="Net-(XA3001-PadA5)">
       <node ref="XA3001" pin="A5"/>
     </net>
-    <net code="28" name="Net-(XA3001-PadSDA)">
+    <net code="26" name="Net-(XA3001-PadSDA)">
       <node ref="XA3001" pin="SDA"/>
     </net>
-    <net code="29" name="Net-(XA3001-PadSCL)">
+    <net code="27" name="Net-(XA3001-PadSCL)">
       <node ref="XA3001" pin="SCL"/>
     </net>
-    <net code="30" name="Net-(XA3001-PadD1)">
+    <net code="28" name="Net-(XA3001-PadD1)">
       <node ref="XA3001" pin="D1"/>
     </net>
-    <net code="31" name="Net-(XA3001-PadD0)">
+    <net code="29" name="Net-(XA3001-PadD0)">
       <node ref="XA3001" pin="D0"/>
     </net>
-    <net code="32" name="Net-(U3001-Pad5)">
-      <node ref="U3001" pin="5"/>
+    <net code="30" name="+3V3">
+      <node ref="XA3001" pin="3V3"/>
     </net>
-    <net code="33" name="Net-(U3001-Pad9)">
-      <node ref="U3001" pin="9"/>
+    <net code="31" name="Net-(XA3001-PadA2)">
+      <node ref="XA3001" pin="A2"/>
     </net>
-    <net code="34" name="Net-(U3001-Pad19)">
-      <node ref="U3001" pin="19"/>
+    <net code="32" name="Net-(XA3001-PadMISO)">
+      <node ref="XA3001" pin="MISO"/>
     </net>
-    <net code="35" name="Net-(U3001-Pad20)">
-      <node ref="U3001" pin="20"/>
-    </net>
-    <net code="36" name="Net-(U3001-Pad21)">
-      <node ref="U3001" pin="21"/>
-    </net>
-    <net code="37" name="Net-(U3001-Pad22)">
-      <node ref="U3001" pin="22"/>
-    </net>
-    <net code="38" name="Net-(U3001-Pad23)">
-      <node ref="U3001" pin="23"/>
-    </net>
-    <net code="39" name="Net-(U3001-Pad24)">
-      <node ref="U3001" pin="24"/>
-    </net>
-    <net code="40" name="Net-(U3001-Pad18)">
-      <node ref="U3001" pin="18"/>
-    </net>
-    <net code="41" name="Net-(U3001-Pad7)">
-      <node ref="U3001" pin="7"/>
-    </net>
-    <net code="42" name="Net-(U3001-Pad6)">
-      <node ref="U3001" pin="6"/>
-    </net>
-    <net code="43" name="Net-(U3001-Pad8)">
-      <node ref="U3001" pin="8"/>
-    </net>
-    <net code="44" name="Net-(U3001-Pad4)">
+    <net code="33" name="Net-(U3001-Pad4)">
       <node ref="U3001" pin="4"/>
     </net>
-    <net code="45" name="Net-(U3001-Pad3)">
+    <net code="34" name="Net-(U3001-Pad3)">
       <node ref="U3001" pin="3"/>
     </net>
-    <net code="46" name="Net-(U3001-Pad2)">
+    <net code="35" name="Net-(U3001-Pad2)">
       <node ref="U3001" pin="2"/>
     </net>
-    <net code="47" name="Net-(U3001-Pad1)">
+    <net code="36" name="Net-(U3001-Pad1)">
       <node ref="U3001" pin="1"/>
     </net>
-    <net code="48" name="Net-(U3001-Pad26)">
+    <net code="37" name="Net-(U3001-Pad26)">
       <node ref="U3001" pin="26"/>
     </net>
-    <net code="49" name="Net-(U3001-Pad15)">
+    <net code="38" name="Net-(U3001-Pad15)">
       <node ref="U3001" pin="15"/>
     </net>
-    <net code="50" name="Net-(U3001-Pad11)">
+    <net code="39" name="Net-(U3001-Pad11)">
       <node ref="U3001" pin="11"/>
     </net>
-    <net code="51" name="Net-(XA3001-PadD7)">
+    <net code="40" name="Net-(XA3001-PadD7)">
       <node ref="XA3001" pin="D7"/>
     </net>
-    <net code="52" name="Net-(XA3001-PadD8)">
-      <node ref="XA3001" pin="D8"/>
-    </net>
-    <net code="53" name="Net-(XA3001-PadD12)">
+    <net code="41" name="Net-(XA3001-PadD12)">
       <node ref="XA3001" pin="D12"/>
+    </net>
+    <net code="42" name="Net-(XA3001-PadD13)">
+      <node ref="XA3001" pin="D13"/>
+    </net>
+    <net code="43" name="Net-(U3001-Pad5)">
+      <node ref="U3001" pin="5"/>
+    </net>
+    <net code="44" name="Net-(XA3001-PadMOSI)">
+      <node ref="XA3001" pin="MOSI"/>
+    </net>
+    <net code="45" name="Net-(XA3001-PadSCK)">
+      <node ref="XA3001" pin="SCK"/>
+    </net>
+    <net code="46" name="Net-(XA3001-Pad5V2)">
+      <node ref="XA3001" pin="5V2"/>
+    </net>
+    <net code="47" name="Net-(XA3001-PadGND4)">
+      <node ref="XA3001" pin="GND4"/>
+    </net>
+    <net code="48" name="Net-(XA3001-PadRST2)">
+      <node ref="XA3001" pin="RST2"/>
+    </net>
+    <net code="49" name="Net-(XA3001-PadRST1)">
+      <node ref="XA3001" pin="RST1"/>
+    </net>
+    <net code="50" name="Net-(XA3001-PadIORF)">
+      <node ref="XA3001" pin="IORF"/>
+    </net>
+    <net code="51" name="Net-(XA3001-PadAREF)">
+      <node ref="XA3001" pin="AREF"/>
+    </net>
+    <net code="52" name="Net-(XA3001-PadA0)">
+      <node ref="XA3001" pin="A0"/>
+    </net>
+    <net code="53" name="Net-(XA3001-PadA1)">
+      <node ref="XA3001" pin="A1"/>
     </net>
     <net code="54" name="Net-(U4001-Pad3)">
       <node ref="U4001" pin="3"/>
@@ -735,20 +735,20 @@
       <node ref="D5022" pin="1"/>
     </net>
     <net code="56" name="Net-(D5018-Pad2)">
-      <node ref="D5020" pin="1"/>
       <node ref="D5018" pin="2"/>
+      <node ref="D5020" pin="1"/>
     </net>
     <net code="57" name="Net-(D5016-Pad2)">
-      <node ref="D5016" pin="2"/>
       <node ref="D5018" pin="1"/>
+      <node ref="D5016" pin="2"/>
     </net>
     <net code="58" name="Net-(D5013-Pad2)">
-      <node ref="D5013" pin="2"/>
       <node ref="D5016" pin="1"/>
+      <node ref="D5013" pin="2"/>
     </net>
     <net code="59" name="Net-(D5010-Pad2)">
-      <node ref="D5010" pin="2"/>
       <node ref="D5013" pin="1"/>
+      <node ref="D5010" pin="2"/>
     </net>
     <net code="60" name="Net-(D5007-Pad2)">
       <node ref="D5007" pin="2"/>
@@ -822,28 +822,28 @@
       <node ref="C5001" pin="2"/>
     </net>
     <net code="77" name="Net-(R5001-Pad2)">
-      <node ref="R5001" pin="2"/>
       <node ref="R5003" pin="1"/>
+      <node ref="R5001" pin="2"/>
     </net>
     <net code="78" name="Net-(D5001-Pad2)">
       <node ref="D5001" pin="2"/>
     </net>
     <net code="79" name="Net-(D5014-Pad2)">
       <node ref="D5014" pin="2"/>
-      <node ref="U5003" pin="14"/>
       <node ref="U5003" pin="13"/>
+      <node ref="U5003" pin="14"/>
     </net>
     <net code="80" name="Net-(D5011-Pad2)">
-      <node ref="D5011" pin="2"/>
       <node ref="D5014" pin="1"/>
+      <node ref="D5011" pin="2"/>
     </net>
     <net code="81" name="Net-(D5008-Pad2)">
       <node ref="D5008" pin="2"/>
       <node ref="D5011" pin="1"/>
     </net>
     <net code="82" name="Net-(D5005-Pad2)">
-      <node ref="D5005" pin="2"/>
       <node ref="D5008" pin="1"/>
+      <node ref="D5005" pin="2"/>
     </net>
     <net code="83" name="Net-(D5005-Pad1)">
       <node ref="D5005" pin="1"/>
@@ -851,9 +851,9 @@
       <node ref="U5003" pin="12"/>
     </net>
     <net code="84" name="Net-(D5003-Pad1)">
-      <node ref="U5001" pin="12"/>
-      <node ref="U5001" pin="11"/>
       <node ref="D5003" pin="1"/>
+      <node ref="U5001" pin="11"/>
+      <node ref="U5001" pin="12"/>
     </net>
     <net code="85" name="/control/LEDConn1">
       <node ref="XA3001" pin="D9"/>
@@ -869,8 +869,8 @@
       <node ref="U5002" pin="21"/>
     </net>
     <net code="89" name="/outputs/LEDConn1">
-      <node ref="R5005" pin="1"/>
       <node ref="U5001" pin="21"/>
+      <node ref="R5005" pin="1"/>
     </net>
     <net code="90" name="/control/fanConn2">
       <node ref="XA3001" pin="D6"/>
@@ -885,8 +885,8 @@
       <node ref="XA3001" pin="D10"/>
     </net>
     <net code="94" name="/outputs/LEDConn3">
-      <node ref="U5003" pin="21"/>
       <node ref="R5007" pin="1"/>
+      <node ref="U5003" pin="21"/>
     </net>
   </nets>
 </export>
