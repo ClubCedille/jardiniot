@@ -15,8 +15,4 @@ export class BucketDetailComponent implements OnInit {
     ngOnInit() {
     }
 
-    function select(bucket) {
-        alert("test");
-    }
-
 }
