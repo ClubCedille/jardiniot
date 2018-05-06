@@ -4,8 +4,8 @@
 
     <div class="row">
         <a class="col-md-4 " *ngFor="let bucket of buckets"
-           [class.selected]="bucket === selectedBucket"
-           (click)="onSelect(bucket)">
+           [routerLink]="['/buckets', bucket.id]"
+           >
             <div class="bucket-frame" >
                 <span id="bucketid{{bucket.id}}" ></span>
                 <h4 class="bucket-frame-name">{{bucket.name}}</h4>
@@ -16,4 +16,3 @@
     </div>
 </div>
 
-<app-bucket-detail [bucket]="selectedBucket"></app-bucket-detail>

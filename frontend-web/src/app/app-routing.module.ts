@@ -13,10 +13,11 @@ const routes: Routes = [
     {
         path: 'buckets',
         component: BucketComponent,
-        children: [{
-            path:':id',
-            component: BucketDetailComponent,
-        }]
+
+    },
+    {
+        path:'buckets/:id',
+        component: BucketDetailComponent,
     }
 ];
 

@@ -14,7 +14,6 @@ import { BucketService } from './bucket.service';
 export class BucketComponent implements OnInit {
 
     public buckets;
-    selectedBucket: Bucket;
 
     constructor(private bucketService: BucketService) { }
 
@@ -28,10 +27,6 @@ export class BucketComponent implements OnInit {
             err => console.error(err),
             () => console.log('done loading buckets')
         );
-    }
-
-    onSelect(bucket: Bucket) {
-        this.selectedBucket = bucket;
     }
 
 }
