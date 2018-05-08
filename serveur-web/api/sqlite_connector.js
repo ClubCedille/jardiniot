@@ -161,8 +161,8 @@ out.getSensorValue = function(id, cb){
   });
 }
 
-out.getBucketNameById = function(id, cb){
-  var statement = db.prepare("SELECT name FROM buckets WHERE id = ?")
+out.getBucketById = function(id, cb){
+  var statement = db.prepare("SELECT * FROM buckets WHERE id = ?")
   statement.all(id, function(err, rows){
     cb(err, rows[0].name);
   });

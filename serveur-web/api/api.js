@@ -39,7 +39,7 @@ function enableCORS(req, res, next) {
 }
 
 // Don't Repeat Yourself
-function sendHTTPReponse(err,result,res){
+function sendHTTPResponse(err,result,res){
     if(err) {
         res.status(500).send('Welp');
     } else {
@@ -92,7 +92,7 @@ api.listen(PORT, function() {
 //Get bucket list
 function listBuckets(req, res){
     dataConn.getBucketList(function(err, result){
-        sendHTTPReponse(err,result,res);
+        sendHTTPResponse(err,result,res);
     });
 }
 
@@ -104,7 +104,7 @@ function bucketInfo(req, res) {
         return;
     }
     dataConn.getBucketInfo(id, function(err, result){
-        sendHTTPReponse(err,result,res);
+        sendHTTPResponse(err,result,res);
     });
 }
 
@@ -140,7 +140,7 @@ function bucketCreate(req, res) {
             return;
         }
         
-        dataConn.createBucket(name,ip, sendHTTPReponse);
+        dataConn.createBucket(name,ip, sendHTTPResponse);
     }
 }
 
@@ -153,7 +153,7 @@ function getSensorValue(req, res){
     }
 
     var sensorInfo = dataConn.getSensorValue(id, function(err, result){
-        sendHTTPReponse(err,result,res);
+        sendHTTPResponse(err,result,res);
     });
 }
 
