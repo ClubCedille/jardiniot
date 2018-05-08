@@ -148,9 +148,18 @@ out.getBucketList = function(cb){
 }
 
 out.getBucketInfo = function(id, cb){
-    var statement = db.prepare("SELECT * FROM sensors WHERE bucket_id = ?");
-    statement.all(id, function(err, rows){
-        cb(err, rows);
+    var statement = db.prepare("SELECT * FROM buckets WHERE id = ?")
+    statement.get(id, function(err, row){
+        var bucket = row;
+        var statement = db.prepare("SELECT * FROM sensors WHERE bucket_id = ?")
+        statement.all(id, function(err, rows){
+            if(!bucket){
+                cb("no bucket", null);
+            } else {
+                bucket.sensors = rows;
+                cb(err, bucket);
+            }
+        });
     });
 }
 
