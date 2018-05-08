@@ -21,7 +21,7 @@ var dataConn = require("./sqlite_connector.js");
 const mqtt = require("./mqtt_connector.js");
 mqtt.init(dataConn);
 
-//Ceci devrait être loadé à partir d'un fichier de config.
+// TODO: devrait être loadé à partir d'un fichier de config.
 const PORT = 8080;
 const LIMIT_BLUE  = 170;
 const LIMIT_WHITE = 170;
@@ -38,6 +38,14 @@ function enableCORS(req, res, next) {
     next();
 }
 
+// Don't Repeat Yourself
+function sendHTTPReponse(err,result,res){
+    if(err) {
+        res.status(500).send('Welp');
+    } else {
+        res.status(200).send(JSON.stringify(result));
+    }
+}
 
 /*
  * Bucket list
@@ -84,11 +92,7 @@ api.listen(PORT, function() {
 //Get bucket list
 function listBuckets(req, res){
     dataConn.getBucketList(function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPReponse(err,result,res);
     });
 }
 
@@ -100,11 +104,7 @@ function bucketInfo(req, res) {
         return;
     }
     dataConn.getBucketInfo(id, function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPReponse(err,result,res);
     });
 }
 
@@ -140,13 +140,7 @@ function bucketCreate(req, res) {
             return;
         }
         
-        dataConn.createBucket(name,ip, function(err, result){
-            if(err) {
-                res.status(500).send('Welp');
-            } else {
-                res.status(200).send(JSON.stringify(result));
-            }
-        });
+        dataConn.createBucket(name,ip, sendHTTPReponse);
     }
 }
 
@@ -159,11 +153,7 @@ function getSensorValue(req, res){
     }
 
     var sensorInfo = dataConn.getSensorValue(id, function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPReponse(err,result,res);
     });
 }
 
