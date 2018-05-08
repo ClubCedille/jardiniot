@@ -1,4 +1,7 @@
-<h1>bucket title</h1>
-        <a [routerLink]="['/buckets']" >
-            cool
-        </a>
+<div class="text-center" >
+    <h1  class="section-title">{{bucket.name}}</h1>
+    <p>ip : {{bucket.ip}}</p>
+    <hr>
+    {{bucket.sensors}}
+</div>
+<a [routerLink]="['/buckets']" > back </a>

@@ -24,14 +24,13 @@ export class BucketDetailComponent implements OnInit {
             this.id = +params['id'];
         });
         this.getBucket(this.id);
-
     }
 
     getBucket(id: number){
         this.bucketDetailService.getBucket(this.id).subscribe(
             data => {this.bucket = data},
             err => console.error(err),
-            () => console.log('done loading bucket 1 buket')
+            () => console.log('done loading bucket ' + this.bucket.name)
         );
     }
 
