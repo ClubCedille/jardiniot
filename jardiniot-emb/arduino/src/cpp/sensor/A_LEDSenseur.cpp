@@ -2,7 +2,13 @@
 #include "include/ControllerType.h"//include the declaration for this class
 
 //<<constructor>> setup the LED, make pin an OUTPUT
+/* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir
+   s'il est possible d'utiliser la même ligne de code sur Pc et Arduino */
+#ifdef Arduino
 A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
+#elif defined Pc
+A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, A_LED, inputPins, outputPins){
+#endif
 
     this->setInput(inputPins);
 
@@ -55,6 +61,7 @@ int A_LEDSensor::write(){
 
 String A_LEDSensor::toString(){
     String s1= "";
+
     s1.concat("WHITE : " + String(whiteLEDPin));
     s1.concat(" Value : " + String(whiteValue));
     s1.concat("\n");
@@ -64,5 +71,6 @@ String A_LEDSensor::toString(){
     s1.concat("RED : " + String(redLEDPin));
     s1.concat(" Value : " + String(redValue));
     s1.concat("\n");
+
     return s1;
 }

@@ -1,8 +1,14 @@
 #ifndef FanMotor_H
 #define FanMotor_H
 
+#include "include/PreprocessorConstants.h"
+
 #include "MotorStrategy.h"
-#include <Arduino.h>
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
 #include <string.h>
 
 class FanMotor: public MotorStrategy {

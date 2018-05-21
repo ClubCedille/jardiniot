@@ -1,14 +1,25 @@
 #ifndef DHTSensor_H
 #define DHTSensor_H
 
+#include "include/PreprocessorConstants.h"
+
 #include "SensorStrategy.h"
-#include <Arduino.h>
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
 #include <string.h>
 #include <stdlib.h> /* strtoul */
 
 // Ajout des librairies pour les DHT
-#include "Adafruit_Sensor.h"
-#include "DHT.h"
+#ifdef Arduino
+    #include "Adafruit_Sensor.h"
+    #include "DHT.h"
+#elif defined Pc
+    #include <stdio.h> /* sprintf */
+    #include "include/arduinoEmulator/DHT.h"
+#endif
 
 class DHTSensor: public SensorStrategy {
 private:

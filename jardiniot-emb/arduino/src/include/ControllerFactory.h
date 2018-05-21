@@ -1,7 +1,13 @@
 #ifndef ControllerFactory_H
 #define ControllerFactory_H
 
-#include <Arduino.h>
+#include "include/PreprocessorConstants.h"
+
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
 #include <string.h>
 #include "ControllerType.h"
 #include "Controller.h"

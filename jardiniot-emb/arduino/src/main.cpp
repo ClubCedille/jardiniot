@@ -15,9 +15,18 @@
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <include/CommandManager.h>
-#include <SoftwareSerial.h>
+#ifdef Arduino
+    #include <SoftwareSerial.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/SoftwareSerial.h"
+#endif
 #include <stdlib.h> /* strtoul */
-#include "Timer.h"
+#ifdef Arduino
+    #include "Timer.h"
+#elif defined Pc
+    #include <stdio.h> /*sprintf*/
+    #include "include/arduinoEmulator/Timer.h"
+#endif
 
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
@@ -29,7 +38,11 @@ CommandManager* cm;
 int freeRam() {
   extern int __heap_start, *__brkval;
   int v;
+  #ifdef Arduino
   return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
+  #elif defined Pc // Vérifier si la ligne suivante fonctionne aussi sur Arduino
+  return &v - (__brkval == 0 ? &__heap_start : __brkval);
+  #endif
 }
 
 // Envoie de mock data
@@ -50,6 +63,7 @@ void sendStatusToESP() {
 void setup(){
 	Serial.begin(9600);
 	ESPserial.begin(9600);
+
 	while (!Serial) {
 		; // wait for serial port to connect. Needed for native USB port only
 	}
@@ -62,9 +76,11 @@ void setup(){
 	/******************* On met en place la configuration par défaut *******************/
 
 	// Lumières DEL se trouvant sous le heatsink
+
 	short red = 11*256+125;	// Pin 11 avec intensité de 125, de 2816 à 3071
 	short blue = 10*256+160;	// Pin 10 avec intensité de 160, de 2560 à 2815
 	short white = 9*256+50;	// Pin 9 avec intensité de 50, de 2304 à 2559
+
 	cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
 
 	// Ajout de FAN
@@ -138,3 +154,10 @@ void loop() {
 	// Listen for communication from ESP
 	readInfoFromESP();
 }
+
+#if defined Pc
+int main(void) {
+    setup();
+    loop();
+}
+#endif

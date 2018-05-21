@@ -1,10 +1,20 @@
 #ifndef ServoMotor_H
 #define ServoMotor_H
 
+#include "include/PreprocessorConstants.h"
+
 #include "MotorStrategy.h"
-#include <Arduino.h>
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
 #include <string.h>
-#include <Servo.h>
+#ifdef Arduino
+    #include <Servo.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Servo.h"
+#endif
 
 class ServoMotor: public MotorStrategy {
 private:

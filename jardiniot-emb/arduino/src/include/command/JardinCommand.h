@@ -1,10 +1,21 @@
 #ifndef JardinCommand_H
 #define JardinCommand_H
 
-#include <Arduino.h>
+#include "include/PreprocessorConstants.h"
+
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
+
 #include <string.h>
 #include "include/ControllerType.h"
-#include <StandardCplusplus.h>
+
+#ifdef Arduino
+    #include <StandardCplusplus.h>
+#endif
+
 #include <vector>
 
 
@@ -17,7 +28,6 @@
 
 */
 enum CommandType { ADD, CONFIG, DELETE};
-
 class JardinCommand {
 private:
     CommandType commandType;
@@ -31,7 +41,7 @@ private:
     bool errorInCommand;
     String errorMsg;
 
-    int split(const String &command, std::vector<String> &strs, char ch);
+    int split(String &command, std::vector<String> &strs, char ch);
 
     bool validCommand(std::vector<String> &vecCommand);
     bool validIdController(std::vector<String> &vecCommand);

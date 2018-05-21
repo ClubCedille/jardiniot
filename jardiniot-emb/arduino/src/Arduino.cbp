@@ -36,6 +36,8 @@
 		<Unit filename="cpp/CommandManager.cpp" />
 		<Unit filename="cpp/Controller.cpp" />
 		<Unit filename="cpp/ControllerFactory.cpp" />
+		<Unit filename="cpp/arduinoEmulator/Arduino.cpp" />
+		<Unit filename="cpp/arduinoEmulator/String.cpp" />
 		<Unit filename="cpp/command/JardinCommand.cpp" />
 		<Unit filename="cpp/motor/FanMotor.cpp" />
 		<Unit filename="cpp/motor/MotorStrategy.cpp" />
@@ -48,6 +50,13 @@
 		<Unit filename="include/Controller.h" />
 		<Unit filename="include/ControllerFactory.h" />
 		<Unit filename="include/ControllerType.h" />
+		<Unit filename="include/PreprocessorConstants.h" />
+		<Unit filename="include/arduinoEmulator/Arduino.h" />
+		<Unit filename="include/arduinoEmulator/DHT.h" />
+		<Unit filename="include/arduinoEmulator/Servo.h" />
+		<Unit filename="include/arduinoEmulator/SoftwareSerial.h" />
+		<Unit filename="include/arduinoEmulator/String.h" />
+		<Unit filename="include/arduinoEmulator/Timer.h" />
 		<Unit filename="include/command/JardinCommand.h" />
 		<Unit filename="include/motor/FanMotor.h" />
 		<Unit filename="include/motor/MotorStrategy.h" />
@@ -60,6 +69,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -2,7 +2,7 @@
 #define LEDSensor_H
 
 #include "SensorStrategy.h"
-#include <Arduino.h>
+//#include <Arduino.h>
 #include <string.h>
 
 class LEDSensor: public SensorStrategy {

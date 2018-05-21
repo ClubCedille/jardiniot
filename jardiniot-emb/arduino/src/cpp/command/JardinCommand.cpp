@@ -151,7 +151,7 @@ bool JardinCommand::validCommand(std::vector<String> &vecCommand){
 }
 
 // Split les commandes pour permettre de savoir quelle type de commande on doit exécuter
-int JardinCommand::split(const String &command, std::vector<String> &tokens, char ch)
+int JardinCommand::split(String &command, std::vector<String> &tokens, char ch)
 {
 	size_t pos = 0;
 

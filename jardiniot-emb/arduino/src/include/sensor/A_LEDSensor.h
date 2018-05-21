@@ -1,8 +1,14 @@
 #ifndef A_LEDSensor_H
 #define A_LEDSensor_H
 
+#include "include/PreprocessorConstants.h"
+
 #include "SensorStrategy.h"
-#include <Arduino.h>
+#ifdef Arduino
+    #include <Arduino.h>
+#elif defined Pc
+    #include "include/arduinoEmulator/Arduino.h"
+#endif
 #include <string.h>
 
 class A_LEDSensor: public SensorStrategy {
