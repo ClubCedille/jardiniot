@@ -4,6 +4,7 @@
 #define ARDUINO_H
 
 #include <iostream>
+#include <sstream>
 #include <inttypes.h>
 #include <math.h> // Est importé par le Arduino.h original
 #include <stdlib.h>
