@@ -13,6 +13,7 @@ export class BucketDetailComponent implements OnInit {
 
     id: number;
     public bucket;
+    public sensors;
     private sub: any;
 
 
@@ -28,7 +29,8 @@ export class BucketDetailComponent implements OnInit {
 
     getBucket(id: number){
         this.bucketDetailService.getBucket(this.id).subscribe(
-            data => {this.bucket = data},
+            data => {this.bucket = data,
+                     this.sensors = data.sensors},
             err => console.error(err),
             () => console.log('done loading bucket ' + this.bucket.name)
         );

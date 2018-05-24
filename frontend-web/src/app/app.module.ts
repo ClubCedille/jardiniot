@@ -7,13 +7,15 @@ import { BucketDetailComponent } from './bucket-detail/bucket-detail.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BucketSensorComponent } from './bucket-sensor/bucket-sensor.component';
+import { SensorsComponent } from './sensors/sensors.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         BucketComponent,
         BucketDetailComponent,
-        BucketSensorComponent
+        BucketSensorComponent,
+        SensorsComponent
     ],
     imports: [
         BrowserModule,

@@ -23,7 +23,7 @@ export class BucketComponent implements OnInit {
 
     getBuckets() {
         this.bucketService.getBuckets().subscribe(
-            data => {this.buckets = data},
+            data => { this.buckets = data },
             err => console.error(err),
             () => console.log('done loading buckets')
         );
