@@ -8,10 +8,9 @@ class Timer
 {
 
 public:
-    Timer(void) {};
-    int8_t every(unsigned long period, void (*callback)(void)) {};
-    void update(void) {};
-
+    Timer(void) {}
+    int8_t every(unsigned long period, void (*callback)(void)) {}
+    void update(void) {}
 };
 
 #endif
