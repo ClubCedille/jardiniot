@@ -16,8 +16,10 @@ void digitalWrite(byte pin, PinVoltage value) {
     std::cout << "Pin: " << pin << " Voltage: " << value << std::endl;
 }
 
+// met sur pause
 void delay(int ms) {
-    // met sur pause
+    std::clock_t debut = std::clock();
+    while(std::clock() - debut < ms);
 }
 
 std::string F(std::string str) {return str;};

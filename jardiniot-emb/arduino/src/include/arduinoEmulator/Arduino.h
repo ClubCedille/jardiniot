@@ -8,10 +8,11 @@
 #include <inttypes.h>
 #include <math.h> // Est importé par le Arduino.h original
 #include <stdlib.h>
+#include <chrono>
 #include "include/arduinoEmulator/String.h"
 
 typedef unsigned int byte;
-typedef bool boolean;
+typedef bool bolean;
 
 enum PinMode {INPUT, OUTPUT, INPUT_PULLUP};
 enum PinVoltage {HIGH, LOW};
