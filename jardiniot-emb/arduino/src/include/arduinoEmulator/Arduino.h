@@ -21,6 +21,7 @@ void analogWrite(short pin, short value);
 void pinMode(byte pin, PinMode mode);
 void digitalWrite(byte pin, PinVoltage value);
 void delay(int ms);
+unsigned long millis(void);
 
 // http://svn.savannah.gnu.org/viewvc/avr-libc/trunk/avr-libc/libc/stdlib/dtostrf.c?revision=1944&view=markup
 char* dtostrf (double val, signed char width, unsigned char prec, char *sout);
@@ -28,9 +29,10 @@ char* dtostrf (double val, signed char width, unsigned char prec, char *sout);
 //https://github.com/esp8266/Arduino/blob/master/cores/esp8266/WString.h
 std::string F(std::string str);
 
-// pour ne pas avoir à retaper le code partout
-std::string numberToString(int n);
-
-
+class Arduino {
+public:
+    Arduino() {this->initialTime = std::chrono::steady_clock::now();}
+    std::chrono::time_point<std::chrono::steady_clock> initialTime;
+};
 
 #endif
