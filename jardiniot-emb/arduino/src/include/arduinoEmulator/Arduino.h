@@ -11,15 +11,15 @@
 #include <chrono>
 #include "include/arduinoEmulator/String.h"
 
-typedef unsigned int byte;
+typedef uint8_t byte;
 typedef bool bolean;
 
 enum PinMode {INPUT, OUTPUT, INPUT_PULLUP};
 enum PinVoltage {HIGH, LOW};
 
-void analogWrite(short pin, short value);
-void pinMode(byte pin, PinMode mode);
-void digitalWrite(byte pin, uint8_t value);
+void analogWrite(uint8_t pin, short value);
+void pinMode(uint8_t pin, PinMode mode);
+void digitalWrite(uint8_t pin, uint8_t value);
 void delay(int ms);
 unsigned long millis(void);
 

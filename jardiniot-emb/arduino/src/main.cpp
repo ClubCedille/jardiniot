@@ -158,9 +158,10 @@ void loop() {
 #if defined Pc
 int main(void) {
     setup();
-    //while(true)
-    {
+    while(true)
+    { // boucle facile à stopper par commentaire
         loop();
+        delay(1000); // pour que ça tourne moins vite
     }
 }
 #endif

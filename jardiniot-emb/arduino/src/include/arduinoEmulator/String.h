@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 
-typedef unsigned int byte;
+typedef uint8_t byte;
 typedef bool boolean;
 
 class String

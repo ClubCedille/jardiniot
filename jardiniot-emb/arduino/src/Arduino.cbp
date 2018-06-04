@@ -12,6 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++11" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -37,7 +38,9 @@
 		<Unit filename="cpp/Controller.cpp" />
 		<Unit filename="cpp/ControllerFactory.cpp" />
 		<Unit filename="cpp/arduinoEmulator/Arduino.cpp" />
+		<Unit filename="cpp/arduinoEmulator/Event.cpp" />
 		<Unit filename="cpp/arduinoEmulator/String.cpp" />
+		<Unit filename="cpp/arduinoEmulator/Timer.cpp" />
 		<Unit filename="cpp/command/JardinCommand.cpp" />
 		<Unit filename="cpp/motor/FanMotor.cpp" />
 		<Unit filename="cpp/motor/MotorStrategy.cpp" />
@@ -53,6 +56,7 @@
 		<Unit filename="include/PreprocessorConstants.h" />
 		<Unit filename="include/arduinoEmulator/Arduino.h" />
 		<Unit filename="include/arduinoEmulator/DHT.h" />
+		<Unit filename="include/arduinoEmulator/Event.h" />
 		<Unit filename="include/arduinoEmulator/Servo.h" />
 		<Unit filename="include/arduinoEmulator/SoftwareSerial.h" />
 		<Unit filename="include/arduinoEmulator/String.h" />

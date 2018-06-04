@@ -34,7 +34,7 @@ public:
     }
 
     int available() {return 42;} // valeur bidon
-    std::string readString() {return "idBidon (provient de SoftwareSerial::readString())";}
+    std::string readString() {return "id 1 a 1 111 i 1111 1111 1111";}
 
     void begin(int speed) {}
 

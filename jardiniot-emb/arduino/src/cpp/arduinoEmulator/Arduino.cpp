@@ -7,17 +7,17 @@ Arduino arduino;
 int __heap_start, *__brkval;
 
 // https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/
-void analogWrite(short pin, short value) {
+void analogWrite(uint8_t pin, short value) {
     std::cout << "Pin: " << pin << " Value: " << value << std::endl;
 }
 
 // https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/
-void pinMode(byte pin, PinMode mode) {
+void pinMode(uint8_t pin, PinMode mode) {
     std::cout << "Pin: " << pin << " Mode: " << mode << std::endl;
 }
 
 // https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/
-void digitalWrite(byte pin, uint8_t value) {
+void digitalWrite(uint8_t pin, uint8_t value) {
     std::cout << "Pin: " << pin << " Voltage: " << value << std::endl;
 }
 
