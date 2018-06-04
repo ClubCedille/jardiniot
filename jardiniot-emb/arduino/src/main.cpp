@@ -158,6 +158,9 @@ void loop() {
 #if defined Pc
 int main(void) {
     setup();
-    loop();
+    //while(true)
+    {
+        loop();
+    }
 }
 #endif

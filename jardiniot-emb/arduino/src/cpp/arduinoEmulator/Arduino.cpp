@@ -17,7 +17,7 @@ void pinMode(byte pin, PinMode mode) {
 }
 
 // https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/
-void digitalWrite(byte pin, PinVoltage value) {
+void digitalWrite(byte pin, uint8_t value) {
     std::cout << "Pin: " << pin << " Voltage: " << value << std::endl;
 }
 
@@ -27,10 +27,9 @@ void delay(int ms) {
     //std::clock_t debut = std::clock();
     auto debut = std::chrono::steady_clock::now();
     auto courant = debut;
-    while(std::chrono::duration<double, std::milli>(courant-debut).count() < ms){
+    while(std::chrono::duration<double, std::milli>(courant-debut).count() < ms) {
         courant = std::chrono::steady_clock::now();
     };
-    std::cout << millis() << " auieaui" << std::endl;
 }
 
 // Donne le nombre de millisecondes écoulées depuis le début de l'exécution du programme.

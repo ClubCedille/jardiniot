@@ -19,7 +19,7 @@ enum PinVoltage {HIGH, LOW};
 
 void analogWrite(short pin, short value);
 void pinMode(byte pin, PinMode mode);
-void digitalWrite(byte pin, PinVoltage value);
+void digitalWrite(byte pin, uint8_t value);
 void delay(int ms);
 unsigned long millis(void);
 
