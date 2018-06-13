@@ -3,4 +3,5 @@ export class Sensor {
     bucket_id: number;
     name: string;
     type: string;
+    data: Object;
 }

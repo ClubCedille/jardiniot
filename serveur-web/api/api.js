@@ -76,6 +76,13 @@ api.get('/buckets/:bucketId/:sensorId', function(req, res, next) {
 });
 
 /*
+ * Sensor info
+ */
+api.get('/buckets/:bucketId/:sensorId/latest', function(req, res, next) {
+    getLatestSensorValue(req, res);
+});
+
+/*
  * Command
  */
 api.post('/command/:commandId', function(req, res, next) {
@@ -156,6 +163,20 @@ function getSensorValue(req, res){
         sendHTTPResponse(err,result,res);
     });
 }
+
+//Get latest sensor value
+function getLatestSensorValue(req, res){
+    var id = req.params.sensorId;
+    if (isNaN(id) || id == "") {
+        res.status(400).send(JSON.stringify({error: "Invalid bucket number."}));
+        return;
+    }
+
+    var sensorInfo = dataConn.getLatestSensorValue(id, function(err, result){
+        sendHTTPResponse(err,result,res);
+    });
+}
+
 
 //Post command to ESP
 function sendCommand(req, res){

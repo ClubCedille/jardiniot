@@ -170,6 +170,13 @@ out.getSensorValue = function(id, cb){
     });
 }
 
+out.getLatestSensorValue = function(id, cb){
+    var statement = db.prepare('SELECT * FROM "values" WHERE sensor_id = ? ORDER BY id desc LIMIT 1')
+    statement.get(id, function(err, rows){
+        cb(err, rows);
+    });
+}
+
 out.getBucketById = function(id, cb){
     var statement = db.prepare("SELECT * FROM buckets WHERE id = ?")
     statement.all(id, function(err, rows){
