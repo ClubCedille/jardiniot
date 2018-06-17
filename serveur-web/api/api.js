@@ -1,5 +1,5 @@
 /* Copyright 2018 Roch D'Amour
- * Copyright 2017 Aubert Guillemette 
+ * Copyright 2017 Aubert Guillemette
  *
  * JardinIoT is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ var dataConn = require("./sqlite_connector.js");
 const mqtt = require("./mqtt_connector.js");
 mqtt.init(dataConn);
 
-//Ceci devrait être loadé à partir d'un fichier de config.
+// TODO: devrait être loadé à partir d'un fichier de config.
 const PORT = 8080;
 const LIMIT_BLUE  = 170;
 const LIMIT_WHITE = 170;
@@ -38,6 +38,14 @@ function enableCORS(req, res, next) {
     next();
 }
 
+// Don't Repeat Yourself
+function sendHTTPResponse(err,result,res){
+    if(err) {
+        res.status(500).send('Welp');
+    } else {
+        res.status(200).send(JSON.stringify(result));
+    }
+}
 
 /*
  * Bucket list
@@ -63,8 +71,15 @@ api.get('/buckets/:bucketId', function(req, res, next) {
 /*
  * Sensor info
  */
-api.get('/buckets/:bucketId/:sensorId', function(req, res, next) {
+api.get('/buckets/:bucketId/sensor/:sensorId', function(req, res, next) {
     getSensorValue(req, res);
+});
+
+/*
+ * Sensor info
+ */
+api.get('/buckets/:bucketId/sensor/:sensorId/latest', function(req, res, next) {
+    getLatestSensorValue(req, res);
 });
 
 /*
@@ -84,11 +99,7 @@ api.listen(PORT, function() {
 //Get bucket list
 function listBuckets(req, res){
     dataConn.getBucketList(function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPResponse(err,result,res);
     });
 }
 
@@ -100,11 +111,7 @@ function bucketInfo(req, res) {
         return;
     }
     dataConn.getBucketInfo(id, function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPResponse(err,result,res);
     });
 }
 
@@ -140,13 +147,7 @@ function bucketCreate(req, res) {
             return;
         }
         
-        dataConn.createBucket(name,ip, function(err, result){
-            if(err) {
-                res.status(500).send('Welp');
-            } else {
-                res.status(200).send(JSON.stringify(result));
-            }
-        });
+        dataConn.createBucket(name,ip, sendHTTPResponse);
     }
 }
 
@@ -159,13 +160,23 @@ function getSensorValue(req, res){
     }
 
     var sensorInfo = dataConn.getSensorValue(id, function(err, result){
-        if(err) {
-            res.status(500).send('Welp');
-        } else {
-            res.status(200).send(JSON.stringify(result));
-        }
+        sendHTTPResponse(err,result,res);
     });
 }
+
+//Get latest sensor value
+function getLatestSensorValue(req, res){
+    var id = req.params.sensorId;
+    if (isNaN(id) || id == "") {
+        res.status(400).send(JSON.stringify({error: "Invalid bucket number."}));
+        return;
+    }
+
+    var sensorInfo = dataConn.getLatestSensorValue(id, function(err, result){
+        sendHTTPResponse(err,result,res);
+    });
+}
+
 
 //Post command to ESP
 function sendCommand(req, res){

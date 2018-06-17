@@ -21,7 +21,7 @@
   "dependencies": {
     "express": "^4.15.3",
     "mqtt": "^2.7.1",
-    "nodemon": "^1.15.1",
-    "sqlite3": "^3.1.13"
+    "nodemon": "^1.17.5",
+    "sqlite3": "^4.0.0"
   }
 }

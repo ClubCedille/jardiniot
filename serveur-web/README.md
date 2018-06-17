@@ -26,10 +26,17 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 
 #### Instructions d'installation
 Cloner le repo, [installer yarn](https://yarnpkg.com/fr/docs/install), ensuite:
+
 ```
 cd jardiniot/serveur-web/
 yarn install
 yarn start
+```
+
+Pour obtenir des données bidons pour tester, il faut faire :
+
+```
+sqlite3 api/jardin.db < api/db_seed.sql
 ```
 
 ## Docker
@@ -47,6 +54,10 @@ Structure de l'API:
 	- `/bucket/{id}`
 - Dernières données d'un sensor donné:
 	- `/bucket/{id}/sensor/{id}/`
+- Donné la plus récente d'un sensor donné:
+	- `/bucket/{id}/sensor/{id}/latest`
+
+#### À faire
 - Obtenir les données sur un intervalle donné:
 	- `/bucket/{id}/sensor/{id}/{frequency}`
 - Limiter le nombre de données à renvoyer par l'API
@@ -64,7 +75,7 @@ Le site web se veut le "panneau de contrôle" du jardin. On veut être capable:
 - de voir les statistiques
 - d'envoyer des commandes au bucket (via l'API)
 
-(voir le prototype d'interface dans le Wiki du projet)
+Le panneau de contrôle se situe dans le dossier "frontend-web" depuis la racine du projet
 
 #### Todo
 - Tout. Il n'y a rien d'effectué encore au niveau du site web.

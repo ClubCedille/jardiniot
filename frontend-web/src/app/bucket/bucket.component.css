@@ -1,0 +1,17 @@
+.bucket-frame {
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    content: "";
+    display: block;
+    padding-top: 0%;
+    border-color: black;
+    border-style: solid;
+}
+
+.bucket-frame-name {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
