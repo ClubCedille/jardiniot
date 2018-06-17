@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Bucket } from '../bucket/bucket';
 import { Sensor } from '../sensors/sensor';
 import { ActivatedRoute } from '@angular/router';
@@ -13,12 +13,13 @@ import 'rxjs/add/observable/interval';
     styleUrls: ['./bucket-detail.component.css'],
     providers: [BucketDetailService, SensorsService]
 })
-export class BucketDetailComponent implements OnInit, on {
+export class BucketDetailComponent implements OnInit, OnDestroy {
 
     public id: number;
     public bucket;
     public sensors;
     private sub: any;
+    private intervalUpdateSensors;
 
     constructor(private bucketDetailService: BucketDetailService,
         private sensorsService: SensorsService,
@@ -29,6 +30,10 @@ export class BucketDetailComponent implements OnInit, on {
             this.id = +params['id'];
         });
         this.getBucket(this.id);
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.intervalUpdateSensors);
     }
 
     getBucket(id: number) {
@@ -48,16 +53,12 @@ export class BucketDetailComponent implements OnInit, on {
 
     prepareSensors() {
         console.log("Les sensors: ");
-        console.log(this.sensors);
 
-        this.sensors.forEach((sensor) => {
-            console.log("try getSensorData " + this.bucket.id + " - " + sensor.id + "  +@@@@@@@@@");
-            console.log(sensor);
-
-            this.getSensorData(this.bucket.id, sensor);
-
-            console.log(sensor);
-        });
+        this.intervalUpdateSensors = setInterval(() => {
+            this.sensors.forEach((sensor) => {
+                this.getSensorData(this.bucket.id, sensor);
+            });
+        }, 1 * 1000);
     }
 
     getSensorData(bucketId: number, sensor: Sensor) {
@@ -67,9 +68,10 @@ export class BucketDetailComponent implements OnInit, on {
             },
             err => console.error(err),
             () => {
-                console.log('done loading sensor ' + sensor.id);
+                console.log('refreshed sensor ' + sensor.id);
             }
         );
+
     }
 }
 
