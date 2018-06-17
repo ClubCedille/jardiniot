@@ -3,7 +3,7 @@ ATTACH "jardin.db" AS "jardin";
 BEGIN;
 
 -- Enlever les commentaires de ce script pour "seedé" la base de données. 
-INSERT OR IGNORE INTO buckets ( "name", "ip") VALUES ("un bucket de test", "127.0.0.1");
+INSERT OR IGNORE INTO buckets ( "name", "ip") VALUES ("test", "127.0.0.1");
 
 INSERT OR IGNORE INTO sensors (bucket_id, name, type) VALUES ("1", "humidity", "humidity");
 INSERT OR IGNORE INTO sensors (bucket_id, name, type) VALUES ("1", "temperature", "temperature");

@@ -100,8 +100,14 @@ out.createValue = function(_value, _sensorId) {
         return;
     }
 
-    var requete = db.prepare('INSERT INTO "jardin"."values" (sensor_id, value, timestamp) VALUES (?, ?, ?)');
-    requete.run(_sensorId, _value, Date.now());
+    console.log("salut " + _sensorId + " " + _value );
+
+    var requete = db.prepare('INSERT INTO "values" (sensor_id, value, timestamp) VALUES (?, ?, ?)');
+    requete.run(_sensorId, _value, Date.now(), function(err){
+        if(err){
+            console.warn("Erreure! : " + err);
+        }
+    });
 }
 
 //Dans le cas où on connaît seulement le nom du sensor (comme dans connector.js)
