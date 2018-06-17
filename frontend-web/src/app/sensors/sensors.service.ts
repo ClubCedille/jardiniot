@@ -17,7 +17,7 @@ export class SensorsService {
     }
 
     getLatestData(bucketId: number, sensorId: number) {
-        return this.http.get(environment.api_hostname + '/buckets/' + bucketId + '/' + sensorId + '/latest');
+        return this.http.get(environment.api_hostname + '/buckets/' + bucketId + '/sensor/' + sensorId + '/latest');
     }
 
 }

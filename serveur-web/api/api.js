@@ -71,14 +71,14 @@ api.get('/buckets/:bucketId', function(req, res, next) {
 /*
  * Sensor info
  */
-api.get('/buckets/:bucketId/:sensorId', function(req, res, next) {
+api.get('/buckets/:bucketId/sensor/:sensorId', function(req, res, next) {
     getSensorValue(req, res);
 });
 
 /*
  * Sensor info
  */
-api.get('/buckets/:bucketId/:sensorId/latest', function(req, res, next) {
+api.get('/buckets/:bucketId/sensor/:sensorId/latest', function(req, res, next) {
     getLatestSensorValue(req, res);
 });
 
