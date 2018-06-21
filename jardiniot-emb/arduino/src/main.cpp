@@ -25,6 +25,8 @@ Timer timer;
 int k = 0;	// Tics counter
 CommandManager* cm;
 
+String espval = "";
+
 // Fonction utilisée pour connaitre la RAM libre sur le Arduino lorsque la RAM est pleine le arduino bloc et doit être redémarré
 int freeRam() {
   extern int __heap_start, *__brkval;
@@ -32,19 +34,16 @@ int freeRam() {
   return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
 }
 
-// Envoie de mock data
-// TODO: Résoudre le problème avec le DHT
+// Envoie de données
 void sendStatusToESP() {
-	// Send data to ESP8266
-	char sensorStatus[80];
-
 	// On met la valeur du tic dans le tableau de chars
 	char s[12];
 	sprintf(s,"%d", k);
 
-	sprintf(sensorStatus, "\"temperature\": 24.20,\"humidite\": 30.40,\"tics\":,\"tic\":%s", s);
+	espval = espval + ",\"tics\": " + k;
 
-	ESPserial.write(sensorStatus);
+	// Envoie des données au ESP8266
+	ESPserial.write(espval.c_str());
 }
 
 void setup(){
@@ -65,15 +64,15 @@ void setup(){
 	short red = 11*256+125;	// Pin 11 avec intensité de 125, de 2816 à 3071
 	short blue = 10*256+160;	// Pin 10 avec intensité de 160, de 2560 à 2815
 	short white = 9*256+50;	// Pin 9 avec intensité de 50, de 2304 à 2559
-	cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+//	cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
 
 	// Ajout de FAN
 	cm->executeCommand("id 5 a 4 250 i " + String(5*256+255));		// Fan latérale (pin 5), de 1280 à 1535
-	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
+//	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
 
 	// Ajout d'un DHT
-	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error
-	//cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
+	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error. Bouffe trop de mémoire, faut donc enlever d'autres senseurs.
+	cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
 
 	Serial.println(F("Config par defaut executee."));
 
@@ -117,14 +116,11 @@ void loop() {
 
 		char* status = cm->getSensorList()[i]->read();
 
-		// TODO: À tester avec le DHT
+		// Testé et fonctionnel avec le DHT
 		if ((status != NULL) && (status[0] != '\0')) {
-			// Test
+			// Écriture des données dans une variable globale de type String
 			Serial.println(status);
-
-			// TODO: Fix me
-			// Send data to ESP
-			//ESPserial.write(status);
+			espval = status;
 		}
 	}
 
