@@ -22,7 +22,7 @@
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 Timer timer;
-int k = 0;	// Tics counter
+unsigned long tick = 0;	// Compteur d'intérations de la boucle
 CommandManager* cm;
 
 String espval = "";
@@ -38,9 +38,9 @@ int freeRam() {
 void sendStatusToESP() {
 	// On met la valeur du tic dans le tableau de chars
 	char s[12];
-	sprintf(s,"%d", k);
+	sprintf(s,"%d", tick);
 
-	espval = espval + ",\"tics\": " + k;
+	espval = espval + ",\"tics\": " + tick;
 
 	// Envoie des données au ESP8266
 	ESPserial.write(espval.c_str());
@@ -131,7 +131,7 @@ void loop() {
 		cm->getMotorList()[i]->activate();
 	}
 
-	Serial.println("tic is " + String(k++));
+	Serial.println("tic is " + String(tick++));
 
 	// Listen for communication from ESP
 	readInfoFromESP();
