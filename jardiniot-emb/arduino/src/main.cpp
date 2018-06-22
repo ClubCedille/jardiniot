@@ -44,6 +44,8 @@ void sendStatusToESP() {
 
 	// Envoie des données au ESP8266
 	ESPserial.write(espval.c_str());
+
+	espval = "";	// Vider la variable
 }
 
 void setup(){
