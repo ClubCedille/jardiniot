@@ -1,46 +1,63 @@
 #ifndef STRING_H
 #define STRING_H
 
-#include <sstream>
 #include <string>
 
-typedef uint8_t byte;
-typedef bool boolean;
+//typedef uint8_t byte;
+typedef unsigned char byte;
 
-class String
+class String : public std::string
 {
-public:
-    String(){}
-    String(std::string str) {this->str = str;}
-    String(char *str) {this->str = str;}
-    String(byte n) {this->str = this->numberToString(n);}
+    public:
 
-    int toInt() {std::stringstream ss(this->str); int num; ss>>num; return num;}
-    int indexOf(char c) const {return this->str.find(c);}
-    String substring(size_t pos = 0, size_t len = std::string::npos) const {return this->str.substr(pos, len);}
-    void remove(size_t pos = 0, size_t len = std::string::npos) {this->str.erase(pos, len);}
-    bool concat(std::string str2) {this->str.append(str2); return true;} // bool juste pour correspondre à la fonction du arduino
-    std::string operator+(std::string str2) {return this->str+str2;}
-    bool concat(int n) {this->str.append(numberToString(n)); return true;}
-    size_t length() {return this->str.length();}
-    char operator[](std::size_t i) {return this->str[i];}
+        // Constructeurs
+        String();
+        String(std::string const& str);
+        String(unsigned int n, char c);
+        String(const char c[]);
+        String(int nombre);
+        String(unsigned int nombre);
+        String(double nombre);
 
-    bool operator==(std::string str2) {return this->str == str2;}
-    bool compareTo(std::string str2) {return this->str == str2;}
-    bool operator!=(String str2) {return !(str2 == this->str);}
-    friend std::ostream &operator<<(std::ostream &os, const String str) {os<<(str.str); return os;}
+        // Destructeur
+        virtual ~String();
 
+        // Méthodes à adapter
+        char charAt(unsigned int indice) const;
+        int compareTo(String const& str) const;
+        bool concat(int nombre);
+        bool concat(double nombre);
+        bool concat(const char* s);
+        bool concat(std::string str);
+        int indexOf(char c, unsigned int indice=0) const;
+        int indexOf(const char* c, unsigned int indice=0) const;
+        int indexOf(String const& str, unsigned int indice=0) const;
+        unsigned int length() const;
+        void remove(unsigned int debut, unsigned int nbr=npos);
+        String substring(unsigned int debut=0, unsigned int fin=npos) const;
+        long int toInt() const;
 
-    std::string str;
+        String& operator=(std::string const& str);
+        String& operator=(const char c[]);
 
-private:
-    std::string numberToString(int n) {
-        std::ostringstream oss;
-        oss << n;
-        return oss.str();
-    }
+    private:
+
+        /**
+        * \brief Instructions à effectuer pour instancier une chaîne de
+        *       caractères à partir d'un nombre, quel que soit son type.
+        * \param nombre
+        *       Nombre à convertir en chaîne de caractères
+        */
+        template<typename T>
+        void convertirNombre(T nombre);
+
+        /**
+        * \brief Efface les zéros à la fin d'une chaîne de caractères
+        *       représentant un nombre. Utilisée si le nombre n'est pas entier.
+        * \param nbStr
+        *       Chaîne de caractères représentant un nombre non entier.
+        */
+        static void eliminerZeros(std::string& nbStr);
 };
-
-std::string operator+(std::string str, String str2);
 
 #endif // STRING_H

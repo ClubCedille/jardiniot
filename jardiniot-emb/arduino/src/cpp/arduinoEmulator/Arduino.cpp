@@ -8,17 +8,17 @@ int __heap_start, *__brkval;
 
 // https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/
 void analogWrite(uint8_t pin, short value) {
-    std::cout << "Pin: " << pin << " Value: " << value << std::endl;
+    std::cout << "Pin: " << static_cast<int>(pin) << " Value: " << value << std::endl;
 }
 
 // https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/
 void pinMode(uint8_t pin, PinMode mode) {
-    std::cout << "Pin: " << pin << " Mode: " << mode << std::endl;
+    std::cout << "Pin: " << static_cast<int>(pin) << " Mode: " << mode << std::endl;
 }
 
 // https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/
 void digitalWrite(uint8_t pin, uint8_t value) {
-    std::cout << "Pin: " << pin << " Voltage: " << value << std::endl;
+    std::cout << "Pin: " << static_cast<int>(pin) << " Voltage: " << value << std::endl;
 }
 
 // Met sur pause pour la durée en millisecondes passée en paramètre.
