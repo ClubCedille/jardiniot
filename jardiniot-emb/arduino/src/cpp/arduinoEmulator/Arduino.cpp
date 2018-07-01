@@ -6,25 +6,24 @@ Arduino arduino;
 // Jusqu'à preuve du contraire, on suppose qu'il est inutile de les initialiser
 int __heap_start, *__brkval;
 
-// https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/
-void analogWrite(uint8_t pin, short value) {
+void analogWrite(uint8_t pin, int value) {
+    arduino.pins[pin].value = value;
     std::cout << "Pin: " << static_cast<int>(pin) << " Value: " << value << std::endl;
 }
 
-// https://www.arduino.cc/reference/en/language/functions/digital-io/pinmode/
 void pinMode(uint8_t pin, PinMode mode) {
     std::cout << "Pin: " << static_cast<int>(pin) << " Mode: " << mode << std::endl;
 }
 
-// https://www.arduino.cc/reference/en/language/functions/digital-io/digitalwrite/
 void digitalWrite(uint8_t pin, uint8_t value) {
     std::cout << "Pin: " << static_cast<int>(pin) << " Voltage: " << value << std::endl;
 }
 
-// Met sur pause pour la durée en millisecondes passée en paramètre.
-// https://www.arduino.cc/reference/en/language/functions/time/delay/
+int digitalRead(uint8_t pin) {
+    return arduino.pins[pin].voltage;
+}
+
 void delay(int ms) {
-    //std::clock_t debut = std::clock();
     auto debut = std::chrono::steady_clock::now();
     auto courant = debut;
     while(std::chrono::duration<double, std::milli>(courant-debut).count() < ms) {
@@ -32,13 +31,26 @@ void delay(int ms) {
     };
 }
 
-// Donne le nombre de millisecondes écoulées depuis le début de l'exécution du programme.
-// https://www.arduino.cc/reference/en/language/functions/time/millis/
+void delayMicroseconds(unsigned int us) {
+    auto debut = std::chrono::steady_clock::now();
+    auto courant = debut;
+    while(std::chrono::duration<double, std::micro>(courant-debut).count() < us) {
+        courant = std::chrono::steady_clock::now();
+    };
+}
+
 unsigned long millis(void){
     auto courant = std::chrono::steady_clock::now();
     auto temps = std::chrono::duration<double, std::milli>(courant-arduino.initialTime).count();
     return static_cast<unsigned long>(temps);
 };
+
+int microsecondsToClockCycles(int microseconds) {
+    return CLOCKS_PER_SEC*microseconds/1000000;
+}
+
+void interrupts() {}
+void noInterrupts() {}
 
 std::string F(std::string str) {return str;};
 

@@ -1,3 +1,4 @@
+// https://github.com/GRV96/ArduinoString/blob/master/include/String.h
 #ifndef STRING_H
 #define STRING_H
 

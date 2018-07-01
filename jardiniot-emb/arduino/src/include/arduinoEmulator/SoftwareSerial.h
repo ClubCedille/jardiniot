@@ -29,7 +29,7 @@ public:
 
     // https://cdn.arduino.cc/reference/en/language/functions/communication/serial/write/
     size_t write(const char *str) {
-        std::cout << "Écriture sur tx-" << static_cast<int>(this->tx) << " rx-" << static_cast<int>(this->rx) << ". Valeur: " << *str << std::endl;
+        std::cout << "Écriture sur tx-" << static_cast<int>(this->tx) << " rx-" << static_cast<int>(this->rx) << ". Valeur: " << static_cast<int>(*str) << std::endl;
         return strlen(str);
     }
 
