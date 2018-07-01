@@ -12,10 +12,12 @@ void analogWrite(uint8_t pin, int value) {
 }
 
 void pinMode(uint8_t pin, PinMode mode) {
+    arduino.pins[pin].mode = mode;
     std::cout << "Pin: " << static_cast<int>(pin) << " Mode: " << mode << std::endl;
 }
 
 void digitalWrite(uint8_t pin, uint8_t value) {
+    arduino.pins[pin].value = value;
     std::cout << "Pin: " << static_cast<int>(pin) << " Voltage: " << value << std::endl;
 }
 
