@@ -66,11 +66,11 @@ void setup(){
 	short red = 11*256+125;	// Pin 11 avec intensité de 125, de 2816 à 3071
 	short blue = 10*256+160;	// Pin 10 avec intensité de 160, de 2560 à 2815
 	short white = 9*256+50;	// Pin 9 avec intensité de 50, de 2304 à 2559
-//	cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
+	cm->executeCommand("id 1 a 2 200 i " + String(white) + " " + String(blue) + " " + String(red));
 
 	// Ajout de FAN
 	cm->executeCommand("id 5 a 4 250 i " + String(5*256+255));		// Fan latérale (pin 5), de 1280 à 1535
-//	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
+	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
 
 	// Ajout d'un DHT
 	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error. Bouffe trop de mémoire, faut donc enlever d'autres senseurs.
@@ -116,10 +116,10 @@ void loop() {
 		// Écrit les valeurs au pin spécifié lors de la création/configuration
 		cm->getSensorList()[i]->write();
 
-		char* status = cm->getSensorList()[i]->read();
+		String status = cm->getSensorList()[i]->read();
 
 		// Testé et fonctionnel avec le DHT
-		if ((status != NULL) && (status[0] != '\0')) {
+		if (status.length() > 0) {
 			// Écriture des données dans une variable globale de type String
 			Serial.println(status);
 			espval = status;

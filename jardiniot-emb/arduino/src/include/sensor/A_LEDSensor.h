@@ -20,7 +20,7 @@ public:
     A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~A_LEDSensor();
 
-    char* read();
+    String read();
     int write();
     void setInput(std::vector<short> input);
 

@@ -18,7 +18,7 @@ DHTSensor::~DHTSensor(){
     delete dht;
 }
 
-char* DHTSensor::read(){
+String DHTSensor::read(){
     char sensorStatus[50];
 
     float h = dht->readHumidity();           // humidité
@@ -38,7 +38,7 @@ char* DHTSensor::read(){
         sprintf(sensorStatus, "\"temperature\":%s,\"humidite\":%s", tempString, humidityString);
     }
 
-    return sensorStatus;
+    return String(sensorStatus);
 }
 
 int DHTSensor::write(){
