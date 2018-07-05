@@ -11,7 +11,7 @@ class SensorStrategy: public Controller {
 protected:
     short delayTime;
 public:
-    virtual char* read();
+    virtual String read();
     virtual int write();
     virtual String toString();
     virtual void setInput(std::vector<short> inputPin);

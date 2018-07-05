@@ -31,8 +31,10 @@
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
 Timer timer;
-int k = 0;	// Tics counter
+unsigned long tick = 0;	// Compteur d'intérations de la boucle
 CommandManager* cm;
+
+String espval = "";
 
 // Fonction utilisée pour connaitre la RAM libre sur le Arduino lorsque la RAM est pleine le arduino bloc et doit être redémarré
 int freeRam() {
@@ -45,19 +47,18 @@ int freeRam() {
   #endif
 }
 
-// Envoie de mock data
-// TODO: Résoudre le problème avec le DHT
+// Envoie de données
 void sendStatusToESP() {
-	// Send data to ESP8266
-	char sensorStatus[80];
-
 	// On met la valeur du tic dans le tableau de chars
 	char s[12];
-	sprintf(s,"%d", k);
+	sprintf(s,"%d", tick);
 
-	sprintf(sensorStatus, "\"temperature\": 24.20,\"humidite\": 30.40,\"tics\":,\"tic\":%s", s);
+	espval = espval + ",\"tics\": " + tick;
 
-	ESPserial.write(sensorStatus);
+	// Envoie des données au ESP8266
+	ESPserial.write(espval.c_str());
+
+	espval = "";	// Vider la variable
 }
 
 void setup(){
@@ -88,8 +89,8 @@ void setup(){
 	cm->executeCommand("id 6 a 4 250 i " + String(6*256+255));		// Fan du heatsink, de 1536 à 1791
 
 	// Ajout d'un DHT
-	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error
-	//cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
+	// TODO: Si decommenté, cause problèmes de mémoire ou de socket error. Bouffe trop de mémoire, faut donc enlever d'autres senseurs.
+	cm->executeCommand("id 7 a 0 250 i " + String(2*256+22));
 
 	Serial.println(F("Config par defaut executee."));
 
@@ -131,16 +132,13 @@ void loop() {
 		// Écrit les valeurs au pin spécifié lors de la création/configuration
 		cm->getSensorList()[i]->write();
 
-		char* status = cm->getSensorList()[i]->read();
+		String status = cm->getSensorList()[i]->read();
 
-		// TODO: À tester avec le DHT
-		if ((status != NULL) && (status[0] != '\0')) {
-			// Test
+		// Testé et fonctionnel avec le DHT
+		if (status.length() > 0) {
+			// Écriture des données dans une variable globale de type String
 			Serial.println(status);
-
-			// TODO: Fix me
-			// Send data to ESP
-			//ESPserial.write(status);
+			espval = status;
 		}
 	}
 
@@ -149,7 +147,7 @@ void loop() {
 		cm->getMotorList()[i]->activate();
 	}
 
-	Serial.println("tic is " + String(k++));
+	Serial.println("tic is " + String(tick++));
 
 	// Listen for communication from ESP
 	readInfoFromESP();

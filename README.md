@@ -3,6 +3,8 @@ Le projet JardinIoT est un jardin autonome. Ce jardin est composé de "buckets" 
 
 Plus de détails sur le projet peuvent être trouvés sur [le Wiki](https://github.com/ClubCedille/jardiniot/wiki "Wiki JardinIoT").
 
+Le projet [a remporté un OCTAS](https://etsmtl.ca/nouvelles/2018/Gala-des-OCTAS-2018) dans la catégorie 'Relève étudiante' lors du Gala des OCTAS en 2018.
+
 ![2018-02-26-175135_3840x1080_scrot](https://user-images.githubusercontent.com/6194072/36700614-4dc76a1c-1b1e-11e8-8d46-71318f757cc2.png)
 
 # Instructions d'installation

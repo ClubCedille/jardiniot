@@ -1,0 +1,18 @@
+<div class="container" >
+    <div class="text-center" >
+        <h1 class="section-title">{{bucket.name}}</h1>
+        <p>ip : {{bucket.ip}}</p>
+        <hr>
+        <div class="row">
+            <div class="col-md-4 " *ngFor="let sensor of sensors">
+                <div class="bucket-frame" >
+                    <span id="sensorid{{sensor.id}}" ></span>
+                    <h4 class="bucket-frame-name">{{sensor.data.value}}</h4>
+                    <br>
+                    <p class="bucket-frame-ip">{{sensor.type}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" [routerLink]="['/buckets']" > back </a>
+</div>

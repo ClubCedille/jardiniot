@@ -20,8 +20,8 @@ void SensorStrategy::setDelayTime(short delayTime){
     this->delayTime = delayTime;
 }
 
-char* SensorStrategy::read(){
-    return NULL;
+String SensorStrategy::read(){
+    return "";
 }
 
 int SensorStrategy::write(){

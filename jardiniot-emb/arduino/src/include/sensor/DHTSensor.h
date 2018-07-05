@@ -28,7 +28,7 @@ public:
     DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~DHTSensor();
 
-    char* read();
+    String read();
     int write();
 
     String toString();
