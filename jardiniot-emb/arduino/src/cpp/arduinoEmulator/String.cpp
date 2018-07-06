@@ -154,14 +154,21 @@ void String::eliminerZeros(std::string& nbStr)
 
 String& String::operator =(std::string const& str)
 {
-    String s = String(str);
-    return s;
+    auto this_str = static_cast<std::string*>(this);
+    *this_str = str;
+    return *this;
 }
 
 String& String::operator =(const char c[])
 {
-    String s = String(c);
-    return s;
+    auto this_str = static_cast<std::string*>(this);
+    *this_str = c;
+    return *this;
+}
+
+String String::operator+(long unsigned int arg)
+{
+    return *this+std::to_string(arg);
 }
 
 /*

@@ -38,6 +38,7 @@
 		<Unit filename="cpp/Controller.cpp" />
 		<Unit filename="cpp/ControllerFactory.cpp" />
 		<Unit filename="cpp/arduinoEmulator/Arduino.cpp" />
+		<Unit filename="cpp/arduinoEmulator/DHT.cpp" />
 		<Unit filename="cpp/arduinoEmulator/Event.cpp" />
 		<Unit filename="cpp/arduinoEmulator/String.cpp" />
 		<Unit filename="cpp/arduinoEmulator/Timer.cpp" />

@@ -18,6 +18,7 @@ class String : public std::string
         String(const char c[]);
         String(int nombre);
         String(unsigned int nombre);
+        String(long unsigned int nombre) : std::string(std::to_string(nombre)){};
         String(double nombre);
 
         // Destructeur
@@ -34,12 +35,19 @@ class String : public std::string
         int indexOf(const char* c, unsigned int indice=0) const;
         int indexOf(String const& str, unsigned int indice=0) const;
         unsigned int length() const;
-        void remove(unsigned int debut, unsigned int nbr=npos);
-        String substring(unsigned int debut=0, unsigned int fin=npos) const;
+        void remove(unsigned int debut, unsigned int nbr);
+        String substring(unsigned int debut, unsigned int fin) const;
         long int toInt() const;
 
         String& operator=(std::string const& str);
         String& operator=(const char c[]);
+
+        String operator+(long unsigned int arg);
+        template<typename T>
+        String operator+(T arg) {
+            std::string* str_this = static_cast<std::string*>(this);
+            return *str_this+arg;
+        }
 
     private:
 

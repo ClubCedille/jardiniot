@@ -11,13 +11,21 @@
 #include <ctime>
 #include <chrono>
 #include <array>
+#include <map>
 #include "include/arduinoEmulator/String.h"
 
-typedef uint8_t byte;
-typedef bool boolean;
+using byte = uint8_t;
+using boolean = bool;
 
 enum PinMode {INPUT, OUTPUT, INPUT_PULLUP};
 enum PinVoltage {HIGH, LOW};
+
+
+
+namespace {
+    std::map<PinMode, String> pinModeToString = {{INPUT, String("INPUT")}, {OUTPUT, String("OUTPUT")}, {INPUT_PULLUP, String("INPUT_PULLUP")}};
+    std::map<PinVoltage, String> pinVoltageToString = {{HIGH, "HIGH"}, {LOW, "LOW"}};
+}
 
 // https://www.arduino.cc/reference/en/language/functions/analog-io/analogread/
 void analogWrite(uint8_t pin, int value);
