@@ -158,9 +158,9 @@ int main(void) {
     setup();
     while(true)
     { // boucle facile à stopper par commentaire
-        loop();
-        std::cout << std::endl;
         delay(1000); // pour que ça tourne moins vite
+        std::cout << std::endl;
+        loop();
     }
 }
 #endif

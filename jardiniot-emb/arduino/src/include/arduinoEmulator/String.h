@@ -15,11 +15,10 @@ class String : public std::string
         String();
         String(std::string const& str);
         String(unsigned int n, char c);
-        String(const char c[]);
-        String(int nombre);
-        String(unsigned int nombre);
-        String(long unsigned int nombre) : std::string(std::to_string(nombre)){};
-        String(double nombre);
+        template<typename T>
+        String(T* c) : std::string(c) {};
+        template<typename T>
+        String(T nombre) : std::string(std::to_string(nombre)) {};
 
         // Destructeur
         virtual ~String();

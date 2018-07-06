@@ -16,28 +16,6 @@ String::String(unsigned int n, char c): std::string(n, c)
     // Appelle le constructeur de std::string.
 }
 
-String::String(const char c[]): std::string(c)
-{
-    // Appelle le constructeur de std::string.
-}
-
-String::String(int nombre)
-{
-    convertirNombre(nombre);
-}
-
-String::String(unsigned int nombre)
-{
-    convertirNombre(nombre);
-}
-
-String::String(double nombre)
-{
-    std::string nbStr = std::to_string(nombre);
-    eliminerZeros(nbStr);
-    append(nbStr);
-}
-
 String::~String()
 {
     //dtor
@@ -112,11 +90,6 @@ String String::substring(unsigned int debut, unsigned int fin) const
 
 long int String::toInt() const
 {
-    /*
-    * Pour utiliser std::stoi(const string&  str)
-    * Settings -> Compiler -> Compiler settings -> Compiler Flags
-    * -> cocher "Have g++ follow the C++11 ISO C++ language standard [-std=c++11]"
-    */
     return std::stoi(*this);
 }
 
