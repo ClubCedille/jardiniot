@@ -6,7 +6,7 @@ written by Adafruit Industries
 #ifndef DHT_H
 #define DHT_H
 
-#include "include/arduinoEmulator/Arduino.h"
+#include "Arduino.h"
 
 
 // Uncomment to enable printing out nice debug messages.

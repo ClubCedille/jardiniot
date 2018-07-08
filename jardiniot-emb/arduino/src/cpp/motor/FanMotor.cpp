@@ -1,5 +1,6 @@
 #include "include/motor/FanMotor.h"
 #include "include/ControllerType.h"
+#include "include/PreprocessorConstants.h"
 
 //<<constructor>>
 /* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir

@@ -1,4 +1,4 @@
-#include "include/arduinoEmulator/Arduino.h"
+#include "Arduino.h"
 
 Arduino arduino;
 

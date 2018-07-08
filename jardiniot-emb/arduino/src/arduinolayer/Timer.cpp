@@ -20,8 +20,8 @@
  http://www.simonmonk.org
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#include "include/arduinoEmulator/Arduino.h"
-#include "include/arduinoEmulator/Timer.h"
+#include "Arduino.h"
+#include "Timer.h"
 
 Timer::Timer(void)
 {

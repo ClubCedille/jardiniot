@@ -4,7 +4,7 @@
 #ifndef SERVO_H
 #define SERVO_H
 
-#include "include/arduinoEmulator/Arduino.h"
+#include "Arduino.h"
 
 class Servo
 {

@@ -15,18 +15,9 @@
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <include/CommandManager.h>
-#ifdef Arduino
-    #include <SoftwareSerial.h>
-#elif defined Pc
-    #include "include/arduinoEmulator/SoftwareSerial.h"
-#endif
+#include <SoftwareSerial.h>
 #include <stdlib.h> /* strtoul */
-#ifdef Arduino
-    #include "Timer.h"
-#elif defined Pc
-    #include <stdio.h> /*sprintf*/
-    #include "include/arduinoEmulator/Timer.h"
-#endif
+#include "Timer.h"
 
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP

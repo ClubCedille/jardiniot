@@ -12,7 +12,7 @@
 #include <chrono>
 #include <array>
 #include <map>
-#include "include/arduinoEmulator/String.h"
+#include "String.h"
 
 using byte = uint8_t;
 using boolean = bool;

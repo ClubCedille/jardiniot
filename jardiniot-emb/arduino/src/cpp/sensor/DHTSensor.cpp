@@ -1,4 +1,5 @@
 #include "include/sensor/DHTSensor.h"
+#include "include/PreprocessorConstants.h"
 
 //<<constructor>>
 /* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir

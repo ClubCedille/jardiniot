@@ -4,8 +4,7 @@
 
 #include <string>
 
-//typedef uint8_t byte;
-typedef unsigned char byte;
+typedef uint8_t byte;
 
 class String : public std::string
 {

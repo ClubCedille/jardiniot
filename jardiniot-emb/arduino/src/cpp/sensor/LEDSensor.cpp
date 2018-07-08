@@ -1,5 +1,6 @@
 #include "include/sensor/LEDSensor.h"
 #include "include/ControllerType.h"//include the declaration for this class
+#include "include/PreprocessorConstants.h"
 
 //<<constructor>> setup the LED, make pin an OUTPUT
 /* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir

@@ -24,7 +24,7 @@
 #define Timer_h
 
 #include <inttypes.h>
-#include "include/arduinoEmulator/Event.h"
+#include "Event.h"
 
 #define MAX_NUMBER_OF_EVENTS (10)
 

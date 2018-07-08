@@ -21,8 +21,8 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 // For Arduino 1.0 and earlier
-#include "include/arduinoEmulator/Arduino.h"
-#include "include/arduinoEmulator/Event.h"
+#include "Arduino.h"
+#include "Event.h"
 
 Event::Event(void)
 {

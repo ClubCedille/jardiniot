@@ -1,18 +1,9 @@
 #ifndef Controller_H
 #define Controller_H
 
-#include "include/PreprocessorConstants.h"
-
-#ifdef Arduino
-    #include <Arduino.h>
-#elif defined Pc
-    #include "include/arduinoEmulator/Arduino.h"
-#endif
-
+#include <Arduino.h>
 #include <string.h>
-#ifdef Arduino
-    #include <StandardCplusplus.h>
-#endif
+#include <StandardCplusplus.h>
 #include <vector>
 #include "ControllerType.h"
 

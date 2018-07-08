@@ -1,5 +1,5 @@
 // https://github.com/GRV96/ArduinoString/blob/master/src/String.cpp
-#include "include/arduinoEmulator/String.h"
+#include "String.h"
 
 String::String(): std::string()
 {
