@@ -1,16 +1,7 @@
 #include "include/sensor/DHTSensor.h"
-#include "include/PreprocessorConstants.h"
 
 //<<constructor>>
-/* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir
-   s'il est possible d'utiliser la même ligne de code sur Pc et Arduino */
-#ifdef Arduino
-DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
-#elif defined Pc
 DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, A_LED, inputPins, outputPins){
-#endif
-
-
     byte DHTPin = (this->inputPin[0] & 0xff00) >> 8;
     byte DHTTYPE = (this->inputPin[0] & 0xff);
 

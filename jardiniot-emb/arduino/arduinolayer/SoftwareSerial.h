@@ -25,12 +25,14 @@ public:
 
     // https://cdn.arduino.cc/reference/en/language/functions/communication/serial/write/
     size_t write(const char *str) {
-        std::cout << "Écriture sur tx-" << static_cast<int>(this->tx) << " rx-" << static_cast<int>(this->rx) << ". Valeur: " << static_cast<int>(*str) << std::endl;
+        std::cout << "Écriture sur tx-" << static_cast<int>(this->tx) << " rx-"
+                << static_cast<int>(this->rx) << ". Valeur: "
+                << static_cast<int>(*str) << std::endl;
         return strlen(str);
     }
 
     int available() {return 42;} // valeur bidon
-    std::string readString() {return "id 1 a 1 111 i 1111 1111 1111";}
+    std::string readString() {return "id 1 a 1 111 i 1111 1111 1111";} // valeur bidon
 
     void begin(int speed) {}
 

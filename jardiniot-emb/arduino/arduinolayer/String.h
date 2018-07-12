@@ -15,9 +15,9 @@ class String : public std::string
         String(std::string const& str);
         String(unsigned int n, char c);
         template<typename T>
-        String(T* c) : std::string(c) {};
+        String(T* c) : std::string(c) {}
         template<typename T>
-        String(T nombre) : std::string(std::to_string(nombre)) {};
+        String(T nombre) : std::string(std::to_string(nombre)) {}
 
         // Destructeur
         virtual ~String();
@@ -26,9 +26,9 @@ class String : public std::string
         char charAt(unsigned int indice) const;
         int compareTo(String const& str) const;
         template<typename T>
-        bool concat (T* c) {append(c); return true;};
+        bool concat (T* c) {append(c); return true;}
         template<typename T>
-        bool concat (T nombre) {append(std::to_string(nombre)); return true;};
+        bool concat (T nombre) {append(std::to_string(nombre)); return true;}
         bool concat(std::string str);
         int indexOf(char c, unsigned int indice=0) const;
         int indexOf(const char* c, unsigned int indice=0) const;

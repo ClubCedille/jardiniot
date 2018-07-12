@@ -17,6 +17,7 @@
 #include <SoftwareSerial.h>
 #include <stdlib.h> /* strtoul */
 #include "Timer.h"
+#include "defines.h"
 
 // http://www.martyncurrey.com/arduino-to-esp8266-serial-commincation/
 SoftwareSerial ESPserial(3, 4); // pin 3 à TX du ESP | pin 4 à RX du ESP
@@ -32,7 +33,8 @@ int freeRam() {
   int v;
   #ifdef Arduino
   return (int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval);
-  #elif defined Pc // Vérifier si la ligne suivante fonctionne aussi sur Arduino
+  #elif defined Pc
+  // Vérifier si la ligne suivante fonctionne aussi sur Arduino
   return &v - (__brkval == 0 ? &__heap_start : __brkval);
   #endif
 }
@@ -112,9 +114,10 @@ void readInfoFromESP() {
 void loop() {
 	// Éliminer le plus possible les serial.print puisqu'il coûte cher en mémoire
 	// Si nécessaire utiliser F() pour storer les chaines de caractère dans la mémoire Flash au lieu de la mettre dans la mémoire Ram
+	#if defined Arduino
 	Serial.print(F("Free memory "));
 	Serial.println(freeRam());
-
+    #endif
 	timer.update();
 
 	// Boucle de gestion pour les sensors
@@ -150,7 +153,6 @@ int main(void) {
     { // boucle facile à stopper par commentaire
         delay(1000); // pour que ça tourne moins vite
         Serial.println("");
-        //std::cout << std::endl;
         loop();
     }
 }

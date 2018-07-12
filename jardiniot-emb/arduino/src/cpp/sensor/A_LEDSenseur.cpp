@@ -1,16 +1,8 @@
 #include "include/sensor/A_LEDSensor.h"
 #include "include/ControllerType.h"//include the declaration for this class
-#include "include/PreprocessorConstants.h"
 
 //<<constructor>> setup the LED, make pin an OUTPUT
-/* Les instructions de préprocesseur suivantes ne sont nécessaires qu'en attendant de savoir
-   s'il est possible d'utiliser la même ligne de code sur Pc et Arduino */
-#ifdef Arduino
-A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
-#elif defined Pc
 A_LEDSensor::A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, A_LED, inputPins, outputPins){
-#endif
-
     this->setInput(inputPins);
 
     pinMode(whiteLEDPin, OUTPUT); //make that pin an OUTPUT

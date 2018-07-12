@@ -60,11 +60,11 @@
 		<Unit filename="cpp/sensor/DHTSensor.cpp" />
 		<Unit filename="cpp/sensor/LEDSensor.cpp" />
 		<Unit filename="cpp/sensor/SensorStrategy.cpp" />
+		<Unit filename="defines.h" />
 		<Unit filename="include/CommandManager.h" />
 		<Unit filename="include/Controller.h" />
 		<Unit filename="include/ControllerFactory.h" />
 		<Unit filename="include/ControllerType.h" />
-		<Unit filename="include/PreprocessorConstants.h" />
 		<Unit filename="include/command/JardinCommand.h" />
 		<Unit filename="include/motor/FanMotor.h" />
 		<Unit filename="include/motor/MotorStrategy.h" />
