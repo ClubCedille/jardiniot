@@ -14,7 +14,6 @@
 				<Compiler>
 					<Add option="-std=c++11" />
 					<Add option="-g" />
-					<Add directory="arduinolayer" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -33,22 +32,23 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="../arduinolayer" />
 			<Add directory="../src" />
 		</Compiler>
-		<Unit filename="arduinolayer/Adafruit_Sensor.h" />
-		<Unit filename="arduinolayer/Arduino.cpp" />
-		<Unit filename="arduinolayer/Arduino.h" />
-		<Unit filename="arduinolayer/DHT.cpp" />
-		<Unit filename="arduinolayer/DHT.h" />
-		<Unit filename="arduinolayer/Event.cpp" />
-		<Unit filename="arduinolayer/Event.h" />
-		<Unit filename="arduinolayer/Servo.h" />
-		<Unit filename="arduinolayer/SoftwareSerial.h" />
-		<Unit filename="arduinolayer/StandardCplusplus.h" />
-		<Unit filename="arduinolayer/String.cpp" />
-		<Unit filename="arduinolayer/String.h" />
-		<Unit filename="arduinolayer/Timer.cpp" />
-		<Unit filename="arduinolayer/Timer.h" />
+		<Unit filename="../arduinolayer/Adafruit_Sensor.h" />
+		<Unit filename="../arduinolayer/Arduino.cpp" />
+		<Unit filename="../arduinolayer/Arduino.h" />
+		<Unit filename="../arduinolayer/DHT.cpp" />
+		<Unit filename="../arduinolayer/DHT.h" />
+		<Unit filename="../arduinolayer/Event.cpp" />
+		<Unit filename="../arduinolayer/Event.h" />
+		<Unit filename="../arduinolayer/Servo.h" />
+		<Unit filename="../arduinolayer/SoftwareSerial.h" />
+		<Unit filename="../arduinolayer/StandardCplusplus.h" />
+		<Unit filename="../arduinolayer/String.cpp" />
+		<Unit filename="../arduinolayer/String.h" />
+		<Unit filename="../arduinolayer/Timer.cpp" />
+		<Unit filename="../arduinolayer/Timer.h" />
 		<Unit filename="cpp/CommandManager.cpp" />
 		<Unit filename="cpp/Controller.cpp" />
 		<Unit filename="cpp/ControllerFactory.cpp" />
