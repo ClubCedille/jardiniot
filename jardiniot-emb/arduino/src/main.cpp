@@ -13,7 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
-
 #include <include/CommandManager.h>
 #include <SoftwareSerial.h>
 #include <stdlib.h> /* strtoul */
@@ -150,7 +149,8 @@ int main(void) {
     while(true)
     { // boucle facile à stopper par commentaire
         delay(1000); // pour que ça tourne moins vite
-        std::cout << std::endl;
+        Serial.println("");
+        //std::cout << std::endl;
         loop();
     }
 }

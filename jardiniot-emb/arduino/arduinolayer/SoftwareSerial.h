@@ -2,10 +2,6 @@
 #ifndef SoftwareSerial_h
 #define SoftwareSerial_h
 
-//#include <inttypes.h>
-//#include <Stream.h> https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/Stream.h
-//https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/cores/arduino/Print.h
-
 // https://github.com/arduino/ArduinoCore-avr/blob/3f63f2975e7183c3254b6794bfcc8f19ca0301c9/cores/arduino/USBAPI.h
 class Serial_ {
 public:
