@@ -25,9 +25,10 @@ class String : public std::string
         // Méthodes à adapter
         char charAt(unsigned int indice) const;
         int compareTo(String const& str) const;
-        bool concat(int nombre);
-        bool concat(double nombre);
-        bool concat(const char* s);
+        template<typename T>
+        bool concat (T* c) {append(c); return true;};
+        template<typename T>
+        bool concat (T nombre) {append(std::to_string(nombre)); return true;};
         bool concat(std::string str);
         int indexOf(char c, unsigned int indice=0) const;
         int indexOf(const char* c, unsigned int indice=0) const;
@@ -46,25 +47,6 @@ class String : public std::string
             std::string* str_this = static_cast<std::string*>(this);
             return *str_this+arg;
         }
-
-    private:
-
-        /**
-        * \brief Instructions à effectuer pour instancier une chaîne de
-        *       caractères à partir d'un nombre, quel que soit son type.
-        * \param nombre
-        *       Nombre à convertir en chaîne de caractères
-        */
-        template<typename T>
-        void convertirNombre(T nombre);
-
-        /**
-        * \brief Efface les zéros à la fin d'une chaîne de caractères
-        *       représentant un nombre. Utilisée si le nombre n'est pas entier.
-        * \param nbStr
-        *       Chaîne de caractères représentant un nombre non entier.
-        */
-        static void eliminerZeros(std::string& nbStr);
 };
 
 #endif // STRING_H
