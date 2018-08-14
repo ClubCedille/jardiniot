@@ -24,6 +24,7 @@ import random
 
 # Globals
 TOPIC = "jardin"
+process = True
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -36,9 +37,10 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	print(msg.topic + " " + str(msg.payload))
-	if msg.topic == TOPIC and str(msg.payload) == "die":
+	if msg.topic == TOPIC and msg.payload.decode("utf-8") == "die":
 		client.disconnect()
-		quit()
+		global process
+		process = False
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -51,11 +53,10 @@ client.subscribe(TOPIC, 2)
 
 print("  **** JARDIN EMULATOR STARTED ****")
 
-while True:
+while process:
 	time.sleep(1)
 	temp = str(random.randint(28, 33))
 	humi = str(random.randint(30, 55))
 	client.publish(TOPIC, payload="{\"Temperature\": \"" + temp + "°\", \"Humidite\": \"" + humi + "%\"}", qos=0, retain=False)
-
-
+	client.loop_start()
 

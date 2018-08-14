@@ -39,10 +39,13 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
 	print(msg.topic + " " + str(msg.payload))
 	if msg.topic == TOPIC:
-		message = msg.payload.decode("utf-8")	# Convert to string
-		print(message)
-		stuff = json.loads(message)
-		print(stuff)
+		try:
+			message = msg.payload.decode("utf-8")	# Convert to string
+			print(message)
+			stuff = json.loads(message)
+			print(stuff)
+		except ValueError as e:
+			print("ValueError: " + str(e))
 
 client = mqtt.Client()
 client.on_connect = on_connect
