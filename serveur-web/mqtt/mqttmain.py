@@ -22,9 +22,12 @@
 
 import paho.mqtt.client as mqtt
 import json
+import sqlite3
+from datetime import datetime, timezone
 
 # Globals
 TOPIC = "jardin"
+DBNAME = "jardin.db"
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -42,8 +45,26 @@ def on_message(client, userdata, msg):
 		try:
 			message = msg.payload.decode("utf-8")	# Convert to string
 			print(message)
-			stuff = json.loads(message)
-			print(stuff)
+			contents = json.loads(message)
+			print(contents)
+
+			try:
+				print(contents["Temperature"])
+				print(contents["Humidite"])
+
+				# Insert into database
+				conn = sqlite3.connect(DBNAME)
+				c = conn.cursor()
+				element = [(str(datetime.now(timezone.utc)), "Temperature", contents["Temperature"])]
+				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
+				element = [(str(datetime.now(timezone.utc)), "Humidite", contents["Humidite"])]
+				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
+				# Flush the transaction to disk
+				conn.commit()
+				conn.close()
+			except KeyError:
+				pass
+
 		except ValueError as e:
 			print("ValueError: " + str(e))
 
@@ -52,6 +73,17 @@ client.on_connect = on_connect
 client.on_message = on_message
 
 client.connect("127.0.0.1", 1883, 30)
+
+# Create the database
+conn = sqlite3.connect(DBNAME)
+c = conn.cursor()
+# Check if table doesn't exist
+c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='valeurs'")
+if not c.fetchone():
+	# Create table
+	c.execute("CREATE TABLE valeurs (date text, senseur text, valeur text)")
+# Close the connection
+conn.close()
 
 # Blocking call that processes network traffic, dispatches callbacks and
 # handles reconnecting.
