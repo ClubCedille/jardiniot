@@ -13,21 +13,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from flask_api import FlaskAPI
-from bucket.bucket_blueprint import bucket_blueprint
 
-__name__ = "JardinIoT"
+class Connection(object):
+	"""
+	Abstract connection objet
+	"""
 
-# Initiate Flask application
-app = FlaskAPI(__name__)
+	def __init__(self):
+		pass
 
-# Register blueprints, which act as controllers
-app.register_blueprint(bucket_blueprint)
+	@staticmethod
+	def get_instance(self):
+		pass
 
-"""
-Exemple d'une route simple
-"""
-@app.route("/")
-def exemple():
-	return { "hello" : "world" }
+	def execute(self, query):
+		print("ok")
+		pass
 
+	def open(self):
+		pass
+
+	def close(self):
+		pass
