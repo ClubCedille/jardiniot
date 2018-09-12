@@ -14,10 +14,13 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 # Fix de compatibilité des imports pour "Migration"
+global path_database
 try:
 	from database.sqlite_connection import SqliteConnection
+	path_database = "database/JardinIoT.db"
 except:
 	from sqlite_connection import SqliteConnection
+	path_database = "./JardinIoT.db"
 
 class Database(object):
 	"""
@@ -33,7 +36,7 @@ class Database(object):
 		Create a new database connection.
 		"""
 		# SQLITE
-		self.connection = SqliteConnection.get_instance("./JardinIoT.db")
+		self.connection = SqliteConnection.get_instance(path_database)
 
 
 	@staticmethod
