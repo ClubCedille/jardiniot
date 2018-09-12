@@ -13,7 +13,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-from sqlite_connection import SqliteConnection
+# Fix de compatibilité des imports pour "Migration"
+try:
+	from database.sqlite_connection import SqliteConnection
+except:
+	from sqlite_connection import SqliteConnection
 
 class Database(object):
 	"""
