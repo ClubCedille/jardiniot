@@ -32,7 +32,7 @@ class SqliteConnection(Connection):
 
 	# Object Variables
 	def __init__(self,db_path):
-		self.conn = sqlite3.connect(db_path)
+		self.conn = sqlite3.connect(db_path, check_same_thread=False)
 
 	@staticmethod
 	def get_instance(db_path):
