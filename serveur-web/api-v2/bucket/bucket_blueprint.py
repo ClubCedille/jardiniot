@@ -14,6 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import Blueprint
+from flask import request
+import json
 
 # Create a bucket_bluprint, which make it exportable for other modules to use.
 # We bind new routes to this blueprint, which will then be used by the
@@ -40,4 +42,61 @@ def index():
 		]
 
 	return buckets
+
+"""
+GET SENSORS
+C'est la requête à faire pour recevoir une liste de senseurs avec leurs noms
+"""
+@bucket_blueprint.route("/sensors")
+def get_sensor_names():
+	print("Acces a /sensors")
+
+	senseurs = [
+		{
+			"id" : 1,
+			"name" : "Temperature",
+			"value" : "31°C"
+		},
+		{
+			"id" : 2,
+			"name" : "Humidite",
+			"value" : "46%"
+		}
+		]
+
+	return senseurs
+
+"""
+UPDATE LIGHTS
+C'est la requête à faire pour modifier la luminosité de chaque couleur de DEL
+
+Peut être testé avec ce JSON:
+{
+"blue": 255,
+"red": 128,
+"white": 59
+}
+"""
+@bucket_blueprint.route("/lights", methods=["POST"])
+def update_lights():
+	print("Acces a /lights")
+
+	if request.headers['Content-Type'] != 'application/json':
+		print("ERROR: Content type is not JSON in HTTP header.")
+	elif request.is_json:
+		print("header: ", request.headers['Content-Type'])
+
+		# S'il manque des virgules (,) au JSON, il ce peut que le code s'arrête ici.
+		print("data: ", request.data)
+
+		red = request.data['red']
+		blue = request.data['blue']
+		white = request.data['white']
+
+		# TODO: Générer une commande de mise à jour de la couleur des lumières à mettre dans la base de données
+		print("red:", red, ", blue:", blue, ", white:", white)
+	else:
+		print("ERROR: Request is not JSON.")
+
+	return ('', 204)
 
