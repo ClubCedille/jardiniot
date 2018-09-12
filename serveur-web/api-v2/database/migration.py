@@ -62,6 +62,16 @@ if current_version < DATABASE_VERSION:
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
 
+DATABASE_VERSION = 2
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	datenow = str(datetime.now(timezone.utc))
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '255');")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '255');")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '255');")
+	db.update_version(DATABASE_VERSION)
+	print("DB updated to version " + str(db.get_version()))
+
 """
 Migration example
 """
