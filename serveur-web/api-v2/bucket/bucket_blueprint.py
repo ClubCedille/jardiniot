@@ -66,9 +66,9 @@ def get_sensor_names():
 		},
 		{
 			"id" : 2,
-			"date" : temperature[0][0],
-			"name" :  temperature[0][1],
-			"value" : temperature[0][2]
+			"date" : humidite[0][0],
+			"name" :  humidite[0][1],
+			"value" : humidite[0][2]
 		}
 		]
 
