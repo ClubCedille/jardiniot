@@ -16,6 +16,7 @@
 from flask import Blueprint
 from flask import request
 import json
+from database.database import Database
 
 # Create a bucket_bluprint, which make it exportable for other modules to use.
 # We bind new routes to this blueprint, which will then be used by the
@@ -51,16 +52,23 @@ C'est la requête à faire pour recevoir une liste de senseurs avec leurs noms
 def get_sensor_names():
 	print("Acces a /sensors")
 
+	db = Database.get_instance()
+	# Sélectionner les dernières données des senseurs
+	temperature = db.execute("SELECT * FROM valeurs WHERE senseur='Temperature' ORDER BY date DESC LIMIT 1;")
+	humidite = db.execute("SELECT * FROM valeurs WHERE senseur='Humidite' ORDER BY date DESC LIMIT 1;")
+
 	senseurs = [
 		{
 			"id" : 1,
-			"name" : "Temperature",
-			"value" : "31°C"
+			"date" : temperature[0][0],
+			"name" : temperature[0][1],
+			"value" : temperature[0][2]
 		},
 		{
 			"id" : 2,
-			"name" : "Humidite",
-			"value" : "46%"
+			"date" : temperature[0][0],
+			"name" :  temperature[0][1],
+			"value" : temperature[0][2]
 		}
 		]
 

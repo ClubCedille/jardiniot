@@ -17,6 +17,8 @@ try:
 except:
 	from database.database import Database
 
+from datetime import datetime, timezone
+
 # Recouvre l'instance de la DB
 db = Database.get_instance()
 
@@ -49,6 +51,16 @@ if current_version is None:
 	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"')")
 	print("DATABASE CREATED.")
 	current_version = db.get_version()
+
+DATABASE_VERSION = 1
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	db.execute("CREATE TABLE valeurs (date text, senseur text, valeur text);")
+	datenow = str(datetime.now(timezone.utc))
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Temperature', 'N/A');")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Humidite', 'N/A');")
+	db.update_version(DATABASE_VERSION)
+	print("DB updated to version " + str(db.get_version()))
 
 """
 Migration example
