@@ -14,7 +14,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 
-from connection import Connection
+# Fix de compatibilité des imports pour "Migration"
+try:
+	from database.connection import Connection
+except:
+	from connection import Connection
+
 import sqlite3
 
 
