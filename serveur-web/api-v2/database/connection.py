@@ -1,5 +1,3 @@
-#! /bin/bash
-
 # Copyright (C) 2018 Roch D'Amour <roch.damour@gmail.com>
 
 # This program is free software: you can redistribute it and/or modify
@@ -9,16 +7,31 @@
 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
 
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-echo "Source l'environnement..."
-source env/bin/activate
-echo "initialize les variables d'environnements..."
-FLASK_APP=app.py
-FLASK_ENV=developent
 
-flask run
+class Connection(object):
+	"""
+	Abstract connection objet
+	"""
+
+	def __init__(self):
+		pass
+
+	@staticmethod
+	def get_instance(self):
+		pass
+
+	def execute(self, query):
+		print("ok")
+		pass
+
+	def open(self):
+		pass
+
+	def close(self):
+		pass
