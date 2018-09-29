@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+# Fix de compatibilite des imports pour "Migration"
 try:
 	from database import Database
 except:
@@ -80,6 +81,19 @@ if current_version < DATABASE_VERSION:
 	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '255');")
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
+
+DATABASE_VERSION = 4
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	db.execute("create table bucket(id INTEGER PRIMARY KEY AUTOINCREMENT, id_plant number, name Nvarchar, ip_address Nvarchar ); ")
+	db.update_version(DATABASE_VERSION)
+
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'jaune', '100.100.100.100'); ")
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'JardinIoT', '127.0.0.1'); ")
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'Orange julius', '127.0.0.1' ); ")
+	db.update_version(DATABASE_VERSION)
+	print("db updated to version " + str(db.get_version()))
+
 
 """
 Migration example

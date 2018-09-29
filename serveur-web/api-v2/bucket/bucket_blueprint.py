@@ -15,6 +15,7 @@
 
 from flask import Blueprint
 from flask import request
+from bucket.bucket import Bucket
 import json
 from database.database import Database
 
@@ -40,22 +41,79 @@ def createCommandHeatsinkFan(value):
 INDEX
 C'est ici qu'on enverra la liste des buckets.
 """
-@bucket_blueprint.route("/bucket")
+@bucket_blueprint.route("/bucket", methods=["GET"])
 def index():
-	print("Acces a /bucket")
+	print("Acces a /bucket avec GET")
 
-	buckets = [
-		{
-			"id" : 1,
-			"name" : "orange"
-		},
-		{
-			"id" : 2,
-			"name" : "vert"
-		}
-		]
+	buckets = Bucket.get_all()
+	if buckets is not None:
+		return [bucket.to_detailed_json() for bucket in buckets]
+	else:
+		response = {
+			"error":1,
+			"message":"No bucket found"
+			}
+		return (response, 404)
 
-	return buckets
+
+"""
+CREATE
+C'est ici qu'on recoit les informations pour enregistrer un nouveau bucket
+"""
+@bucket_blueprint.route("/bucket", methods=["POST"])
+def create():
+	print("Acces a /bucket avec POST")
+	try:
+		if request.headers['Content-Type'] != 'application/json':
+			response = {
+				"error":1,
+				"message":"Content-Type is not application/json"
+				}
+			return (response, 400)
+		elif request.is_json:
+
+			name = request.data['name']
+			if name is None: raise Exception()
+
+			try:
+				id_plant = request.data['id_plant']
+			except Exception:
+				id_plant = 0
+
+			ip_address = request.data['ip_address']
+			if ip_address is None: raise Exception()
+
+			new_bucket = Bucket(None, id_plant, name, ip_address)
+
+			new_bucket = new_bucket.save()
+			return new_bucket.to_detailed_json()
+		else:
+			raise Exception()
+	except Exception as e:
+		print("ERROR: Request is not JSON or has missing fields.")
+		print(e)
+		response = {
+			"error":1,
+			"message":"Missing fields in JSON"
+			}
+		return (response, 404)
+
+
+"""
+/bucket/id
+C'est ici qu'on enverra la liste des buckets.
+"""
+@bucket_blueprint.route("/bucket/<id>")
+def id(id):
+	bucket = Bucket.get(id)
+	if bucket is not None:
+		return bucket.to_detailed_json()
+	else:
+		response = {
+			"error":1,
+			"message":"bucket id "+str(id)+" not found"
+			}
+		return (response, 404)
 
 """
 GET SENSORS
@@ -240,4 +298,3 @@ def update_fans():
 			]
 
 		return senseurs
-
