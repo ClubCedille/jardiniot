@@ -48,7 +48,7 @@ DATABASE_VERSION = 0
 if current_version is None:
 	print("NO DATABASE FOUND.")
 	db.execute("CREATE TABLE meta(version integer); ")
-	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"')")
+	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"');")
 	print("DATABASE CREATED.")
 	current_version = db.get_version()
 
@@ -69,6 +69,15 @@ if current_version < DATABASE_VERSION:
 	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '255');")
 	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '255');")
 	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '255');")
+	db.update_version(DATABASE_VERSION)
+	print("DB updated to version " + str(db.get_version()))
+
+DATABASE_VERSION = 3
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	db.execute("CREATE TABLE filecommandes (date text, command text);")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanL', '255');")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '255');")
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
 

@@ -25,6 +25,17 @@ from datetime import datetime, timezone
 # main Flask process when handling requests.
 bucket_blueprint = Blueprint("bucket_blueprint", __name__)
 
+# The following three functions are used to create modification commands
+def createCommandLight(white, blue, red):
+	# The sensor ID (1) is hardcoded for now, same for the pins (9, 10 and 11) which are hardcoded.
+	return "id 1 c 2 200 i " + str(9 * 256 + int(white)) + " " + str(10 * 256 + int(blue)) + " " + str(11 * 256 + int(red))
+
+def createCommandLateralFan(value):
+	return "id 5 c 4 250 i " + str(5 * 256 + int(value))
+
+def createCommandHeatsinkFan(value):
+	return "id 6 c 4 250 i " + str(6 * 256 + int(value))
+
 """
 INDEX
 C'est ici qu'on enverra la liste des buckets.
@@ -112,6 +123,11 @@ def update_lights():
 			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '" + str(red) + "');")
 			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '" + str(blue) + "');")
 			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '" + str(white) + "');")
+
+			# Command
+			command = createCommandLight(white, blue, red)
+			print(command)
+			db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
 		else:
 			print("ERROR: Request is not JSON.")
 
@@ -142,6 +158,84 @@ def update_lights():
 				"date" : white[0][0],
 				"name" :  white[0][1],
 				"value" : white[0][2]
+			}
+			]
+
+		return senseurs
+
+"""
+UPDATE FANS et GET FANS
+POST: C'est la requête à faire pour modifier la vitesse d'un ventilateur
+GET: C'est la requête à faire pour obtenir la vitesse d'un ventilateur
+
+Le POST peut être testé avec ce JSON:
+{
+"fanl": 255,
+"fanh": 255
+}
+"""
+@bucket_blueprint.route("/fans", methods=['GET', 'POST'])
+def update_fans():
+	print("Acces a /fans")
+
+	if request.method == 'POST':
+		if request.headers['Content-Type'] != 'application/json':
+			print("ERROR: Content type is not JSON in HTTP header.")
+		elif request.is_json:
+			print("header: ", request.headers['Content-Type'])
+
+			# S'il manque des virgules (,) au JSON, il ce peut que le code s'arrête ici.
+			reqdata = request.data
+			print("data: ", request.data)
+
+			fanl = reqdata.get('fanl')
+			fanh = reqdata.get('fanh')
+			print("fanl:", fanl, ", fanh:", fanh)
+
+			datenow = str(datetime.now(timezone.utc))
+
+			# Ventilateur latéral
+			if fanl is not None:
+				# Mettre à jour leur valeur dans la base de données
+				db = Database.get_instance()
+				db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanL', '" + str(fanl) + "');")
+				# Command
+				command = createCommandLateralFan(fanl)
+				print(command)
+				db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+
+			# Ventilateur du heatsink
+			if fanh is not None:
+				# Mettre à jour leur valeur dans la base de données
+				db = Database.get_instance()
+				db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '" + str(fanh) + "');")
+				# Command
+				command = createCommandHeatsinkFan(fanh)
+				print(command)
+				db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+		else:
+			print("ERROR: Request is not JSON.")
+
+		return ('', 204)
+
+	else:
+		db = Database.get_instance()
+		# Sélectionner les dernières données de luminosité
+		fanl = db.execute("SELECT * FROM valeurs WHERE senseur='FanL' ORDER BY date DESC LIMIT 1;")
+		fanh = db.execute("SELECT * FROM valeurs WHERE senseur='FanH' ORDER BY date DESC LIMIT 1;")
+
+		senseurs = [
+			{
+				"id" : 1,
+				"date" : fanl[0][0],
+				"name" : fanl[0][1],
+				"value" : fanl[0][2]
+			},
+			{
+				"id" : 2,
+				"date" : fanh[0][0],
+				"name" :  fanh[0][1],
+				"value" : fanh[0][2]
 			}
 			]
 
