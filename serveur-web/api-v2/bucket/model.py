@@ -56,3 +56,18 @@ class BucketModel(object):
 			return bucket_data[0]
 		else:
 			return None
+
+
+	@staticmethod
+	def update(bucket):
+		db = Database.get_instance()
+		sql = (
+			"UPDATE bucket " +
+			"set name = '"+ str(bucket.name) + "', " +
+			"id_plant = '"+ str(bucket.id_plant) + "', " +
+			"ip_address = '"+ str(bucket.ip_address) + "' " +
+			" WHERE id='" + str(bucket.id) + "' "
+			)
+
+		print(db.execute(sql))
+		return bucket

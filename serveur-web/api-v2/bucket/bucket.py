@@ -39,7 +39,7 @@ class Bucket(object):
 				"id" : self.id,
 				"id_plant" : self.id_plant,
 				"name" : self.name,
-				"dip_address" : self.ip_address
+				"ip_address" : self.ip_address
 			}
 
 		return serialized
