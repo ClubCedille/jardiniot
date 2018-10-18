@@ -66,7 +66,7 @@ class Bucket(object):
 
 	def delete(self):
 		"""
-		Create or update a bucket
+		Delete this bucket
 		"""
 		if self.id is not None:
 			return BucketModel.delete(self)

@@ -13,3 +13,11 @@ Ensuite, tu peux simplement lancer l'application avec run.sh
 ```
 bash run.sh
 ```
+
+## Tests
+
+Pour rouller les tests :
+
+```
+python app_tests.py
+```
