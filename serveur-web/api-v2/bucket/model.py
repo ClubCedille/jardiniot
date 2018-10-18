@@ -48,10 +48,9 @@ class BucketModel(object):
 		db = Database.get_instance()
 		sql1 = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES"
 		sql2 = "('" + str(bucket.name) + "', '" + str(bucket.id_plant) + "', '" + str(bucket.ip_address) + "');"
-		print(db.execute(sql1+sql2))
 
+		db.execute(sql1+sql2)
 		bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
-		print(bucket_data)
 		if bucket_data:
 			return bucket_data[0]
 		else:
@@ -71,3 +70,17 @@ class BucketModel(object):
 
 		print(db.execute(sql))
 		return bucket
+
+	@staticmethod
+	def delete(bucket):
+		try:
+			db = Database.get_instance()
+			sql = (
+				"delete from bucket " +
+				" WHERE id='" + str(bucket.id) + "' "
+				)
+
+			print(db.execute(sql))
+			return True
+		except:
+			return False

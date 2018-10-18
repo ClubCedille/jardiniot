@@ -47,7 +47,7 @@ def index():
 
 	buckets = Bucket.get_all()
 	if buckets is not None:
-		return [bucket.to_detailed_json() for bucket in buckets]
+		return {"buckets": [bucket.to_detailed_json() for bucket in buckets]}
 	else:
 		response = {
 			"error":1,
@@ -83,10 +83,11 @@ def create():
 			ip_address = request.data['ip_address']
 			if ip_address is None: raise Exception()
 
+
 			new_bucket = Bucket(None, id_plant, name, ip_address)
 
 			new_bucket = new_bucket.save()
-			return new_bucket.to_detailed_json()
+			return { "bucket" : new_bucket.to_detailed_json()}
 		else:
 			raise Exception()
 	except Exception as e:
@@ -107,11 +108,11 @@ C'est ici qu'on enverra la liste des buckets.
 def id(id):
 	bucket = Bucket.get(id)
 	if bucket is not None:
-		return bucket.to_detailed_json()
+		return {"bucket": bucket.to_detailed_json()}
 	else:
 		response = {
 			"error":1,
-			"message":"bucket id "+str(id)+" not found"
+			"message":"bucket not found"
 			}
 		return (response, 404)
 
@@ -150,15 +151,37 @@ def update(id):
 
 			updated_bucket.save()
 
-			return updated_bucket.to_detailed_json()
+			return {"bucket": updated_bucket.to_detailed_json()}
 		else:
 			raise Exception()
 	except Exception as e:
 		print("ERROR: Request is not JSON or has missing fields.")
-		print(
+		response = {
+			"error": 1,
+			"message": "Missing fields in JSON"
+			}
+		print(response)
+		return (response, 404)
+
+
+"""
+/bucket/id
+C'est ici qu'on supprime un bucket
+"""
+@bucket_blueprint.route("/bucket/<id>", methods=["DELETE"])
+def delete(id):
+	bucket = Bucket.get(id)
+	if bucket is not None:
+		deleted = bucket.delete()
+		response = {
+			"error":0,
+			"deleted": str(deleted)
+			}
+		return (response, 200)
+	else:
 		response = {
 			"error":1,
-			"message":"Missing fields in JSON"
+			"message":"bucket not found"
 			}
 		return (response, 404)
 
@@ -191,7 +214,7 @@ def get_sensor_names():
 		}
 		]
 
-	return senseurs
+	return {"sensors": senseurs }
 
 """
 UPDATE LIGHTS et GET LIGHTS
@@ -267,7 +290,7 @@ def update_lights():
 			}
 			]
 
-		return senseurs
+		return {"sensors": senseurs}
 
 """
 UPDATE FANS et GET FANS
@@ -345,4 +368,4 @@ def update_fans():
 			}
 			]
 
-		return senseurs
+		return {"sensors": senseurs}

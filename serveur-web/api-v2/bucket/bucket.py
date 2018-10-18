@@ -53,14 +53,26 @@ class Bucket(object):
 
 		return bucket
 
-
 	def save(self):
+		"""
+		Create or update a bucket
+		"""
 		if self.id is None:
 			bucket = BucketModel.create(self)
 			return Bucket.transform(bucket)
 		else:
 			BucketModel.update(self)
 			return self
+
+	def delete(self):
+		"""
+		Create or update a bucket
+		"""
+		if self.id is not None:
+			return BucketModel.delete(self)
+
+		return False
+
 
 	@staticmethod
 	def get_all():
