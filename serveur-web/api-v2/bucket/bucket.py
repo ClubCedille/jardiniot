@@ -38,7 +38,7 @@ class Bucket(object):
 				"id" : self.id,
 				"id_plant" : self.id_plant,
 				"name" : self.name,
-				"dip_address" : self.ip_address
+				"ip_address" : self.ip_address
 			}
 
 		return serialized
@@ -52,14 +52,26 @@ class Bucket(object):
 
 		return bucket
 
-
 	def save(self):
+		"""
+		Create or update a bucket
+		"""
 		if self.id is None:
 			bucket = BucketModel.create(self)
 			return Bucket.transform(bucket)
 		else:
 			BucketModel.update(self)
 			return self
+
+	def delete(self):
+		"""
+		Delete this bucket
+		"""
+		if self.id is not None:
+			return BucketModel.delete(self)
+
+		return False
+
 
 	@staticmethod
 	def get_all():
