@@ -1,17 +1,20 @@
 # Copyright (C) 2018 Roch D'Amour <roch.damour@gmail.com> 
+# Copyright (C) 2018 Alexandre-Xavier Labonté-Lamoureux
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
+# Fix de compatibilite des imports pour "Migration"
 try:
 	from database import Database
 except:
@@ -48,7 +51,7 @@ DATABASE_VERSION = 0
 if current_version is None:
 	print("NO DATABASE FOUND.")
 	db.execute("CREATE TABLE meta(version integer); ")
-	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"')")
+	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"');")
 	print("DATABASE CREATED.")
 	current_version = db.get_version()
 
@@ -71,6 +74,28 @@ if current_version < DATABASE_VERSION:
 	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '255');")
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
+
+DATABASE_VERSION = 3
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	db.execute("CREATE TABLE filecommandes (date text, command text);")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanL', '255');")
+	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '255');")
+	db.update_version(DATABASE_VERSION)
+	print("DB updated to version " + str(db.get_version()))
+
+DATABASE_VERSION = 4
+if current_version < DATABASE_VERSION:
+	print("migrating to " + str(DATABASE_VERSION))
+	db.execute("create table bucket(id INTEGER PRIMARY KEY AUTOINCREMENT, id_plant number, name Nvarchar, ip_address Nvarchar ); ")
+	db.update_version(DATABASE_VERSION)
+
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'jaune', '100.100.100.100'); ")
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'JardinIoT', '127.0.0.1'); ")
+	db.execute("INSERT INTO bucket('id_plant', 'name', 'ip_address') VALUES (1, 'Orange julius', '127.0.0.1' ); ")
+	db.update_version(DATABASE_VERSION)
+	print("db updated to version " + str(db.get_version()))
+
 
 """
 Migration example
