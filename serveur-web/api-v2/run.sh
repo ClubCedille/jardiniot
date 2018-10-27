@@ -20,9 +20,9 @@ FLASK_APP=app.py
 FLASK_ENV=development
 FLASK_DEBUG=1
 
-if command -v pipenv >/dev/null &2>1; then
+if command -v pipenv >/dev/null 2>&1; then
 	pipenv run flask run
-elif command -v virtualenv >/dev/null &2>1; then
+elif command -v virtualenv >/dev/null 2>&1; then
 	echo "Source l'environnement..."
 	source env/bin/activate
 	flask run
