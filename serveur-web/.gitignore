@@ -1,3 +1,8 @@
 node_modules/
 api/bucket_simulator.js
 yarn-error.log
+
+Pipfile.lock
+
+# configuration des éditeurs
+.vscode
