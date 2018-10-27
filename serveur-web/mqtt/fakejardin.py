@@ -23,7 +23,8 @@ import time
 import random
 
 # Globals
-TOPIC = "jardin"
+TOPIC_SEND = "jardin_out"
+TOPIC_RECEIVE = "jardin_in"
 process = True
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -32,12 +33,12 @@ def on_connect(client, userdata, flags, rc):
 
 	# Subscribing in on_connect() means that if we lose the connection and
 	# reconnect then subscriptions will be renewed.
-	client.subscribe("$SYS/#")
+	client.subscribe(TOPIC_RECEIVE, 2)
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	print(msg.topic + " " + str(msg.payload))
-	if msg.topic == TOPIC and msg.payload.decode("utf-8") == "die":
+	if msg.topic == TOPIC_SEND and msg.payload.decode("utf-8") == "die":
 		client.disconnect()
 		global process
 		process = False
@@ -49,7 +50,7 @@ client.on_message = on_message
 client.connect("127.0.0.1", 1883, 30)
 
 # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
-client.subscribe(TOPIC, 2)
+client.subscribe(TOPIC_SEND, 2)
 
 print("  **** JARDIN EMULATOR STARTED ****")
 
@@ -57,6 +58,6 @@ while process:
 	time.sleep(1)
 	temp = str(random.randint(28, 33))
 	humi = str(random.randint(30, 55))
-	client.publish(TOPIC, payload="{\"Temperature\": \"" + temp + "°\", \"Humidite\": \"" + humi + "%\"}", qos=0, retain=False)
+	client.publish(TOPIC_SEND, payload="{\"Temperature\": \"" + temp + "°\", \"Humidite\": \"" + humi + "%\"}", qos=0, retain=False)
 	client.loop_start()
 

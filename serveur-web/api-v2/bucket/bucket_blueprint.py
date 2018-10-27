@@ -220,83 +220,89 @@ def get_sensor_names():
 """
 UPDATE LIGHTS et GET LIGHTS
 POST: C'est la requête à faire pour modifier la luminosité de chaque couleur de DEL
-GET: C'est la requête à faire pour obtenir les valeurs de luminosité de chaque couleur de DEL
 
 Le POST peut être testé avec ce JSON:
 {
-"blue": 255,
 "red": 128,
+"blue": 255,
 "white": 59
 }
 """
-@bucket_blueprint.route("/lights", methods=['GET', 'POST'])
+@bucket_blueprint.route("/lights", methods=['POST'])
 def update_lights():
-	print("Acces a /lights")
+	print("Accès POST à /lights")
 
-	if request.method == 'POST':
-		if request.headers['Content-Type'] != 'application/json':
-			print("ERROR: Content type is not JSON in HTTP header.")
-		elif request.is_json:
-			print("header: ", request.headers['Content-Type'])
+	if request.headers['Content-Type'] != 'application/json':
+		print("ERROR: Content type is not JSON in HTTP header.")
+	elif request.is_json:
+		print("header: ", request.headers['Content-Type'])
 
-			# S'il manque des virgules (,) au JSON, il ce peut que le code s'arrête ici.
-			print("data: ", request.data)
+		# S'il manque des virgules (,) au JSON, il ce peut que le code s'arrête ici.
+		print("data: ", request.data)
 
-			red = request.data['red']
-			blue = request.data['blue']
-			white = request.data['white']
-			print("red:", red, ", blue:", blue, ", white:", white)
+		red = request.data['red']
+		blue = request.data['blue']
+		white = request.data['white']
+		print("red:", red, ", blue:", blue, ", white:", white)
 
-			# Mettre à jour leur valeur dans la base de données
-			db = Database.get_instance()
-			datenow = str(datetime.now(timezone.utc))
-			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '" + str(red) + "');")
-			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '" + str(blue) + "');")
-			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '" + str(white) + "');")
-
-			# Command
-			command = createCommandLight(white, blue, red)
-			print(command)
-			db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
-		else:
-			print("ERROR: Request is not JSON.")
-
-		return ('', 204)
-
-	else:
+		# Mettre à jour leur valeur dans la base de données
 		db = Database.get_instance()
-		# Sélectionner les dernières données de luminosité
-		red = db.execute("SELECT * FROM valeurs WHERE senseur='Red' ORDER BY date DESC LIMIT 1;")
-		blue = db.execute("SELECT * FROM valeurs WHERE senseur='Blue' ORDER BY date DESC LIMIT 1;")
-		white = db.execute("SELECT * FROM valeurs WHERE senseur='White' ORDER BY date DESC LIMIT 1;")
+		datenow = str(datetime.now(timezone.utc))
+		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '" + str(red) + "');")
+		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '" + str(blue) + "');")
+		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '" + str(white) + "');")
 
-		senseurs = [
-			{
-				"id" : 1,
-				"date" : red[0][0],
-				"name" : red[0][1],
-				"value" : red[0][2]
-			},
-			{
-				"id" : 2,
-				"date" : blue[0][0],
-				"name" :  blue[0][1],
-				"value" : blue[0][2]
-			},
-			{
-				"id" : 3,
-				"date" : white[0][0],
-				"name" :  white[0][1],
-				"value" : white[0][2]
-			}
-			]
+		# Command
+		command = createCommandLight(white, blue, red)
+		print(command)
+		db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+	else:
+		print("ERROR: Request is not JSON.")
 
-		return {"sensors": senseurs}
+	return ('', 204)
+
+
+"""
+INFO LIGHTS et GET LIGHTS
+GET: C'est la requête à faire pour obtenir les valeurs de luminosité de chaque couleur de DEL
+"""
+@bucket_blueprint.route("/lights", methods=['GET'])
+def info_lights():
+	print("Accès GET à /lights")
+
+	db = Database.get_instance()
+	# Sélectionner les dernières données de luminosité
+	red = db.execute("SELECT * FROM valeurs WHERE senseur='Red' ORDER BY date DESC LIMIT 1;")
+	blue = db.execute("SELECT * FROM valeurs WHERE senseur='Blue' ORDER BY date DESC LIMIT 1;")
+	white = db.execute("SELECT * FROM valeurs WHERE senseur='White' ORDER BY date DESC LIMIT 1;")
+
+	senseurs = [
+		{
+			"id" : 1,
+			"date" : red[0][0],
+			"name" : red[0][1],
+			"value" : red[0][2]
+		},
+		{
+			"id" : 2,
+			"date" : blue[0][0],
+			"name" :  blue[0][1],
+			"value" : blue[0][2]
+		},
+		{
+			"id" : 3,
+			"date" : white[0][0],
+			"name" :  white[0][1],
+			"value" : white[0][2]
+		}
+		]
+
+	return {"sensors": senseurs}
+
 
 """
 UPDATE FANS et GET FANS
 POST: C'est la requête à faire pour modifier la vitesse d'un ventilateur
-GET: C'est la requête à faire pour obtenir la vitesse d'un ventilateur
 
 Le POST peut être testé avec ce JSON:
 {
@@ -304,9 +310,9 @@ Le POST peut être testé avec ce JSON:
 "fanh": 255
 }
 """
-@bucket_blueprint.route("/fans", methods=['GET', 'POST'])
+@bucket_blueprint.route("/fans", methods=['POST'])
 def update_fans():
-	print("Acces a /fans")
+	print("Accès POST à /fans")
 
 	if request.method == 'POST':
 		if request.headers['Content-Type'] != 'application/json':
@@ -370,3 +376,34 @@ def update_fans():
 			]
 
 		return {"sensors": senseurs}
+
+"""
+INFO FANS et GET FANS
+GET: C'est la requête à faire pour obtenir la vitesse d'un ventilateur
+"""
+@bucket_blueprint.route("/fans", methods=['GET'])
+def info_fans():
+	print("Accès GET à /fans")
+
+	db = Database.get_instance()
+	# Sélectionner les dernières données de luminosité
+	fanl = db.execute("SELECT * FROM valeurs WHERE senseur='FanL' ORDER BY date DESC LIMIT 1;")
+	fanh = db.execute("SELECT * FROM valeurs WHERE senseur='FanH' ORDER BY date DESC LIMIT 1;")
+
+	senseurs = [
+		{
+			"id" : 1,
+			"date" : fanl[0][0],
+			"name" : fanl[0][1],
+			"value" : fanl[0][2]
+		},
+		{
+			"id" : 2,
+			"date" : fanh[0][0],
+			"name" :  fanh[0][1],
+			"value" : fanh[0][2]
+		}
+		]
+
+	return {"sensors": senseurs}
+

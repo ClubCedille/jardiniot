@@ -15,10 +15,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-echo "Source l'environnement..."
-source env/bin/activate
-echo "initialize les variables d'environnements..."
+echo "Initialise les variables d'environnement..."
 FLASK_APP=app.py
-FLASK_ENV=developent
+FLASK_ENV=development
+FLASK_DEBUG=1
 
-flask run
+if command -v pipenv >/dev/null 2>&1; then
+	pipenv run flask run
+elif command -v virtualenv >/dev/null 2>&1; then
+	echo "Source l'environnement..."
+	source env/bin/activate
+	flask run
+else
+	echo "Pipenv et virtualenv non trouvé! Roule le truc toi-même."
+fi
