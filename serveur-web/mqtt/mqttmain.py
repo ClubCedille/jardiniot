@@ -80,7 +80,7 @@ def on_message(client, userdata, msg):
 					c.execute("SELECT count(*) FROM filecommandes;")
 					count = c.fetchone()
 					if count:
-						print("Database queue: There are now " + str(count[0]) + " commands remaining in the queue.")
+						print("Database: There are now " + str(count[0]) + " commands remaining in the queue.")
 				else:
 					print("Database: Command queue is empty")
 				conn.close()
