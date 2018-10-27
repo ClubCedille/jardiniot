@@ -26,8 +26,9 @@ import sqlite3
 from datetime import datetime, timezone
 
 # Globals
-TOPIC = "jardin"
-DBNAME = "jardin.db"
+TOPIC_RECEIVE = "jardin_out"
+TOPIC_SEND = "jardin_in"
+DBNAME = "../api-v2/database/JardinIoT.db"
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
@@ -36,12 +37,12 @@ def on_connect(client, userdata, flags, rc):
 	# Subscribing in on_connect() means that if we lose the connection and
 	# reconnect then subscriptions will be renewed.
 	# Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
-	client.subscribe(TOPIC, 2)
+	client.subscribe(TOPIC_RECEIVE, 2)
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
 	print(msg.topic + " " + str(msg.payload))
-	if msg.topic == TOPIC:
+	if msg.topic == TOPIC_RECEIVE:
 		try:
 			message = msg.payload.decode("utf-8")	# Convert to string
 			print(message)
@@ -62,6 +63,31 @@ def on_message(client, userdata, msg):
 				# Flush the transaction to disk
 				conn.commit()
 				conn.close()
+
+				# Check for commands to send to the bucket
+				conn = sqlite3.connect(DBNAME)
+				c = conn.cursor()
+				c.execute("SELECT date, command FROM filecommandes ORDER BY date ASC LIMIT 1;")
+				command = c.fetchone()
+				if command:
+					print("Database: Send a command to the bucket: " + str(command[1]))
+
+					# Delete this last command
+					c.execute("DELETE FROM filecommandes WHERE date=(?)", (str(command[0]),))
+					conn.commit()
+
+					# Count the remaining number of commands
+					c.execute("SELECT count(*) FROM filecommandes;")
+					count = c.fetchone()
+					if count:
+						print("Database queue: There are now " + str(count[0]) + " commands remaining in the queue.")
+				else:
+					print("Database: Command queue is empty")
+				conn.close()
+
+				# Publish to the bucket
+				client.publish(TOPIC_SEND, payload=str(command[0]), qos=0, retain=False)
+
 			except KeyError:
 				pass
 
