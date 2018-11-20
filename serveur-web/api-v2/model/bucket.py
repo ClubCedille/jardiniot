@@ -1,4 +1,4 @@
-# Copyright (C) 2018 Roch D'Amour <roch.damour@gmail.com>
+# copyright (C) 2018 Roch D'Amour <roch.damour@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,29 +16,77 @@
 import json
 from database.database import Database
 
-class BucketModel(object):
+class Bucket(object):
 
-	@staticmethod
-	def find_by_id(id):
+	def __init__(self):
+		self.id = 0
+		self.id_plant = 0
+		self.name = ""
+		self.ip_address = ""
+
+
+	def __init__(self, id, id_plant, name, ip_address):
+		self.id = id
+		self.id_plant = id_plant
+		self.name = name
+		self.ip_address = ip_address
+
+
+	def to_detailed_json(self):
+		serialized = {
+				"id" : self.id,
+				"id_plant" : self.id_plant,
+				"name" : self.name,
+				"ip_address" : self.ip_address
+			}
+
+		return serialized
+
+
+	def transform(bucket_data):
+		bucket = Bucket(bucket_data[0],
+				bucket_data[1],
+				bucket_data[2],
+				bucket_data[3])
+
+		return bucket
+
+
+	def save(self):
+		"""
+		Create or update a bucket
+		"""
+		if self.id is None:
+			return Bucket.create(self)
+		else:
+			Bucket.update(self)
+			return self
+
+	"""
+	Static Methods
+	"""
+
+	@classmethod
+	def get(cls,id):
 		"""
 		Retreive a bucket's data and return it
 		"""
 		db = Database.get_instance()
 		bucket_data = db.execute("SELECT * FROM BUCKET WHERE ID='"+str(id)+"'")
 		if bucket_data:
-			return bucket_data[0]
+			return cls.transform(bucket_data[0])
 		else:
 			return None
 
-	@staticmethod
-	def get_all():
+	@classmethod
+	def get_all(cls):
 		"""
 		Retreive a bucket's data and return it
 		"""
 		db = Database.get_instance()
 		bucket_data = db.execute("SELECT * FROM BUCKET")
 		if bucket_data:
-			return bucket_data
+			return [cls.transform(b) for b in bucket_data]
 		else:
 			return None
 
@@ -51,7 +99,7 @@ class BucketModel(object):
 		db.execute(sql1+sql2)
 		bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
 		if bucket_data:
-			return bucket_data[0]
+			return Bucket.transform(bucket_data[0])
 		else:
 			return None
 
@@ -66,8 +114,7 @@ class BucketModel(object):
 			"ip_address = '"+ str(bucket.ip_address) + "' " +
 			" WHERE id='" + str(bucket.id) + "' "
 			)
-
-		print(db.execute(sql))
+		db.execute(sql)
 		return bucket
 
 	@staticmethod
@@ -79,7 +126,7 @@ class BucketModel(object):
 				" WHERE id='" + str(bucket.id) + "' "
 				)
 
-			print(db.execute(sql))
+			db.execute(sql)
 			return True
 		except:
 			return False

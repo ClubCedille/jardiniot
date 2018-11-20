@@ -29,8 +29,10 @@ class AppTestCase(unittest.TestCase):
 		app.testing = True
 		self.app = app.test_client()
 
+
 	def tearDown(self):
 		pass
+
 
 	def test_home_endpoint(self):
 		""""
@@ -42,25 +44,28 @@ class AppTestCase(unittest.TestCase):
 			{'hello': 'world'}
 		)
 
-	def test_buckets_endpoint(self):
+
+	def test_buckets_get_all(self):
 		""""
-		Test GET => /bucket
+		Test GET => /buckets
 		"""
-		response = self.app.get('/bucket')
+		response = self.app.get('/buckets')
 		data = json.loads(response.data)
 		buckets = data['buckets']
 
 		self.assertGreater(
-			len(buckets), 0
+			len(buckets),
+			0
 		)
 
-	def test_bucket_endpoint(self):
+
+	def test_buckets_get_by_id(self):
 		""""
-		Test GET => /bucket/1
+		Test GET => /buckets/1
 		"""
 		bucket_id = 1
 
-		response = self.app.get('/bucket/' + str(bucket_id))
+		response = self.app.get('/buckets/' + str(bucket_id))
 		data = json.loads(response.data)
 		bucket = data['bucket']
 
@@ -69,13 +74,14 @@ class AppTestCase(unittest.TestCase):
 			1
 		)
 
-	def test_bucket_missing(self):
+
+	def test_buckets_get_by_id_missing(self):
 		""""
-		Test GET => /bucket/9999999999
+		Test GET => /buckets/9999999999
 		"""
 		bucket_id = 9999999999
 
-		response = self.app.get('/bucket/' + str(bucket_id))
+		response = self.app.get('/buckets/' + str(bucket_id))
 		data = json.loads(response.data)
 
 		self.assertEqual(
@@ -83,10 +89,11 @@ class AppTestCase(unittest.TestCase):
 			1
 		)
 
-	def test_bucket_addremove(self):
+
+	def test_buckets_addremove(self):
 		"""
-		TEST POST => /bucket
-		TEST DELETE => /bucket/<id>
+		TEST POST => /buckets
+		TEST DELETE => /buckets/<id>
 		"""
 		new_bucket = {
 			"name": "Swaggine",
@@ -95,11 +102,12 @@ class AppTestCase(unittest.TestCase):
 		}
 
 		#create
-		response = self.app.post('/bucket',
-						   json=new_bucket,
-						   content_type="application/json")
+		response = self.app.post('/buckets',
+						json=new_bucket,
+						content_type="application/json")
 
 		data = json.loads(response.data)
+		print("Created bucket: ")
 		print(data)
 		bucket = data['bucket']
 
@@ -107,7 +115,7 @@ class AppTestCase(unittest.TestCase):
 			bucket['id'],
 			0
 		)
-		url = '/bucket/'+str(bucket['id'])
+		url = '/buckets/'+str(bucket['id'])
 
 		# delete
 		response = self.app.delete(url)
@@ -123,6 +131,74 @@ class AppTestCase(unittest.TestCase):
 		self.assertEqual(
 			data['error'],
 			1
+		)
+
+		
+	def test_sensors_endpoint(self):
+		""""
+		Test GET => /sensors
+		"""
+		response = self.app.get('/sensors')
+		data = json.loads(response.data)
+		sensors = data['sensors']
+
+		self.assertGreater(
+			len(sensors),
+			0
+		)
+
+
+	def test_fans_endpoint(self):
+		""""
+		Test GET => /fans
+		"""
+		response = self.app.get('/fans')
+		data = json.loads(response.data)
+		sensors = data['fans']
+
+		self.assertGreater(
+			len(sensors),
+			0
+		)
+
+
+	def test_lights_endpoint(self):
+		""""
+		Test GET => /lights
+		"""
+		response = self.app.get('/lights')
+		data = json.loads(response.data)
+		sensors = data['lights']
+
+		self.assertGreater(
+			len(sensors),
+			0
+		)
+
+
+	def test_update_fans(self):
+		post_data = {"fanl": 255, "fanh": 255}
+		#create
+		response = self.app.post('/fans',
+						json=post_data,
+						content_type="application/json")
+
+		self.assertEqual(
+			response.status_code,
+			204
+		)
+
+
+	def test_update_lights(self):
+		post_data = {"red": 128, "blue": 255, "white": 59}
+		#create
+		response = self.app.post('/lights',
+						json=post_data,
+						content_type="application/json")
+
+		self.assertEqual(
+			response.status_code,
+			204
 		)
 
 

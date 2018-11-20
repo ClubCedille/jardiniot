@@ -14,7 +14,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from flask_api import FlaskAPI
-from bucket.bucket_blueprint import bucket_blueprint
+from router.bucket import bucket_blueprint
+from router.sensor import sensor_blueprint
 
 __name__ = "JardinIoT"
 
@@ -23,6 +24,7 @@ app = FlaskAPI(__name__)
 
 # Register blueprints, which act as controllers
 app.register_blueprint(bucket_blueprint)
+app.register_blueprint(sensor_blueprint)
 
 """
 Exemple d'une route simple
