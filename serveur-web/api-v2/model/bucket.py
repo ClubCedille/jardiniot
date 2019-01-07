@@ -16,16 +16,9 @@
 import json
 from database.database import Database
 
-class Bucket(object):
+class Bucket():
 
-	def __init__(self):
-		self.id = 0
-		self.id_plant = 0
-		self.name = ""
-		self.ip_address = ""
-
-
-	def __init__(self, id, id_plant, name, ip_address):
+	def __init__(self, id=0, id_plant="", name="", ip_address=""):
 		self.id = id
 		self.id_plant = id_plant
 		self.name = name
@@ -85,10 +78,7 @@ class Bucket(object):
 		"""
 		db = Database.get_instance()
 		bucket_data = db.execute("SELECT * FROM BUCKET")
-		if bucket_data:
-			return [cls.transform(b) for b in bucket_data]
-		else:
-			return None
+		return [cls.transform(b) for b in bucket_data]
 
 	@staticmethod
 	def create(bucket):
