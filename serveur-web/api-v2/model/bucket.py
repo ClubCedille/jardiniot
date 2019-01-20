@@ -60,12 +60,12 @@ class Bucket():
 	"""
 
 	@classmethod
-	def get(cls,id):
+	def get(cls, id):
 		"""
 		Retreive a bucket's data and return it
 		"""
 		db = Database.get_instance()
-		bucket_data = db.execute("SELECT * FROM BUCKET WHERE ID='"+str(id)+"'")
+		bucket_data = db.executeparam("SELECT * FROM BUCKET WHERE ID=?", [str(id)])
 		if bucket_data:
 			return cls.transform(bucket_data[0])
 		else:
@@ -83,10 +83,9 @@ class Bucket():
 	@staticmethod
 	def create(bucket):
 		db = Database.get_instance()
-		sql1 = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES"
-		sql2 = "('" + str(bucket.name) + "', '" + str(bucket.id_plant) + "', '" + str(bucket.ip_address) + "');"
+		sql1 = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES (?, ?, ?);"
+		db.executeparam(sql1, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address)])
 
-		db.execute(sql1+sql2)
 		bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
 		if bucket_data:
 			return Bucket.transform(bucket_data[0])
@@ -97,26 +96,16 @@ class Bucket():
 	@staticmethod
 	def update(bucket):
 		db = Database.get_instance()
-		sql = (
-			"UPDATE bucket " +
-			"set name = '"+ str(bucket.name) + "', " +
-			"id_plant = '"+ str(bucket.id_plant) + "', " +
-			"ip_address = '"+ str(bucket.ip_address) + "' " +
-			" WHERE id='" + str(bucket.id) + "' "
-			)
-		db.execute(sql)
+		sql = "UPDATE bucket set name=?, id_plant=?, ip_address=? WHERE id=?"
+		db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address), str(bucket.id)])
 		return bucket
 
 	@staticmethod
 	def delete(bucket):
 		try:
 			db = Database.get_instance()
-			sql = (
-				"delete from bucket " +
-				" WHERE id='" + str(bucket.id) + "' "
-				)
-
-			db.execute(sql)
+			sql = "delete from bucket WHERE id=?"
+			db.executeparam(sql, [str(bucket.id)])
 			return True
 		except:
 			return False
