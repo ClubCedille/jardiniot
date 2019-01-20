@@ -126,7 +126,6 @@ class SensorController(object):
 		# S'il manque des virgules (,) au JSON, il ce peut que le code s'arrête ici.
 		reqdata = request.data
 
-
 		fanl = reqdata.get('fanl')
 		fanh = reqdata.get('fanh')
 
@@ -136,19 +135,19 @@ class SensorController(object):
 		if fanl is not None:
 			# Mettre à jour leur valeur dans la base de données
 			db = Database.get_instance()
-			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);" + [datenow, 'FanL', str(fanl)])
+			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'FanL', str(fanl)])
 			# Command
 			command = SensorController.createCommandLateralFan(fanl)
-			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);" + [datenow, command])
+			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);", [datenow, command])
 
 		# Ventilateur du heatsink
 		if fanh is not None:
 			# Mettre à jour leur valeur dans la base de données
 			db = Database.get_instance()
-			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);" + [datenow, 'FanH', str(fanh)])
+			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'FanH', str(fanh)])
 			# Command
 			command = SensorController.createCommandHeatsinkFan(fanh)
-			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);" + [datenow, command])
+			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);", [datenow, command])
 
 		return ('', 204)
 
