@@ -28,7 +28,7 @@ from datetime import datetime, timezone
 # Globals
 TOPIC_RECEIVE = "jardin_out"
 TOPIC_SEND = "jardin_in"
-DBNAME = "../api-v2/database/JardinIoT.db"
+DBNAME = "database/JardinIoT.db"
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
