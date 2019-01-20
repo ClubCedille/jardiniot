@@ -1,0 +1,74 @@
+$font-size-headers: 2rem;
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 13.5%;
+
+  .components {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+
+    .first-section {
+      #temperature {
+        font-size: $font-size-headers;
+      }
+
+      .colors {
+        width: 10em;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        .color {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 1em;
+  
+          .slider {
+            margin-left: 2em;
+            width: 15em;
+          }
+  
+          .name {
+  
+          }
+        }
+      }
+    }
+
+    .second-section {
+      flex-grow: 1;
+      margin-left: 15em;
+
+      #percentage {
+        font-size: $font-size-headers;
+      }
+
+      .fans {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+  
+        .fan {
+          display: flex;
+          flex-direction: row;
+          margin-top: 1em;
+  
+          .name {
+  
+          }
+  
+          .switch {
+            margin-left: 1em;
+          }
+        }
+      }
+    }
+  }
+}
