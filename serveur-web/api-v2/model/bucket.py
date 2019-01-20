@@ -83,8 +83,8 @@ class Bucket():
 	@staticmethod
 	def create(bucket):
 		db = Database.get_instance()
-		sql1 = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES (?, ?, ?);"
-		db.executeparam(sql1, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address)])
+		sql = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES (?, ?, ?);"
+		db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address)])
 
 		bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
 		if bucket_data:
