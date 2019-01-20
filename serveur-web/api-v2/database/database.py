@@ -79,4 +79,4 @@ class Database(object):
 		"""
 		Update the current database version
 		"""
-		self.connection.execute("UPDATE meta SET version = '"+str(version)+"'")
+		self.connection.executemany("UPDATE meta SET version = ? ", (str(version),))
