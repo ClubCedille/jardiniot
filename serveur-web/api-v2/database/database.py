@@ -52,10 +52,16 @@ class Database(object):
 
 	def execute(self, query):
 		"""
-		Execute a database query and return 
+		Execute a database query and return
 		"""
 		return self.connection.execute(query)
 
+	def executeparam(self, query, parameters):
+		"""
+		Execute a database query with parameters and return
+		It expects a tuple
+		"""
+		return self.connection.executemany(query, (parameters,))
 
 	def get_version(self):
 		"""

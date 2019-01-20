@@ -73,13 +73,13 @@ class SensorController(object):
 		# Mettre à jour leur valeur dans la base de données
 		db = Database.get_instance()
 		datenow = str(datetime.now(timezone.utc))
-		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '" + str(red) + "');")
-		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '" + str(blue) + "');")
-		db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '" + str(white) + "');")
+		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'Red', str(red)])
+		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'Blue', str(blue)])
+		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'White', str(white)])
 
 		# Command
 		command = SensorController.createCommandLight(white, blue, red)
-		db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+		db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);", [datenow, command])
 		return ('', 204)
 
 
@@ -136,19 +136,19 @@ class SensorController(object):
 		if fanl is not None:
 			# Mettre à jour leur valeur dans la base de données
 			db = Database.get_instance()
-			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanL', '" + str(fanl) + "');")
+			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);" + [datenow, 'FanL', str(fanl)])
 			# Command
 			command = SensorController.createCommandLateralFan(fanl)
-			db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);" + [datenow, command])
 
 		# Ventilateur du heatsink
 		if fanh is not None:
 			# Mettre à jour leur valeur dans la base de données
 			db = Database.get_instance()
-			db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '" + str(fanh) + "');")
+			db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);" + [datenow, 'FanH', str(fanh)])
 			# Command
 			command = SensorController.createCommandHeatsinkFan(fanh)
-			db.execute("INSERT INTO filecommandes(date, command) VALUES ('" + datenow + "', '" + command + "');")
+			db.executeparam("INSERT INTO filecommandes(date, command) VALUES (?, ?);" + [datenow, command])
 
 		return ('', 204)
 
