@@ -20,123 +20,123 @@ from datetime import datetime, timezone
 
 class BucketController(object):
 
-    """
-    INDEX
-    C'est ici qu'on enverra la liste des buckets.
-    """
-    def index():
-            buckets = Bucket.get_all()
-            if buckets is not None:
-                    return {"buckets": [bucket.to_detailed_json() for bucket in buckets]}
-            else:
-                    response = {
-                            "error":1,
-                            "message":"No bucket found"
-                            }
-                    return (response, 404)
+	"""
+	INDEX
+	C'est ici qu'on enverra la liste des buckets.
+	"""
+	def index():
+			buckets = Bucket.get_all()
+			if buckets is not None:
+					return {"buckets": [bucket.to_detailed_json() for bucket in buckets]}
+			else:
+					response = {
+							"error":1,
+							"message":"No bucket found"
+							}
+					return (response, 404)
 
 
-    """
-    CREATE
-    C'est ici qu'on recoit les informations pour enregistrer un nouveau bucket
-    """
-    def create(request):
-            name = request.data['name']
-            if name is None: raise Exception()
+	"""
+	CREATE
+	C'est ici qu'on recoit les informations pour enregistrer un nouveau bucket
+	"""
+	def create(request):
+			name = request.data['name']
+			if name is None: raise Exception()
 
-            try:
-                    id_plant = request.data['id_plant']
-            except Exception:
-                    id_plant = 0
+			try:
+					id_plant = request.data['id_plant']
+			except Exception:
+					id_plant = 0
 
-            ip_address = request.data['ip_address']
-            if ip_address is None: raise Exception()
-
-
-            new_bucket = Bucket(None, id_plant, name, ip_address)
-            new_bucket = new_bucket.save()
-
-            return { "bucket" : new_bucket.to_detailed_json()}
+			ip_address = request.data['ip_address']
+			if ip_address is None: raise Exception()
 
 
-    """
-    /bucket/id
-    C'est ici qu'on enverra la liste des buckets.
-    """
-    def get(id):
-            bucket = Bucket.get(id)
-            if bucket is not None:
-                    return {"bucket": bucket.to_detailed_json()}
-            else:
-                    response = {
-                            "error":1,
-                            "message":"bucket not found"
-                            }
-                    return (response, 404)
+			new_bucket = Bucket(None, id_plant, name, ip_address)
+			new_bucket = new_bucket.save()
+
+			return { "bucket" : new_bucket.to_detailed_json()}
 
 
-    """
-    POST => /bucket/id
-    C'est ici qu'on met a jours les informations d'un bucket
-    """
-    def update(id):
-            print("Acces a /bucket/id avec POST")
-            try:
-                    if request.headers['Content-Type'] != 'application/json':
-                            response = {
-                                    "error":1,
-                                    "message":"Content-Type is not application/json"
-                                    }
-                            return (response, 400)
-                    elif request.is_json:
-
-                            name = request.data['name']
-                            if name is None: raise Exception()
-
-                            try:
-                                    id_plant = request.data['id_plant']
-                            except Exception:
-                                    id_plant = 0
-
-                            ip_address = request.data['ip_address']
-                            if ip_address is None: raise Exception()
-
-                            id = request.data['id']
-                            if id is None: raise Exception()
-
-                            updated_bucket = Bucket(id, id_plant, name, ip_address)
-
-                            updated_bucket.save()
-
-                            return {"bucket": updated_bucket.to_detailed_json()}
-                    else:
-                            raise Exception()
-            except Exception as e:
-                    print("ERROR: Request is not JSON or has missing fields.")
-                    response = {
-                            "error": 1,
-                            "message": "Missing fields in JSON"
-                            }
-                    print(response)
-                    return (response, 404)
+	"""
+	/bucket/id
+	C'est ici qu'on enverra la liste des buckets.
+	"""
+	def get(id):
+			bucket = Bucket.get(id)
+			if bucket is not None:
+					return {"bucket": bucket.to_detailed_json()}
+			else:
+					response = {
+							"error":1,
+							"message":"bucket not found"
+							}
+					return (response, 404)
 
 
-    """
-    /bucket/id
-    C'est ici qu'on supprime un bucket
-    """
-    def delete(id):
-            bucket = Bucket.get(id)
-            if bucket is not None:
-                    deleted = Bucket.delete(bucket)
-                    response = {
-                            "error":0,
-                            "deleted": str(deleted)
-                            }
-                    return (response, 200)
-            else:
-                    response = {
-                            "error":1,
-                            "message":"bucket not found"
-                            }
-                    return (response, 404)
+	"""
+	POST => /bucket/id
+	C'est ici qu'on met a jours les informations d'un bucket
+	"""
+	def update(id):
+			print("Acces a /bucket/id avec POST")
+			try:
+					if request.headers['Content-Type'] != 'application/json':
+							response = {
+									"error":1,
+									"message":"Content-Type is not application/json"
+									}
+							return (response, 400)
+					elif request.is_json:
+
+							name = request.data['name']
+							if name is None: raise Exception()
+
+							try:
+									id_plant = request.data['id_plant']
+							except Exception:
+									id_plant = 0
+
+							ip_address = request.data['ip_address']
+							if ip_address is None: raise Exception()
+
+							id = request.data['id']
+							if id is None: raise Exception()
+
+							updated_bucket = Bucket(id, id_plant, name, ip_address)
+
+							updated_bucket.save()
+
+							return {"bucket": updated_bucket.to_detailed_json()}
+					else:
+							raise Exception()
+			except Exception as e:
+					print("ERROR: Request is not JSON or has missing fields.")
+					response = {
+							"error": 1,
+							"message": "Missing fields in JSON"
+							}
+					print(response)
+					return (response, 404)
+
+
+	"""
+	/bucket/id
+	C'est ici qu'on supprime un bucket
+	"""
+	def delete(id):
+			bucket = Bucket.get(id)
+			if bucket is not None:
+					deleted = Bucket.delete(bucket)
+					response = {
+							"error":0,
+							"deleted": str(deleted)
+							}
+					return (response, 200)
+			else:
+					response = {
+							"error":1,
+							"message":"bucket not found"
+							}
+					return (response, 404)
