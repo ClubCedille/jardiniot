@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import request
+from flask_cors import cross_origin
 import json
 from database.database import Database
 from datetime import datetime, timezone

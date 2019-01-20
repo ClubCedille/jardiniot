@@ -13,7 +13,7 @@ export default class MainPage extends Component {
 			light1: [],
 			light2: [],
 			light3: [],
-			isLoaded: 0
+			isLoaded: false
 		};
 		this.getLightsValues();
 	}
@@ -28,23 +28,21 @@ export default class MainPage extends Component {
 
 	async startAutoUpdate() {
 		this.autoUpdateSensors = setInterval(async () => {
-			const res = await API.get('/sensors')
-			var sensors = res.data.sensors;
+			const res = await API.get('/sensors');
+			const { sensors } = res.data;
 			this.setState({ temp: sensors[0].value });
 			this.setState({ hum: sensors[1].value });
 		}, 1 * 1000);
 	}
 
-
 	async getLightsValues() {
-		const res = await API.get('/lights')
-		var sensors = res.data.sensors;
-		this.setState({ light1: sensors[0] });
-		this.setState({ light2: sensors[1] });
-		this.setState({ light3: sensors[2] });
-		this.setState({ isLoaded: 1 });
+		const res = await API.get('/lights');
+		const { lights } = res.data;
+		this.setState({ light1: lights[0] });
+		this.setState({ light2: lights[1] });
+		this.setState({ light3: lights[2] });
+		this.setState({ isLoaded: true });
 	}
-
 
 	render() {
 		// Éléments visuels sans component:
