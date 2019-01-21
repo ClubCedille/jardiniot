@@ -60,7 +60,8 @@ export default class MainPage extends Component {
 
 		return (
 			<div className="main-page">
-				<div className="components">
+				<div className="title">Tableau de bord</div>
+				<div className="components">	
 					<div className="first-section">
 						<p id="temperature">{this.state.temp}</p>
 						{this.state.isLoaded &&

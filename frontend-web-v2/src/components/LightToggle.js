@@ -18,7 +18,18 @@ export default class LightToggle extends React.Component {
 					{this.state.light.name}
 				</div>
 				<div>
-					<Slider value={parseInt(this.state.light.value)} max={255} className="slider" />
+					<Slider 
+						value={parseInt(this.state.light.value)} 
+						max={255} 
+						className="slider" 
+						trackStyle={{ 
+							backgroundColor: this.state.light.name.toLowerCase(),
+							
+						}}
+						handleStyle={{
+							border: `2px solid ${this.state.light.name.toLowerCase()}`
+						}}
+					/>
 				</div>
 			</div>
 		)
