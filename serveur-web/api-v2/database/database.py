@@ -56,6 +56,14 @@ class Database(object):
 		"""
 		return self.connection.execute(query)
 
+	def selectparam(self, query, parameters):
+		"""
+		Execute a database query with parameters and return
+		It expects a tuple
+		"""
+		return self.connection.selectparam(query, parameters)
+
+
 	def executeparam(self, query, parameters):
 		"""
 		Execute a database query with parameters and return

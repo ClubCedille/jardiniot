@@ -65,7 +65,7 @@ class Bucket():
 		Retreive a bucket's data and return it
 		"""
 		db = Database.get_instance()
-		bucket_data = db.executeparam("SELECT * FROM BUCKET WHERE ID=?", [str(id)])
+		bucket_data = db.selectparam("SELECT * FROM BUCKET WHERE ID=?", [str(id)])
 		if bucket_data:
 			return cls.transform(bucket_data[0])
 		else:
