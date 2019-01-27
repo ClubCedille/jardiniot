@@ -62,6 +62,44 @@ class SqliteConnection(Connection):
 
 		return data
 
+
+	def selectparam(self, query, parameters):
+		"""
+		Execute a "SELECT" SQLite query with parameters
+		"""
+		data = None
+
+		try:
+			cur = self.conn.cursor()
+			cur.execute(query, parameters)
+			data = cur.fetchall()
+
+		except sqlite3.Error as e:
+			print("Database error: %s" % e)
+		except Exception as e:
+			print("Exception in _query: %s" % e)
+
+		return data
+
+	def executemany(self, query, parameters):
+		"""
+		Execute a SQLite query
+		"""
+		data = None
+
+		try:
+			cur = self.conn.cursor()
+			cur.executemany(query, parameters)
+			data = cur.fetchall()
+			if not data:
+				self.conn.commit()
+		except sqlite3.Error as e:
+			print("Database error: %s" % e)
+		except Exception as e:
+			print("Exception in _query: %s" % e)
+
+		return data
+
 	def open(self):
 		pass
 

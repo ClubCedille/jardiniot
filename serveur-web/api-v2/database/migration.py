@@ -51,7 +51,7 @@ DATABASE_VERSION = 0
 if current_version is None:
 	print("NO DATABASE FOUND.")
 	db.execute("CREATE TABLE meta(version integer); ")
-	db.execute("INSERT INTO meta values ('"+str(DATABASE_VERSION)+"');")
+	db.executeparam("INSERT INTO meta values (?);", [str(DATABASE_VERSION)])
 	print("DATABASE CREATED.")
 	current_version = db.get_version()
 
@@ -60,8 +60,8 @@ if current_version < DATABASE_VERSION:
 	print("migrating to " + str(DATABASE_VERSION))
 	db.execute("CREATE TABLE valeurs (date text, senseur text, valeur text);")
 	datenow = str(datetime.now(timezone.utc))
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Temperature', 'N/A');")
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Humidite', 'N/A');")
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'Temperature', 'N/A');", [datenow])
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'Humidite', 'N/A');", [datenow])
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
 
@@ -69,9 +69,9 @@ DATABASE_VERSION = 2
 if current_version < DATABASE_VERSION:
 	print("migrating to " + str(DATABASE_VERSION))
 	datenow = str(datetime.now(timezone.utc))
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Red', '255');")
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'Blue', '255');")
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'White', '255');")
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'Red', '255');", [datenow])
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'Blue', '255');", [datenow])
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'White', '255');", [datenow])
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
 
@@ -79,8 +79,8 @@ DATABASE_VERSION = 3
 if current_version < DATABASE_VERSION:
 	print("migrating to " + str(DATABASE_VERSION))
 	db.execute("CREATE TABLE filecommandes (date text, command text);")
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanL', '255');")
-	db.execute("INSERT INTO valeurs(date, senseur, valeur) VALUES ('" + datenow + "', 'FanH', '255');")
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'FanL', '255');", [datenow])
+	db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, 'FanH', '255');", [datenow])
 	db.update_version(DATABASE_VERSION)
 	print("DB updated to version " + str(db.get_version()))
 

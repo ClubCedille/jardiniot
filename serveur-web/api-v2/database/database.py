@@ -52,10 +52,24 @@ class Database(object):
 
 	def execute(self, query):
 		"""
-		Execute a database query and return 
+		Execute a database query and return
 		"""
 		return self.connection.execute(query)
 
+	def selectparam(self, query, parameters):
+		"""
+		Execute a database query with parameters and return
+		It expects a tuple
+		"""
+		return self.connection.selectparam(query, parameters)
+
+
+	def executeparam(self, query, parameters):
+		"""
+		Execute a database query with parameters and return
+		It expects a tuple
+		"""
+		return self.connection.executemany(query, (parameters,))
 
 	def get_version(self):
 		"""
@@ -73,4 +87,4 @@ class Database(object):
 		"""
 		Update the current database version
 		"""
-		self.connection.execute("UPDATE meta SET version = '"+str(version)+"'")
+		self.connection.executemany("UPDATE meta SET version = ? ", (str(version),))
