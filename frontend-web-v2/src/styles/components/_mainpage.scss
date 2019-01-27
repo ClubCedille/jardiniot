@@ -3,16 +3,26 @@ $font-size-headers: 2rem;
 .main-page {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding-top: 13.5%;
-  height: 100vh;
-  background: lightgrey;
+  height: 90vh;
+  background: $light-brown;
+  padding-top: 7%;
+
+  .title {
+    font-size: 3rem;
+    font-family: Montserrat;
+    color: white;
+  }
 
   .components {
     display: flex;
     flex-direction: row;
     text-align: center;
+    border: .1px solid gray;
+    padding: 2em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    background: $second-color;
+    margin-top: 2em;
 
     .first-section {
       #temperature {
@@ -20,7 +30,7 @@ $font-size-headers: 2rem;
       }
 
       .colors {
-        width: 10em;
+        width: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -33,7 +43,8 @@ $font-size-headers: 2rem;
   
           .slider {
             margin-left: 2em;
-            width: 15em;
+            width: 10em;
+            margin-top: .4em;
           }
   
           .name {

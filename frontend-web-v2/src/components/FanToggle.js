@@ -5,24 +5,23 @@ import Switch from 'react-switch';
 export default class FanToggle extends React.Component {
   constructor(props) {
     super(props);
-
-    // set state..
     this.state = {
       ...props,
-      checked: false
-    } 
+      checked: parseInt(props.fan.value) === 255
+    }
   }
 
-  handleChange(checked) {
+  handleChange = async (checked) => {
     this.setState({ checked });
+    await this.props.handleChange(checked);
   }
 
   render() {
     return (
       <div className="fan">
-        <div className="name">{this.props.name}</div>
+        <div className="name">{this.state.fan.name}</div>
         <Switch
-          onChange={this.handleChange.bind(this)}
+          onChange={this.handleChange}
           checked={this.state.checked}
           id="normal-switch"
           className="switch"

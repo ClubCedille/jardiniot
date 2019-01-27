@@ -11,8 +11,6 @@ export default class Master extends Component {
         <div className="content">
           {this.props.children}
         </div>
-
-        <Footer />
       </div>
     );
   }

@@ -4,12 +4,12 @@ header {
 	top: 0;
 	width: 100%;
 	z-index: 0;
-	background-color: $light-green;
+	background-color: $second-color;
 
 	.custom-container {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between;
+		justify-content: space-evenly;
 		max-width: 60vw;
 		margin: 0 auto;
 
@@ -22,6 +22,7 @@ header {
 		.title {
 			font-size: 1.3rem;
 			margin-top: 1.3em;
+			font-family: Ubuntu;
 		}
 		
 		.menu {
