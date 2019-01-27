@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LightToggle from './LightToggle';
 import FanToggle from './FanToggle';
-
+import _ from 'lodash';
 import API from '../Api';
 
 export default class MainPage extends Component {
@@ -13,13 +13,16 @@ export default class MainPage extends Component {
 			light1: [],
 			light2: [],
 			light3: [],
-			isLoaded: false
+			fanl: {},
+			fanh: {},
+			lightsLoaded: false,
+			fansLoaded: false
 		};
-		this.getLightsValues();
 	}
 
-	componentWillMount() {
-		this.getLightsValues();
+	async componentWillMount() {
+		await this.getLightsValues();
+		await this.getFansValues();
 	}
 
 	componentDidMount() {
@@ -35,13 +38,24 @@ export default class MainPage extends Component {
 		}, 1 * 1000);
 	}
 
+	async getFansValues() {
+		const { data } = await API.get('/fans');
+		this.setState({
+			fanl: data.fans[0],
+			fanh: data.fans[1],
+			fansLoaded: true
+		});
+	}
+
 	async getLightsValues() {
-		const res = await API.get('/lights');
-		const { lights } = res.data;
-		this.setState({ light1: lights[0] });
-		this.setState({ light2: lights[1] });
-		this.setState({ light3: lights[2] });
-		this.setState({ isLoaded: true });
+		const { data } = await API.get('/lights');
+		const { lights } = data;
+		this.setState({
+			light1: lights[0],
+			light2: lights[1],
+			light3: lights[2],
+			lightsLoaded: true
+		});
 	}
 
 	render() {
@@ -49,35 +63,63 @@ export default class MainPage extends Component {
 		// - la température
 		// - le pourcentage
 
-		// Component global pour changer les couleurs
 		//  Component pour changer la couleur blanche
 		//  Component pour changer la couleur rouge
 		//  Component pour changer la couleur bleue
 
-		// Component global pour changer les fans
 		//  Component pour changer la fan 1
 		//  Component pour changer la fan 2
 
 		return (
 			<div className="main-page">
 				<div className="title">Tableau de bord</div>
-				<div className="components">	
+				<div className="components">
 					<div className="first-section">
 						<p id="temperature">{this.state.temp}</p>
-						{this.state.isLoaded &&
+						{this.state.lightsLoaded &&
 							<div className="colors">
-								<LightToggle light={this.state.light1} id={1} />
-								<LightToggle light={this.state.light2} id={2} />
-								<LightToggle light={this.state.light3} id={3} />
+								<LightToggle blue={this.state.light2} white={this.state.light3} light={this.state.light1} id={1} />
+								<LightToggle red={this.state.light1} white={this.state.light3} light={this.state.light2} id={2} />
+								<LightToggle red={this.state.light1} blue={this.state.light2} light={this.state.light3} id={3} />
 							</div>
 						}
 					</div>
 					<div className="second-section">
 						<p id="percentage">{this.state.hum}</p>
-						<div className="fans">
-							<FanToggle name="Fan1" id={1} />
-							<FanToggle name="Fan2" id={2} />
-						</div>
+						{this.state.fansLoaded &&
+							<div className="fans">
+								<FanToggle
+									fan={this.state.fanh}
+									id={1}
+									handleChange={async (checked) => {
+										const { fanh } = this.state,
+													value = checked ? 255 : 0;
+										this.setState({
+											fanh: { ...fanh, value }
+										});
+										await API.post('/fans', {
+											fanh: value,
+											fanl: parseInt(this.state.fanl.value)
+										}, { headers: { 'Content-Type': 'application/json' } });
+									}}
+								/>
+								<FanToggle 
+									fan={this.state.fanl} 
+									id={2} 
+									handleChange={async (checked) => {
+										const { fanl } = this.state,
+													value = checked ? 255 : 0;
+										this.setState({
+											fanl: { ...fanl, value }
+										});
+										await API.post('/fans', {
+											fanl: value,
+											fanh: parseInt(this.state.fanh.value)
+										}, { headers: { 'Content-Type': 'application/json' } });
+									}}
+								/>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
