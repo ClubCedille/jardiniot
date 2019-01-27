@@ -6,6 +6,10 @@ Pour voir le montage, consultez [la page wiki](https://github.com/ClubCedille/ja
 
 Il y a aussi de la [documentation sur le code source](http://geocities.ws/axdoomer/jardin/) (qui inclut des graphiques sur les relations entre les classes).
 
+# IMPORTANT: OPTIMISATION POUR ÉVITER LE GÈLE
+
+La taille d'allocation par défaut des vecteurs C++ doit être modifiée. Par défaut, elle est dans `jardiniot-emb/arduino/.piolibdeps/StandardCplusplus_ID572/system_configuration.h`. La donnée devant être changée est `__UCLIBCXX_STL_BUFFER_SIZE__`. Elle est normalement à `8`, mais elle doit être changée pour `1`.
+
 #### Photo d'une ancienne version du montage
 
 Voir [ici](https://github.com/ClubCedille/jardiniot/wiki/Composantes-%C3%A9lectroniques) pour les photos récentes.
