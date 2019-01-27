@@ -50,15 +50,15 @@ def on_message(client, userdata, msg):
 			print(contents)
 
 			try:
-				print(contents["Temperature"])
-				print(contents["Humidite"])
+				print(contents["temperature"])
+				print(contents["humidite"])
 
 				# Insert into database
 				conn = sqlite3.connect(DBNAME)
 				c = conn.cursor()
-				element = [(str(datetime.now(timezone.utc)), "Temperature", contents["Temperature"])]
+				element = [(str(datetime.now(timezone.utc)), "Temperature", contents["temperature"])]
 				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
-				element = [(str(datetime.now(timezone.utc)), "Humidite", contents["Humidite"])]
+				element = [(str(datetime.now(timezone.utc)), "Humidite", contents["humidite"])]
 				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
 				# Flush the transaction to disk
 				conn.commit()

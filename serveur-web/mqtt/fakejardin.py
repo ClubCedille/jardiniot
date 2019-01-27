@@ -58,6 +58,6 @@ while process:
 	time.sleep(1)
 	temp = str(random.randint(28, 33))
 	humi = str(random.randint(30, 55))
-	client.publish(TOPIC_SEND, payload="{\"Temperature\": \"" + temp + "°\", \"Humidite\": \"" + humi + "%\"}", qos=0, retain=False)
+	client.publish(TOPIC_SEND, payload="{\"temperature\": \"" + temp + "°\", \"humidite\": \"" + humi + "%\"}", qos=0, retain=False)
 	client.loop_start()
 
