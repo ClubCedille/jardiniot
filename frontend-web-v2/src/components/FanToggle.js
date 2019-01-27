@@ -1,6 +1,5 @@
 import React from 'react';
 import Switch from 'react-switch';
-import API from '../Api';
 
 
 export default class FanToggle extends React.Component {

@@ -78,9 +78,45 @@ export default class MainPage extends Component {
 						<p id="temperature">{this.state.temp}</p>
 						{this.state.lightsLoaded &&
 							<div className="colors">
-								<LightToggle blue={this.state.light2} white={this.state.light3} light={this.state.light1} id={1} />
-								<LightToggle red={this.state.light1} white={this.state.light3} light={this.state.light2} id={2} />
-								<LightToggle red={this.state.light1} blue={this.state.light2} light={this.state.light3} id={3} />
+								<LightToggle
+									changeValue={async (value) => {
+										const { light1 } = this.state;
+										this.setState({ light1: { ...light1, value } });
+										await API.post('/lights', {
+											red: value,
+											blue: this.state.light2.value,
+											white: this.state.light3.value
+										}, { headers: { 'Content-Type': 'application/json' } });
+									}}
+									light={this.state.light1}
+									id={1}
+								/>
+								<LightToggle
+									changeValue={async (value) => {
+										const { light2 } = this.state;
+										this.setState({ light2: { ...light2, value } });
+										await API.post('/lights', {
+											red: this.state.light1.value,
+											blue: value,
+											white: this.state.light3.value
+										}, { headers: { 'Content-Type': 'application/json' } });
+									}}
+									light={this.state.light2}
+									id={2}
+								/>
+								<LightToggle
+									changeValue={async (value) => {
+										const { light3 } = this.state;
+										this.setState({ light3: { ...light3, value } });
+										await API.post('/lights', {
+											red: this.state.light1.value,
+											blue: this.state.light2.value,
+											white: value
+										}, { headers: { 'Content-Type': 'application/json' } });
+									}}
+									light={this.state.light3}
+									id={3}
+								/>
 							</div>
 						}
 					</div>
@@ -93,7 +129,7 @@ export default class MainPage extends Component {
 									id={1}
 									handleChange={async (checked) => {
 										const { fanh } = this.state,
-													value = checked ? 255 : 0;
+											value = checked ? 255 : 0;
 										this.setState({
 											fanh: { ...fanh, value }
 										});
@@ -103,12 +139,12 @@ export default class MainPage extends Component {
 										}, { headers: { 'Content-Type': 'application/json' } });
 									}}
 								/>
-								<FanToggle 
-									fan={this.state.fanl} 
-									id={2} 
+								<FanToggle
+									fan={this.state.fanl}
+									id={2}
 									handleChange={async (checked) => {
 										const { fanl } = this.state,
-													value = checked ? 255 : 0;
+											value = checked ? 255 : 0;
 										this.setState({
 											fanl: { ...fanl, value }
 										});

@@ -38,12 +38,7 @@ export default class LightToggle extends React.Component {
 	}
 
 	handleLightAfterChange = async (value) => {
-		const { blue, red, white } = this.state;
-		await API.post('/lights', {
-			blue: blue ? blue.value : value,
-			red: red ? red.value : value,
-			white: white ? white.value : value
-		}, { headers: { 'Content-Type': 'application/json' } });
+		await this.props.changeValue(value);
 	}
 
 	handleLightChange = (value) => {
