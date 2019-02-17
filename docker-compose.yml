@@ -3,7 +3,7 @@ version: "3"
 services:
 
   api:
-    build: ./serveur-web/api-v2/
+    build: ./serveur-web/
     network_mode: "host"
     depends_on:
       - mqtt
