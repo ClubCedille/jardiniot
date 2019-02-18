@@ -40,8 +40,8 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "npx react-scripts start",
+    "build": "npx react-scripts build"
   },
   "devDependencies": {
     "autoprefixer": "^9.3.1",
