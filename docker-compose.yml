@@ -1,16 +1,46 @@
-version: "3"
+version: "3.7"
 
 services:
-
-  api:
-    build: ./serveur-web/api-v2/
-    network_mode: "host"
-    depends_on:
-      - mqtt
-
   mqtt:
     image: toke/mosquitto
-    ports:
-      - 9001:9001
-      - 1883:1883
+    container_name: jardiniot-mqtt
+    restart: on-failure
+    networks:
+      - jardiniot
+    expose:
+      - 1883
 
+  api:
+    build: ./serveur-web/
+    image: jardiniot/api
+    container_name: jardiniot-api
+    restart: on-failure
+    networks:
+      - jardiniot
+    expose:
+      - 5000
+    depends_on:
+      - mqtt
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 1m
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  web:
+    build: ./frontend-web/
+    image: jardiniot/web
+    container_name: jardiniot-web
+    restart: on-failure
+    networks:
+      - jardiniot
+    ports:
+      - '4000:8080'
+    depends_on:
+      - api
+
+networks:
+  jardiniot:
+    name: jardiniot
+    driver: bridge

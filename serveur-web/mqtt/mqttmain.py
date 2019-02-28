@@ -30,6 +30,31 @@ TOPIC_RECEIVE = "jardin_out"
 TOPIC_SEND = "jardin_in"
 DBNAME = "database/JardinIoT.db"
 
+def main():
+	client = mqtt.Client()
+	client.on_connect = on_connect
+	client.on_message = on_message
+
+	client.connect("mqtt", 1883, 30)
+
+	# Create the database
+	conn = sqlite3.connect(DBNAME)
+	c = conn.cursor()
+	# Check if table doesn't exist
+	c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='valeurs'")
+	if not c.fetchone():
+		# Create table
+		c.execute("CREATE TABLE valeurs (date text, senseur text, valeur text)")
+	# Close the connection
+	conn.close()
+
+	# Blocking call that processes network traffic, dispatches callbacks and
+	# handles reconnecting.
+	# Other loop*() functions are available that give a threaded interface and a
+	# manual interface.
+	client.loop_forever()
+
+
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
@@ -94,26 +119,4 @@ def on_message(client, userdata, msg):
 		except ValueError as e:
 			print("ValueError: " + str(e))
 
-client = mqtt.Client()
-client.on_connect = on_connect
-client.on_message = on_message
-
-client.connect("127.0.0.1", 1883, 30)
-
-# Create the database
-conn = sqlite3.connect(DBNAME)
-c = conn.cursor()
-# Check if table doesn't exist
-c.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='valeurs'")
-if not c.fetchone():
-	# Create table
-	c.execute("CREATE TABLE valeurs (date text, senseur text, valeur text)")
-# Close the connection
-conn.close()
-
-# Blocking call that processes network traffic, dispatches callbacks and
-# handles reconnecting.
-# Other loop*() functions are available that give a threaded interface and a
-# manual interface.
-client.loop_forever()
-
+main()
