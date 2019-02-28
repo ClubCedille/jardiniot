@@ -11,7 +11,7 @@ services:
       - 1883
 
   api:
-    build: ./serveur-web/
+    build: ./serveur-web/api-v2/
     image: jardiniot/api
     container_name: jardiniot-api
     restart: on-failure
@@ -29,7 +29,7 @@ services:
       start_period: 40s
 
   web:
-    build: ./frontend-web/
+    build: ./frontend-web-v2/
     image: jardiniot/web
     container_name: jardiniot-web
     restart: on-failure
