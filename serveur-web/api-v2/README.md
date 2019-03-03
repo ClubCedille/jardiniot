@@ -19,5 +19,6 @@ bash run.sh
 Pour rouller les tests :
 
 ```
-python app_tests.py
+source env/bin/activate
+python3 app_tests.py
 ```

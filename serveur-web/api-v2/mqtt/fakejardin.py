@@ -47,7 +47,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("mqtt", 1883, 30)
+client.connect("127.0.0.1", 1883, 30)
 
 # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
 client.subscribe(TOPIC_SEND, 2)
@@ -58,6 +58,6 @@ while process:
 	time.sleep(1)
 	temp = str(random.randint(28, 33))
 	humi = str(random.randint(30, 55))
-	client.publish(TOPIC_SEND, payload="{\"Temperature\": \"" + temp + "°\", \"Humidite\": \"" + humi + "%\"}", qos=0, retain=False)
+	client.publish(TOPIC_SEND, payload="{\"temperature\": \"" + temp + "°\", \"humidite\": \"" + humi + "%\"}", qos=0, retain=False)
 	client.loop_start()
 

@@ -24,26 +24,11 @@ bucketB --publish topic "bucketA"--> Mosquitto --> DENIED
 #### Todo
 - Implémenter l'ACL dans Mosquitto (on est sensé pouvoir mettre les accès directement dans la BD)
 
-#### Instructions d'installation
-Cloner le repo, [installer yarn](https://yarnpkg.com/fr/docs/install), ensuite:
-
-```
-cd jardiniot/serveur-web/
-yarn install
-yarn start
-```
-
-Pour obtenir des données bidons pour tester, il faut faire :
-
-```
-sqlite3 api/jardin.db < api/db_seed.sql
-```
-
 ## Docker
 Pour un environement de dévelopement rapide:
 
 * Installer docker et docker-compose
-* Lancer l'api avec la commande `docker-compose up`
+* Lancer l'api avec la commande `docker-compose up` à partir de la racine du dépot.
 
 ## API
 Structure de l'API:
@@ -63,19 +48,3 @@ Structure de l'API:
 - Limiter le nombre de données à renvoyer par l'API
 	- `/bucket/{id}/sensor/{id}/{frequency}/{limit}`
 
-#### Todo
-- À court terme
-	- Faire le code pour obtenir les données sur un intervalle donné (`/bucket/{id}/sensor/{id}/{frequency}`)
-	- Faire le code pour limiter le nombre de données à renvoyer par l'API (`/bucket/{id}/sensor/{id}/{frequency}/{limit}`)
-- À long terme
-	- Faire le code pour envoyer des commandes au bucket
-
-## Site web
-Le site web se veut le "panneau de contrôle" du jardin. On veut être capable:
-- de voir les statistiques
-- d'envoyer des commandes au bucket (via l'API)
-
-Le panneau de contrôle se situe dans le dossier "frontend-web" depuis la racine du projet
-
-#### Todo
-- Tout. Il n'y a rien d'effectué encore au niveau du site web.

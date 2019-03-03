@@ -30,8 +30,8 @@ class BucketController(object):
 			return {"buckets": [bucket.to_detailed_json() for bucket in buckets]}
 		else:
 			response = {
-				"error":1,
-				"message":"No bucket found"
+				"error": 1,
+				"message": "No bucket found"
 				}
 			return (response, 404)
 
@@ -56,6 +56,7 @@ class BucketController(object):
 		new_bucket = Bucket(None, id_plant, name, ip_address)
 		new_bucket = new_bucket.save()
 
+
 		return { "bucket" : new_bucket.to_detailed_json()}
 
 
@@ -69,8 +70,8 @@ class BucketController(object):
 			return {"bucket": bucket.to_detailed_json()}
 		else:
 			response = {
-					"error":1,
-					"message":"bucket not found"
+					"error": 1,
+					"message": "bucket not found"
 					}
 			return (response, 404)
 
@@ -84,8 +85,8 @@ class BucketController(object):
 		try:
 			if request.headers['Content-Type'] != 'application/json':
 					response = {
-							"error":1,
-							"message":"Content-Type is not application/json"
+							"error": 1,
+							"message": "Content-Type is not application/json"
 							}
 					return (response, 400)
 			elif request.is_json:
@@ -130,13 +131,13 @@ class BucketController(object):
 		if bucket is not None:
 			deleted = Bucket.delete(bucket)
 			response = {
-				"error":0,
+				"error": 0,
 				"deleted": str(deleted)
 				}
 			return (response, 200)
 		else:
 			response = {
-				"error":1,
-				"message":"bucket not found"
+				"error": 1,
+				"message": "bucket not found"
 				}
 			return (response, 404)

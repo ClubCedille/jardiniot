@@ -15,6 +15,7 @@
 
 from flask_api import FlaskAPI
 from flask_cors import CORS, cross_origin
+
 from router.bucket import bucket_blueprint
 from router.sensor import sensor_blueprint
 

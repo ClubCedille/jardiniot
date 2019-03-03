@@ -54,7 +54,6 @@ def main():
 	# manual interface.
 	client.loop_forever()
 
-
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
 	print("Connected with result code " + str(rc))
@@ -75,15 +74,15 @@ def on_message(client, userdata, msg):
 			print(contents)
 
 			try:
-				print(contents["Temperature"])
-				print(contents["Humidite"])
+				print(contents["temperature"])
+				print(contents["humidite"])
 
 				# Insert into database
 				conn = sqlite3.connect(DBNAME)
 				c = conn.cursor()
-				element = [(str(datetime.now(timezone.utc)), "Temperature", contents["Temperature"])]
+				element = [(str(datetime.now(timezone.utc)), "Temperature", contents["temperature"])]
 				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
-				element = [(str(datetime.now(timezone.utc)), "Humidite", contents["Humidite"])]
+				element = [(str(datetime.now(timezone.utc)), "Humidite", contents["humidite"])]
 				c.executemany("INSERT INTO valeurs VALUES (?, ?, ?)", element)
 				# Flush the transaction to disk
 				conn.commit()
