@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware, compose as composeR } from 'redux';
+import { createStore, applyMiddleware, compose as composer } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
@@ -13,7 +13,7 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || composeR;
+const compose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || composer;
 
 export const configureStore = (history) => {
   const routeMiddleware = routerMiddleware(history);
