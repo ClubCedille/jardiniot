@@ -1,4 +1,4 @@
-version: "3.7"
+version: "2.4"
 
 services:
   mqtt:
@@ -8,8 +8,10 @@ services:
     network_mode: "host"
     # networks:
     #   - jardiniot
-    expose:
-      - 1883
+    # expose:
+    #   - 1883
+    ports:
+      - '1883:1883'
 
   api:
     build: ./serveur-web/api-v2/
@@ -19,10 +21,14 @@ services:
     network_mode: "host"
     # networks:
     #   - jardiniot
-    expose:
-      - 5000
+    #expose:
+    #  - 5000
+    ports:
+      - '5000:5000'
     depends_on:
+      #mqtt:
       - mqtt
+        #condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000"]
       interval: 1m
@@ -38,13 +44,14 @@ services:
     network_mode: "host"
     # networks:
     #  - jardiniot
+    #  - host
     ports:
       - '4000:8080'
     depends_on:
       - api
 
-networks:
-  jardiniot:
-    name: jardiniot
-    driver: bridge
+#networks:
+#  jardiniot:
+#    name: jardiniot
+#    driver: bridge
 

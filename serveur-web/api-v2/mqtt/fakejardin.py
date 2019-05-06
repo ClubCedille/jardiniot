@@ -47,7 +47,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 
-client.connect("mqtt", 1883, 30)
+client.connect("127.0.0.1", 1883, 30)
 
 # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
 client.subscribe(TOPIC_SEND, 2)

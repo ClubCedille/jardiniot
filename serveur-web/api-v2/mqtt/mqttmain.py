@@ -35,7 +35,7 @@ def main():
 	client.on_connect = on_connect
 	client.on_message = on_message
 
-	client.connect("mqtt", 1883, 30)
+	client.connect("127.0.0.1", 1883, 30)
 
 	# Create the database
 	conn = sqlite3.connect(DBNAME)
