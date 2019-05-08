@@ -21,3 +21,41 @@ Le projet [a remporté un OCTAS](https://etsmtl.ca/nouvelles/2018/Gala-des-OCTAS
 7. Pour recevoir des `Serial.print()` du Arduino, vous pouvez le faire avec cette commande: `platformio device monitor -p /dev/ttyACM0 -b 9600`
 
 Ceci est un guide général et les commandes peuvent changer. Allez lire [la doc](http://docs.platformio.org/en/latest/installation.html) pour plus de détails.
+
+## Instructions pour rouler
+
+L'application utilise les ports suivants pour rouler:
+
+- 1883 pour MQTT
+- 5000 pour l'API du site Web
+- 8080 pour le site Web
+
+Le port de l'API est hardcodé dans le frontend et n'est donc pas configurable lors du build.
+
+### Docker Compose
+
+Prérequis:
+
+- Docker avec Docker Engine > 17.12.0
+- Docker Compose > 1.21 (pour supporter "Compose file" version 2.4)
+
+Pour rouler :
+
+    ```bash
+
+    # docker-compose up
+
+    ```
+
+Le site est accessible au <http://localhost:4000/>
+
+### Sans Docker Compose
+
+**TODO**
+
+[//]: # (
+Pour utiliser l'application sans docker-compose, la procédure est plus complexe.
+
+Le backend et le frontend sont indépendant, donc il est possible de construire/arrêter l'un sans briser l'autre
+)
+
