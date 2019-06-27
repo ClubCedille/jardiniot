@@ -1,0 +1,87 @@
+$font-size-headers: 2rem;
+
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  background: $light-brown;
+  padding-top: 7%;
+
+  .title {
+    font-size: 3rem;
+    font-family: Montserrat;
+    color: white;
+  }
+
+  .components {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    border: .1px solid gray;
+    padding: 2em;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    background: $second-color;
+    margin-top: 2em;
+
+    .first-section {
+      #temperature {
+        font-size: $font-size-headers;
+      }
+
+      .colors {
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        .color {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          margin-top: 1em;
+  
+          .slider {
+            margin-left: 2em;
+            width: 10em;
+            margin-top: .4em;
+          }
+  
+          .name {
+  
+          }
+        }
+      }
+    }
+
+    .second-section {
+      flex-grow: 1;
+      margin-left: 15em;
+
+      #percentage {
+        font-size: $font-size-headers;
+      }
+
+      .fans {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+  
+        .fan {
+          display: flex;
+          flex-direction: row;
+          margin-top: 1em;
+  
+          .name {
+  
+          }
+  
+          .switch {
+            margin-left: 1em;
+          }
+        }
+      }
+    }
+  }
+}

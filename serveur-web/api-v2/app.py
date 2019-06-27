@@ -14,6 +14,8 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 from flask_api import FlaskAPI
+from flask_cors import CORS, cross_origin
+
 from router.bucket import bucket_blueprint
 from router.sensor import sensor_blueprint
 
@@ -21,6 +23,7 @@ __name__ = "JardinIoT"
 
 # Initiate Flask application
 app = FlaskAPI(__name__)
+CORS(app, support_credentials=True)
 
 # Register blueprints, which act as controllers
 app.register_blueprint(bucket_blueprint)
@@ -32,4 +35,3 @@ Exemple d'une route simple
 @app.route("/")
 def exemple():
 	return { "hello" : "world" }
-

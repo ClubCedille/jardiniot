@@ -56,7 +56,8 @@ class BucketController(object):
 		new_bucket = Bucket(None, id_plant, name, ip_address)
 		new_bucket = new_bucket.save()
 
-		return {"bucket": new_bucket.to_detailed_json()}
+
+		return { "bucket" : new_bucket.to_detailed_json()}
 
 
 	"""

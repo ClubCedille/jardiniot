@@ -1,0 +1,19 @@
+.footer {
+    color: $gray-light;
+    font-size: 14px;
+    text-align: center;
+    padding: 32px;
+    background: $gray-medium-bg;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    strong {
+        color: $gray-medium;
+    }
+}
+
+.page-content {
+    background: $white;
+}

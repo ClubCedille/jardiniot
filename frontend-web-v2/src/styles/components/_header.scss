@@ -1,0 +1,35 @@
+header {
+	height: $header-height;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+	background-color: $second-color;
+
+	.custom-container {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		max-width: 60vw;
+		margin: 0 auto;
+
+		.logo {
+			margin-top: .6em;
+			width: 3.4em;
+			float: left;
+		}
+
+		.title {
+			font-size: 1.3rem;
+			margin-top: 1.3em;
+			font-family: Ubuntu;
+		}
+		
+		.menu {
+			margin-top: 2em;
+			&:hover {
+				cursor: pointer;
+			}
+		}
+	}
+}

@@ -15,6 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from flask import request
+
 import json
 from database.database import Database
 from datetime import datetime, timezone
@@ -73,6 +74,7 @@ class SensorController(object):
 		# Mettre à jour leur valeur dans la base de données
 		db = Database.get_instance()
 		datenow = str(datetime.now(timezone.utc))
+
 		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'Red', str(red)])
 		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'Blue', str(blue)])
 		db.executeparam("INSERT INTO valeurs(date, senseur, valeur) VALUES (?, ?, ?);", [datenow, 'White', str(white)])
