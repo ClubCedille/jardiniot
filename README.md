@@ -7,7 +7,7 @@ Le projet [a remporté un OCTAS](https://etsmtl.ca/nouvelles/2018/Gala-des-OCTAS
 
 ![2018-02-26-175135_3840x1080_scrot](https://user-images.githubusercontent.com/6194072/36700614-4dc76a1c-1b1e-11e8-8d46-71318f757cc2.png)
 
-## Instructions d'installation
+## Instructions d'installation du système embarqué
 
 1. Vérifiez votre version de Python afin que ce soit la version 2.7 (`python --version`)
 2. Installez PlatfromIO à l'aide de `pip`: `pip install -U wheel semantic-version platformio`. Il se peut que vous deviez utiliser `pip2` si Python 3 est installé sur votre ordi.
@@ -22,9 +22,9 @@ Le projet [a remporté un OCTAS](https://etsmtl.ca/nouvelles/2018/Gala-des-OCTAS
 
 Ceci est un guide général et les commandes peuvent changer. Allez lire [la doc](http://docs.platformio.org/en/latest/installation.html) pour plus de détails.
 
-## Instructions pour démarrer
+## Instructions pour démarrer la partie serveur
 
-L'application utilise les ports suivants pour rouler:
+L'application utilise les ports suivants pour son fonctionnement:
 
 - `1883` pour MQTT
 - `5000` pour l'API du site Web
@@ -46,6 +46,8 @@ Pour rouler:
 ```
 
 Le site est accessible au <http://localhost:4000/>, contrairement au port `8080` mentionné précedemment.
+
+Le site est accessible sur le port `4000` lorsque la commande `docker-compose` est utilisée, alors que si l'application est démarrée manuellement le port `8080` sera utilisé.
 
 ### Sans Docker Compose
 
