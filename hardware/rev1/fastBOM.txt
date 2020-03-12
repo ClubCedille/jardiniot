@@ -1,0 +1,18 @@
+1	arduino uno
+1	esp8266
+1	alim RS-150-48
+1	grose fan (3pin)
+1	petit fan (2 pin)
+1	dht-22
+3	LDD-1500H
+2	resistor 150hom
+1	power supply 12 V 	//a remplacer par un ciruit.
+1	ZUS104805-A		//
+1	condensateur 50V 10uF
+2	diodes
+3	resistor 102hom
+26	led RGB
+2	resistor IRLB8721
+
+
+This file will be deleted wene the real BOM from KiCad will exist.

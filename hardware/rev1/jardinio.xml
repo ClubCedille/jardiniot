@@ -1,0 +1,892 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<export version="D">
+  <design>
+    <source>/media/space/projects/cedille/jardinIO/jardiniot/hardware/jardinio.sch</source>
+    <date>Fri 20 Apr 2018 07:26:54 AM EDT</date>
+    <tool>Eeschema 4.0.2+dfsg1-stable</tool>
+    <sheet number="1" name="/" tstamps="/">
+      <title_block>
+        <title>jardinIO circuit</title>
+        <company>Cedille</company>
+        <rev>0</rev>
+        <date>2018-04-18</date>
+        <source>jardinio.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="2" name="/power/" tstamps="/5AA12C59/">
+      <title_block>
+        <title>jardinIO circuit</title>
+        <company>Cedille</company>
+        <rev>0</rev>
+        <date>2018-04-18</date>
+        <source>power.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="3" name="/control/" tstamps="/5AA1E97C/">
+      <title_block>
+        <title>jardinIO circuit</title>
+        <company>Cedille</company>
+        <rev>0</rev>
+        <date>2018-04-18</date>
+        <source>control.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="4" name="/sensors/" tstamps="/5AA1E9E6/">
+      <title_block>
+        <title>jardinIO circuit</title>
+        <company>Cedille</company>
+        <rev>0</rev>
+        <date>2018-04-18</date>
+        <source>sensors.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+    <sheet number="5" name="/outputs/" tstamps="/5AA1EA5F/">
+      <title_block>
+        <title>jardinIO circuit</title>
+        <company>Cedille</company>
+        <rev>0</rev>
+        <date>2018-04-18</date>
+        <source>outputs.sch</source>
+        <comment number="1" value=""/>
+        <comment number="2" value=""/>
+        <comment number="3" value=""/>
+        <comment number="4" value=""/>
+      </title_block>
+    </sheet>
+  </design>
+  <components>
+    <comp ref="U2001">
+      <value>RS-150-48</value>
+      <libsource lib="LDD1500H" part="RS-150-48"/>
+      <sheetpath names="/power/" tstamps="/5AA12C59/"/>
+      <tstamp>5AC2B72E</tstamp>
+    </comp>
+    <comp ref="U2002">
+      <value>ZUS104812-A</value>
+      <libsource lib="LDD1500H" part="ZUS104805-A"/>
+      <sheetpath names="/power/" tstamps="/5AA12C59/"/>
+      <tstamp>5AC2D62B</tstamp>
+    </comp>
+    <comp ref="XA3001">
+      <value>Arduino_Uno_Shield</value>
+      <libsource lib="arduino" part="Arduino_Uno_Shield"/>
+      <sheetpath names="/control/" tstamps="/5AA1E97C/"/>
+      <tstamp>5AA1EDD2</tstamp>
+    </comp>
+    <comp ref="U3001">
+      <value>adafruit_E218213_breakboard</value>
+      <libsource lib="LDD1500H" part="adafruit_E218213_breakboard"/>
+      <sheetpath names="/control/" tstamps="/5AA1E97C/"/>
+      <tstamp>5AB05516</tstamp>
+    </comp>
+    <comp ref="U4001">
+      <value>AM2302</value>
+      <libsource lib="LDD1500H" part="AM2302"/>
+      <sheetpath names="/sensors/" tstamps="/5AA1E9E6/"/>
+      <tstamp>5AC2DA54</tstamp>
+    </comp>
+    <comp ref="U5001">
+      <value>LDD-1500H</value>
+      <libsource lib="LDD1500H" part="LDD-1500H"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD529F2</tstamp>
+    </comp>
+    <comp ref="U5003">
+      <value>LDD-1500H</value>
+      <libsource lib="LDD1500H" part="LDD-1500H"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD52A5D</tstamp>
+    </comp>
+    <comp ref="U5002">
+      <value>LDD-1500H</value>
+      <libsource lib="LDD1500H" part="LDD-1500H"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD52AAC</tstamp>
+    </comp>
+    <comp ref="R5002">
+      <value>150</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD52BED</tstamp>
+    </comp>
+    <comp ref="R5001">
+      <value>150</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD52C48</tstamp>
+    </comp>
+    <comp ref="R5005">
+      <value>10K</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD52DB5</tstamp>
+    </comp>
+    <comp ref="R5006">
+      <value>10K</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5343C</tstamp>
+    </comp>
+    <comp ref="R5007">
+      <value>10K</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5347E</tstamp>
+    </comp>
+    <comp ref="C5001">
+      <value>CP1</value>
+      <libsource lib="device" part="CP1"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5350F</tstamp>
+    </comp>
+    <comp ref="D5003">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD54548</tstamp>
+    </comp>
+    <comp ref="D5006">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD545E1</tstamp>
+    </comp>
+    <comp ref="D5009">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD546C8</tstamp>
+    </comp>
+    <comp ref="D5012">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD546FF</tstamp>
+    </comp>
+    <comp ref="D5015">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD54785</tstamp>
+    </comp>
+    <comp ref="D5017">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD547DA</tstamp>
+    </comp>
+    <comp ref="D5019">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD54821</tstamp>
+    </comp>
+    <comp ref="D5021">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD54CBC</tstamp>
+    </comp>
+    <comp ref="D5023">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD54D01</tstamp>
+    </comp>
+    <comp ref="D5004">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56003</tstamp>
+    </comp>
+    <comp ref="D5007">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56079</tstamp>
+    </comp>
+    <comp ref="D5010">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD560CA</tstamp>
+    </comp>
+    <comp ref="D5013">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5611F</tstamp>
+    </comp>
+    <comp ref="D5016">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5616A</tstamp>
+    </comp>
+    <comp ref="D5018">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD561C3</tstamp>
+    </comp>
+    <comp ref="D5020">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56214</tstamp>
+    </comp>
+    <comp ref="D5022">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56275</tstamp>
+    </comp>
+    <comp ref="D5024">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD562DC</tstamp>
+    </comp>
+    <comp ref="D5025">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56357</tstamp>
+    </comp>
+    <comp ref="D5005">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56914</tstamp>
+    </comp>
+    <comp ref="D5008">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56993</tstamp>
+    </comp>
+    <comp ref="D5011">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD569F6</tstamp>
+    </comp>
+    <comp ref="D5014">
+      <value>LED</value>
+      <libsource lib="device" part="LED"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD56A63</tstamp>
+    </comp>
+    <comp ref="D5001">
+      <value>D</value>
+      <libsource lib="device" part="D"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5B85F</tstamp>
+    </comp>
+    <comp ref="D5002">
+      <value>D</value>
+      <libsource lib="device" part="D"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5B8E0</tstamp>
+    </comp>
+    <comp ref="R5004">
+      <value>10K</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5D1DE</tstamp>
+    </comp>
+    <comp ref="R5003">
+      <value>10K</value>
+      <libsource lib="device" part="R"/>
+      <sheetpath names="/outputs/" tstamps="/5AA1EA5F/"/>
+      <tstamp>5AD5D28D</tstamp>
+    </comp>
+  </components>
+  <libparts>
+    <libpart lib="LDD1500H" part="AM2302">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">AM2302</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VDD" type="input"/>
+        <pin num="2" name="SDA" type="input"/>
+        <pin num="3" name="N/C" type="input"/>
+        <pin num="4" name="GND" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="arduino" part="Arduino_Uno_Shield">
+      <description>Shield for Arduino Uno</description>
+      <docs>https://store.arduino.cc/arduino-uno-rev3</docs>
+      <footprints>
+        <fp>Arduino_Uno_Shield</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">XA</field>
+        <field name="Value">Arduino_Uno_Shield</field>
+      </fields>
+      <pins>
+        <pin num="3V3" name="3.3V" type="power_in"/>
+        <pin num="5V1" name="5V" type="power_in"/>
+        <pin num="5V2" name="SPI_5V" type="power_in"/>
+        <pin num="A0" name="A0" type="BiDi"/>
+        <pin num="A1" name="A1" type="BiDi"/>
+        <pin num="A2" name="A2" type="BiDi"/>
+        <pin num="A3" name="A3" type="BiDi"/>
+        <pin num="A4" name="A4" type="BiDi"/>
+        <pin num="A5" name="A5" type="BiDi"/>
+        <pin num="AREF" name="AREF" type="input"/>
+        <pin num="D0" name="D0_RX0" type="BiDi"/>
+        <pin num="D1" name="D1_TX0" type="BiDi"/>
+        <pin num="D2" name="D2_INT0" type="BiDi"/>
+        <pin num="D3" name="D3_INT1" type="BiDi"/>
+        <pin num="D4" name="D4" type="BiDi"/>
+        <pin num="D5" name="D5" type="BiDi"/>
+        <pin num="D6" name="D6" type="BiDi"/>
+        <pin num="D7" name="D7" type="BiDi"/>
+        <pin num="D8" name="D8" type="BiDi"/>
+        <pin num="D9" name="D9" type="BiDi"/>
+        <pin num="D10" name="D10_CS" type="BiDi"/>
+        <pin num="D11" name="D11" type="BiDi"/>
+        <pin num="D12" name="D12" type="BiDi"/>
+        <pin num="D13" name="D13" type="BiDi"/>
+        <pin num="GND1" name="GND" type="power_in"/>
+        <pin num="GND2" name="GND" type="power_in"/>
+        <pin num="GND3" name="GND" type="power_in"/>
+        <pin num="GND4" name="SPI_GND" type="power_in"/>
+        <pin num="IORF" name="IOREF" type="output"/>
+        <pin num="MISO" name="SPI_MISO" type="input"/>
+        <pin num="MOSI" name="SPI_MOSI" type="output"/>
+        <pin num="RST1" name="RESET" type="openCol"/>
+        <pin num="RST2" name="SPI_RESET" type="openCol"/>
+        <pin num="SCK" name="SPI_SCK" type="output"/>
+        <pin num="SCL" name="SCL" type="BiDi"/>
+        <pin num="SDA" name="SDA" type="BiDi"/>
+        <pin num="VIN" name="VIN" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="CP1">
+      <description>Polarised capacitor</description>
+      <footprints>
+        <fp>SMD*_Pol</fp>
+        <fp>c_elec*</fp>
+        <fp>C*elec</fp>
+        <fp>TantalC*</fp>
+        <fp>Elko*</fp>
+        <fp>CP*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">C</field>
+        <field name="Value">CP1</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="D">
+      <description>Diode</description>
+      <footprints>
+        <fp>Diode_*</fp>
+        <fp>D-Pak_TO252AA</fp>
+        <fp>*SingleDiode</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LDD1500H" part="LDD-1500H">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LDD-1500H</field>
+      </fields>
+      <pins>
+        <pin num="1" name="-Vin1" type="input"/>
+        <pin num="2" name="-Vin2" type="input"/>
+        <pin num="11" name="-Vout1" type="input"/>
+        <pin num="12" name="-Vout2" type="input"/>
+        <pin num="13" name="+Vout1" type="input"/>
+        <pin num="14" name="+Vout2" type="input"/>
+        <pin num="21" name="PWM_DIM" type="input"/>
+        <pin num="23" name="+Vin1" type="input"/>
+        <pin num="24" name="+Vin2" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="LED">
+      <footprints>
+        <fp>LED-3MM</fp>
+        <fp>LED-5MM</fp>
+        <fp>LED-10MM</fp>
+        <fp>LED-0603</fp>
+        <fp>LED-0805</fp>
+        <fp>LED-1206</fp>
+        <fp>LEDV</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">LED</field>
+      </fields>
+      <pins>
+        <pin num="1" name="K" type="passive"/>
+        <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="device" part="R">
+      <description>Resistor</description>
+      <footprints>
+        <fp>R_*</fp>
+        <fp>Resistor_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">R</field>
+        <field name="Value">R</field>
+      </fields>
+      <pins>
+        <pin num="1" name="~" type="passive"/>
+        <pin num="2" name="~" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="LDD1500H" part="RS-150-48">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">RS-150-48</field>
+      </fields>
+      <pins>
+        <pin num="1" name="V+" type="input"/>
+        <pin num="2" name="V-" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="LDD1500H" part="ZUS104805-A">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">ZUS104805-A</field>
+      </fields>
+      <pins>
+        <pin num="1" name="V+in" type="input"/>
+        <pin num="2" name="V-in" type="input"/>
+        <pin num="3" name="V+out" type="input"/>
+        <pin num="4" name="case" type="input"/>
+      </pins>
+    </libpart>
+    <libpart lib="LDD1500H" part="adafruit_E218213_breakboard">
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">adafruit_E218213_breakboard</field>
+      </fields>
+      <pins>
+        <pin num="1" name="RST" type="input"/>
+        <pin num="2" name="A" type="input"/>
+        <pin num="3" name="EN" type="input"/>
+        <pin num="4" name="16" type="input"/>
+        <pin num="5" name="14" type="input"/>
+        <pin num="6" name="12" type="input"/>
+        <pin num="7" name="13" type="input"/>
+        <pin num="8" name="V1" type="input"/>
+        <pin num="9" name="Vbat" type="input"/>
+        <pin num="10" name="GND1" type="input"/>
+        <pin num="11" name="N/C1" type="input"/>
+        <pin num="12" name="Tx" type="input"/>
+        <pin num="13" name="Rx" type="input"/>
+        <pin num="14" name="V2" type="input"/>
+        <pin num="15" name="N/C2" type="input"/>
+        <pin num="16" name="GND2" type="input"/>
+        <pin num="17" name="GND3" type="input"/>
+        <pin num="18" name="LDO" type="input"/>
+        <pin num="19" name="3V" type="input"/>
+        <pin num="20" name="15" type="input"/>
+        <pin num="21" name="#2" type="input"/>
+        <pin num="22" name="#0" type="input"/>
+        <pin num="23" name="#4" type="input"/>
+        <pin num="24" name="#5" type="input"/>
+        <pin num="25" name="Rx2" type="input"/>
+        <pin num="26" name="Tx2" type="input"/>
+      </pins>
+    </libpart>
+  </libparts>
+  <libraries>
+    <library logical="arduino">
+      <uri>/media/space/projects/cedille/jardinIO/jardiniot/hardware/extLib/arduino-kicad-library/arduino.lib</uri>
+    </library>
+    <library logical="LDD1500H">
+      <uri>/media/space/projects/cedille/jardinIO/jardiniot/hardware/intLib/LDD1500H/LDD1500H.lib</uri>
+    </library>
+    <library logical="device">
+      <uri>/usr/share/kicad/library/device.lib</uri>
+    </library>
+  </libraries>
+  <nets>
+    <net code="1" name="/sensors/AM2302Out">
+      <node ref="U4001" pin="2"/>
+      <node ref="XA3001" pin="D2"/>
+    </net>
+    <net code="4" name="GND">
+      <node ref="U4001" pin="4"/>
+      <node ref="U3001" pin="10"/>
+      <node ref="U3001" pin="16"/>
+      <node ref="U3001" pin="17"/>
+      <node ref="XA3001" pin="GND3"/>
+      <node ref="XA3001" pin="GND2"/>
+      <node ref="XA3001" pin="GND1"/>
+      <node ref="R5003" pin="2"/>
+      <node ref="R5004" pin="2"/>
+      <node ref="U5002" pin="1"/>
+      <node ref="R5007" pin="2"/>
+      <node ref="R5006" pin="2"/>
+      <node ref="U5003" pin="2"/>
+      <node ref="U5003" pin="1"/>
+      <node ref="U5001" pin="2"/>
+      <node ref="U5001" pin="1"/>
+      <node ref="R5005" pin="2"/>
+      <node ref="U5002" pin="2"/>
+      <node ref="U2001" pin="2"/>
+      <node ref="U2002" pin="2"/>
+      <node ref="U2002" pin="4"/>
+    </net>
+    <net code="5" name="+12V">
+      <node ref="XA3001" pin="VIN"/>
+      <node ref="D5001" pin="1"/>
+      <node ref="D5002" pin="1"/>
+      <node ref="C5001" pin="1"/>
+      <node ref="U2002" pin="3"/>
+    </net>
+    <net code="6" name="+48V">
+      <node ref="U5002" pin="24"/>
+      <node ref="U2002" pin="1"/>
+      <node ref="U2001" pin="1"/>
+      <node ref="U5003" pin="23"/>
+      <node ref="U5001" pin="24"/>
+      <node ref="U5001" pin="23"/>
+      <node ref="U5002" pin="23"/>
+      <node ref="U5003" pin="24"/>
+    </net>
+    <net code="7" name="Net-(U3001-Pad6)">
+      <node ref="U3001" pin="6"/>
+    </net>
+    <net code="8" name="Net-(U3001-Pad8)">
+      <node ref="U3001" pin="8"/>
+    </net>
+    <net code="9" name="Net-(U3001-Pad9)">
+      <node ref="U3001" pin="9"/>
+    </net>
+    <net code="10" name="Net-(U3001-Pad19)">
+      <node ref="U3001" pin="19"/>
+    </net>
+    <net code="11" name="Net-(U3001-Pad20)">
+      <node ref="U3001" pin="20"/>
+    </net>
+    <net code="12" name="Net-(U3001-Pad21)">
+      <node ref="U3001" pin="21"/>
+    </net>
+    <net code="13" name="Net-(U3001-Pad22)">
+      <node ref="U3001" pin="22"/>
+    </net>
+    <net code="14" name="Net-(U3001-Pad23)">
+      <node ref="U3001" pin="23"/>
+    </net>
+    <net code="15" name="Net-(U3001-Pad24)">
+      <node ref="U3001" pin="24"/>
+    </net>
+    <net code="16" name="Net-(U3001-Pad18)">
+      <node ref="U3001" pin="18"/>
+    </net>
+    <net code="17" name="Net-(U3001-Pad25)">
+      <node ref="U3001" pin="25"/>
+    </net>
+    <net code="18" name="Net-(U3001-Pad7)">
+      <node ref="U3001" pin="7"/>
+    </net>
+    <net code="19" name="Net-(XA3001-PadD8)">
+      <node ref="XA3001" pin="D8"/>
+    </net>
+    <net code="20" name="+5V">
+      <node ref="U4001" pin="1"/>
+      <node ref="U3001" pin="14"/>
+      <node ref="XA3001" pin="5V1"/>
+    </net>
+    <net code="21" name="Net-(U3001-Pad12)">
+      <node ref="U3001" pin="12"/>
+      <node ref="XA3001" pin="D3"/>
+    </net>
+    <net code="22" name="Net-(U3001-Pad13)">
+      <node ref="U3001" pin="13"/>
+      <node ref="XA3001" pin="D4"/>
+    </net>
+    <net code="23" name="Net-(XA3001-PadA3)">
+      <node ref="XA3001" pin="A3"/>
+    </net>
+    <net code="24" name="Net-(XA3001-PadA4)">
+      <node ref="XA3001" pin="A4"/>
+    </net>
+    <net code="25" name="Net-(XA3001-PadA5)">
+      <node ref="XA3001" pin="A5"/>
+    </net>
+    <net code="26" name="Net-(XA3001-PadSDA)">
+      <node ref="XA3001" pin="SDA"/>
+    </net>
+    <net code="27" name="Net-(XA3001-PadSCL)">
+      <node ref="XA3001" pin="SCL"/>
+    </net>
+    <net code="28" name="Net-(XA3001-PadD1)">
+      <node ref="XA3001" pin="D1"/>
+    </net>
+    <net code="29" name="Net-(XA3001-PadD0)">
+      <node ref="XA3001" pin="D0"/>
+    </net>
+    <net code="30" name="+3V3">
+      <node ref="XA3001" pin="3V3"/>
+    </net>
+    <net code="31" name="Net-(XA3001-PadA2)">
+      <node ref="XA3001" pin="A2"/>
+    </net>
+    <net code="32" name="Net-(XA3001-PadMISO)">
+      <node ref="XA3001" pin="MISO"/>
+    </net>
+    <net code="33" name="Net-(U3001-Pad4)">
+      <node ref="U3001" pin="4"/>
+    </net>
+    <net code="34" name="Net-(U3001-Pad3)">
+      <node ref="U3001" pin="3"/>
+    </net>
+    <net code="35" name="Net-(U3001-Pad2)">
+      <node ref="U3001" pin="2"/>
+    </net>
+    <net code="36" name="Net-(U3001-Pad1)">
+      <node ref="U3001" pin="1"/>
+    </net>
+    <net code="37" name="Net-(U3001-Pad26)">
+      <node ref="U3001" pin="26"/>
+    </net>
+    <net code="38" name="Net-(U3001-Pad15)">
+      <node ref="U3001" pin="15"/>
+    </net>
+    <net code="39" name="Net-(U3001-Pad11)">
+      <node ref="U3001" pin="11"/>
+    </net>
+    <net code="40" name="Net-(XA3001-PadD7)">
+      <node ref="XA3001" pin="D7"/>
+    </net>
+    <net code="41" name="Net-(XA3001-PadD12)">
+      <node ref="XA3001" pin="D12"/>
+    </net>
+    <net code="42" name="Net-(XA3001-PadD13)">
+      <node ref="XA3001" pin="D13"/>
+    </net>
+    <net code="43" name="Net-(U3001-Pad5)">
+      <node ref="U3001" pin="5"/>
+    </net>
+    <net code="44" name="Net-(XA3001-PadMOSI)">
+      <node ref="XA3001" pin="MOSI"/>
+    </net>
+    <net code="45" name="Net-(XA3001-PadSCK)">
+      <node ref="XA3001" pin="SCK"/>
+    </net>
+    <net code="46" name="Net-(XA3001-Pad5V2)">
+      <node ref="XA3001" pin="5V2"/>
+    </net>
+    <net code="47" name="Net-(XA3001-PadGND4)">
+      <node ref="XA3001" pin="GND4"/>
+    </net>
+    <net code="48" name="Net-(XA3001-PadRST2)">
+      <node ref="XA3001" pin="RST2"/>
+    </net>
+    <net code="49" name="Net-(XA3001-PadRST1)">
+      <node ref="XA3001" pin="RST1"/>
+    </net>
+    <net code="50" name="Net-(XA3001-PadIORF)">
+      <node ref="XA3001" pin="IORF"/>
+    </net>
+    <net code="51" name="Net-(XA3001-PadAREF)">
+      <node ref="XA3001" pin="AREF"/>
+    </net>
+    <net code="52" name="Net-(XA3001-PadA0)">
+      <node ref="XA3001" pin="A0"/>
+    </net>
+    <net code="53" name="Net-(XA3001-PadA1)">
+      <node ref="XA3001" pin="A1"/>
+    </net>
+    <net code="54" name="Net-(U4001-Pad3)">
+      <node ref="U4001" pin="3"/>
+    </net>
+    <net code="55" name="Net-(D5020-Pad2)">
+      <node ref="D5020" pin="2"/>
+      <node ref="D5022" pin="1"/>
+    </net>
+    <net code="56" name="Net-(D5018-Pad2)">
+      <node ref="D5018" pin="2"/>
+      <node ref="D5020" pin="1"/>
+    </net>
+    <net code="57" name="Net-(D5016-Pad2)">
+      <node ref="D5018" pin="1"/>
+      <node ref="D5016" pin="2"/>
+    </net>
+    <net code="58" name="Net-(D5013-Pad2)">
+      <node ref="D5016" pin="1"/>
+      <node ref="D5013" pin="2"/>
+    </net>
+    <net code="59" name="Net-(D5010-Pad2)">
+      <node ref="D5013" pin="1"/>
+      <node ref="D5010" pin="2"/>
+    </net>
+    <net code="60" name="Net-(D5007-Pad2)">
+      <node ref="D5007" pin="2"/>
+      <node ref="D5010" pin="1"/>
+    </net>
+    <net code="61" name="Net-(D5023-Pad2)">
+      <node ref="U5001" pin="13"/>
+      <node ref="U5001" pin="14"/>
+      <node ref="D5023" pin="2"/>
+    </net>
+    <net code="62" name="Net-(D5025-Pad2)">
+      <node ref="D5025" pin="2"/>
+      <node ref="U5002" pin="13"/>
+      <node ref="U5002" pin="14"/>
+    </net>
+    <net code="63" name="Net-(D5024-Pad2)">
+      <node ref="D5025" pin="1"/>
+      <node ref="D5024" pin="2"/>
+    </net>
+    <net code="64" name="Net-(D5022-Pad2)">
+      <node ref="D5024" pin="1"/>
+      <node ref="D5022" pin="2"/>
+    </net>
+    <net code="65" name="Net-(D5015-Pad2)">
+      <node ref="D5015" pin="2"/>
+      <node ref="D5017" pin="1"/>
+    </net>
+    <net code="66" name="Net-(D5012-Pad2)">
+      <node ref="D5012" pin="2"/>
+      <node ref="D5015" pin="1"/>
+    </net>
+    <net code="67" name="Net-(D5009-Pad2)">
+      <node ref="D5012" pin="1"/>
+      <node ref="D5009" pin="2"/>
+    </net>
+    <net code="68" name="Net-(D5006-Pad2)">
+      <node ref="D5009" pin="1"/>
+      <node ref="D5006" pin="2"/>
+    </net>
+    <net code="69" name="Net-(D5003-Pad2)">
+      <node ref="D5003" pin="2"/>
+      <node ref="D5006" pin="1"/>
+    </net>
+    <net code="70" name="Net-(D5021-Pad2)">
+      <node ref="D5021" pin="2"/>
+      <node ref="D5023" pin="1"/>
+    </net>
+    <net code="71" name="Net-(D5004-Pad2)">
+      <node ref="D5004" pin="2"/>
+      <node ref="D5007" pin="1"/>
+    </net>
+    <net code="72" name="Net-(D5004-Pad1)">
+      <node ref="D5004" pin="1"/>
+      <node ref="U5002" pin="12"/>
+      <node ref="U5002" pin="11"/>
+    </net>
+    <net code="73" name="Net-(D5019-Pad2)">
+      <node ref="D5021" pin="1"/>
+      <node ref="D5019" pin="2"/>
+    </net>
+    <net code="74" name="Net-(D5017-Pad2)">
+      <node ref="D5017" pin="2"/>
+      <node ref="D5019" pin="1"/>
+    </net>
+    <net code="75" name="Net-(R5002-Pad2)">
+      <node ref="R5002" pin="2"/>
+      <node ref="R5004" pin="1"/>
+    </net>
+    <net code="76" name="Net-(C5001-Pad2)">
+      <node ref="D5002" pin="2"/>
+      <node ref="C5001" pin="2"/>
+    </net>
+    <net code="77" name="Net-(R5001-Pad2)">
+      <node ref="R5003" pin="1"/>
+      <node ref="R5001" pin="2"/>
+    </net>
+    <net code="78" name="Net-(D5001-Pad2)">
+      <node ref="D5001" pin="2"/>
+    </net>
+    <net code="79" name="Net-(D5014-Pad2)">
+      <node ref="D5014" pin="2"/>
+      <node ref="U5003" pin="13"/>
+      <node ref="U5003" pin="14"/>
+    </net>
+    <net code="80" name="Net-(D5011-Pad2)">
+      <node ref="D5014" pin="1"/>
+      <node ref="D5011" pin="2"/>
+    </net>
+    <net code="81" name="Net-(D5008-Pad2)">
+      <node ref="D5008" pin="2"/>
+      <node ref="D5011" pin="1"/>
+    </net>
+    <net code="82" name="Net-(D5005-Pad2)">
+      <node ref="D5008" pin="1"/>
+      <node ref="D5005" pin="2"/>
+    </net>
+    <net code="83" name="Net-(D5005-Pad1)">
+      <node ref="D5005" pin="1"/>
+      <node ref="U5003" pin="11"/>
+      <node ref="U5003" pin="12"/>
+    </net>
+    <net code="84" name="Net-(D5003-Pad1)">
+      <node ref="D5003" pin="1"/>
+      <node ref="U5001" pin="11"/>
+      <node ref="U5001" pin="12"/>
+    </net>
+    <net code="85" name="/control/LEDConn1">
+      <node ref="XA3001" pin="D9"/>
+    </net>
+    <net code="86" name="/outputs/fanConn2">
+      <node ref="R5001" pin="1"/>
+    </net>
+    <net code="87" name="/outputs/fanConn1">
+      <node ref="R5002" pin="1"/>
+    </net>
+    <net code="88" name="/outputs/LEDConn2">
+      <node ref="R5006" pin="1"/>
+      <node ref="U5002" pin="21"/>
+    </net>
+    <net code="89" name="/outputs/LEDConn1">
+      <node ref="U5001" pin="21"/>
+      <node ref="R5005" pin="1"/>
+    </net>
+    <net code="90" name="/control/fanConn2">
+      <node ref="XA3001" pin="D6"/>
+    </net>
+    <net code="91" name="/control/fanConn1">
+      <node ref="XA3001" pin="D5"/>
+    </net>
+    <net code="92" name="/control/LEDConn3">
+      <node ref="XA3001" pin="D11"/>
+    </net>
+    <net code="93" name="/control/LEDConn2">
+      <node ref="XA3001" pin="D10"/>
+    </net>
+    <net code="94" name="/outputs/LEDConn3">
+      <node ref="R5007" pin="1"/>
+      <node ref="U5003" pin="21"/>
+    </net>
+  </nets>
+</export>
