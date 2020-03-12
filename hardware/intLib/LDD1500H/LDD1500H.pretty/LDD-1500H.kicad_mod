@@ -1,8 +1,0 @@
-(module LDD-1500H (layer F.Cu) (tedit 5A9AE97B)
-  (fp_text reference REF** (at 0 0.5) (layer F.SilkS)
-    (effects (font (size 1 1) (thickness 0.15)))
-  )
-  (fp_text value LDD-1500H (at 0 -0.5) (layer F.Fab)
-    (effects (font (size 1 1) (thickness 0.15)))
-  )
-)
