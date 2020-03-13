@@ -29,10 +29,10 @@ Voici les objectifs pour la révision matériel 2.0 du projet JardinIOT.
 
 | Possibilité  | pour                                         | contre                                                     |
 |--------------|----------------------------------------------|------------------------------------------------------------|
-| Rasperry pi  | Beaucoup de mémoire                          | Tension d'opération incompatible avec les anciens capteurs |
-| ESP32        | Mémoire suffisante                           | Tension d'opération incompatible avec les anciens capteurs \nPeu de GPIO|
-| Arduino Mega | Moins de mémoire que les options précédentes | Tension d'opération compatible avec les anciens capteurs   |
+| Rasperry pi  | Beaucoup de mémoire                          | * Tension d'opération incompatible avec les anciens capteurs |
+| ESP32        | Mémoire suffisante                           | * Tension d'opération incompatible avec les anciens capteurs * Peu de GPIO|
+| Arduino Mega | Moins de mémoire que les options précédentes | * Tension d'opération compatible avec les anciens capteurs   |
 
 Il est important de mentionner qu'il est possible d'acquérir des nouveaux
-capteurs pour accomoder les différents choix. De plus, il esiste aussi des
+capteurs pour accomoder les différents choix. De plus, il existe aussi des
 multiplexeurs de GPIO dans le cas ou on désire continuer avec l'option ESP32.
