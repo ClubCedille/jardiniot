@@ -29,10 +29,27 @@ Voici les objectifs pour la révision matériel 2.0 du projet JardinIOT.
 
 | Possibilité  | pour                                         | contre                                                     |
 |--------------|----------------------------------------------|------------------------------------------------------------|
-| Rasperry pi  | Beaucoup de mémoire                          | * Tension d'opération incompatible avec les anciens capteurs |
+~~| Rasperry pi  | Beaucoup de mémoire                          | * Tension d'opération incompatible avec les anciens capteurs |~~
 | ESP32        | Mémoire suffisante                           | * Tension d'opération incompatible avec les anciens capteurs * Peu de GPIO|
-| Arduino Mega | Moins de mémoire que les options précédentes | * Tension d'opération compatible avec les anciens capteurs   |
+~~| Arduino Mega | Moins de mémoire que les options précédentes | * Tension d'opération compatible avec les anciens capteurs   |~~
 
-Il est important de mentionner qu'il est possible d'acquérir des nouveaux
-capteurs pour accomoder les différents choix. De plus, il existe aussi des
-multiplexeurs de GPIO dans le cas ou on désire continuer avec l'option ESP32.
+~~Il est important de mentionner qu'il est possible d'acquérir des nouveaux~~
+~~capteurs pour accomoder les différents choix. De plus, il existe aussi des~~
+~~multiplexeurs de GPIO dans le cas ou on désire continuer avec l'option ESP32.~~
+
+## Journal de bord
+
+Modification 20/03/2020:
+- Écriture barré pour ce que ne s'applique plus.
+
+Après quelques heures de recherche, il est devenu évident que les capteurs déjà utilisés
+pouvaient être conservés car la tension d'opération du ESP32 est compatible. Le capteur en
+question est le DHT22. Ce capteur peut opérer à 3.3v tout comme à 5v. Pour les
+lumières, il sera très peu coûteux des les interfacer avec un transistor de
+puissance.
+
+Le ESP32 semble être de plus en plus le meilleur candidat. De plus,il existe un [trousseau de
+dévelopement]https://docs.espressif.com/projects/esp-idf/en/v4.0/) de la
+compagnie Espressif qui a produit le module. Les APIs et le matériel y sont très bien documentés.
+
+
