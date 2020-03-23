@@ -1,12 +1,3 @@
-/* WiFi station Example
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-*/
-
 #include "system_init.h"
 #include <string.h>
 #include "freertos/FreeRTOS.h"
@@ -21,13 +12,6 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
-/* The examples use WiFi configuration that you can set via project configuration menu
-
-   If you'd rather not, just change the below entries to strings with
-   the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
-*/
-#define EXAMPLE_ESP_WIFI_SSID      "SAS202"
-#define EXAMPLE_ESP_WIFI_PASS      "29096820037102109822070104"
 
 /* FreeRTOS event group to signal when we are connected*/
 static EventGroupHandle_t s_wifi_event_group;
@@ -39,7 +23,7 @@ static EventGroupHandle_t s_wifi_event_group;
 #define WIFI_FAIL_BIT      BIT1
 #define CONFIG_ESP_MAXIMUM_RETRY 5
 
-static const char *TAG = "wifi station";
+static const char *TAG = "wifi client";
 
 static int s_retry_num = 0;
 
@@ -49,7 +33,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
         esp_wifi_connect();
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < EXAMPLE_ESP_MAXIMUM_RETRY) {
+        if (s_retry_num < CONFIG_ESP_MAXIMUM_RETRY) {
             esp_wifi_connect();
             s_retry_num++;
             ESP_LOGI(TAG, "retry to connect to the AP");
@@ -66,8 +50,9 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-void wifi_init_sta()
+void wifi_init_as_station()
 {
+
     s_wifi_event_group = xEventGroupCreate();
 
     tcpip_adapter_init();
@@ -82,10 +67,14 @@ void wifi_init_sta()
 
     wifi_config_t wifi_config = {
         .sta = {
-            .ssid = EXAMPLE_ESP_WIFI_SSID,
-            .password = EXAMPLE_ESP_WIFI_PASS
+            .ssid = { ESP_WIFI_SSID },
+            .password = { ESP_WIFI_PASS }
         },
     };
+
+    //strcpy(wifi_config.sta.ssid, ssid);
+    //strcpy(wifi_config.sta.password, passwd);
+
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
     ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config) );
     ESP_ERROR_CHECK(esp_wifi_start() );
@@ -104,10 +93,10 @@ void wifi_init_sta()
      * happened. */
     if (bits & WIFI_CONNECTED_BIT) {
         ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
-                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+                 ESP_WIFI_SSID, ESP_WIFI_PASS);
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
-                 EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
+                 ESP_WIFI_SSID, ESP_WIFI_PASS);
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }
@@ -116,6 +105,7 @@ void wifi_init_sta()
     ESP_ERROR_CHECK(esp_event_handler_unregister(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler));
     vEventGroupDelete(s_wifi_event_group);
 }
+
 
 
 void wifi_system_initialization()
@@ -129,5 +119,5 @@ void wifi_system_initialization()
     ESP_ERROR_CHECK(ret);
 
     ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
-    wifi_init_sta();
+    wifi_init_as_station();
 }

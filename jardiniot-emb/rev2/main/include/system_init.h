@@ -5,6 +5,8 @@
 extern "C"{
 #endif 
 
+    #include "config.h"
+
     void wifi_system_initialization();
 
 #ifdef __cplusplus
