@@ -13,8 +13,6 @@ extern "C"{
     #define ESP_WIFI_SSID "EXEMPLESSID"
     #define ESP_WIFI_PASS "EXEMPLEPASSWD"
 
-    void wifi_system_initialization();
-
 #ifdef __cplusplus
 }
 #endif
