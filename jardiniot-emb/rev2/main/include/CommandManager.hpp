@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "SensorStrategy.hpp"
+#include "ActuatorStrategy.hpp"
 
 class CommandManager
 {
@@ -14,7 +15,7 @@ class CommandManager
         std::string executeCommand();
 
         std::vector<SensorStrategy> getSensorList();
-        //std::vector<ActuatorStrategy> getSensorList();
+        std::vector<ActuatorStrategy> getActuatorList();
 
     private:
 

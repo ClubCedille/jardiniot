@@ -1,10 +1,10 @@
 #ifndef ServoMotor_H
 #define ServoMotor_H
 
-#include "MotorStrategy.h"
-#include <string.h>
+#include "ActuatorStrategy.h"
+#include <string>
 
-class ServoMotor: public MotorStrategy {
+class ServoMotor: public ActuatorStrategy {
 private:
     unsigned char servoPin;
     //Servo servo;

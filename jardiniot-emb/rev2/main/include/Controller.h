@@ -1,7 +1,7 @@
 #ifndef Controller_H
 #define Controller_H
 
-#include <string.h>
+#include <string>
 #include <vector>
 #include "ControllerType.h"
 

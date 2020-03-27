@@ -10,8 +10,8 @@ extern "C"{
 #endif 
 
 
-    #define ESP_WIFI_SSID "example"
-    #define ESP_WIFI_PASS "example"
+    #define ESP_WIFI_SSID "SAS202"
+    #define ESP_WIFI_PASS "29096820037102109822070104"
 
 #ifdef __cplusplus
 }

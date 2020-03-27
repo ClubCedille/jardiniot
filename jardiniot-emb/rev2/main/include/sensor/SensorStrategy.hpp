@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 
+#include "JardinCommand.h"
 #include "Controller.h"
 #include "ControllerType.h"
 
@@ -25,7 +26,7 @@ public:
     virtual ~SensorStrategy();
 
     void setDelayTime(short delayTime);
-    //void modify(JardinCommand &jCommand);
+    void modify(JardinCommand &jCommand);
 };
 
 #endif

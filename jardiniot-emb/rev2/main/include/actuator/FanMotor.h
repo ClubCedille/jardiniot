@@ -1,10 +1,10 @@
 #ifndef FanMotor_H
 #define FanMotor_H
 
-#include "MotorStrategy.h"
-#include <string.h>
+#include "ActuatorStrategy.h"
+#include <string>
 
-class FanMotor: public MotorStrategy {
+class FanMotor: public ActuatorStrategy {
 private:
     unsigned char fanPin;
     unsigned char fanSpeed;
