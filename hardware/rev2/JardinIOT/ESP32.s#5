@@ -196,7 +196,7 @@
 <connect gate="G$1" pin="3V3" pad="1"/>
 <connect gate="G$1" pin="EN" pad="16"/>
 <connect gate="G$1" pin="GND" pad="2"/>
-<connect gate="G$1" pin="GND1" pad="28"/>
+<connect gate="G$1" pin="GND1" pad="29"/>
 <connect gate="G$1" pin="IO1" pad="13"/>
 <connect gate="G$1" pin="IO12" pad="27"/>
 <connect gate="G$1" pin="IO13" pad="28"/>
@@ -212,7 +212,7 @@
 <connect gate="G$1" pin="IO23" pad="15"/>
 <connect gate="G$1" pin="IO25" pad="23"/>
 <connect gate="G$1" pin="IO26" pad="24"/>
-<connect gate="G$1" pin="IO27" pad="24"/>
+<connect gate="G$1" pin="IO27" pad="25"/>
 <connect gate="G$1" pin="IO3" pad="12"/>
 <connect gate="G$1" pin="IO32" pad="21"/>
 <connect gate="G$1" pin="IO33" pad="22"/>
@@ -5150,6 +5150,7 @@ Grid 5.00 mm&lt;p&gt;
 <part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VCC" device=""/>
 <part name="SUPPLY2" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
 <part name="X1" library="con-wago-500" library_urn="urn:adsk.eagle:library:195" deviceset="W237-113" device="" package3d_urn="urn:adsk.eagle:package:10690/1"/>
+<part name="SUPPLY4" library="supply2" library_urn="urn:adsk.eagle:library:372" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -5190,6 +5191,9 @@ Grid 5.00 mm&lt;p&gt;
 <attribute name="VALUE" x="-106.68" y="176.657" size="1.778" layer="96"/>
 <attribute name="NAME" x="-104.14" y="181.229" size="1.778" layer="95" rot="R180"/>
 </instance>
+<instance part="SUPPLY4" gate="GND" x="-124.46" y="119.38" smashed="yes">
+<attribute name="VALUE" x="-126.365" y="116.205" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -5214,9 +5218,6 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="-48.26" y1="132.08" x2="-48.26" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="GND1"/>
 <wire x1="-48.26" y1="132.08" x2="-71.12" y2="132.08" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND"/>
-<wire x1="-106.68" y1="132.08" x2="-71.12" y2="132.08" width="0.1524" layer="91"/>
-<junction x="-71.12" y="132.08"/>
 </segment>
 <segment>
 <pinref part="C1" gate="G$1" pin="2"/>
@@ -5235,25 +5236,37 @@ Grid 5.00 mm&lt;p&gt;
 <wire x1="-48.26" y1="170.18" x2="-48.26" y2="180.34" width="0.1524" layer="91"/>
 <junction x="-48.26" y="180.34"/>
 </segment>
-</net>
-<net name="5V_VCC" class="0">
 <segment>
-<pinref part="IC1" gate="A1" pin="VO"/>
-<wire x1="-55.88" y1="198.12" x2="-48.26" y2="198.12" width="0.1524" layer="91"/>
-<pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="-48.26" y1="198.12" x2="-48.26" y2="193.04" width="0.1524" layer="91"/>
-<pinref part="P+1" gate="VCC" pin="VCC"/>
-<wire x1="-48.26" y1="213.36" x2="-48.26" y2="198.12" width="0.1524" layer="91"/>
-<junction x="-48.26" y="198.12"/>
-<label x="-50.8" y="218.44" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="GND"/>
+<wire x1="-106.68" y1="132.08" x2="-124.46" y2="132.08" width="0.1524" layer="91"/>
+<pinref part="SUPPLY4" gate="GND" pin="GND"/>
+<wire x1="-124.46" y1="132.08" x2="-124.46" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="VCC" class="0">
+<net name="5V_VCC" class="0">
 <segment>
 <pinref part="P+2" gate="VCC" pin="VCC"/>
 <wire x1="-48.26" y1="147.32" x2="-48.26" y2="134.62" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="VIN"/>
 <wire x1="-48.26" y1="134.62" x2="-71.12" y2="134.62" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$2" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="3V3"/>
+<wire x1="-106.68" y1="134.62" x2="-129.54" y2="134.62" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="VCC" class="0">
+<segment>
+<pinref part="C2" gate="G$1" pin="1"/>
+<wire x1="-48.26" y1="198.12" x2="-48.26" y2="193.04" width="0.1524" layer="91"/>
+<junction x="-48.26" y="198.12"/>
+<pinref part="P+1" gate="VCC" pin="VCC"/>
+<wire x1="-48.26" y1="213.36" x2="-48.26" y2="198.12" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="A1" pin="VO"/>
+<wire x1="-55.88" y1="198.12" x2="-48.26" y2="198.12" width="0.1524" layer="91"/>
+<label x="-50.8" y="218.44" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
