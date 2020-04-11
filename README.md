@@ -51,7 +51,7 @@ Le site est accessible sur le port `4000` lorsque la commande `docker-compose` e
 
 ### Sans Docker Compose
 
-**TODO**
+*TODO*
 
 <!---
 [//]: # (Pour utiliser l'application sans docker-compose, la procédure est plus complexe.)
