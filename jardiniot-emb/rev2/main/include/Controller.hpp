@@ -1,5 +1,5 @@
-#ifndef Controller_H
-#define Controller_H
+#ifndef CONTROLLER_H
+#define CONTROLLER_H
 
 #include <string>
 #include <vector>

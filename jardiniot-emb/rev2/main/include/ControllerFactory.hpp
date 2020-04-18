@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include "ControllerType.h"
-#include "Controller.h"
+#include "Controller.hpp"
 #include "ActuatorStrategy.hpp"
 #include "SensorStrategy.hpp"
 

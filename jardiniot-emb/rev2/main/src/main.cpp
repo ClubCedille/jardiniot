@@ -13,8 +13,6 @@ extern "C" {
 	void app_main(void);
 }
 
-
-
 /*
 *   Point d'entré d'un logiciel ESP-IDF
 */

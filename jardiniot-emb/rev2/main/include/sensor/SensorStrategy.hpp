@@ -4,8 +4,8 @@
 #include <vector>
 #include <iostream>
 
-#include "JardinCommand.h"
-#include "Controller.h"
+#include "JardinCommand.hpp"
+#include "Controller.hpp"
 #include "ControllerType.h"
 
 /**

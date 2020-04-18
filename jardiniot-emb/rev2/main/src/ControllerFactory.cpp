@@ -1,6 +1,4 @@
-#include "ControllerFactory.h"
-
-#include "ControllerFactory.h"
+#include "ControllerFactory.hpp"
 //#include "include/sensor/DHTSensor.h"
 //#include "include/sensor/LEDSensor.h"
 //#include "include/sensor/A_LEDSensor.h"

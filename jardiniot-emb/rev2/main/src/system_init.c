@@ -117,7 +117,6 @@ void wifi_system_initialization()
       ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
-
     ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
     wifi_init_as_station();
 }

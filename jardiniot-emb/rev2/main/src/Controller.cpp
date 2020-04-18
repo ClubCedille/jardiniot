@@ -1,4 +1,4 @@
-#include "Controller.h"
+#include "Controller.hpp"
 #include <iostream>
 #include <string>
 
@@ -7,11 +7,17 @@
 Controller::Controller(){
 }
 
-Controller::Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin){
-    this->idController = idController;
-    this->inputPin = inputPin;
-    this->outputPin = outputPin;
-    this->type = type;
+Controller::Controller( unsigned char idController, 
+                        ControllerType type, 
+                        std::vector<short> inputPin, 
+                        std::vector<short> outputPin
+                        ):
+    idController(idController),
+    type(type),
+    outputPin(outputPin),
+    inputPin(inputPin)
+{
+
 }
 
 

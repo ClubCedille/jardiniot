@@ -3,15 +3,17 @@
 
 #include <iostream>
 
-#include "Controller.h"
-#include "JardinCommand.h"
+#include "Controller.hpp"
+#include "JardinCommand.hpp"
 
 /**
     Définit le comportement de base pour les moteurs
 */
 class ActuatorStrategy: public Controller {
+
 protected:
     short delayTime;
+
 public:
     virtual short activate();
     virtual short stop();
