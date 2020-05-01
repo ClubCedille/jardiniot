@@ -29,7 +29,7 @@ private:
     bool errorInCommand;
     std::string errorMsg;
 
-    int split(const std::string &command, std::vector<std::string> &strs, char ch);
+    int split(std::string &command, std::vector<std::string> &strs, char ch);
 
     bool validCommand(std::vector<std::string> &vecCommand);
     bool validIdController(std::vector<std::string> &vecCommand);
