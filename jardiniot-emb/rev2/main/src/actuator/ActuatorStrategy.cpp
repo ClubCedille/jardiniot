@@ -1,9 +1,16 @@
 #include "ActuatorStrategy.hpp"
 //<<constructor>>
-ActuatorStrategy::ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin): Controller(idController, type, inputPin, outputPin){
+ActuatorStrategy::ActuatorStrategy( unsigned char idController, 
+                                    ControllerType type, 
+                                    std::vector<short> inputPin, 
+                                    std::vector<short> outputPin): 
+                                Controller(idController, type, inputPin, outputPin)
+{
+
 }
 
 ActuatorStrategy::ActuatorStrategy(){
+    
 }
 
 //<<destructor>>
