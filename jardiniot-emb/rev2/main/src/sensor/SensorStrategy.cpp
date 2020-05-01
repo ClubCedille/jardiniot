@@ -1,7 +1,8 @@
 #include "SensorStrategy.hpp" //include the declaration for this class
+#include "GPIOstrategy.hpp"
 
 //<<constructor>>
-SensorStrategy::SensorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin): Controller(idController, type, inputPin, outputPin){
+SensorStrategy::SensorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board): Controller(idController, type, inputPin, outputPin, board){
 }
 
 SensorStrategy::SensorStrategy(){

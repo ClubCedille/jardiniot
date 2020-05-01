@@ -1,6 +1,7 @@
+#ifndef DUMMY_H
+#define DUMMY_H
+
 #include <GPIOstrategy.hpp>
-
-
 class dummy : GPIOstrategy
 {
     public:
@@ -15,3 +16,5 @@ class dummy : GPIOstrategy
 
     private:
 };
+
+#endif

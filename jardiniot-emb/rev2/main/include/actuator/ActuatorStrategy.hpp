@@ -5,6 +5,7 @@
 
 #include "Controller.h"
 #include "JardinCommand.h"
+#include "GPIOstrategy.hpp"
 
 /**
     Définit le comportement de base pour les moteurs
@@ -18,8 +19,8 @@ public:
 
     // constructor
     ActuatorStrategy();
-    ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
-    ActuatorStrategy(unsigned char idController, ControllerType type, short output, short input);
+    ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board);
+    ActuatorStrategy(unsigned char idController, ControllerType type, short output, short input, GPIOstrategy * board);
     virtual ~ActuatorStrategy();
 
     void setDelayTime(short delayTime);

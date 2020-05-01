@@ -7,6 +7,7 @@
 #include "JardinCommand.h"
 #include "Controller.h"
 #include "ControllerType.h"
+#include "GPIOstrategy.hpp"
 
 /**
     Définit le comportement de base pour les senseurs
@@ -22,7 +23,7 @@ public:
 
     // constructor
     SensorStrategy();
-    SensorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin);
+    SensorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board);
     virtual ~SensorStrategy();
 
     void setDelayTime(short delayTime);

@@ -1,5 +1,7 @@
 #include "system_init.h"
 #include "CommandManager.hpp"
+#include "Controller.h"
+#include "dummy.hpp"
 
 #include <iostream>
 #include <vector>
@@ -21,5 +23,5 @@ extern "C" {
 void app_main(void)
 {
     wifi_system_initialization();
-
+    Controller a();
 }

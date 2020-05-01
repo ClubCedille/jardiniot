@@ -7,11 +7,12 @@
 Controller::Controller(){
 }
 
-Controller::Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin){
+Controller::Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board){
     this->idController = idController;
     this->inputPin = inputPin;
     this->outputPin = outputPin;
     this->type = type;
+    this->GPIODevice = board;
 }
 
 
@@ -41,4 +42,10 @@ unsigned char Controller::getIdController(){
 
 ControllerType Controller::getControllerType(){
     return this->type;
+}
+
+void Controller::setStrategy( GPIOstrategy * newDevice)
+{
+    delete this->GPIODevice;
+    this->GPIODevice = newDevice;
 }
