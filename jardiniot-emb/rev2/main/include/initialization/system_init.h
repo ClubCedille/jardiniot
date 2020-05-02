@@ -7,7 +7,7 @@ extern "C"{
 
     #include "config.h"
 
-    void wifi_system_initialization();
+    void wifi_system_initialization(char SSID[32], char pw[64]);
 
 #ifdef __cplusplus
 }

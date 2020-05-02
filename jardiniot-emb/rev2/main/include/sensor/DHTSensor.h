@@ -1,7 +1,7 @@
 #ifndef DHTSensor_H
 #define DHTSensor_H
 
-#include "SensorStrategy.h"
+#include "SensorStrategy.hpp"
 #include <string.h>
 #include <stdlib.h> /* strtoul */
 

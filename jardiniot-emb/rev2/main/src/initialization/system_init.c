@@ -50,7 +50,7 @@ static void event_handler(void* arg, esp_event_base_t event_base,
     }
 }
 
-void wifi_init_as_station()
+void wifi_init_as_station( char SSID[32], char pw[64])
 {
 
     s_wifi_event_group = xEventGroupCreate();
@@ -65,15 +65,12 @@ void wifi_init_as_station()
     ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &event_handler, NULL));
     ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &event_handler, NULL));
 
-    wifi_config_t wifi_config = {
-        .sta = {
-            .ssid = { ESP_WIFI_SSID },
-            .password = { ESP_WIFI_PASS }
-        },
-    };
+    wifi_config_t wifi_config;
+    strcpy((char *)wifi_config.sta.ssid,(char *)SSID);
+    strcpy((char *)wifi_config.sta.password,(char *)pw);
 
-    //strcpy(wifi_config.sta.ssid, ssid);
-    //strcpy(wifi_config.sta.password, passwd);
+    //strcpy(wifi_config.sta.ssid, (char *) SSID);
+    //strcpy(wifi_config.sta.password, (char *) pw);
 
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
     ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config) );
@@ -93,10 +90,10 @@ void wifi_init_as_station()
      * happened. */
     if (bits & WIFI_CONNECTED_BIT) {
         ESP_LOGI(TAG, "connected to ap SSID:%s password:%s",
-                 ESP_WIFI_SSID, ESP_WIFI_PASS);
+                 SSID, pw);
     } else if (bits & WIFI_FAIL_BIT) {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
-                 ESP_WIFI_SSID, ESP_WIFI_PASS);
+                 SSID, pw);
     } else {
         ESP_LOGE(TAG, "UNEXPECTED EVENT");
     }
@@ -108,7 +105,7 @@ void wifi_init_as_station()
 
 
 
-void wifi_system_initialization()
+void wifi_system_initialization( char SSID[32],  char pw[64])
 {
     //Initialize NVS
     esp_err_t ret = nvs_flash_init();
@@ -119,5 +116,5 @@ void wifi_system_initialization()
     ESP_ERROR_CHECK(ret);
 
     ESP_LOGI(TAG, "ESP_WIFI_MODE_STA");
-    wifi_init_as_station();
+    wifi_init_as_station(SSID, pw);
 }

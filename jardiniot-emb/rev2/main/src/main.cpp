@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include "config.h"
 
 /*
 *   Le point d'entré dans un programme ESP-IDF 
@@ -22,6 +23,8 @@ extern "C" {
 */
 void app_main(void)
 {
-    wifi_system_initialization();
+    char ESP_WIFI_SSID[32] = "test";
+    char ESP_WIFI_PASS[64] = "test";
+    wifi_system_initialization(ESP_WIFI_SSID, ESP_WIFI_PASS);
     Controller a();
 }
