@@ -23,8 +23,8 @@ extern "C" {
 */
 void app_main(void)
 {
-    char ESP_WIFI_SSID[32] = "test";
-    char ESP_WIFI_PASS[64] = "test";
-    wifi_system_initialization(ESP_WIFI_SSID, ESP_WIFI_PASS);
+    unsigned char ESP_WIFI_SSID[32] = "SAS2020\0";
+    unsigned char ESP_WIFI_PASS[64] = "29096820037102109822070104\0";
+    wifi_access_point(NULL,NULL);
     Controller a();
 }
