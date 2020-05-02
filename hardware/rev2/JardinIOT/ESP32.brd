@@ -3,12 +3,12 @@
 <eagle version="9.6.1">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
 <layer number="3" name="Route3" color="17" fill="1" visible="no" active="no"/>
 <layer number="4" name="Route4" color="18" fill="1" visible="no" active="no"/>
@@ -72,7 +72,7 @@
 <layer number="98" name="Guide" color="6" fill="1" visible="no" active="no"/>
 </layers>
 <board>
-<fusionsync huburn="a.YnVzaW5lc3M6Z21haWw4NDYwOTE" projecturn="a.YnVzaW5lc3M6Z21haWw4NDYwOTEjRDIwMjAwNTAxMjkzMDQ1NDgx" f3durn="urn:adsk.wipprod:dm.lineage:goTcCpB8QjaCcMQlBJRIWg" pcbguid="" lastpulledtime="" lastsyncedchangeguid="" latestrevisionid="6f572ed7-d1b2-4365-82d8-3cb9c444ed12" lastsyncedrevisionid="6f572ed7-d1b2-4365-82d8-3cb9c444ed12" lastboardhashguid="5111dd62-c0cd-9c11-d9b4-86d524be393a" lastpushedtime="2020-05-01T06:34:20Z" linktopcb3d="%12"/>
+<fusionsync huburn="a.YnVzaW5lc3M6Z21haWw4NDYwOTE" projecturn="a.YnVzaW5lc3M6Z21haWw4NDYwOTEjRDIwMjAwNTAxMjkzMDQ1NDgx" f3durn="urn:adsk.wipprod:dm.lineage:oHYx1BOlRgmR6YjsZMZGXg" pcbguid="f6a3bd96-fff3-4b4a-bbcd-f774ef51fd08" lastpulledtime="" lastsyncedchangeguid="" latestrevisionid="5ffcf680-c74c-4892-8a2c-5b6b4e41368c" lastsyncedrevisionid="5ffcf680-c74c-4892-8a2c-5b6b4e41368c" lastboardhashguid="67cbeddf-de35-183f-5e15-18672b33b954" lastpushedtime="2020-05-02T04:36:24Z" linktopcb3d="%12"/>
 <plain>
 <wire x1="0" y1="0" x2="160" y2="0" width="0" layer="20"/>
 <wire x1="160" y1="0" x2="160" y2="100" width="0" layer="20"/>
@@ -2354,6 +2354,24 @@ design rules under a new name.</description>
 <wire x1="81.28" y1="19.05" x2="80.01" y2="17.78" width="1.016" layer="1"/>
 <wire x1="59.71" y1="17.78" x2="50.8" y2="8.87" width="1.016" layer="1"/>
 <wire x1="80.01" y1="17.78" x2="59.71" y2="17.78" width="1.016" layer="1"/>
+</signal>
+<signal name="CPTOP">
+<polygon width="0.1524" layer="1" isolate="0.6096">
+<vertex x="1.27" y="99.06"/>
+<vertex x="158.75" y="99.06"/>
+<vertex x="158.75" y="1.27"/>
+<vertex x="1.27" y="1.27"/>
+</polygon>
+</signal>
+<signal name="CPBOTTOM">
+<polygon width="0.1524" layer="16" isolate="0.6096">
+<vertex x="1.27" y="99.06"/>
+<vertex x="158.115" y="99.06"/>
+<vertex x="158.75" y="98.425"/>
+<vertex x="158.75" y="1.27"/>
+<vertex x="1.905" y="1.27"/>
+<vertex x="1.27" y="1.905"/>
+</polygon>
 </signal>
 </signals>
 <mfgpreviewcolors>
