@@ -76,9 +76,6 @@ void wifi_init_as_station( unsigned char SSID[32], unsigned char pw[64])
     strcpy((char *)wifi_config.sta.ssid,(char *)SSID);
     strcpy((char *)wifi_config.sta.password,(char *)pw);
 
-    //strcpy(wifi_config.sta.ssid, (char *) SSID);
-    //strcpy(wifi_config.sta.password, (char *) pw);
-
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA) );
     ESP_ERROR_CHECK(esp_wifi_set_config(ESP_IF_WIFI_STA, &wifi_config) );
     ESP_ERROR_CHECK(esp_wifi_start() );
@@ -176,7 +173,7 @@ void wifi_init_softap(void)
              EXAMPLE_ESP_WIFI_SSID, EXAMPLE_ESP_WIFI_PASS);
 }
 
-void wifi_access_point(unsigned char SSID[32], unsigned char pw[64])
+void wifi_access_point()
 {
     //Initialize NVS
     esp_err_t ret = nvs_flash_init();
@@ -189,6 +186,10 @@ void wifi_access_point(unsigned char SSID[32], unsigned char pw[64])
     ESP_LOGI( TAG2, "ESP_WIFI_MODE_AP");
     wifi_init_softap();
 
+}
+
+void configureIP(unsigned char SSID[32], unsigned char pw[64])
+{
     #define PORT 80
     int new_socket, valread;
     struct sockaddr_in address; 
@@ -217,5 +218,4 @@ void wifi_access_point(unsigned char SSID[32], unsigned char pw[64])
     printf(buffer); 
     send(new_socket , hello , strlen(hello) , 0 ); 
     printf("<h1>Hello message sent</h1>");
-
 }

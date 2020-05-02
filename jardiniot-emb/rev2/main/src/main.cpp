@@ -25,6 +25,10 @@ void app_main(void)
 {
     unsigned char ESP_WIFI_SSID[32] = "SAS2020\0";
     unsigned char ESP_WIFI_PASS[64] = "29096820037102109822070104\0";
-    wifi_access_point(NULL,NULL);
+    wifi_access_point();
+
+    
+    void configureIP();
+
     Controller a();
 }
