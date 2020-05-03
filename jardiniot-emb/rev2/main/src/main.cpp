@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "config.h"
+#include "webConf.hpp"
 
 /*
 *   Le point d'entré dans un programme ESP-IDF 
@@ -16,19 +17,17 @@ extern "C" {
 	void app_main(void);
 }
 
-
-
 /*
 *   Point d'entré d'un logiciel ESP-IDF
 */
 void app_main(void)
 {
-    unsigned char ESP_WIFI_SSID[32] = "SAS2020\0";
-    unsigned char ESP_WIFI_PASS[64] = "29096820037102109822070104\0";
     wifi_access_point();
+    webConf * conf = new webConf();
 
-    
-    void configureIP();
+    conf->configure(80);
+
+    wifi_station((char *)conf->getSSID().c_str(), (char *)conf->getWifiPw().c_str());
 
     Controller a();
 }

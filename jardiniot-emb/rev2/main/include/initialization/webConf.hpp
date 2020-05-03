@@ -1,3 +1,6 @@
+#ifndef WEBCONF_HPP
+#define WEBCONF_HPP
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -40,3 +43,5 @@ class webConf
         std::string  mqttCredentials;
 
 };
+
+#endif

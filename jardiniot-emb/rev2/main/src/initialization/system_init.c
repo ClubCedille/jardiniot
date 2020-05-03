@@ -57,14 +57,18 @@ static void event_handler_sta(void* arg, esp_event_base_t event_base,
     }
 }
 
-void wifi_init_as_station( unsigned char SSID[32], unsigned char pw[64])
+void wifi_init_as_station( char * SSID,  char * pw)
 {
+    //Shutdown the accespoint interface and make space for the station mode
+    ESP_ERROR_CHECK(esp_wifi_deauth_sta(0));
+    ESP_ERROR_CHECK(esp_wifi_stop());
+    ESP_ERROR_CHECK(esp_wifi_deinit());
+
 
     s_wifi_event_group = xEventGroupCreate();
-
     tcpip_adapter_init();
 
-    ESP_ERROR_CHECK(esp_event_loop_create_default());
+    //ESP_ERROR_CHECK(esp_event_loop_create_default());
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
@@ -107,7 +111,7 @@ void wifi_init_as_station( unsigned char SSID[32], unsigned char pw[64])
     vEventGroupDelete(s_wifi_event_group);
 }
 
-void wifi_station( unsigned char SSID[32], unsigned char pw[64])
+void wifi_station( char * SSID,  char * pw)
 {
     //Initialize NVS
     esp_err_t ret = nvs_flash_init();
@@ -187,7 +191,7 @@ void wifi_access_point()
     wifi_init_softap();
 
 }
-
+/*
 void configureIP(unsigned char SSID[32], unsigned char pw[64])
 {
     #define PORT 80
@@ -218,4 +222,4 @@ void configureIP(unsigned char SSID[32], unsigned char pw[64])
     printf(buffer); 
     send(new_socket , hello , strlen(hello) , 0 ); 
     printf("<h1>Hello message sent</h1>");
-}
+}*/
