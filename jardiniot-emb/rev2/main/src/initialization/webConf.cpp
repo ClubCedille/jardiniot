@@ -109,13 +109,10 @@ bool webConf::configure(int portNum)
     #if module_debug
     std::cout <<staticPage;
     #endif
-
-    
     
     //Envoyer le formulaire
     send(incomingConnection, staticPage.c_str(), staticPage.length(), 0);
 
-    
 
     //Si une deuxieme connection arrive
     if ((incomingConnection = accept(socketFileDesc, (struct sockaddr *)&address,  

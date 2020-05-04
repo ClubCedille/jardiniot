@@ -2,6 +2,7 @@
 #define GPIOSTRATEGY_H
 
 #include <iostream>
+#include <functional>
 class GPIOstrategy
 {
     public:
@@ -11,6 +12,7 @@ class GPIOstrategy
         virtual int read_analog(int gpio) = 0;
         virtual bool write(int gpio, bool state) = 0;
         virtual bool write_analog(int gpio, int state) = 0;
+        virtual bool attach_interrupt(int gpio, std::function<void(void)>) = 0;
 };
 
 #endif
