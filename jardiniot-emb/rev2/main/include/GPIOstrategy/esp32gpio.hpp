@@ -12,15 +12,23 @@
 //  utilisé comme capteurs
 enum capteurs
 {
-
-}
+    CAPTEUR1 = 33,
+    CAPTEUR2 = 32,
+    CAPTEUR3 = 35,
+    CAPTEUR4 = 34,
+    BOUTON1 = 15,
+    BOUTON2 = 2,
+};
 
 //Enum contenant les numéros de broches des GPIO reliés aux borniers à vis 
 //  utilisé comme sortie
 enum actionneurs
 {
-
-}
+    ACTIONNEUR1 = 4,
+    ACTIONNEUR2 = 16,
+    ACTIONNEUR3 = 17,
+    ACTIONNEUR4 = 5,
+};
 
 class esp32gpio: GPIOstrategy
 {
