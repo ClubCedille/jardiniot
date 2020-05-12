@@ -13,6 +13,9 @@ class GPIOstrategy
         virtual bool write(int gpio, bool state) = 0;
         virtual bool write_analog(int gpio, int state) = 0;
         virtual bool attach_interrupt(int gpio, std::function<void(void)>) = 0;
+    
+    private:
+    
 };
 
 #endif
