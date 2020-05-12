@@ -17,9 +17,9 @@ jobs:
       - run: pipenv install
       - run: pip install paho-mqtt flask
 
-      - command: |
-        bash ./setup.sh
-        bash ./run.sh
+        command: |
+          bash ./setup.sh
+          bash ./run.sh
 
 workflows:
   main:
