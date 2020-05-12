@@ -190,7 +190,7 @@ bool webConf::configure(int portNum)
     return true;
 }
 
-std::vector<std::string> webConf::parseGetRequest(std::string * getRequest)
+std::vector<std::string> webConf::parseGetRequest(std::string *getRequest)
 {
     std::vector<std::string> ret;
 

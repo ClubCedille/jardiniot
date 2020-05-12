@@ -18,7 +18,7 @@
 #include "ActuatorStrategy.hpp"
 #include "GPIOstrategy.hpp"
 //<<constructor>>
-ActuatorStrategy::ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board): Controller(idController, type, inputPin, outputPin, board){
+ActuatorStrategy::ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy *board): Controller(idController, type, inputPin, outputPin, board){
 }
 
 ActuatorStrategy::ActuatorStrategy(){

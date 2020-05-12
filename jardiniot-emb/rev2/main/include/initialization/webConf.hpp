@@ -41,7 +41,7 @@ class webConf
         ~webConf();
         
     private:
-        std::vector<std::string> parseGetRequest(std::string * getRequest);
+        std::vector<std::string> parseGetRequest(std::string *getRequest);
 
 
         int portNumber;
@@ -52,7 +52,7 @@ class webConf
         std::string  newConnectionSSID;
         std::string  newConnectionPW;
 
-        std::string * rawGetRequest;
+        std::string *rawGetRequest;
 
         //Todo later
         std::string  mqttIp;

@@ -38,7 +38,7 @@ extern "C" {
 void app_main(void)
 {
     wifi_access_point();
-    webConf * conf = new webConf();
+    webConf *conf = new webConf();
 
     conf->configure(80);
 

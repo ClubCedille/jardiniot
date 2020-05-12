@@ -30,7 +30,7 @@ class Controller {
 private:
     unsigned char idController;
     ControllerType type;
-    GPIOstrategy * GPIODevice = nullptr;
+    GPIOstrategy *GPIODevice = nullptr;
 protected:
     // Utilisation de short (16 bit) pour obtenir le pin ainsi que la valeur
     // Pin sur les 8 derniers bits
@@ -43,7 +43,7 @@ public:
     virtual ~Controller();
     std::string getName();
 
-    void setStrategy( GPIOstrategy * newDevice);
+    void setStrategy( GPIOstrategy *newDevice);
 
     virtual unsigned char getIdController();
     virtual ControllerType getControllerType();

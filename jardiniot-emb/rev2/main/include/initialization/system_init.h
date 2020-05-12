@@ -26,7 +26,7 @@ extern "C"{
 
     //Fonctionn utilisé en deuxieme lieu pour connecter le ESP32 en client wifi
     // en utilisant les crédentiels obtenus avec wifi_access_point
-    void wifi_station(char * SSID, char * pw);
+    void wifi_station(char *SSID, char *pw);
 
 #ifdef __cplusplus
 }
