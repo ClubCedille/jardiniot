@@ -16,15 +16,11 @@ jobs:
       - python/install-deps
       - python/save-cache
 
-      - run:
-          command:
-            sudo pip install pipenv
-            pipenv install
-
-          command: pip install paho-mqtt flask
-
-          command: bash ./setup.sh
-          command: bash ./run.sh
+      - run: sudo pip install pipenv
+      - run: pipenv install
+      - run: pip install paho-mqtt flask
+      - run: bash ./setup.sh
+      - run: bash ./run.sh
 
 workflows:
   main:
