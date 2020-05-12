@@ -1,0 +1,31 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build:
+    working_directory: ~/project/serveur-web/api-v2
+
+    - image: circleci/python:
+
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+
+      - run:
+          command:
+            sudo pip install pipenv
+            pipenv install
+
+          command: pip install paho-mqtt flask
+
+          command: bash ./setup.sh
+          command: bash ./run.sh
+
+workflows:
+  main:
+    jobs:
+      - build
