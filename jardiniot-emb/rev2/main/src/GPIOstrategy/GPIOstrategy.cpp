@@ -14,4 +14,3 @@
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "GPIOstrategy.hpp"
-

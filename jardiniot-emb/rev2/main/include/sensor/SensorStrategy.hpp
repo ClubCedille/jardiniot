@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -18,33 +18,36 @@
 #ifndef SensorStrategy_H
 #define SensorStrategy_H
 
-#include <vector>
 #include <iostream>
+#include <vector>
 
-#include "JardinCommand.h"
 #include "Controller.h"
 #include "ControllerType.h"
 #include "GPIOstrategy.hpp"
+#include "JardinCommand.h"
 
 /**
     Définit le comportement de base pour les senseurs
 */
-class SensorStrategy: public Controller {
+class SensorStrategy : public Controller {
 protected:
-    short delayTime;
+  short delayTime;
+
 public:
-    virtual std::string read();
-    virtual int write();
-    virtual std::string toString();
-    virtual void setInput(std::vector<short> inputPin);
+  virtual std::string read( );
+  virtual int write( );
+  virtual std::string toString( );
+  virtual void setInput( std::vector<short> inputPin );
 
-    // constructor
-    SensorStrategy();
-    SensorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board);
-    virtual ~SensorStrategy();
+  // constructor
+  SensorStrategy( );
+  SensorStrategy( unsigned char idController, ControllerType type,
+                  std::vector<short> inputPin, std::vector<short> outputPin,
+                  GPIOstrategy *board );
+  virtual ~SensorStrategy( );
 
-    void setDelayTime(short delayTime);
-    void modify(JardinCommand &jCommand);
+  void setDelayTime( short delayTime );
+  void modify( JardinCommand &jCommand );
 };
 
 #endif

@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2020   Vincent Perrier
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -18,46 +18,42 @@
 #define WEBCONF_HPP
 
 #include <iostream>
+#include <netinet/in.h>
 #include <string>
-#include <vector>
 #include <sys/socket.h>
-#include <netinet/in.h> 
+#include <vector>
 
 // Cette classe obtient les informations pour la connection wifi
 // par le biais d'un serveur web simple threadé qui héberge un simple formulaire
 
-class webConf
-{
-    public:
-        bool configure(int portNum);
+class webConf {
+public:
+  bool configure( int portNum );
 
-        std::string getSSID();
-        std::string getWifiPw();
+  std::string getSSID( );
+  std::string getWifiPw( );
 
-        std::string getMQTTUrl();
-        std::string getMQTT();
+  std::string getMQTTUrl( );
+  std::string getMQTT( );
 
-        webConf();
-        ~webConf();
-        
-    private:
-        std::vector<std::string> parseGetRequest(std::string *getRequest);
+  webConf( );
+  ~webConf( );
 
+private:
+  std::vector<std::string> parseGetRequest( std::string *getRequest );
 
-        int portNumber;
-        struct sockaddr_in address;
+  int portNumber;
+  struct sockaddr_in address;
 
+  std::vector<std::string> listeArguments;
+  std::string newConnectionSSID;
+  std::string newConnectionPW;
 
-        std::vector<std::string> listeArguments;
-        std::string  newConnectionSSID;
-        std::string  newConnectionPW;
+  std::string *rawGetRequest;
 
-        std::string *rawGetRequest;
-
-        //Todo later
-        std::string  mqttIp;
-        std::string  mqttCredentials;
-
+  // Todo later
+  std::string mqttIp;
+  std::string mqttCredentials;
 };
 
 #endif

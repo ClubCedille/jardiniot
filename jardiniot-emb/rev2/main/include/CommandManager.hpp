@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -17,25 +17,22 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#include "ActuatorStrategy.hpp"
+#include "SensorStrategy.hpp"
 #include <iostream>
 #include <vector>
-#include "SensorStrategy.hpp"
-#include "ActuatorStrategy.hpp"
 
-class CommandManager
-{
-    public:
-        CommandManager();
-        ~CommandManager();
+class CommandManager {
+public:
+  CommandManager( );
+  ~CommandManager( );
 
-        std::string executeCommand();
+  std::string executeCommand( );
 
-        std::vector<SensorStrategy> getSensorList();
-        std::vector<ActuatorStrategy> getActuatorList();
+  std::vector<SensorStrategy> getSensorList( );
+  std::vector<ActuatorStrategy> getActuatorList( );
 
-    private:
-
+private:
 };
-
 
 #endif

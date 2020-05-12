@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -15,35 +15,38 @@
 // You should have received a copy of the GNU General Public License
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef MotorStrategy_H
 #define MotorStrategy_H
 
 #include <iostream>
 
 #include "Controller.h"
-#include "JardinCommand.h"
 #include "GPIOstrategy.hpp"
+#include "JardinCommand.h"
 
 /**
     Définit le comportement de base pour les moteurs
 */
-class ActuatorStrategy: public Controller {
+class ActuatorStrategy : public Controller {
 protected:
-    short delayTime;
+  short delayTime;
+
 public:
-    virtual short activate();
-    virtual short stop();
+  virtual short activate( );
+  virtual short stop( );
 
-    // constructor
-    ActuatorStrategy();
-    ActuatorStrategy(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board);
-    ActuatorStrategy(unsigned char idController, ControllerType type, short output, short input, GPIOstrategy * board);
-    virtual ~ActuatorStrategy();
+  // constructor
+  ActuatorStrategy( );
+  ActuatorStrategy( unsigned char idController, ControllerType type,
+                    std::vector<short> inputPin, std::vector<short> outputPin,
+                    GPIOstrategy *board );
+  ActuatorStrategy( unsigned char idController, ControllerType type,
+                    short output, short input, GPIOstrategy *board );
+  virtual ~ActuatorStrategy( );
 
-    void setDelayTime(short delayTime);
-    void modify(JardinCommand &jCommand);
-    virtual void setInput(std::vector<short> input);
+  void setDelayTime( short delayTime );
+  void modify( JardinCommand &jCommand );
+  virtual void setInput( std::vector<short> input );
 };
 
 #endif
