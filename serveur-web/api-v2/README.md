@@ -8,7 +8,7 @@ Pour lancer l'API, il faut commencer par installer l'environnement de développe
 bash setup.sh
 ```
 
-Ensuite, tu peux simplement lancer l'application avec run.sh
+Ensuite, on peut simplement lancer l'application avec run.sh
 
 ```
 bash run.sh
@@ -16,7 +16,7 @@ bash run.sh
 
 ## Tests
 
-Pour rouller les tests :
+Pour rouler les tests :
 
 ```
 source env/bin/activate
