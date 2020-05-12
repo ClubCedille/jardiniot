@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -17,36 +17,40 @@
 #ifndef Controller_H
 #define Controller_H
 
-#include <string>
-#include <vector>
 #include "ControllerType.h"
 #include "GPIOstrategy/GPIOstrategy.hpp"
 #include "GPIOstrategy/dummy.hpp"
+#include <string>
+#include <vector>
 
 /**
     Représente un controller de n'importe quel type
 */
 class Controller {
 private:
-    unsigned char idController;
-    ControllerType type;
-    GPIOstrategy *GPIODevice = nullptr;
+  unsigned char idController;
+  ControllerType type;
+  GPIOstrategy *GPIODevice = nullptr;
+
 protected:
-    // Utilisation de short (16 bit) pour obtenir le pin ainsi que la valeur
-    // Pin sur les 8 derniers bits
-    // Valeur sur les 8 premiers
-    std::vector<short> outputPin;
-    std::vector<short> inputPin;
+  // Utilisation de short (16 bit) pour obtenir le pin ainsi que la valeur
+  // Pin sur les 8 derniers bits
+  // Valeur sur les 8 premiers
+  std::vector<short> outputPin;
+  std::vector<short> inputPin;
+
 public:
-    Controller();
-    Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy * board);
-    virtual ~Controller();
-    std::string getName();
+  Controller( );
+  Controller( unsigned char idController, ControllerType type,
+              std::vector<short> inputPin, std::vector<short> outputPin,
+              GPIOstrategy *board );
+  virtual ~Controller( );
+  std::string getName( );
 
-    void setStrategy( GPIOstrategy *newDevice);
+  void setStrategy( GPIOstrategy *newDevice );
 
-    virtual unsigned char getIdController();
-    virtual ControllerType getControllerType();
+  virtual unsigned char getIdController( );
+  virtual ControllerType getControllerType( );
 };
 
 #endif

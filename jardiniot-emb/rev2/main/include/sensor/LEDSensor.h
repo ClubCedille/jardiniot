@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -22,21 +22,23 @@
 #include <Arduino.h>
 #include <string.h>
 
-class LEDSensor: public SensorStrategy {
+class LEDSensor : public SensorStrategy {
 private:
-    byte ledPin;
+  byte ledPin;
+
 public:
-    LEDSensor(byte idController, std::vector<short> input, std::vector<short> output, short delay);
-    ~LEDSensor();
+  LEDSensor( byte idController, std::vector<short> input,
+             std::vector<short> output, short delay );
+  ~LEDSensor( );
 
-    String read();
-    int write();
+  String read( );
+  int write( );
 
-    void on();
-    void off();
-    void blink();
+  void on( );
+  void off( );
+  void blink( );
 
-    String toString();
+  String toString( );
 };
 
 #endif

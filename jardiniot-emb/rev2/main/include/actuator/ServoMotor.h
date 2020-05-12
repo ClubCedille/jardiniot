@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -15,31 +15,31 @@
 // You should have received a copy of the GNU General Public License
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef ServoMotor_H
 #define ServoMotor_H
 
 #include "ActuatorStrategy.h"
 #include <string>
 
-class ServoMotor: public ActuatorStrategy {
+class ServoMotor : public ActuatorStrategy {
 private:
-    unsigned char servoPin;
-    //Servo servo;
-    short delayTime = 1000;
+  unsigned char servoPin;
+  // Servo servo;
+  short delayTime = 1000;
+
 public:
-    // constructor
-    ServoMotor();
-    ServoMotor(unsigned char idController, unsigned char pin);
-    ~ServoMotor();
+  // constructor
+  ServoMotor( );
+  ServoMotor( unsigned char idController, unsigned char pin );
+  ~ServoMotor( );
 
-    void reset();
+  void reset( );
 
-    // Méthode hérité de la classe MotorStrategy
-    short activate();
-    short stop();
+  // Méthode hérité de la classe MotorStrategy
+  short activate( );
+  short stop( );
 
-    bool isAttached();
+  bool isAttached( );
 };
 
 #endif

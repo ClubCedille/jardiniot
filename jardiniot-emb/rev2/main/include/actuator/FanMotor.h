@@ -1,4 +1,4 @@
-  
+
 // Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
@@ -15,30 +15,31 @@
 // You should have received a copy of the GNU General Public License
 // along with JardinIoT.  If not, see <http://www.gnu.org/licenses/>.
 
-
 #ifndef FanMotor_H
 #define FanMotor_H
 
 #include "ActuatorStrategy.h"
 #include <string>
 
-class FanMotor: public ActuatorStrategy {
+class FanMotor : public ActuatorStrategy {
 private:
-    unsigned char fanPin;
-    unsigned char fanSpeed;
+  unsigned char fanPin;
+  unsigned char fanSpeed;
+
 public:
-    // constructor
-    FanMotor();
-    FanMotor(unsigned char idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
-    ~FanMotor();
+  // constructor
+  FanMotor( );
+  FanMotor( unsigned char idController, std::vector<short> inputPins,
+            std::vector<short> outputPins, short delay );
+  ~FanMotor( );
 
-    void reset();
+  void reset( );
 
-    // Méthode hérité de la classe MotorStrategy
-    short activate();
-    short stop();
+  // Méthode hérité de la classe MotorStrategy
+  short activate( );
+  short stop( );
 
-    void setInput(std::vector<short> inputPins);
+  void setInput( std::vector<short> inputPins );
 };
 
 #endif
