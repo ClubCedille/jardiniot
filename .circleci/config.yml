@@ -7,7 +7,7 @@ jobs:
   build:
     working_directory: ~/project/serveur-web/api-v2
 
-    - image: circleci/python:
+      - image: circleci/python:3.7
 
     steps:
       - checkout
