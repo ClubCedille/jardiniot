@@ -22,8 +22,8 @@ if command -v pipenv >/dev/null 2>&1 ; then
 	cd -
 elif command -v virtualenv >/dev/null 2>&1 ; then
 	echo "Pipenv indisponible, utilisation de virtualenv"
-	virtualenv -p python3 env
-	source env/bin/activate
+#	virtualenv -p python3 env
+#	source env/bin/activate
 	pip install -r requirements.txt
 	cd database
 	python migration.py
