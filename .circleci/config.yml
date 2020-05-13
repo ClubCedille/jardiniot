@@ -14,7 +14,7 @@ jobs:
       - checkout
 
       - run: sudo pip install pipenv
-      - run: pipenv install
+#      - run: pipenv install
       - run: pip install paho-mqtt flask flask-api flask-cors
 
       - run:
