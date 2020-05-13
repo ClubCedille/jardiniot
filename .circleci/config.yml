@@ -27,8 +27,9 @@ jobs:
       - run:
           name: Run tests
           working_directory: serveur-web/api-v2
+          # notice the race condition here (sleep)
           command: |
-            sleep 10
+            sleep 15
             python app_tests.py
 
 workflows:
