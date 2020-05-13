@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build:
+  build-and-test:
     working_directory: ~/project
 
     docker:
@@ -21,12 +21,15 @@ jobs:
           name: Run Bash scripts
           working_directory: serveur-web/api-v2
           command: |
-            pwd
-            ls
             bash ./setup.sh
             bash ./run.sh
+
+      - run:
+          name: Run tests
+          working_directory: serveur-web/api-v2
+          command: python app_tests.py
 
 workflows:
   main:
     jobs:
-      - build
+      - build-and-test
