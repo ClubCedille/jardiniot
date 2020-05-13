@@ -22,13 +22,6 @@ jobs:
           working_directory: serveur-web/api-v2
           command: |
             bash ./setup.sh
-            bash ./run.sh &
-
-      - run:
-          name: Run tests
-          working_directory: serveur-web/api-v2
-          command: |
-            sudo bash ./wait4server.sh
             python app_tests.py
 
 workflows:
