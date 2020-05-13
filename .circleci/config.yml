@@ -19,11 +19,8 @@ jobs:
 
       - run:
           name: Setup database
-          working_directory: serveur-web/api-v2
-          command: |
-            bash cd database
-            python migration.py
-            bash cd -
+          working_directory: serveur-web/api-v2/database
+          command: python migration.py
 
       - run:
           name: Run tests
