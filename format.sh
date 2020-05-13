@@ -1,13 +1,2 @@
 #!/bin/bash
-
-
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*.cpp
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*.c 
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*.hpp
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*.h
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*/*.cpp
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*/*.c 
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*/*.hpp
-clang-format -i -style=file jardiniot-emb/rev2/main/*/*/*.h
-  
-    
+find jardiniot-emb/rev2/main -regex '.*\.\(cpp\|hpp\|cc\|cxx\)' -exec clang-format -style=file -i {} \;
