@@ -1,0 +1,29 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.3.0
+
+jobs:
+  test:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+
+      - run: pip install paho-mqtt flask flask-api flask-cors
+
+      - run:
+          name: Setup database
+          working_directory: serveur-web/api-v2/database
+          command: python migration.py
+
+      - run:
+          name: Run tests
+          working_directory: serveur-web/api-v2
+          command:  python app_tests.py
+
+workflows:
+  main:
+    jobs:
+      - test
