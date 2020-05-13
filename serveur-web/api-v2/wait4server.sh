@@ -5,6 +5,12 @@ do
 	echo "waiting for server to start"
 	echo $(curl -s -I http://127.0.0.1:5000/buckets | head -n 1 | cut -d$' ' -f2)
 	echo $(curl -s -I http://127.0.0.1:5050/buckets | head -n 1 | cut -d$' ' -f2)
-	echo $(curl -s -I http://127.0.0.1:5000/buckets)
+	echo $(curl -I http://127.0.0.1:5000/buckets)
+	echo $(curl -I http://127.0.0.1:5000/buckets)
+	echo "==============="
+	curl -I http://127.0.0.1:5000/buckets
+	curl -I http://127.0.0.1:5000/buckets
+	echo "==============="
+	ip a
 	sleep 1
 done
