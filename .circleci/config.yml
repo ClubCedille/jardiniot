@@ -18,7 +18,11 @@ jobs:
       - run: pip install paho-mqtt flask
 
       - run:
+          name: Run Bash scripts
+          working_directory: serveur-web/api-v2
           command: |
+            pwd
+            ls
             bash ./setup.sh
             bash ./run.sh
 
