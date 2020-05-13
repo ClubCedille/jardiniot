@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/project/serveur-web/api-v2
+    working_directory: serveur-web/api-v2
 
     docker:
       - image: circleci/python:3.7
@@ -15,11 +15,10 @@ jobs:
 
       - run: sudo pip install pipenv
       - run: pipenv install
-      - run: pip install paho-mqtt flask flask-api
+      - run: pip install paho-mqtt flask flask-api flask-cors
 
       - run:
           name: Run Bash scripts
-          working_directory: serveur-web/api-v2
           command: |
             pwd
             ls
