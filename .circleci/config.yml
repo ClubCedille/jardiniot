@@ -5,7 +5,7 @@ orbs:
 
 jobs:
   build:
-    working_directory: serveur-web/api-v2
+    working_directory: ~/project/serveur-web/api-v2
 
     docker:
       - image: circleci/python:3.7
