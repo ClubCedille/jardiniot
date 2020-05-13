@@ -18,9 +18,12 @@ jobs:
       - run: pip install paho-mqtt flask flask-api flask-cors
 
       - run:
-          name: Run Bash script for setup
+          name: Setup database
           working_directory: serveur-web/api-v2
-          command: bash ./setup.sh
+          command: |
+            bash cd database
+            python migration.py
+            bash cd -
 
       - run:
           name: Run tests
