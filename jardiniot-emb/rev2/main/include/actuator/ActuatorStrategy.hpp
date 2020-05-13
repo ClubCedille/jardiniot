@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -28,25 +27,25 @@
     Définit le comportement de base pour les moteurs
 */
 class ActuatorStrategy : public Controller {
-protected:
-  short delayTime;
+  protected:
+    short delayTime;
 
-public:
-  virtual short activate( );
-  virtual short stop( );
+  public:
+    virtual short activate( );
+    virtual short stop( );
 
-  // constructor
-  ActuatorStrategy( );
-  ActuatorStrategy( unsigned char idController, ControllerType type,
-                    std::vector<short> inputPin, std::vector<short> outputPin,
-                    GPIOstrategy *board );
-  ActuatorStrategy( unsigned char idController, ControllerType type,
-                    short output, short input, GPIOstrategy *board );
-  virtual ~ActuatorStrategy( );
+    // constructor
+    ActuatorStrategy( );
+    ActuatorStrategy( unsigned char idController, ControllerType type,
+                      std::vector<short> inputPin, std::vector<short> outputPin,
+                      GPIOstrategy *board );
+    ActuatorStrategy( unsigned char idController, ControllerType type,
+                      short output, short input, GPIOstrategy *board );
+    virtual ~ActuatorStrategy( );
 
-  void setDelayTime( short delayTime );
-  void modify( JardinCommand &jCommand );
-  virtual void setInput( std::vector<short> input );
+    void setDelayTime( short delayTime );
+    void modify( JardinCommand &jCommand );
+    virtual void setInput( std::vector<short> input );
 };
 
 #endif

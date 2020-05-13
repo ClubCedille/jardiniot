@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -23,16 +22,16 @@
 #include <vector>
 
 class CommandManager {
-public:
-  CommandManager( );
-  ~CommandManager( );
+  public:
+    CommandManager( );
+    ~CommandManager( );
 
-  std::string executeCommand( );
+    std::string executeCommand( );
 
-  std::vector<SensorStrategy> getSensorList( );
-  std::vector<ActuatorStrategy> getActuatorList( );
+    std::vector<SensorStrategy> getSensorList( );
+    std::vector<ActuatorStrategy> getActuatorList( );
 
-private:
+  private:
 };
 
 #endif

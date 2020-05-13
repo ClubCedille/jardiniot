@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -30,24 +29,24 @@
     Définit le comportement de base pour les senseurs
 */
 class SensorStrategy : public Controller {
-protected:
-  short delayTime;
+  protected:
+    short delayTime;
 
-public:
-  virtual std::string read( );
-  virtual int write( );
-  virtual std::string toString( );
-  virtual void setInput( std::vector<short> inputPin );
+  public:
+    virtual std::string read( );
+    virtual int write( );
+    virtual std::string toString( );
+    virtual void setInput( std::vector<short> inputPin );
 
-  // constructor
-  SensorStrategy( );
-  SensorStrategy( unsigned char idController, ControllerType type,
-                  std::vector<short> inputPin, std::vector<short> outputPin,
-                  GPIOstrategy *board );
-  virtual ~SensorStrategy( );
+    // constructor
+    SensorStrategy( );
+    SensorStrategy( unsigned char idController, ControllerType type,
+                    std::vector<short> inputPin, std::vector<short> outputPin,
+                    GPIOstrategy *board );
+    virtual ~SensorStrategy( );
 
-  void setDelayTime( short delayTime );
-  void modify( JardinCommand &jCommand );
+    void setDelayTime( short delayTime );
+    void modify( JardinCommand &jCommand );
 };
 
 #endif

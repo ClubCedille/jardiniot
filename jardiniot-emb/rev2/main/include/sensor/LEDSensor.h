@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -23,22 +22,22 @@
 #include <string.h>
 
 class LEDSensor : public SensorStrategy {
-private:
-  byte ledPin;
+  private:
+    byte ledPin;
 
-public:
-  LEDSensor( byte idController, std::vector<short> input,
-             std::vector<short> output, short delay );
-  ~LEDSensor( );
+  public:
+    LEDSensor( byte idController, std::vector<short> input,
+               std::vector<short> output, short delay );
+    ~LEDSensor( );
 
-  String read( );
-  int write( );
+    String read( );
+    int write( );
 
-  void on( );
-  void off( );
-  void blink( );
+    void on( );
+    void off( );
+    void blink( );
 
-  String toString( );
+    String toString( );
 };
 
 #endif

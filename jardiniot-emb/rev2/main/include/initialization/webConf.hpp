@@ -1,4 +1,3 @@
-
 // Copyright (C) 2020   Vincent Perrier
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -27,33 +26,33 @@
 // par le biais d'un serveur web simple threadé qui héberge un simple formulaire
 
 class webConf {
-public:
-  bool configure( int portNum );
+  public:
+    bool configure( int portNum );
 
-  std::string getSSID( );
-  std::string getWifiPw( );
+    std::string getSSID( );
+    std::string getWifiPw( );
 
-  std::string getMQTTUrl( );
-  std::string getMQTT( );
+    std::string getMQTTUrl( );
+    std::string getMQTT( );
 
-  webConf( );
-  ~webConf( );
+    webConf( );
+    ~webConf( );
 
-private:
-  std::vector<std::string> parseGetRequest( std::string *getRequest );
+  private:
+    std::vector<std::string> parseGetRequest( std::string *getRequest );
 
-  int portNumber;
-  struct sockaddr_in address;
+    int portNumber;
+    struct sockaddr_in address;
 
-  std::vector<std::string> listeArguments;
-  std::string newConnectionSSID;
-  std::string newConnectionPW;
+    std::vector<std::string> listeArguments;
+    std::string newConnectionSSID;
+    std::string newConnectionPW;
 
-  std::string *rawGetRequest;
+    std::string *rawGetRequest;
 
-  // Todo later
-  std::string mqttIp;
-  std::string mqttCredentials;
+    // Todo later
+    std::string mqttIp;
+    std::string mqttCredentials;
 };
 
 #endif

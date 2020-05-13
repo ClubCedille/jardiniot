@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -29,24 +28,24 @@ enum ControllerType { ADAFRUIT_DHT, LED, A_LED, SoilMoisture, FAN, VALVE };
 enum Type { Sensor, Motor, Both, UNDEF };
 
 class ControllerTypeValidator {
-public:
-  static bool validateCtrlType( int typeId ) {
-    if ( typeId >= 0 && typeId <= 5 ) {
-      return true;
+  public:
+    static bool validateCtrlType( int typeId ) {
+        if ( typeId >= 0 && typeId <= 5 ) {
+            return true;
+        }
+        return false;
     }
-    return false;
-  }
 
-  static Type getTypeFromController( ControllerType ctrType ) {
-    if ( ctrType == ADAFRUIT_DHT || ctrType == LED || ctrType == A_LED ||
-         ctrType == SoilMoisture ) {
-      return Sensor;
+    static Type getTypeFromController( ControllerType ctrType ) {
+        if ( ctrType == ADAFRUIT_DHT || ctrType == LED || ctrType == A_LED ||
+             ctrType == SoilMoisture ) {
+            return Sensor;
+        }
+        if ( ctrType == FAN || ctrType == VALVE ) {
+            return Motor;
+        }
+        return UNDEF;
     }
-    if ( ctrType == FAN || ctrType == VALVE ) {
-      return Motor;
-    }
-    return UNDEF;
-  }
 };
 
 #endif

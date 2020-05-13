@@ -8,5 +8,4 @@ Pour installer l'environment de dévelopement pour le contrôleur ESP32, il suff
 de suivre les [instructions sur le site web du manufacturier.
 ](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/)
 
-
 Par la suite, il suffit de rouler la commande idf.py build dans la racine du projet.

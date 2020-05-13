@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -27,22 +26,23 @@
     Permet de créer des sensor et des moteurs de tout genre
 */
 class ControllerFactory {
-private:
-public:
-  ControllerFactory( );
-  ~ControllerFactory( );
+  private:
+  public:
+    ControllerFactory( );
+    ~ControllerFactory( );
 
-  SensorStrategy *createSensor( unsigned char idController, ControllerType type,
-                                short delay, std::vector<short> inputPin,
-                                std::vector<short> outputPin );
-  ActuatorStrategy *createMotor( unsigned char idController,
-                                 ControllerType type, short delay,
-                                 std::vector<short> inputPin,
-                                 std::vector<short> outputPin );
-  Controller *createController( unsigned char idController,
-                                ControllerType ctrlType, short delay,
-                                std::vector<short> inputPin,
-                                std::vector<short> outputPin );
+    SensorStrategy *createSensor( unsigned char idController,
+                                  ControllerType type, short delay,
+                                  std::vector<short> inputPin,
+                                  std::vector<short> outputPin );
+    ActuatorStrategy *createMotor( unsigned char idController,
+                                   ControllerType type, short delay,
+                                   std::vector<short> inputPin,
+                                   std::vector<short> outputPin );
+    Controller *createController( unsigned char idController,
+                                  ControllerType ctrlType, short delay,
+                                  std::vector<short> inputPin,
+                                  std::vector<short> outputPin );
 };
 
 #endif

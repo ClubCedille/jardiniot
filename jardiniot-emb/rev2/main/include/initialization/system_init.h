@@ -1,4 +1,3 @@
-
 // Copyright (C) 2020   Vincent Perrier
 //
 // JardinIoT is free software: you can redistribute it and/or modify

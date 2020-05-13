@@ -1,5 +1,5 @@
 // Copyright (C) 2020      Vincent Perrier
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -25,42 +25,42 @@ Controller::Controller( ) {}
 Controller::Controller( unsigned char idController, ControllerType type,
                         std::vector<short> inputPin,
                         std::vector<short> outputPin, GPIOstrategy *board ) {
-  this->idController = idController;
-  this->inputPin = inputPin;
-  this->outputPin = outputPin;
-  this->type = type;
-  this->GPIODevice = board;
+    this->idController = idController;
+    this->inputPin = inputPin;
+    this->outputPin = outputPin;
+    this->type = type;
+    this->GPIODevice = board;
 }
 
 //<<destructor>>
 Controller::~Controller( ) {
-  this->inputPin.clear( );
-  this->outputPin.clear( );
+    this->inputPin.clear( );
+    this->outputPin.clear( );
 }
 
 std::string Controller::getName( ) {
-  std::string ctrlName;
-  switch ( this->type ) {
-  case ADAFRUIT_DHT:
-    ctrlName = "DHT";
-    break;
-  case LED:
-    ctrlName = "LED";
-    break;
-  case A_LED:
-    ctrlName = "A_LED";
-    break;
-  case SoilMoisture:
-    ctrlName = "SoilMoisture";
-    break;
-  case FAN:
-    ctrlName = "FAN";
-    break;
-  case VALVE:
-    ctrlName = "VALVE";
-    break;
-  }
-  return ctrlName;
+    std::string ctrlName;
+    switch ( this->type ) {
+    case ADAFRUIT_DHT:
+        ctrlName = "DHT";
+        break;
+    case LED:
+        ctrlName = "LED";
+        break;
+    case A_LED:
+        ctrlName = "A_LED";
+        break;
+    case SoilMoisture:
+        ctrlName = "SoilMoisture";
+        break;
+    case FAN:
+        ctrlName = "FAN";
+        break;
+    case VALVE:
+        ctrlName = "VALVE";
+        break;
+    }
+    return ctrlName;
 }
 
 unsigned char Controller::getIdController( ) { return this->idController; }
@@ -68,6 +68,6 @@ unsigned char Controller::getIdController( ) { return this->idController; }
 ControllerType Controller::getControllerType( ) { return this->type; }
 
 void Controller::setStrategy( GPIOstrategy *newDevice ) {
-  delete this->GPIODevice;
-  this->GPIODevice = newDevice;
+    delete this->GPIODevice;
+    this->GPIODevice = newDevice;
 }

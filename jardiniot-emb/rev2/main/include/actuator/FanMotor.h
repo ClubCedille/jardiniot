@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -22,24 +21,24 @@
 #include <string>
 
 class FanMotor : public ActuatorStrategy {
-private:
-  unsigned char fanPin;
-  unsigned char fanSpeed;
+  private:
+    unsigned char fanPin;
+    unsigned char fanSpeed;
 
-public:
-  // constructor
-  FanMotor( );
-  FanMotor( unsigned char idController, std::vector<short> inputPins,
-            std::vector<short> outputPins, short delay );
-  ~FanMotor( );
+  public:
+    // constructor
+    FanMotor( );
+    FanMotor( unsigned char idController, std::vector<short> inputPins,
+              std::vector<short> outputPins, short delay );
+    ~FanMotor( );
 
-  void reset( );
+    void reset( );
 
-  // Méthode hérité de la classe MotorStrategy
-  short activate( );
-  short stop( );
+    // Méthode hérité de la classe MotorStrategy
+    short activate( );
+    short stop( );
 
-  void setInput( std::vector<short> inputPins );
+    void setInput( std::vector<short> inputPins );
 };
 
 #endif

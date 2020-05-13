@@ -1,5 +1,5 @@
 // Copyright (C) 2020      Vincent Perrier
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -31,12 +31,12 @@ ActuatorStrategy::ActuatorStrategy( ) {}
 ActuatorStrategy::~ActuatorStrategy( ) {}
 
 void ActuatorStrategy::modify( JardinCommand &jCommand ) {
-  this->setInput( jCommand.getInputPin( ) );
-  this->delayTime = jCommand.getDelay( );
+    this->setInput( jCommand.getInputPin( ) );
+    this->delayTime = jCommand.getDelay( );
 }
 
 void ActuatorStrategy::setDelayTime( short delayTime ) {
-  this->delayTime = delayTime;
+    this->delayTime = delayTime;
 }
 
 short ActuatorStrategy::activate( ) { return 0; }
@@ -44,6 +44,6 @@ short ActuatorStrategy::activate( ) { return 0; }
 short ActuatorStrategy::stop( ) { return 0; }
 
 void ActuatorStrategy::setInput( std::vector<short> input ) {
-  this->inputPin.clear( );
-  this->inputPin = input;
+    this->inputPin.clear( );
+    this->inputPin = input;
 }

@@ -16,29 +16,32 @@
 #include "esp32gpio.hpp"
 #include "driver/gpio.h"
 
+#include "esp_event.h"
+#include "esp_log.h"
+#include "esp_system.h"
+#include "esp_wifi.h"
+
 #include <functional>
 #include <iostream>
 
 bool esp32gpio::initialize( ) {
-  // Reset the inputs
-  ESP_ERROR_CHECK( gpio_reset_pin( CAPTEUR1 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( CAPTEUR2 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( CAPTEUR3 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( CAPTEUR4 ) );
+    // Reset the inputs
+    gpio_reset_pin( (gpio_num_t) CAPTEUR1 );
+    gpio_reset_pin( (gpio_num_t) CAPTEUR2 );
+    gpio_reset_pin( (gpio_num_t) CAPTEUR3 );
+    gpio_reset_pin( (gpio_num_t) CAPTEUR4 );
 
-  // Reset the dedicated boutons
-  ESP_ERROR_CHECK( gpio_reset_pin( BOUTON1 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( BOUTON2 ) );
+    gpio_reset_pin( (gpio_num_t) BOUTON1 );
+    gpio_reset_pin( (gpio_num_t) BOUTON2 );
 
-  // Reset the dedicated outputs
-  ESP_ERROR_CHECK( gpio_reset_pin( ACTIONNEUR1 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( ACTIONNEUR2 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( ACTIONNEUR3 ) );
-  ESP_ERROR_CHECK( gpio_reset_pin( ACTIONNEUR4 ) );
+    gpio_reset_pin( (gpio_num_t) ACTIONNEUR1 );
+    gpio_reset_pin( (gpio_num_t) ACTIONNEUR2 );
+    gpio_reset_pin( (gpio_num_t) ACTIONNEUR3 );
+    gpio_reset_pin( (gpio_num_t) ACTIONNEUR4 );
 
-  // ESP_ERROR_CHECK(    gpio_set_pull_mode(CAPTEUR1), )   );
+    // ESP_ERROR_CHECK(    gpio_set_pull_mode(CAPTEUR1), )   );
 
-  return false;
+    return false;
 }
 
 bool esp32gpio::read( int gpio ) { return false; }

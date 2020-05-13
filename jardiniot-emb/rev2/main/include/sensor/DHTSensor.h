@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -22,17 +21,17 @@
 #include <string.h>
 
 class DHTSensor : public SensorStrategy {
-private:
-  // DHT* dht;	// On pourrait surement faire que ce soit pas un pointeur
-public:
-  DHTSensor( unsigned char idController, std::vector<short> inputPins,
-             std::vector<short> outputPins, short delay );
-  ~DHTSensor( );
+  private:
+    // DHT* dht;	// On pourrait surement faire que ce soit pas un pointeur
+  public:
+    DHTSensor( unsigned char idController, std::vector<short> inputPins,
+               std::vector<short> outputPins, short delay );
+    ~DHTSensor( );
 
-  std::string read( );
-  int write( );
+    std::string read( );
+    int write( );
 
-  std::string toString( );
+    std::string toString( );
 };
 
 #endif

@@ -1,5 +1,4 @@
-
-// Copyright (C) 2017-2018 Alexandre-Xavier Labonté-Lamoureux
+// Copyright (C) 2016-2018 Alexandre-Xavier Labonté-Lamoureux
 // Copyright (C) 2017      Alexandre Brochu
 //
 // JardinIoT is free software: you can redistribute it and/or modify
@@ -22,24 +21,24 @@
 #include <string>
 
 class ServoMotor : public ActuatorStrategy {
-private:
-  unsigned char servoPin;
-  // Servo servo;
-  short delayTime = 1000;
+  private:
+    unsigned char servoPin;
+    // Servo servo;
+    short delayTime = 1000;
 
-public:
-  // constructor
-  ServoMotor( );
-  ServoMotor( unsigned char idController, unsigned char pin );
-  ~ServoMotor( );
+  public:
+    // constructor
+    ServoMotor( );
+    ServoMotor( unsigned char idController, unsigned char pin );
+    ~ServoMotor( );
 
-  void reset( );
+    void reset( );
 
-  // Méthode hérité de la classe MotorStrategy
-  short activate( );
-  short stop( );
+    // Méthode hérité de la classe MotorStrategy
+    short activate( );
+    short stop( );
 
-  bool isAttached( );
+    bool isAttached( );
 };
 
 #endif
