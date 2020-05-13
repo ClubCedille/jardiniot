@@ -16,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 if command -v pipenv >/dev/null 2>&1 ; then
-	pipenv --three --site-packages install --dev
+#	pipenv --three --site-packages install --dev
 	cd database
 	pipenv run python migration.py
 	cd -
@@ -24,7 +24,7 @@ elif command -v virtualenv >/dev/null 2>&1 ; then
 	echo "Pipenv indisponible, utilisation de virtualenv"
 #	virtualenv -p python3 env
 #	source env/bin/activate
-	pip install -r requirements.txt
+#	pip install -r requirements.txt
 	cd database
 	python migration.py
 	cd -
