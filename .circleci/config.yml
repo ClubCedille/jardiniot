@@ -22,12 +22,14 @@ jobs:
           working_directory: serveur-web/api-v2
           command: |
             bash ./setup.sh
-            bash ./run.sh
+            bash ./run.sh &
 
       - run:
           name: Run tests
           working_directory: serveur-web/api-v2
-          command: python app_tests.py
+          command: |
+            sleep 10
+            python app_tests.py
 
 workflows:
   main:
