@@ -4,17 +4,13 @@ orbs:
   python: circleci/python@0.2.1
 
 jobs:
-  build-and-test:
+  test:
     working_directory: ~/project
-
     docker:
       - image: circleci/python:3.7
-
     steps:
       - checkout
 
-#      - run: sudo pip install pipenv
-#      - run: pipenv install
       - run: pip install paho-mqtt flask flask-api flask-cors
 
       - run:
@@ -30,4 +26,4 @@ jobs:
 workflows:
   main:
     jobs:
-      - build-and-test
+      - test
