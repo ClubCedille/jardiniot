@@ -1,0 +1,81 @@
+R"=====(
+
+<html>
+    <head>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <title>JardinIOT wifi configuration</title>
+   <style>
+        .EntryField
+        {
+            width: 60%;
+            height:
+             45px;
+            top: 45px;
+            color: white;
+
+            display: inline-block;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            margin-top: 30px;
+            padding-top: 20px;
+            background-color: blue;
+            border-color: blue;
+
+            border: 2px solid blue;
+            border-radius: 25px;
+
+            font-family: Lucida , Courier,
+            monospace;
+        }
+
+        .TitleBar
+        {
+            font-family:  Lucida Console , , sans-serif;
+            padding: 20px;
+            width: 100%;
+            background-color: blue;
+            color: white;
+            font-size: 40px;
+            text-align: center;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .border
+        {
+            border-width: 2px;
+
+            border-style: solid;
+            border-color: black;
+       }
+        </style>
+    </head>
+    <body>
+
+    <center>
+            <div class= TitleBar >Configuration wifi JardinIOT</div>
+            <form action= /  method= get >
+                <div class= EntryField >
+                    <label for= SSID >Wifi SSID :</label>
+                    <input type= text  id= wifi  name= SSID ><br><br>
+                </div>
+            <div class= EntryField >
+                <label for= PW >Wifi passwd :</label>
+                <input type= password  id= wifipasswd name= PW ><br><br>
+            </div>
+            <div class= EntryField >
+                <label for= MQTTIP >MQTT URL :</label>
+                <input type= text  id= wifi passwd name= MQTTIP ><br><br>
+            </div>
+            <div class= EntryField >
+                <label for= MqttID >ClientID :</label>
+                <input type= text  id= wifi passwd name= MqttID ><br><br>
+            </div>
+            <input class= EntryField type= submit value= Valider >
+        </form>
+    </center>
+    </body>
+</html>
+
+)====="

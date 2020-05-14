@@ -18,6 +18,8 @@
 #include <sstream>
 #include <stdio.h>
 #include <string.h>
+#include <chrono>
+#include <thread>
 
 #include <netinet/in.h>
 #include <sys/socket.h>
@@ -84,83 +86,39 @@ bool webConf::configure( int portNum ) {
     //à ce moment, le formulaire web n'est pas encore envoyé.
     parseGetRequest( this->rawGetRequest );
 
-    // Page web dans une string
+    // à partir du string litéral se trouvant dans page.txt,
+    //
     const std::string staticPage =
-        std::string( "HTTP/1.1 200 OK\n\r\n\r" ) +
-        "<html>\n<head>\n<title>JardinIOT wifi "
-        "configuration</title>\n<style>\n.EntryField\n{\nwidth: 60%;\nheight: "
-        "45px;\ntop: 45px;\ncolor: white;\n\ndisplay: inline-block;\nposition: "
-        "relative;\ntext-align: center;\nvertical-align: "
-        "middle;\n\nmargin-top: "
-        "30px;\npadding-top: 20px;\n                \n                "
-        "background-color: blue;\n                border-color: blue;\n        "
-        "  "
-        "      border: 2px solid blue;\n                border-radius: 25px;\n "
-        "  "
-        "             \n                font-family: \"Lucida\", Courier, "
-        "monospace;\n            }\n            \n            \n            "
-        ".TitleBar\n            {\n                font-family: \"Lucida "
-        "Console\", , sans-serif;\n                \n                padding: "
-        "20px;\n                \n                width: 100%;\n               "
-        " "
-        "background-color: blue;\n                color: white; \n             "
-        "  "
-        " font-size: 40px;\n                \n                text-align: "
-        "center;\n                display: inline-block;\n                "
-        "vertical-align: middle;\n            }\n            \n            "
-        ".border\n            {\n                border-width: 2px; \n         "
-        "  "
-        "     border-style: solid; \n                border-color: black;\n    "
-        "  "
-        "      }\n        </style>\n    </head>\n    <body>\n        "
-        "<center>\n  "
-        "          <div class=\"TitleBar\">Configuration wifi JardinIOT "
-        "</div>\n<form action=\"/\" method=\"get\">\n<div "
-        "class=\"EntryField\">\n<label for=\"SSID\">Wifi SSID "
-        ":</label>\n<input "
-        "type=\"text\" id=\"wifi\" name=\"SSID\"><br><br>\n</div>\n<div "
-        "class=\"EntryField\">\n<label for=\"PW\">Wifi passwd "
-        ":</label>\n<input "
-        "type=\"password\" id=\"wifipasswd\" "
-        "name=\"PW\"><br><br>\n</div>\n<div "
-        "class=\"EntryField\">\n<label for=\"MQTTIP\">MQTT URL "
-        ":</label>\n<input "
-        "type=\"text\" id=\"wifi passwd\" "
-        "name=\"MQTTIP\"><br><br>\n</div>\n<div "
-        "class=\"EntryField\">\n<label for=\"MqttID\">ClientID "
-        ":</label>\n<input "
-        "type=\"text\" id=\"wifi passwd\" "
-        "name=\"MqttID\"><br><br>\n</div>\n<input class=\"EntryField\" "
-        "type=\"submit\" "
-        "value=\"Valider\">\n</form>\n</center>\n</body>\n</html>" +
-        "\n\r\n\r";
+        std::string( "HTTP/1.1 200 OK\n\r\n\r" ) + std::string(
+        #include "page.txt"
+        ) + std::string("\r\n\r\n");
 
 #if module_debug
     std::cout << staticPage;
 #endif
 
-    // Envoyer le formulaire
+    // nvoyer le formulaire
     send( incomingConnection, staticPage.c_str( ), staticPage.length( ), 0 );
 
-    // Si une deuxieme connection arrive
-    if ( ( incomingConnection =
-               accept( socketFileDesc, (struct sockaddr *) &address,
-                       (socklen_t *) &addrlen ) ) < 0 ) {
-        return ret;
-    }
-
-    // Réinitialisation du buffer pour une nouvelle utilisation
-    memset( buffer, 0, 512 );
-    // Réinitialisation du buffer de la requete pour une nouvelle utilisation
-    delete this->rawGetRequest;
-    this->rawGetRequest = NULL;
-    // Recv the second request, this one is sent from the web browser after the
-    // client clicks submit on the form
-    recv( incomingConnection, buffer, 512, 0 );
-
-    // S'assurer que la requeute est terminé avec un 0
-    buffer[511] = 0;
-    this->rawGetRequest = new std::string( buffer );
+    do{
+        // Si une deuxieme connection arrive
+        if ( ( incomingConnection =
+                accept( socketFileDesc, (struct sockaddr *) &address,
+                           (socklen_t *) &addrlen ) ) < 0 ) {
+            return ret;
+        }
+        // Réinitialisation du buffer pour une nouvelle utilisation
+        memset( buffer, 0, 512 );
+        // Réinitialisation du buffer de la requete pour une nouvelle utilisation
+        delete this->rawGetRequest;
+        this->rawGetRequest = NULL;
+        // Recv the second request, this one is sent from the web browser after the
+        // client clicks submit on the form
+        recv( incomingConnection, buffer, 512, 0 );
+        // S'assurer que la requeute est terminé avec un 0
+        buffer[511] = 0;
+        this->rawGetRequest = new std::string( buffer );
+    }while( this->rawGetRequest->find("favico") == true || this->rawGetRequest->find("GET / HTTP/1.1") == true );
 
 #if module_debug
     std::cout << *( this->rawGetRequest ) << std::endl;
@@ -171,9 +129,9 @@ bool webConf::configure( int portNum ) {
     std::string basicResponse =
         "HTTP/1.1 200 OK\n\r\n\r<h1>InfoReceived</h1>\n\r\n\r";
     // Envoyer la réponse de base au client et terminer la connection.
-    send( incomingConnection, basicResponse.c_str( ), basicResponse.length( ),
-          0 );
-    shutdown( incomingConnection, SHUT_RDWR );
+    send( incomingConnection, basicResponse.c_str( ), basicResponse.length( ), 0);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+    shutdown( incomingConnection, SHUT_RD );
     close( incomingConnection );
 
 #if module_debug
