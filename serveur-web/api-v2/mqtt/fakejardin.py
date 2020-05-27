@@ -28,20 +28,25 @@ TOPIC_RECEIVE = "jardin_in"
 process = True
 
 # The callback for when the client receives a CONNACK response from the server.
-def on_connect(client, userdata, flags, rc):
-	print("Connected with result code " + str(rc))
 
-	# Subscribing in on_connect() means that if we lose the connection and
-	# reconnect then subscriptions will be renewed.
-	client.subscribe(TOPIC_RECEIVE, 2)
+
+def on_connect(client, userdata, flags, rc):
+    print("Connected with result code " + str(rc))
+
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe(TOPIC_RECEIVE, 2)
 
 # The callback for when a PUBLISH message is received from the server.
+
+
 def on_message(client, userdata, msg):
-	print(msg.topic + " " + str(msg.payload))
-	if msg.topic == TOPIC_SEND and msg.payload.decode("utf-8") == "die":
-		client.disconnect()
-		global process
-		process = False
+    print(msg.topic + " " + str(msg.payload))
+    if msg.topic == TOPIC_SEND and msg.payload.decode("utf-8") == "die":
+        client.disconnect()
+        global process
+        process = False
+
 
 client = mqtt.Client()
 client.on_connect = on_connect
@@ -52,12 +57,19 @@ client.connect("127.0.0.1", 1883, 30)
 # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
 client.subscribe(TOPIC_SEND, 2)
 
-print("  **** JARDIN EMULATOR STARTED ****")
+print("  **** JARDIN EMULATOR STARTED ****  ")
 
 while process:
-	time.sleep(1)
-	temp = str(random.randint(28, 33))
-	humi = str(random.randint(30, 55))
-	client.publish(TOPIC_SEND, payload="{\"temperature\": \"" + temp + "°\", \"humidite\": \"" + humi + "%\"}", qos=0, retain=False)
-	client.loop_start()
-
+    time.sleep(1)
+    temp = str(random.randint(28, 33))
+    humi = str(random.randint(30, 55))
+    client.publish(
+        TOPIC_SEND,
+        payload="{\"temperature\": \"" +
+        temp +
+        "°\", \"humidite\": \"" +
+        humi +
+        "%\"}",
+        qos=0,
+        retain=False)
+    client.loop_start()

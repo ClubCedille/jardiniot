@@ -15,93 +15,92 @@
 
 # Fix de compatibilité des imports pour "Migration"
 try:
-	from database.connection import Connection
-except:
-	from connection import Connection
+    from database.connection import Connection
+except BaseException:
+    from connection import Connection
 
 import sqlite3
 
 
 class SqliteConnection(Connection):
-	"""
-	Extends Connection to use a SQLite3 database connection
-	"""
-	# Class Variables
-	instance = None
+    """
+    Extends Connection to use a SQLite3 database connection
+    """
+    # Class Variables
+    instance = None
 
-	# Object Variables
-	def __init__(self,db_path):
-		self.conn = sqlite3.connect(db_path, check_same_thread=False)
+    # Object Variables
+    def __init__(self, db_path):
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
 
-	@staticmethod
-	def get_instance(db_path):
-		"""
-		Return a SQLite3 Connection singleton
-		"""
-		if SqliteConnection.instance is None:
-			SqliteConnection.instance = SqliteConnection(db_path)
+    @staticmethod
+    def get_instance(db_path):
+        """
+        Return a SQLite3 Connection singleton
+        """
+        if SqliteConnection.instance is None:
+            SqliteConnection.instance = SqliteConnection(db_path)
 
-		return SqliteConnection.instance
+        return SqliteConnection.instance
 
-	def execute(self, query):
-		"""
-		Execute a SQLite query
-		"""
-		data = None
+    def execute(self, query):
+        """
+        Execute a SQLite query
+        """
+        data = None
 
-		try:
-			cur = self.conn.cursor()
-			cur.execute(query)
-			data = cur.fetchall()
-			if not data:
-				self.conn.commit()
-		except sqlite3.Error as e:
-			print("Database error: %s" % e)
-		except Exception as e:
-			print("Exception in _query: %s" % e)
+        try:
+            cur = self.conn.cursor()
+            cur.execute(query)
+            data = cur.fetchall()
+            if not data:
+                self.conn.commit()
+        except sqlite3.Error as e:
+            print("Database error: %s" % e)
+        except Exception as e:
+            print("Exception in _query: %s" % e)
 
-		return data
+        return data
 
+    def selectparam(self, query, parameters):
+        """
+        Execute a "SELECT" SQLite query with parameters
+        """
+        data = None
 
-	def selectparam(self, query, parameters):
-		"""
-		Execute a "SELECT" SQLite query with parameters
-		"""
-		data = None
+        try:
+            cur = self.conn.cursor()
+            cur.execute(query, parameters)
+            data = cur.fetchall()
 
-		try:
-			cur = self.conn.cursor()
-			cur.execute(query, parameters)
-			data = cur.fetchall()
+        except sqlite3.Error as e:
+            print("Database error: %s" % e)
+        except Exception as e:
+            print("Exception in _query: %s" % e)
 
-		except sqlite3.Error as e:
-			print("Database error: %s" % e)
-		except Exception as e:
-			print("Exception in _query: %s" % e)
+        return data
 
-		return data
+    def executemany(self, query, parameters):
+        """
+        Execute a SQLite query
+        """
+        data = None
 
-	def executemany(self, query, parameters):
-		"""
-		Execute a SQLite query
-		"""
-		data = None
+        try:
+            cur = self.conn.cursor()
+            cur.executemany(query, parameters)
+            data = cur.fetchall()
+            if not data:
+                self.conn.commit()
+        except sqlite3.Error as e:
+            print("Database error: %s" % e)
+        except Exception as e:
+            print("Exception in _query: %s" % e)
 
-		try:
-			cur = self.conn.cursor()
-			cur.executemany(query, parameters)
-			data = cur.fetchall()
-			if not data:
-				self.conn.commit()
-		except sqlite3.Error as e:
-			print("Database error: %s" % e)
-		except Exception as e:
-			print("Exception in _query: %s" % e)
+        return data
 
-		return data
+    def open(self):
+        pass
 
-	def open(self):
-		pass
-
-	def close(self):
-		pass
+    def close(self):
+        pass

@@ -16,75 +16,72 @@
 # Fix de compatibilité des imports pour "Migration"
 global path_database
 try:
-	from database.sqlite_connection import SqliteConnection
-	path_database = "database/JardinIoT.db"
-except:
-	from sqlite_connection import SqliteConnection
-	path_database = "./JardinIoT.db"
+    from database.sqlite_connection import SqliteConnection
+    path_database = "database/JardinIoT.db"
+except BaseException:
+    from sqlite_connection import SqliteConnection
+    path_database = "./JardinIoT.db"
+
 
 class Database(object):
-	"""
-	Unique Database handler
-	Redirect query to it's connection and make sur there is only
-	one instance of database.
-	"""
+    """
+    Unique Database handler
+    Redirect query to it's connection and make sur there is only
+    one instance of database.
+    """
 
-	instance = None
+    instance = None
 
-	def __init__(self):
-		"""
-		Create a new database connection.
-		"""
-		# SQLITE
-		self.connection = SqliteConnection.get_instance(path_database)
+    def __init__(self):
+        """
+        Create a new database connection.
+        """
+        # SQLITE
+        self.connection = SqliteConnection.get_instance(path_database)
 
+    @staticmethod
+    def get_instance():
+        """
+        Return the database instance
+        """
+        if Database.instance is None:
+            Database.instance = Database()
 
-	@staticmethod
-	def get_instance():
-		"""
-		Return the database instance
-		"""
-		if Database.instance is	 None:
-			Database.instance = Database()
+        return Database.instance
 
-		return Database.instance
+    def execute(self, query):
+        """
+        Execute a database query and return
+        """
+        return self.connection.execute(query)
 
+    def selectparam(self, query, parameters):
+        """
+        Execute a database query with parameters and return
+        It expects a tuple
+        """
+        return self.connection.selectparam(query, parameters)
 
-	def execute(self, query):
-		"""
-		Execute a database query and return
-		"""
-		return self.connection.execute(query)
+    def executeparam(self, query, parameters):
+        """
+        Execute a database query with parameters and return
+        It expects a tuple
+        """
+        return self.connection.executemany(query, (parameters,))
 
-	def selectparam(self, query, parameters):
-		"""
-		Execute a database query with parameters and return
-		It expects a tuple
-		"""
-		return self.connection.selectparam(query, parameters)
+    def get_version(self):
+        """
+        Return the current database version
+        """
+        data = self.connection.execute("SELECT version FROM meta")
+        if data is None:
+            return
 
+        version = data[0][0]  # Data s tuple list. [0][0] extracts the information we need
+        return version
 
-	def executeparam(self, query, parameters):
-		"""
-		Execute a database query with parameters and return
-		It expects a tuple
-		"""
-		return self.connection.executemany(query, (parameters,))
-
-	def get_version(self):
-		"""
-		Return the current database version
-		"""
-		data = self.connection.execute("SELECT version FROM meta")
-		if data is None:
-			return
-
-		version = data[0][0] # Data s tuple list. [0][0] extracts the information we need
-		return version
-
-
-	def update_version(self, version):
-		"""
-		Update the current database version
-		"""
-		self.connection.executemany("UPDATE meta SET version = ? ", (str(version),))
+    def update_version(self, version):
+        """
+        Update the current database version
+        """
+        self.connection.executemany("UPDATE meta SET version = ? ", (str(version),))
