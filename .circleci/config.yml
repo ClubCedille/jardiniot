@@ -4,7 +4,7 @@ orbs:
   python: circleci/python@0.3.0
 
 jobs:
-  test:
+  backend-test:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.7
@@ -23,7 +23,24 @@ jobs:
           working_directory: serveur-web/api-v2
           command:  python app_tests.py
 
+  backend-lint:
+    working_directory: ~/project
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+
+      - run: pip install autopep8
+
+      - run:
+          name: Fail if lint changes files
+          working_directory: serveur-web/api-v2
+          command: |
+            DIFF=$( find **/*.py -exec autopep8 --global-config pyproject.toml --diff {} \; )
+            if [ -z $DIFF ]; then echo "Code is fine."; else echo "Lint errors detected. please run format.sh" && exit 1; fi;
+
 workflows:
   main:
     jobs:
-      - test
+      - backend-test
+      - backend-lint
