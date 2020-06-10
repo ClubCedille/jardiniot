@@ -57,7 +57,7 @@ client.connect("127.0.0.1", 1883, 30)
 # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
 client.subscribe(TOPIC_SEND, 2)
 
-print("  **** JARDIN EMULATOR STARTED ****  ")
+print("  **** JARDIN EMULATOR STARTED ****")
 
 while process:
     time.sleep(1)

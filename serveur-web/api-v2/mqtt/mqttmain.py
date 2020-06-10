@@ -55,10 +55,11 @@ def main():
     # manual interface.
     client.loop_forever()
 
-# The callback for when the client receives a CONNACK response from the server.
-
 
 def on_connect(client, userdata, flags, rc):
+    """
+    The callback for when the client receives a CONNACK response from the server.
+    """
     print("Connected with result code " + str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
@@ -66,10 +67,11 @@ def on_connect(client, userdata, flags, rc):
     # Subscribe with QOS 2 (info: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels)
     client.subscribe(TOPIC_RECEIVE, 2)
 
-# The callback for when a PUBLISH message is received from the server.
-
 
 def on_message(client, userdata, msg):
+    """
+    The callback for when a PUBLISH message is received from the server.
+    """
     print(msg.topic + " " + str(msg.payload))
     if msg.topic == TOPIC_RECEIVE:
         try:

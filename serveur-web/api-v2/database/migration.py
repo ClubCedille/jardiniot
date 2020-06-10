@@ -28,11 +28,15 @@ db = Database.get_instance()
 # Recouvre la version.
 current_version = db.get_version()
 
-print(r"     _               _ _       ___    _____")
-print(r"    | | __ _ _ __ __| (_)_ __ |_ _|__|_   _|")
-print(r" _  | |/ _` | '__/ _` | | '_ \ | |/ _ \| |")
-print(r"| |_| | (_| | | | (_| | | | | || | (_) | |")
-print(r" \___/ \__,_|_|  \__,_|_|_| |_|___\___/|_|")
+banner = r"""
+     _               _ _       ___    _____
+    | | __ _ _ __ __| (_)_ __ |_ _|__|_   _|
+ _  | |/ _` | '__/ _` | | '_ \ | |/ _ \| |
+| |_| | (_| | | | (_| | | | | || | (_) | |
+ \___/ \__,_|_|  \__,_|_|_| |_|___\___/|_|
+"""
+
+print(banner)
 
 print("Current database version is " + str(current_version))
 
