@@ -14,23 +14,23 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 class Connection(object):
-	"""
-	Abstract connection objet
-	"""
+    """
+    Abstract connection objet
+    """
 
-	def __init__(self):
-		pass
+    def __init__(self):
+        pass
 
-	@staticmethod
-	def get_instance(self):
-		pass
+    @staticmethod
+    def get_instance(self):
+        pass
 
-	def execute(self, query):
-		print("ok")
-		pass
+    def execute(self, query):
+        print("ok")
+        pass
 
-	def open(self):
-		pass
+    def open(self):
+        pass
 
-	def close(self):
-		pass
+    def close(self):
+        pass

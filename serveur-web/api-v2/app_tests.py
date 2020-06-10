@@ -35,7 +35,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_home_endpoint(self):
-		""""
+		"""
 		Teste que le endpoint "/" retourne "hello world"
 		"""
 		response = self.app.get('/')
@@ -46,7 +46,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_buckets_get_all(self):
-		""""
+		"""
 		Test GET => /buckets
 		"""
 		response = self.app.get('/buckets')
@@ -60,7 +60,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_buckets_get_by_id(self):
-		""""
+		"""
 		Test GET => /buckets/1
 		"""
 		bucket_id = 1
@@ -76,7 +76,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_buckets_get_by_id_missing(self):
-		""""
+		"""
 		Test GET => /buckets/9999999999
 		"""
 		bucket_id = 9999999999
@@ -135,7 +135,7 @@ class AppTestCase(unittest.TestCase):
 
 		
 	def test_sensors_endpoint(self):
-		""""
+		"""
 		Test GET => /sensors
 		"""
 		response = self.app.get('/sensors')
@@ -149,7 +149,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_fans_endpoint(self):
-		""""
+		"""
 		Test GET => /fans
 		"""
 		response = self.app.get('/fans')
@@ -163,7 +163,7 @@ class AppTestCase(unittest.TestCase):
 
 
 	def test_lights_endpoint(self):
-		""""
+		"""
 		Test GET => /lights
 		"""
 		response = self.app.get('/lights')

@@ -16,96 +16,93 @@
 import json
 from database.database import Database
 
+
 class Bucket():
 
-	def __init__(self, id=0, id_plant="", name="", ip_address=""):
-		self.id = id
-		self.id_plant = id_plant
-		self.name = name
-		self.ip_address = ip_address
+    def __init__(self, id=0, id_plant="", name="", ip_address=""):
+        self.id = id
+        self.id_plant = id_plant
+        self.name = name
+        self.ip_address = ip_address
 
+    def to_detailed_json(self):
+        serialized = {
+            "id": self.id,
+            "id_plant": self.id_plant,
+            "name": self.name,
+            "ip_address": self.ip_address
+        }
 
-	def to_detailed_json(self):
-		serialized = {
-				"id" : self.id,
-				"id_plant" : self.id_plant,
-				"name" : self.name,
-				"ip_address" : self.ip_address
-			}
+        return serialized
 
-		return serialized
+    def transform(bucket_data):
+        bucket = Bucket(bucket_data[0],
+                        bucket_data[1],
+                        bucket_data[2],
+                        bucket_data[3])
 
+        return bucket
 
-	def transform(bucket_data):
-		bucket = Bucket(bucket_data[0],
-				bucket_data[1],
-				bucket_data[2],
-				bucket_data[3])
+    def save(self):
+        """
+        Create or update a bucket
+        """
+        if self.id is None:
+            return Bucket.create(self)
+        else:
+            Bucket.update(self)
+            return self
 
-		return bucket
+    """
+    Static Methods
+    """
 
+    @classmethod
+    def get(cls, id):
+        """
+        Retreive a bucket's data and return it
+        """
+        db = Database.get_instance()
+        bucket_data = db.selectparam("SELECT * FROM BUCKET WHERE ID=?", [str(id)])
+        if bucket_data:
+            return cls.transform(bucket_data[0])
+        else:
+            return None
 
-	def save(self):
-		"""
-		Create or update a bucket
-		"""
-		if self.id is None:
-			return Bucket.create(self)
-		else:
-			Bucket.update(self)
-			return self
+    @classmethod
+    def get_all(cls):
+        """
+        Retreive a bucket's data and return it
+        """
+        db = Database.get_instance()
+        bucket_data = db.execute("SELECT * FROM BUCKET")
+        return [cls.transform(b) for b in bucket_data]
 
-	"""
-	Static Methods
-	"""
+    @staticmethod
+    def create(bucket):
+        db = Database.get_instance()
+        sql = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES (?, ?, ?);"
+        db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address)])
 
-	@classmethod
-	def get(cls, id):
-		"""
-		Retreive a bucket's data and return it
-		"""
-		db = Database.get_instance()
-		bucket_data = db.selectparam("SELECT * FROM BUCKET WHERE ID=?", [str(id)])
-		if bucket_data:
-			return cls.transform(bucket_data[0])
-		else:
-			return None
+        bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
+        if bucket_data:
+            return Bucket.transform(bucket_data[0])
+        else:
+            return None
 
-	@classmethod
-	def get_all(cls):
-		"""
-		Retreive a bucket's data and return it
-		"""
-		db = Database.get_instance()
-		bucket_data = db.execute("SELECT * FROM BUCKET")
-		return [cls.transform(b) for b in bucket_data]
+    @staticmethod
+    def update(bucket):
+        db = Database.get_instance()
+        sql = "UPDATE bucket set name=?, id_plant=?, ip_address=? WHERE id=?"
+        db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address), str(bucket.id)])
+        return bucket
 
-	@staticmethod
-	def create(bucket):
-		db = Database.get_instance()
-		sql = "INSERT INTO bucket('name', 'id_plant', 'ip_address') VALUES (?, ?, ?);"
-		db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address)])
-
-		bucket_data = db.execute("SELECT * FROM BUCKET ORDER BY ID DESC LIMIT 1")
-		if bucket_data:
-			return Bucket.transform(bucket_data[0])
-		else:
-			return None
-
-
-	@staticmethod
-	def update(bucket):
-		db = Database.get_instance()
-		sql = "UPDATE bucket set name=?, id_plant=?, ip_address=? WHERE id=?"
-		db.executeparam(sql, [str(bucket.name), str(bucket.id_plant), str(bucket.ip_address), str(bucket.id)])
-		return bucket
-
-	@staticmethod
-	def delete(bucket):
-		try:
-			db = Database.get_instance()
-			sql = "delete from bucket WHERE id=?"
-			db.executeparam(sql, [str(bucket.id)])
-			return True
-		except:
-			return False
+    @staticmethod
+    def delete(bucket):
+        try:
+            db = Database.get_instance()
+            sql = "delete from bucket WHERE id=?"
+            db.executeparam(sql, [str(bucket.id)])
+            return True
+        except BaseException:
+            return False

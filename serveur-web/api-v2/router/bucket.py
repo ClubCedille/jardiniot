@@ -27,83 +27,86 @@ from controller.bucket import BucketController
 bucket_blueprint = Blueprint("bucket_blueprint", __name__)
 
 # The following three functions are used to create modification commands
-"""
-GET => /buckets
-Envoie la liste des buckets.
-"""
+
+
 @bucket_blueprint.route("/buckets", methods=["GET"])
 def index():
-	return BucketController.index()
+    """
+    GET => /buckets
+    Envoie la liste des buckets.
+    """
+    return BucketController.index()
 
 
-"""
-POST => /buckets
-Recoit les informations pour enregistrer un nouveau bucket
-"""
 @bucket_blueprint.route("/buckets", methods=["POST"])
 def create():
-	print("Acces a /bucket avec POST")
-	try:
-		if request.headers['Content-Type'] != 'application/json':
-			response = {
-				"error":1,
-				"message":"Content-Type is not application/json"
-				}
-			return (response, 400)
-		elif request.is_json:
-			return BucketController.create(request)
-		else:
-			raise Exception()
-	except Exception as e:
-		 print("ERROR: Request is not JSON or has missing fields.")
-		 print(e)
-		 response = {
-			 "error":1,
-			 "message":"Missing fields in JSON"
-			 }
-		 return (response, 404)
+    """
+    POST => /buckets
+    Recoit les informations pour enregistrer un nouveau bucket
+    """
+    print("Acces a /bucket avec POST")
+    try:
+        if request.headers['Content-Type'] != 'application/json':
+            response = {
+                "error": 1,
+                "message": "Content-Type is not application/json"
+            }
+            return (response, 400)
+        elif request.is_json:
+            return BucketController.create(request)
+        else:
+            raise Exception()
+    except Exception as e:
+        print("ERROR: Request is not JSON or has missing fields.")
+        print(e)
+        response = {
+            "error": 1,
+            "message": "Missing fields in JSON"
+        }
+        return (response, 404)
 
-"""
-GET => /buckets/id
-Renvoie un bucket spécifique.
-"""
+
 @bucket_blueprint.route("/buckets/<id>", methods=["GET"])
 def id(id):
-	return BucketController.get(id)
+    """
+    GET => /buckets/id
+    Renvoie un bucket spécifique.
+    """
+    return BucketController.get(id)
 
 
-"""
-POST => /buckets/id
-Met a jours les informations d'un bucket
-"""
 @bucket_blueprint.route("/buckets/<id>", methods=["POST"])
 def update(id):
-	print("Acces a /bucket/id avec POST")
-	try:
-		if request.headers['Content-Type'] != 'application/json':
-			response = {
-				"error":1,
-				"message":"Content-Type is not application/json"
-				}
-			return (response, 400)
-		elif request.is_json:
-			return BucketController.update(request)
-		else:
-			raise Exception()
-	except Exception as e:
-		print("ERROR: Request is not JSON or has missing fields.")
-		response = {
-			"error": 1,
-			"message": "Missing fields in JSON"
-			}
-		print(response)
-		return (response, 404)
+    """
+    POST => /buckets/id
+    Met a jours les informations d'un bucket
+    """
+    print("Acces a /bucket/id avec POST")
+    try:
+        if request.headers['Content-Type'] != 'application/json':
+            response = {
+                "error": 1,
+                "message": "Content-Type is not application/json"
+            }
+            return (response, 400)
+        elif request.is_json:
+            return BucketController.update(request)
+        else:
+            raise Exception()
+    except Exception as e:
+        print("ERROR: Request is not JSON or has missing fields.")
+        response = {
+            "error": 1,
+            "message": "Missing fields in JSON"
+        }
+        print(response)
+        return (response, 404)
 
 
-"""
-DELETE => /buckets/id
-Supprime un bucket
-"""
 @bucket_blueprint.route("/buckets/<id>", methods=["DELETE"])
 def delete(id):
-	return BucketController.delete(id)
+    """
+    DELETE => /buckets/id
+    Supprime un bucket
+    """
+    return BucketController.delete(id)

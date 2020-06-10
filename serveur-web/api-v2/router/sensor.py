@@ -27,71 +27,65 @@ from controller.sensor import SensorController
 sensor_blueprint = Blueprint("sensor_blueprint", __name__)
 
 
-"""
-GET => /sensor
-Renvoies une liste de senseurs avec leurs noms
-"""
 @sensor_blueprint.route("/sensors")
 def get_sensors():
-	return SensorController.get_sensors()
+    """
+    GET => /sensor
+    Renvoies une liste de senseurs avec leurs noms
+    """
+    return SensorController.get_sensors()
 
-"""
-POST => /lights
-Modifier la luminosité de chaque couleur de DEL
 
-Le POST peut être testé avec ce JSON:
-{
-"red": 128,
-"blue": 255,
-"white": 59
-}
-"""
 @sensor_blueprint.route("/lights", methods=['POST'])
 def update_lights():
-	if request.headers['Content-Type'] != 'application/json':
-		print("ERROR: Content type is not JSON in HTTP header.")
-	elif request.is_json:
-		return SensorController.update_lights(request)
-	else:
-		print("ERROR: Request is not JSON.")
-		return ('', 204)
+    """
+    POST => /lights
+    Modifier la luminosité de chaque couleur de DEL
+
+    Le POST peut être testé avec ce JSON:
+    {"red": 128, "blue": 255, "white": 59}
+    """
+    if request.headers['Content-Type'] != 'application/json':
+        print("ERROR: Content type is not JSON in HTTP header.")
+    elif request.is_json:
+        return SensorController.update_lights(request)
+    else:
+        print("ERROR: Request is not JSON.")
+        return ('', 204)
 
 
-
-"""
-GET => /lights
-Renvoie les valeurs de luminosité de chaque couleur de DEL
-"""
 @sensor_blueprint.route("/lights", methods=['GET'])
 def get_lights():
-	return SensorController.get_lights()
+    """
+    GET => /lights
+    Renvoie les valeurs de luminosité de chaque couleur de DEL
+    """
+    return SensorController.get_lights()
 
 
-"""
-UPDATE FANS et GET FANS
-POST: C'est la requête à faire pour modifier la vitesse d'un ventilateur
-
-Le POST peut être testé avec ce JSON:
-{
-"fanl": 255,
-"fanh": 255
-}
-"""
 @sensor_blueprint.route("/fans", methods=['POST'])
 def update_fans():
-	if request.headers['Content-Type'] != 'application/json':
-		print("ERROR: Content type is not JSON in HTTP header.")
-	elif request.is_json:
-		return SensorController.update_fans(request)
-	else:
-		print("ERROR: Request is not JSON.")
+    """
+    UPDATE FANS et GET FANS
+    POST: C'est la requête à faire pour modifier la vitesse d'un ventilateur
 
-	return ('', 204)
+    Le POST peut être testé avec ce JSON:
+    {"fanl": 255, "fanh": 255}
+    """
+    if request.headers['Content-Type'] != 'application/json':
+        print("ERROR: Content type is not JSON in HTTP header.")
+    elif request.is_json:
+        return SensorController.update_fans(request)
+    else:
+        print("ERROR: Request is not JSON.")
 
-"""
-GET => /fans
-Retourne la vitesse d'un ventilateur
-"""
+    return ('', 204)
+
+
 @sensor_blueprint.route("/fans", methods=['GET'])
 def get_fans():
-	return SensorController.get_fans()
+    """
+    GET => /fans
+    Retourne la vitesse d'un ventilateur
+    """
+    return SensorController.get_fans()
