@@ -27,20 +27,22 @@ TOPIC_SEND = "jardin_out"
 TOPIC_RECEIVE = "jardin_in"
 process = True
 
-# The callback for when the client receives a CONNACK response from the server.
-
 
 def on_connect(client, userdata, flags, rc):
+    """
+    The callback for when the client receives a CONNACK response from the server.
+    """
     print("Connected with result code " + str(rc))
 
     # Subscribing in on_connect() means that if we lose the connection and
     # reconnect then subscriptions will be renewed.
     client.subscribe(TOPIC_RECEIVE, 2)
 
-# The callback for when a PUBLISH message is received from the server.
-
 
 def on_message(client, userdata, msg):
+    """
+    The callback for when a PUBLISH message is received from the server.
+    """
     print(msg.topic + " " + str(msg.payload))
     if msg.topic == TOPIC_SEND and msg.payload.decode("utf-8") == "die":
         client.disconnect()

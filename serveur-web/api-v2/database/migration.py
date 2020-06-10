@@ -37,7 +37,6 @@ banner = r"""
 """
 
 print(banner)
-
 print("Current database version is " + str(current_version))
 
 
