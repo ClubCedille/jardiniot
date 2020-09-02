@@ -1,8 +1,10 @@
-#include "DHT.h"
 #include "include/sensor/DHTSensor.h"
+#include "DHT.h"
 
 //<<constructor>>
-DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay):SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins){
+DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay)
+    : SensorStrategy(idController, ControllerType::A_LED, inputPins, outputPins)
+{
 
     byte DHTPin = (this->inputPin[0] & 0xff00) >> 8;
     byte DHTTYPE = (this->inputPin[0] & 0xff);
@@ -14,19 +16,24 @@ DHTSensor::DHTSensor(byte idController, std::vector<short> inputPins, std::vecto
 }
 
 //<<destructor>>
-DHTSensor::~DHTSensor(){
+DHTSensor::~DHTSensor()
+{
     delete dht;
 }
 
-String DHTSensor::read(){
+String DHTSensor::read()
+{
     char sensorStatus[50];
 
-    float h = dht->readHumidity();           // humidité
-    float t = dht->readTemperature(false);   // temp (Celcius)
+    float h = dht->readHumidity();         // humidité
+    float t = dht->readTemperature(false); // temp (Celcius)
 
-    if (isnan(h) || isnan(t)) {
+    if (isnan(h) || isnan(t))
+    {
         strcpy(sensorStatus, "Echec de lecture du DHT!");
-    } else {
+    }
+    else
+    {
         // Convertion de temperature en string
         char tempString[8];
         dtostrf(t, 6, 2, tempString);
@@ -41,11 +48,13 @@ String DHTSensor::read(){
     return String(sensorStatus);
 }
 
-int DHTSensor::write(){
+int DHTSensor::write()
+{
     return 0;
 }
 
-String DHTSensor::toString(){
-    String s1= "";
+String DHTSensor::toString()
+{
+    String s1 = "";
     return s1;
 }

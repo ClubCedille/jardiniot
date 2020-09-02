@@ -5,11 +5,13 @@
 #include <Arduino.h>
 #include <string.h>
 
-class FanMotor: public MotorStrategy {
-private:
+class FanMotor : public MotorStrategy
+{
+  private:
     byte fanPin;
     byte fanSpeed;
-public:
+
+  public:
     // constructor
     FanMotor();
     FanMotor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);

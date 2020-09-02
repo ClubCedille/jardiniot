@@ -3,15 +3,17 @@
 
 #include "MotorStrategy.h"
 #include <Arduino.h>
-#include <string.h>
 #include <Servo.h>
+#include <string.h>
 
-class ServoMotor: public MotorStrategy {
-private:
+class ServoMotor : public MotorStrategy
+{
+  private:
     byte servoPin;
     Servo servo;
     short delayTime = 1000;
-public:
+
+  public:
     // constructor
     ServoMotor();
     ServoMotor(byte idController, byte pin);
