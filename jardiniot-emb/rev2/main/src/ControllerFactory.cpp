@@ -24,15 +24,18 @@
 //#include "include/motor/FanMotor.h"
 
 //<<constructor>>
-ControllerFactory::ControllerFactory( ) {}
-
-//<<destructor>>
-ControllerFactory::~ControllerFactory( ) { /*nothing to destruct*/
+ControllerFactory::ControllerFactory()
+{
 }
 
-SensorStrategy *ControllerFactory::createSensor(
-    unsigned char idController, ControllerType type, short delay,
-    std::vector<short> inputPin, std::vector<short> outputPin ) {
+//<<destructor>>
+ControllerFactory::~ControllerFactory()
+{ /*nothing to destruct*/
+}
+
+SensorStrategy* ControllerFactory::createSensor(unsigned char idController, ControllerType type, short delay, std::vector<short> inputPin,
+                                                std::vector<short> outputPin)
+{
     /* switch (type) {
          //DHT Sensor
          case ADAFRUIT_DHT:
@@ -55,10 +58,9 @@ SensorStrategy *ControllerFactory::createSensor(
     return NULL;
 }
 
-ActuatorStrategy *
-ControllerFactory::createMotor( unsigned char idController, ControllerType type,
-                                short delay, std::vector<short> inputPin,
-                                std::vector<short> outputPin ) {
+ActuatorStrategy* ControllerFactory::createMotor(unsigned char idController, ControllerType type, short delay, std::vector<short> inputPin,
+                                                 std::vector<short> outputPin)
+{
     /*switch (type) {
         // Fan
         case FAN:
@@ -74,11 +76,11 @@ ControllerFactory::createMotor( unsigned char idController, ControllerType type,
 }
 
 // Public method
-Controller *ControllerFactory::createController(
-    unsigned char idController, ControllerType ctrlType, short delay,
-    std::vector<short> inputPin, std::vector<short> outputPin ) {
+Controller* ControllerFactory::createController(unsigned char idController, ControllerType ctrlType, short delay, std::vector<short> inputPin,
+                                                std::vector<short> outputPin)
+{
 
-    Type type = ControllerTypeValidator::getTypeFromController( ctrlType );
+    Type type = ControllerTypeValidator::getTypeFromController(ctrlType);
     /*switch(type)
     {
         case Sensor: return createSensor(idController, ctrlType, delay,

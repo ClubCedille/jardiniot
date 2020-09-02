@@ -24,32 +24,48 @@
 #include <functional>
 #include <iostream>
 
-bool esp32gpio::initialize( ) {
+bool esp32gpio::initialize()
+{
     // Reset the inputs
-    gpio_reset_pin( (gpio_num_t) CAPTEUR1 );
-    gpio_reset_pin( (gpio_num_t) CAPTEUR2 );
-    gpio_reset_pin( (gpio_num_t) CAPTEUR3 );
-    gpio_reset_pin( (gpio_num_t) CAPTEUR4 );
+    gpio_reset_pin((gpio_num_t)CAPTEUR1);
+    gpio_reset_pin((gpio_num_t)CAPTEUR2);
+    gpio_reset_pin((gpio_num_t)CAPTEUR3);
+    gpio_reset_pin((gpio_num_t)CAPTEUR4);
 
-    gpio_reset_pin( (gpio_num_t) BOUTON1 );
-    gpio_reset_pin( (gpio_num_t) BOUTON2 );
+    gpio_reset_pin((gpio_num_t)BOUTON1);
+    gpio_reset_pin((gpio_num_t)BOUTON2);
 
-    gpio_reset_pin( (gpio_num_t) ACTIONNEUR1 );
-    gpio_reset_pin( (gpio_num_t) ACTIONNEUR2 );
-    gpio_reset_pin( (gpio_num_t) ACTIONNEUR3 );
-    gpio_reset_pin( (gpio_num_t) ACTIONNEUR4 );
+    gpio_reset_pin((gpio_num_t)ACTIONNEUR1);
+    gpio_reset_pin((gpio_num_t)ACTIONNEUR2);
+    gpio_reset_pin((gpio_num_t)ACTIONNEUR3);
+    gpio_reset_pin((gpio_num_t)ACTIONNEUR4);
 
     // ESP_ERROR_CHECK(    gpio_set_pull_mode(CAPTEUR1), )   );
 
     return false;
 }
 
-bool esp32gpio::read( int gpio ) { return false; }
+bool esp32gpio::read(int gpio)
+{
+    return false;
+}
 
-int esp32gpio::read_analog( int gpio ) { return 0; }
+int esp32gpio::read_analog(int gpio)
+{
+    return 0;
+}
 
-bool esp32gpio::write( int gpio, bool state ) { return false; }
+bool esp32gpio::write(int gpio, bool state)
+{
+    return false;
+}
 
-bool esp32gpio::write_analog( int gpio, int state ) { return false; }
+bool esp32gpio::write_analog(int gpio, int state)
+{
+    return false;
+}
 
-bool attach_interrupt( int gpio, std::function<void( void )> ) { return false; }
+bool attach_interrupt(int gpio, std::function<void(void)>)
+{
+    return false;
+}

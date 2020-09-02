@@ -1,20 +1,20 @@
 #ifndef ControllerFactory_H
 #define ControllerFactory_H
 
+#include "Controller.h"
+#include "ControllerType.h"
+#include "motor/MotorStrategy.h"
+#include "sensor/SensorStrategy.h"
 #include <Arduino.h>
 #include <string.h>
-#include "ControllerType.h"
-#include "Controller.h"
-#include "sensor/SensorStrategy.h"
-#include "motor/MotorStrategy.h"
 
 /**
     Permet de créer des sensor et des moteurs de tout genre
 */
-class ControllerFactory {
-private:
-
-public:
+class ControllerFactory
+{
+  private:
+  public:
     ControllerFactory();
     ~ControllerFactory();
 

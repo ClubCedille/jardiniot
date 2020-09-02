@@ -5,8 +5,9 @@
 #include <Arduino.h>
 #include <string.h>
 
-class A_LEDSensor: public SensorStrategy {
-private:
+class A_LEDSensor : public SensorStrategy
+{
+  private:
     // Définition des pins
     byte whiteLEDPin;
     byte blueLEDPin;
@@ -16,7 +17,8 @@ private:
     byte whiteValue = 255;
     byte blueValue = 255;
     byte redValue = 255;
-public:
+
+  public:
     A_LEDSensor(byte idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
     ~A_LEDSensor();
 

@@ -25,11 +25,12 @@
 /**
     Représente un controller de n'importe quel type
 */
-class Controller {
+class Controller
+{
   private:
     unsigned char idController;
     ControllerType type;
-    GPIOstrategy *GPIODevice = nullptr;
+    GPIOstrategy* GPIODevice = nullptr;
 
   protected:
     // Utilisation de short (16 bit) pour obtenir le pin ainsi que la valeur
@@ -39,17 +40,15 @@ class Controller {
     std::vector<short> inputPin;
 
   public:
-    Controller( );
-    Controller( unsigned char idController, ControllerType type,
-                std::vector<short> inputPin, std::vector<short> outputPin,
-                GPIOstrategy *board );
-    virtual ~Controller( );
-    std::string getName( );
+    Controller();
+    Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin, GPIOstrategy* board);
+    virtual ~Controller();
+    std::string getName();
 
-    void setStrategy( GPIOstrategy *newDevice );
+    void setStrategy(GPIOstrategy* newDevice);
 
-    virtual unsigned char getIdController( );
-    virtual ControllerType getControllerType( );
+    virtual unsigned char getIdController();
+    virtual ControllerType getControllerType();
 };
 
 #endif

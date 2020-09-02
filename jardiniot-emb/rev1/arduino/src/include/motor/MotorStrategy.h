@@ -7,10 +7,12 @@
 /**
     Définit le comportement de base pour les moteurs
 */
-class MotorStrategy: public Controller {
-protected:
+class MotorStrategy : public Controller
+{
+  protected:
     short delayTime;
-public:
+
+  public:
     virtual short activate();
     virtual short stop();
 
@@ -21,7 +23,7 @@ public:
     virtual ~MotorStrategy();
 
     void setDelayTime(short delayTime);
-    void modify(JardinCommand &jCommand);
+    void modify(JardinCommand& jCommand);
     virtual void setInput(std::vector<short> input);
 };
 

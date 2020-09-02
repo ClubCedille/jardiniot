@@ -20,7 +20,8 @@
 #include <Arduino.h>
 #include <string.h>
 
-class A_LEDSensor : public SensorStrategy {
+class A_LEDSensor : public SensorStrategy
+{
   private:
     // Définition des pins
     unsigned char whiteLEDPin;
@@ -33,15 +34,14 @@ class A_LEDSensor : public SensorStrategy {
     unsigned char redValue = 255;
 
   public:
-    A_LEDSensor( unsigned char idController, std::vector<short> inputPins,
-                 std::vector<short> outputPins, short delay );
-    ~A_LEDSensor( );
+    A_LEDSensor(unsigned char idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
+    ~A_LEDSensor();
 
-    String read( );
-    int write( );
-    void setInput( std::vector<short> input );
+    String read();
+    int write();
+    void setInput(std::vector<short> input);
 
-    String toString( );
+    String toString();
 };
 
 #endif

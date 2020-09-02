@@ -20,18 +20,18 @@
 #include <stdlib.h> /* strtoul */
 #include <string.h>
 
-class DHTSensor : public SensorStrategy {
+class DHTSensor : public SensorStrategy
+{
   private:
     // DHT* dht;	// On pourrait surement faire que ce soit pas un pointeur
   public:
-    DHTSensor( unsigned char idController, std::vector<short> inputPins,
-               std::vector<short> outputPins, short delay );
-    ~DHTSensor( );
+    DHTSensor(unsigned char idController, std::vector<short> inputPins, std::vector<short> outputPins, short delay);
+    ~DHTSensor();
 
-    std::string read( );
-    int write( );
+    std::string read();
+    int write();
 
-    std::string toString( );
+    std::string toString();
 };
 
 #endif

@@ -7,10 +7,12 @@
 /**
     Définit le comportement de base pour les senseurs
 */
-class SensorStrategy: public Controller {
-protected:
+class SensorStrategy : public Controller
+{
+  protected:
     short delayTime;
-public:
+
+  public:
     virtual String read();
     virtual int write();
     virtual String toString();
@@ -22,7 +24,7 @@ public:
     virtual ~SensorStrategy();
 
     void setDelayTime(short delayTime);
-    void modify(JardinCommand &jCommand);
+    void modify(JardinCommand& jCommand);
 };
 
 #endif

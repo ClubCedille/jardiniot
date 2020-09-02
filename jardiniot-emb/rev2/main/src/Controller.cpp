@@ -20,11 +20,13 @@
 #include <string>
 
 //<<constructor>>
-Controller::Controller( ) {}
+Controller::Controller()
+{
+}
 
-Controller::Controller( unsigned char idController, ControllerType type,
-                        std::vector<short> inputPin,
-                        std::vector<short> outputPin, GPIOstrategy *board ) {
+Controller::Controller(unsigned char idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin,
+                       GPIOstrategy* board)
+{
     this->idController = idController;
     this->inputPin = inputPin;
     this->outputPin = outputPin;
@@ -33,14 +35,17 @@ Controller::Controller( unsigned char idController, ControllerType type,
 }
 
 //<<destructor>>
-Controller::~Controller( ) {
-    this->inputPin.clear( );
-    this->outputPin.clear( );
+Controller::~Controller()
+{
+    this->inputPin.clear();
+    this->outputPin.clear();
 }
 
-std::string Controller::getName( ) {
+std::string Controller::getName()
+{
     std::string ctrlName;
-    switch ( this->type ) {
+    switch (this->type)
+    {
     case ADAFRUIT_DHT:
         ctrlName = "DHT";
         break;
@@ -63,11 +68,18 @@ std::string Controller::getName( ) {
     return ctrlName;
 }
 
-unsigned char Controller::getIdController( ) { return this->idController; }
+unsigned char Controller::getIdController()
+{
+    return this->idController;
+}
 
-ControllerType Controller::getControllerType( ) { return this->type; }
+ControllerType Controller::getControllerType()
+{
+    return this->type;
+}
 
-void Controller::setStrategy( GPIOstrategy *newDevice ) {
+void Controller::setStrategy(GPIOstrategy* newDevice)
+{
     delete this->GPIODevice;
     this->GPIODevice = newDevice;
 }

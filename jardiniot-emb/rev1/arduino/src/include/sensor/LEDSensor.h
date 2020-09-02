@@ -5,10 +5,12 @@
 #include <Arduino.h>
 #include <string.h>
 
-class LEDSensor: public SensorStrategy {
-private:
+class LEDSensor : public SensorStrategy
+{
+  private:
     byte ledPin;
-public:
+
+  public:
     LEDSensor(byte idController, std::vector<short> input, std::vector<short> output, short delay);
     ~LEDSensor();
 

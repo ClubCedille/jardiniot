@@ -31,9 +31,15 @@
    (CONTROLLER_TYPE)
 
 */
-enum CommandType { ADD, CONFIG, DELETE };
+enum CommandType
+{
+    ADD,
+    CONFIG,
+    DELETE
+};
 
-class JardinCommand {
+class JardinCommand
+{
   private:
     CommandType commandType;
     unsigned char idController;
@@ -46,30 +52,29 @@ class JardinCommand {
     bool errorInCommand;
     std::string errorMsg;
 
-    int split( std::string &command, std::vector<std::string> &strs, char ch );
+    int split(std::string& command, std::vector<std::string>& strs, char ch);
 
-    bool validCommand( std::vector<std::string> &vecCommand );
-    bool validIdController( std::vector<std::string> &vecCommand );
-    bool validConversionStrToInt( std::string &str, int i );
-    int validCommandType( std::vector<std::string> &vecCommand );
-    int extractPin( int index, std::vector<std::string> &vecCommand,
-                    std::string condition, bool isInput );
-    int extractControllerTypeDelay( std::vector<std::string> &vecCommand );
+    bool validCommand(std::vector<std::string>& vecCommand);
+    bool validIdController(std::vector<std::string>& vecCommand);
+    bool validConversionStrToInt(std::string& str, int i);
+    int validCommandType(std::vector<std::string>& vecCommand);
+    int extractPin(int index, std::vector<std::string>& vecCommand, std::string condition, bool isInput);
+    int extractControllerTypeDelay(std::vector<std::string>& vecCommand);
 
   public:
-    JardinCommand( );
-    JardinCommand( std::string command );
-    ~JardinCommand( );
+    JardinCommand();
+    JardinCommand(std::string command);
+    ~JardinCommand();
 
-    CommandType getCommandType( );
-    unsigned char getIdController( );
-    short getDelay( );
-    ControllerType getControllerType( );
-    std::vector<short> getOutputPin( );
-    std::vector<short> getInputPin( );
-    std::string getError( );
+    CommandType getCommandType();
+    unsigned char getIdController();
+    short getDelay();
+    ControllerType getControllerType();
+    std::vector<short> getOutputPin();
+    std::vector<short> getInputPin();
+    std::string getError();
 
-    std::string toString( );
+    std::string toString();
 };
 
 #endif

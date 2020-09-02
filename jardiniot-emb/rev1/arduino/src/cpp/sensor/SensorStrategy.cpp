@@ -1,38 +1,48 @@
 #include "include/sensor/SensorStrategy.h" //include the declaration for this class
 
 //<<constructor>>
-SensorStrategy::SensorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin): Controller(idController, type, inputPin, outputPin){
+SensorStrategy::SensorStrategy(byte idController, ControllerType type, std::vector<short> inputPin, std::vector<short> outputPin)
+    : Controller(idController, type, inputPin, outputPin)
+{
 }
 
-SensorStrategy::SensorStrategy(){
+SensorStrategy::SensorStrategy()
+{
 }
 
 //<<destructor>>
-SensorStrategy::~SensorStrategy(){
+SensorStrategy::~SensorStrategy()
+{
 }
 
-void SensorStrategy::modify(JardinCommand &jCommand){
+void SensorStrategy::modify(JardinCommand& jCommand)
+{
     this->setInput(jCommand.getInputPin());
     this->delayTime = jCommand.getDelay();
 }
 
-void SensorStrategy::setDelayTime(short delayTime){
+void SensorStrategy::setDelayTime(short delayTime)
+{
     this->delayTime = delayTime;
 }
 
-String SensorStrategy::read(){
+String SensorStrategy::read()
+{
     return "";
 }
 
-int SensorStrategy::write(){
+int SensorStrategy::write()
+{
     return 0;
 }
 
-void SensorStrategy::setInput(std::vector<short> input){
+void SensorStrategy::setInput(std::vector<short> input)
+{
     this->inputPin.clear();
     this->inputPin = input;
 }
 
-String SensorStrategy::toString(){
+String SensorStrategy::toString()
+{
     return "";
 }

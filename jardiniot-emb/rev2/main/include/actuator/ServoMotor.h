@@ -20,7 +20,8 @@
 #include "ActuatorStrategy.h"
 #include <string>
 
-class ServoMotor : public ActuatorStrategy {
+class ServoMotor : public ActuatorStrategy
+{
   private:
     unsigned char servoPin;
     // Servo servo;
@@ -28,17 +29,17 @@ class ServoMotor : public ActuatorStrategy {
 
   public:
     // constructor
-    ServoMotor( );
-    ServoMotor( unsigned char idController, unsigned char pin );
-    ~ServoMotor( );
+    ServoMotor();
+    ServoMotor(unsigned char idController, unsigned char pin);
+    ~ServoMotor();
 
-    void reset( );
+    void reset();
 
     // Méthode hérité de la classe MotorStrategy
-    short activate( );
-    short stop( );
+    short activate();
+    short stop();
 
-    bool isAttached( );
+    bool isAttached();
 };
 
 #endif
